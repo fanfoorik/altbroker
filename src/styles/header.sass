@@ -1,0 +1,128 @@
+
+.header
+    height: 60px
+    background: #fff
+    box-shadow: 0 1px 1px #e2e2e2
+    margin-bottom: 20px
+    position: relative
+    z-index: 300
+	
+    &__left
+    	float: left
+    	width: 15%
+
+    &__right
+    	float: right
+    	width: 15%
+
+   	&__center
+   		float: left
+    	width: 70%
+
+
+.logo
+	float: left
+	height: 60px
+	margin-right: 9px
+	font-family: $gothapro
+	font-size: 16px
+	color: #4da1ff
+	padding-top: 20px
+
+
+.patch-notes
+	float: left
+	position: relative
+	display: inline-block
+	width: 12px
+	height: 12px
+	margin-top: 24px
+	border: 1px solid #989898
+	border-radius: 50%
+	cursor: pointer
+
+	&:hover
+		background: #989898
+
+
+.nav
+	text-align: center
+
+	&:hover
+		.nav__link
+			border-bottom-color: transparent
+
+	&__section
+		display: inline-block
+		position: relative
+		padding: 0px 20px
+
+		&:hover
+			&:before
+				position: absolute
+				left: 50%
+				bottom: -8px
+				width: 16px
+				height: 16px
+				margin-left: -8px
+				background: #fff
+				z-index: 100
+				transform: rotate(-45deg)
+				content: ''
+
+			.nav__subnav
+				display: block !important
+
+			.nav__link
+				color: #4da1ff
+
+	&__link
+		display: block
+		height: 60px
+		padding: 18px 16px 0px 16px
+		color: #6b6f74
+		font-size: 16px
+		border-bottom: 2px solid transparent
+
+		&:hover
+			text-decoration: none
+
+		&_active
+			border-bottom-color: rgba(77, 161, 255, 0.80)
+
+	&__subnav
+		position: absolute
+		left: 0
+		top: 100%
+		min-width: 1200px
+		margin: 0px -3000px 0px -3000px
+		padding: 0px 3000px
+		white-space: nowrap
+		background: #6fb6ff
+		display: none
+		box-sizing: content-box
+		text-align: left
+
+
+.subnav
+
+	&__link
+		display: inline-block
+		height: 92px
+		color: #fff
+		padding: 25px 0px 0px 0px
+		text-align: center
+		width: 130px
+
+		&:hover
+			background: #4da1ff
+			text-decoration: none
+
+	&__icon
+		display: block
+		height: 24px
+		line-height: 24px
+		text-align: center
+		padding-bottom: 8px
+
+

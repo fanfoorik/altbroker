@@ -1,0 +1,22 @@
+{
+	"ANSWER":{
+		"header": {
+			"nav":[
+				{
+					"name":"Catalog",
+					"href":"/catalog"
+				},
+				{
+					"name":"About",
+					"href":"/about"
+				}
+			]
+		},
+		"content": {
+			
+		},
+		"footer": {
+
+		}
+	}
+}

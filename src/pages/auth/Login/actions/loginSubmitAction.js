@@ -1,0 +1,97 @@
+import axios from 'axios';  
+import md5 from "md5";
+import { api_url } from "path.js";
+
+export default () => (dispatch, getState) => {
+
+    let {login} = getState();
+
+    if(!login.form.touch) dispatch({type:"LOGIN_SUBMIT_TOUCH"});
+
+    if(login.email.valid && login.password.valid){
+
+        dispatch({type:"LOGIN_SUBMIT_START"});
+
+        //Запрос на получение соли
+        axios.post(api_url+'user/login/', {
+            LOGIN: login.email.value
+        })
+        .then(function(res){
+
+            let salt =  res.data.ANSWER.SOLD;
+
+            let loginData = {
+                LOGIN: login.email.value,
+                PASSWORD: salt + md5((salt+login.password.value))
+            };
+
+            if( login.captcha.active ){
+                loginData.CAPTCHA_SID = login.captcha.sid;
+                loginData.CAPTCHA_WORD = login.captcha.value;
+            }
+
+            //Запрос на авторизацию
+            axios.post(api_url+'user/login/', loginData)
+            .then(function(response){
+
+                if( response.data && response.data.ANSWER && response.data.ANSWER.CAPCHA_SID ){
+
+                    let captcha = response.data.ANSWER;
+
+                    dispatch({
+                        type:"SET_CAPTCHA_ACTIVE",
+                        payload:{
+                            "sid":captcha.CAPCHA_SID,
+                            "image":captcha.CAPCHA_URL
+                        }
+                    });
+
+                    return;
+                }
+
+                let user = response.data.ANSWER.USER;
+                let token = response.data.ANSWER.TOKEN;
+
+                if(user && token){
+
+                    localStorage.setItem('token', token);
+
+                    dispatch({type:"LOGIN_SUBMIT_SUCCESS"});
+
+                    dispatch({type:"SET_USER", payload:user});
+
+                    dispatch({type: "AUTH_REDIRECT", payload: true});
+                }
+            })
+            .catch(function (error) {
+
+                //Ошибка авторизации
+                handleSubmitError(error);
+            });
+
+        })
+        .catch(function (error) {
+
+            //Ошибка получения соли
+            handleSubmitError(error);
+        });
+    }
+
+    function handleSubmitError(error){
+        if(error.response && error.response.data &&  error.response.data.ERRORS){
+            
+            let errors = error.response.data.ERRORS;
+            
+            dispatch({
+                type:"LOGIN_SUBMIT_ERROR",
+                payload:errors[0].MESSAGE
+            });
+            return;
+        }
+
+        dispatch({
+            type:"LOGIN_SUBMIT_ERROR",
+            payload:"Неизвестная ошибка."
+        });
+    }
+}
