@@ -1,41 +1,40 @@
 import ajax from "js/ajax";
+import { api_url } from "path.js";
 
-const parseMenu = data => {
+export const fetchInit = () => dispatch => {
 
-	let origNav = data.MENU;
+    ajax.get(api_url+"init/")
+		.then(res => res.data)
+		.then(data => {
+			let menu = data.ANSWER.MENU;
+			let patchNotes = data.ANSWER.PATCHNOUTS;
+
+			dispatch({
+				type: "SET_PATCH_NOTES",
+				payload:patchNotes
+			});
+		})
+		.catch(function(error){
+			console.log('fetch init error -',error);
+		});
+};
+
+function parseMenu(menu){
+
 	let nav = [];
 
-	for(let el in origNav){
-		let origSubnav = origNav[el].CHILDREN;
-		origNav[el].subnav = [];
+	for(let el in menu){
+		let origSubnav = menu[el].CHILDREN;
+		menu[el].subnav = [];
 
 		for(let childEl in origSubnav ){
-			origNav[el].subnav.push( origSubnav[childEl] )
+			menu[el].subnav.push( origSubnav[childEl] )
 		}
 
-		delete origNav[el].CHILDREN;
+		delete menu[el].CHILDREN;
 
-		nav.push(origNav[el]);
+		nav.push(menu[el]);
 	}
 
 	return nav;
 }
-
-export const fetchInit = () => (dispatch) => {
-
-    if(dev){
-
-	    ajax.get("init.json")
-			.then(res => res.data)
-			.then(data => {
-
-				let response = data.ANSWER;
-
-				console.log( parseMenu(response) );
-
-			})
-			.catch(function(error){
-				console.log(error);
-			});
-	}
-};

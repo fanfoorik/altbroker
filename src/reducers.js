@@ -6,6 +6,7 @@ import recoverEmail from "./reducers/recoverEmailReducer";
 import recoverPassword from "./reducers/recoverPasswordReducer";
 
 import authenticate from "./pages/auth/reducers";
+import header from "./components/header/reducers/index.js";
 
 // const authenticate = combineReducers({
 // 	auth,
@@ -15,7 +16,7 @@ import authenticate from "./pages/auth/reducers";
 // });
 
 export default combineReducers({
-	authenticate,
+	header,
 	auth,
 	login,
 	recoverEmail,

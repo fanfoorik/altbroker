@@ -72,6 +72,30 @@
 		color: #4da1ff
 		font-size: 16px
 
+	&__controls
+		margin: -4px 0px -4px -12px
+
+
+.patch-note-control
+	cursor: pointer
+	display: inline-block
+	vertical-align: top
+	padding: 4px 10px
+	margin: 0px 2px
+
+	svg
+		fill: #000
+
+	&:hover
+		svg
+			fill: #4a90e2
+
+	&.disabled
+		cursor: default
+		
+		svg
+			fill: #c0c5ca
+
 
 .droptip
     width: 400px
@@ -106,6 +130,7 @@
    	&__content
    		background: #fff
    		padding: 24px 36px
+   		line-height: 26px
 
    		&:last-child
    			border-radius: 0 0 3px 3px
