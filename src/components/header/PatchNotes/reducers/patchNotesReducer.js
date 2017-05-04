@@ -61,7 +61,7 @@ export default function(state = initialState, action){
 		case "TRIGGER_PATCH_NOTES":
 			return {
 				...state,
-				"active":payload
+				"active":!state.active,
 			}
 
 		default:

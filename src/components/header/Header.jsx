@@ -3,8 +3,12 @@ import { connect } from "react-redux";
 import { Link } from 'react-router';
 import { index_url } from 'path.js';
 
+//components
 import Navigation from './components/Navigation';
 import PatchNotes from './PatchNotes/PatchNotes';
+
+//actions
+import { fetchPatchNotes, triggerPatchNotes } from './PatchNotes/actions/patchNotesAction';
 
 const Header = props => {
 	
@@ -22,16 +26,16 @@ const Header = props => {
 
 					<PatchNotes
 						data={patchNotes}
-						fetchPatchNotes={ev => {
-							console.log("force to dispatch getPatchNotes");
-							console.log(ev);
+						triggerPatchNotes={props.dispatchTriggerPatchNotes}
+						fetchPatchNotes={url => {
+							props.dispatchFetchPatchNotes(url);
 						}} />
 
 				</div>
 
 				<div className="header__center">
 					
-					<Navigation className="nav" data={props.data} />
+					<Navigation />
 					
 				</div>
 
@@ -53,13 +57,13 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return{
-        dispatchGetPatchNotes(url){
-        	if(url){
-        		console.log(url);
-            // dispatch(getPatchNotes(url));
-        	}
+        dispatchTriggerPatchNotes(url){
+            dispatch(triggerPatchNotes());
+        },
+        dispatchFetchPatchNotes(url){
+            dispatch(fetchPatchNotes(url));
         }
     }
 }
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

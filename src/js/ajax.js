@@ -5,7 +5,7 @@ export default axios.create({
 	baseURL: "http://alterainvest.ru/",
 	headers:{
 		"login": "vh.mrk@alterainvest.ru",
-		"token": "707e180ee0d2048098fe6be7a084e054"
+		"token": "56f845acd90aa6a306b93219e3af8052"
 	}
 });
 
