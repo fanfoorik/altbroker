@@ -32,20 +32,20 @@ const store = createStore(reducers, composeWithDevTools( applyMiddleware(thunk) 
 
 
 function authenticate(nextState, replace){
-	const authenticated = localStorage.getItem('token');
+	const authenticated = localStorage.getItem('token') && localStorage.getItem('login');
 
-	if(prod){
-
-		if (!authenticated) {
-			replace({
-		      pathname: '/altbroker3/login/',
-		      state: { nextPath: nextState.location.pathname }
-		    });
-		}
+	if (!authenticated) {
+		replace({
+	      pathname: '/altbroker3/login/',
+	      state: { nextPath: nextState.location.pathname }
+	    });
 	}
 }
 
 window.ondblclick = function(){
+	
+	console.log(localStorage.getItem('token'), localStorage.getItem('login'));
+
 	console.log("Attempt to remove", localStorage.getItem('token') );
 	localStorage.removeItem('token');
 	console.log( localStorage.getItem('token') );

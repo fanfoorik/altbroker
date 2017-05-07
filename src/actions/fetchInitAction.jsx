@@ -1,9 +1,13 @@
 import ajax from "js/ajax";
+import getHeaders from "js/getHeaders";
 import { api_url } from "path.js";
+
 
 export const fetchInit = () => dispatch => {
 
-    ajax.get(api_url+"init/")
+    ajax.get(api_url+"init/",{
+    	headers:getHeaders()
+    })
 		.then(res => res.data)
 		.then(data => {
 			let menu = data.ANSWER.MENU;

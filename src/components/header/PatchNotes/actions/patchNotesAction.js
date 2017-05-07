@@ -2,7 +2,12 @@ import ajax from "js/ajax";
 
 export const fetchPatchNotes = url => dispatch => {
 
-    ajax.get(url)
+    ajax.get(url, {
+    	headers:{
+			"login": localStorage.getItem('login'),
+			"token": localStorage.getItem('token')    
+		}
+    })
 		.then(res => res.data)
 		.then(data => {
 			

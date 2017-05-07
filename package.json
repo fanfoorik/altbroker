@@ -2,7 +2,7 @@
   "name": "altbroker",
   "version": "1.0.0",
   "scripts": {
-    "start": "set NODE_ENV=development&webpack-dev-server",
+    "start": "NODE_ENV=development webpack-dev-server",
     "prod": "webpack -p"
   },
   "babel": {

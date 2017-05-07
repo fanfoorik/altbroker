@@ -1,4 +1,5 @@
-import axios from 'axios';  
+// import axios from 'axios';  
+import ajax from 'js/ajax';  
 import md5 from "md5";
 import { api_url } from "path.js";
 
@@ -13,7 +14,9 @@ export default () => (dispatch, getState) => {
         dispatch({type:"LOGIN_SUBMIT_START"});
 
         //Запрос на получение соли
-        axios.post(api_url+'user/login/', {
+
+        // axios.post(api_url+'http://alterainvest.ru:8080/api/v2/altbroker3/user/login/ ', {
+        ajax.post(api_url+'user/login/ ', {
             LOGIN: login.email.value
         })
         .then(function(res){
@@ -31,7 +34,7 @@ export default () => (dispatch, getState) => {
             }
 
             //Запрос на авторизацию
-            axios.post(api_url+'user/login/', loginData)
+            ajax.post(api_url+'user/login/', loginData)
             .then(function(response){
 
                 if( response.data && response.data.ANSWER && response.data.ANSWER.CAPCHA_SID ){
@@ -54,12 +57,10 @@ export default () => (dispatch, getState) => {
 
                 if(user && token){
 
+                    localStorage.setItem('login', user.LOGIN);
                     localStorage.setItem('token', token);
 
                     dispatch({type:"LOGIN_SUBMIT_SUCCESS"});
-
-                    dispatch({type:"SET_USER", payload:user});
-
                     dispatch({type: "AUTH_REDIRECT", payload: true});
                 }
             })
@@ -94,4 +95,4 @@ export default () => (dispatch, getState) => {
             payload:"Неизвестная ошибка."
         });
     }
-}
+};

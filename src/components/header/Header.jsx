@@ -7,6 +7,8 @@ import { index_url } from 'path.js';
 import Navigation from './components/Navigation';
 import PatchNotes from './PatchNotes/PatchNotes';
 
+import User from './User/User';
+
 //actions
 import { fetchPatchNotes, triggerPatchNotes } from './PatchNotes/actions/patchNotesAction';
 
@@ -40,7 +42,7 @@ const Header = props => {
 				</div>
 
 				<div  className="header__right">
-					
+					<User />
 				</div>
 
 			</div>
