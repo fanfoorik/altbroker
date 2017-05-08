@@ -16,6 +16,7 @@ import header from "./components/header/reducers/index.js";
 // });
 
 export default combineReducers({
+	authenticate,
 	header,
 	auth,
 	login,

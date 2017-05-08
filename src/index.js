@@ -10,6 +10,8 @@ import thunk from 'redux-thunk';
 import reducers from './reducers.js';
 
 import App from "App";
+import Pg from "./pages/Pg";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 
 //pages
@@ -43,16 +45,15 @@ function authenticate(nextState, replace){
 }
 
 window.ondblclick = function(){
-	
 	console.log(localStorage.getItem('token'), localStorage.getItem('login'));
-
 	console.log("Attempt to remove", localStorage.getItem('token') );
 	localStorage.removeItem('token');
 	console.log( localStorage.getItem('token') );
 };
 
 ReactDOM.render(	
-	<Provider store={store} >
+	<Provider store={store}>
+
 		<Router history={browserHistory}>
 
 			<Route path="/altbroker3" component={App} onEnter={authenticate}>
@@ -83,6 +84,8 @@ ReactDOM.render(
 
 			</Route>
 			
+			<Route path="/altbroker3/pg" component={ProtectedRoute(Pg)} />
+
 			<Route path="/altbroker3/login" component={Auth} />
 
 			<Route path="*" component={NotFound} />

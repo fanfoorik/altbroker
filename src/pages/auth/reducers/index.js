@@ -1,8 +1,14 @@
 import { combineReducers } from "redux";
-import activeComponent from "./activeComponentReducer";
+import auth from "./authReducer";
+import login from "../Login/reducers";
+import recoverEmail from "../recoverEmail/reducers";
+import recoverPassword from "../RecoverPassword/reducers";
 
 const authenticate = combineReducers({
-	activeComponent
+	auth,
+	login,
+	recoverEmail,
+	recoverPassword
 });
 
 export default authenticate;

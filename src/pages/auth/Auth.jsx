@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { connect } from 'react-redux';
 
 import { index_url } from 'path.js';
@@ -15,63 +15,84 @@ import RecoverPasswordSuccess from './RecoverPasswordSuccess';
 import userCheckword from './actions/userCheckwordAction';
 
 
-const Auth = props => {
+class Auth extends Component {
 
-	let { auth } = props;
-	let { recoverPasswordUser } = props;
+	// componentWillMount(){
+	// 	console.log("redirect -", this.props.auth.redirect)
+	// 	if(this.props.auth.redirect){
+	// 		let nextPath = (this.props.location.state && this.props.location.state.nextPath) ? this.props.location.state.nextPath : index_url;
+	// 		this.props.dispatchRedirect();
+	// 		this.props.router.replace(nextPath);
+	// 	}
+	// }
 
-	if(auth.redirect){
-		let nextPath = (props.location.state && props.location.state.nextPath) ? props.location.state.nextPath : index_url;
-		props.dispatchRedirect();
-		props.router.replace(nextPath);
-	}
-	
-	let checkword = props.location.query.USER_CHECKWORD;
-	let login = props.location.query.USER_LOGIN;	
+	componentWillUpdate(nextProps){
+		if(nextProps.auth.redirect){
+			
+			console.log(this.props.location.state);
 
-	if(checkword && login){
-
-		if( recoverPasswordUser.checkword !== checkword && recoverPasswordUser.login !== login ){
-
-			props.dispatchUserCheckword({
-				"USER_LOGIN":login,
-				"USER_CHECKWORD":checkword
-			})
+			let nextPath = (this.props.location.state && this.props.location.state.nextPath) ? this.props.location.state.nextPath : index_url;
+			this.props.dispatchRedirect();
+			this.props.router.replace(nextPath);
 		}
 	}
+	
+	render(){
 
-	return (
-		<div className="auth-page">
-			<div className="auth-page__container">
+		let { auth } = this.props;
+		let { recoverPasswordUser } = this.props;
+		
+		let checkword = this.props.location.query.USER_CHECKWORD;
+		let login = this.props.location.query.USER_LOGIN;
 
-				{ 
-					auth.login && <Login />
-					// auth.login && <Login />
-				}
+		if(checkword && login){
 
-				{ 
-					auth.recoverEmail && <RecoverEmail />
-				}
+			if( recoverPasswordUser.checkword !== checkword && recoverPasswordUser.login !== login ){
 
-				{ 
-					auth.recoverEmailSuccess && <RecoverEmailSuccess />
-				}
+				this.props.dispatchUserCheckword({
+					"USER_LOGIN":login,
+					"USER_CHECKWORD":checkword
+				})
+			}
+		}
 
-				{ 
-					auth.recoverPasword && <RecoverPassword />
-				},
+		return (
+			<div className="auth-page">
+				<div className="auth-page__container">
 
-				{ 
-					auth.recoverPasswordSuccess && <RecoverPasswordSuccess />
-				}
+					{
+						// console.log( this.props.router )
+					}
 
-				{
-					auth.userCheckword && <UserCheckword />
-				}
+					{ 
+						// auth.login && <Login />
+						auth.login && <Login />
+					}
 
+					{ 
+						auth.recoverEmail && <RecoverEmail />
+					}
+
+					{ 
+						auth.recoverEmailSuccess && <RecoverEmailSuccess />
+					}
+
+					{ 
+						auth.recoverPasword && <RecoverPassword />
+					}
+
+					{ 
+						auth.recoverPasswordSuccess && <RecoverPasswordSuccess />
+					}
+
+					{
+						auth.userCheckword && <UserCheckword />
+					}
+
+				</div>
 			</div>
-		</div>
-	)
+		)
+	}
 }
 
 const mapStateToProps = (state) => {
@@ -90,6 +111,10 @@ const mapDispatchToProps = (dispatch) => {
 
 		dispatchRedirect(){
 			dispatch({type: "AUTH_REDIRECT", payload: false});
+		},
+
+		dispatchRedirectToTrue(){
+			dispatch({type: "AUTH_REDIRECT", payload: true});
 		}
 	}
 };
