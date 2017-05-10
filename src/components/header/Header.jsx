@@ -11,11 +11,14 @@ import User from './User/User';
 
 //actions
 import { fetchPatchNotes, triggerPatchNotes } from './PatchNotes/actions/patchNotesAction';
+import { triggerUser } from './User/actions/userAction';
+import { logoutUser } from './User/actions/logoutUserAction';
 
 const Header = props => {
 	
 	let { header } = props;
 	let { patchNotes } = header;
+	let { user } = header;
 
 	return(
 		<header className="header" id="header">
@@ -42,7 +45,10 @@ const Header = props => {
 				</div>
 
 				<div  className="header__right">
-					<User />
+					<User user={user}
+						triggerUser={props.dispatchTriggerUsers}
+						logoutUser={props.dispatchLogoutUser}
+						/>
 				</div>
 
 			</div>
@@ -64,6 +70,12 @@ const mapDispatchToProps = dispatch => {
         },
         dispatchFetchPatchNotes(url){
             dispatch(fetchPatchNotes(url));
+        },
+        dispatchTriggerUsers(){
+            dispatch(triggerUser());
+        },
+        dispatchLogoutUser(){
+            dispatch(logoutUser());
         }
     }
 }

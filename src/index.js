@@ -44,41 +44,49 @@ function authenticate(nextState, replace){
 	}
 }
 
-window.ondblclick = function(){
-	console.log(localStorage.getItem('token'), localStorage.getItem('login'));
-	console.log("Attempt to remove", localStorage.getItem('token') );
-	localStorage.removeItem('token');
-	console.log( localStorage.getItem('token') );
-};
+// window.ondblclick = function(){
+// 	console.log(localStorage.getItem('token'), localStorage.getItem('login'));
+// 	console.log("Attempt to remove", localStorage.getItem('token') );
+// 	localStorage.removeItem('token');
+// 	console.log( localStorage.getItem('token') );
+// 	store.dispatch({type: "AUTH_USER", payload: false});
+// };
+
+let login = localStorage.getItem('login');
+let token = localStorage.getItem('token');
+
+if(login && token){
+	store.dispatch({type: "AUTH_USER", payload: true});
+}
 
 ReactDOM.render(	
 	<Provider store={store}>
 
 		<Router history={browserHistory}>
 
-			<Route path="/altbroker3" component={App} onEnter={authenticate}>
+			<Route path="/altbroker3" component={ProtectedRoute(App)}>
 
-				<IndexRoute component={Index} />
+				<IndexRoute component={ProtectedRoute(Index)} />
 
-				<Route path="about" component={About} />
+				<Route path="about" component={ProtectedRoute(About)} />
 
-				<Route path="broker" component={Broker}>
+				<Route path="broker" component={ProtectedRoute(Broker)}>
 					<Route path=":page" />
 				</Route>
 
-				<Route path="deal" component={Deal}>
+				<Route path="deal" component={ProtectedRoute(Deal)}>
 					<Route path=":page" />
 				</Route>
 
-				<Route path="evolution" component={Evolution}>
+				<Route path="evolution" component={ProtectedRoute(Evolution)}>
 					<Route path=":page" />
 				</Route>
 
-				<Route path="stat" component={Stat}>
+				<Route path="stat" component={ProtectedRoute(Stat)}>
 					<Route path=":page" />
 				</Route>
 
-				<Route path="admin" component={Admin}>
+				<Route path="admin" component={ProtectedRoute(Admin)}>
 					<Route path=":page" />
 				</Route>
 

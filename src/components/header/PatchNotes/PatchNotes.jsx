@@ -18,10 +18,11 @@ export default props => {
 					<use xlinkHref="#icon_info" />
 				</svg>
 			</span>
+
 			{
 				patchNotes.active && 
-
-				<DropTip>
+				
+				<DropTip className="patch-notes__droptip">
 					<div className="droptip__header clear">
 						
 						<div className="patch-notes__icon">
@@ -79,7 +80,6 @@ export default props => {
 
 					</div>
 				</DropTip>
-				
 			}
 
 			{

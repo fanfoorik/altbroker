@@ -8,19 +8,25 @@ export const fetchInit = () => dispatch => {
     ajax.get(api_url+"init/",{
     	headers:getHeaders()
     })
-		.then(res => res.data)
-		.then(data => {
-			let menu = data.ANSWER.MENU;
-			let patchNotes = data.ANSWER.PATCHNOUTS;
+	.then(res => res.data)
+	.then(data => {
+		let menu = data.ANSWER.MENU;
+		let patchNotes = data.ANSWER.PATCHNOUTS;
+		let user = data.ANSWER.USER;
 
-			dispatch({
-				type: "SET_PATCH_NOTES",
-				payload:patchNotes
-			});
-		})
-		.catch(function(error){
-			console.log('fetch init error -',error);
+		dispatch({
+			type: "SET_PATCH_NOTES",
+			payload:patchNotes
 		});
+
+		dispatch({
+			type: "SET_USER",
+			payload:user
+		});
+	})
+	.catch(function(error){
+		console.log('fetch init error -',error);
+	});
 };
 
 function parseMenu(menu){

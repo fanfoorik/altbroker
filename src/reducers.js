@@ -1,11 +1,11 @@
 import { combineReducers } from "redux";
 
 import login from "./reducers/loginReducer";
-import auth from "./reducers/authReducer";
+// import auth from "./reducers/authReducer";
 import recoverEmail from "./reducers/recoverEmailReducer";
 import recoverPassword from "./reducers/recoverPasswordReducer";
 
-import authenticate from "./pages/auth/reducers";
+import auth from "./pages/auth/reducers";
 import header from "./components/header/reducers/index.js";
 
 // const authenticate = combineReducers({
@@ -16,10 +16,10 @@ import header from "./components/header/reducers/index.js";
 // });
 
 export default combineReducers({
-	authenticate,
-	header,
 	auth,
-	login,
-	recoverEmail,
-	recoverPassword
+	header,
+	// auth,
+	// login,
+	// recoverEmail,
+	// recoverPassword
 });

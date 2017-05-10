@@ -103,7 +103,7 @@ const RecoverPassword = props => {
 
 const mapStateToProps = (state) => {
 	return {
-		recoverPassword: state.recoverPassword
+		recoverPassword: state.auth.recoverPassword
 	}
 };
 

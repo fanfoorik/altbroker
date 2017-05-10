@@ -64,7 +64,7 @@ const RecoverEmail = (props) => {
 
 const mapStateToProps = (state) => {
 	return {
-		recoverEmail: state.recoverEmail
+		recoverEmail: state.auth.recoverEmail
 	}
 };
 

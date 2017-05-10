@@ -5,7 +5,7 @@ import { api_url } from "path.js";
 
 export default () => (dispatch, getState) => {
 
-    let {login} = getState();
+    let {login} = getState().auth;
 
     if(!login.form.touch) dispatch({type:"LOGIN_SUBMIT_TOUCH"});
 
@@ -61,7 +61,7 @@ export default () => (dispatch, getState) => {
                     localStorage.setItem('token', token);
 
                     dispatch({type:"LOGIN_SUBMIT_SUCCESS"});
-                    dispatch({type: "AUTH_REDIRECT", payload: true});
+                    dispatch({type: "AUTH_USER", payload: true});
                 }
             })
             .catch(function (error) {

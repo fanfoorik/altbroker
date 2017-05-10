@@ -17,8 +17,11 @@ class App extends Component{
 	componentDidMount(){
 
         let { dispatchFetchInit } = this.props;
+        let { authenticated } = this.props.state.auth.components;
 
-        dispatchFetchInit();
+        if(authenticated){
+        	dispatchFetchInit();
+        }
 	}
 
 	render(){

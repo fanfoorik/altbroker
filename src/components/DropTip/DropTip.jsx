@@ -10,7 +10,6 @@ export default class DropTip extends Component {
 	}
 
 	componentWillUnmount() {
-	    // remember to remove all events to avoid memory leaks
 	    document.body.removeEventListener('click', this.outerClick);
 	}
 
@@ -20,12 +19,12 @@ export default class DropTip extends Component {
 	}
 
 	render(){
-		
+
+		let classAttr = this.props.className;
+	
 		return(
-			<div className="patch-notes__droptip droptip" ref="droptip">
-
+			<div className={classAttr ? "droptip " + classAttr : "droptip"} ref="droptip">
 				{this.props.children}
-
 			</div>
 		);
 	}

@@ -1,11 +1,11 @@
+import ajax from "js/ajax";
 import { api_url } from "path.js";
-import axios from "axios";
 
 export default (user_checkword) => (dispatch, getState) => {
 
-    let { user } = getState().recoverPassword;
+    let { user } = getState().auth.recoverPassword;
 
-    axios.get(api_url+'user/user_change_pass/?USER_LOGIN='+user.login+'&USER_CHECKWORD='+user.checkword+'')
+    ajax.get(api_url+'user/user_change_pass/?USER_LOGIN='+user.login+'&USER_CHECKWORD='+user.checkword+'')
     .then(function(res){
 
         //from recoverPasswordReducer

@@ -1,13 +1,13 @@
-import axios from 'axios';
+import ajax from 'js/ajax';
 import { api_url } from "path.js";
 
 
 export default () => (dispatch, getState) => {
 
-    let { password } = getState().recoverPassword;
-    let { confirm } = getState().recoverPassword;
-    let { form } = getState().recoverPassword;
-    let { user } = getState().recoverPassword;
+    let { password } = getState().auth.recoverPassword;
+    let { confirm } = getState().auth.recoverPassword;
+    let { form } = getState().auth.recoverPassword;
+    let { user } = getState().auth.recoverPassword;
 
     if(!form.touch) dispatch({type:"RECOVER_PASSWORD_SUBMIT_TOUCH"})
 
@@ -15,7 +15,7 @@ export default () => (dispatch, getState) => {
 
     	dispatch({type:"RECOVER_PASSWORD_SUBMIT_START"});
 
-    	axios.post(api_url+'user/user_change_pass/', {
+    	ajax.post(api_url+'user/user_change_pass/', {
 			"USER_LOGIN":user.login,
 			"USER_CHECKWORD":user.checkword,
 			"USER_PASS":password.value

@@ -17,22 +17,17 @@ import userCheckword from './actions/userCheckwordAction';
 
 class Auth extends Component {
 
-	// componentWillMount(){
-	// 	console.log("redirect -", this.props.auth.redirect)
-	// 	if(this.props.auth.redirect){
-	// 		let nextPath = (this.props.location.state && this.props.location.state.nextPath) ? this.props.location.state.nextPath : index_url;
-	// 		this.props.dispatchRedirect();
-	// 		this.props.router.replace(nextPath);
-	// 	}
-	// }
+	componentWillMount(){
+		console.log("authenticated -", this.props.auth.authenticated)
+		if(this.props.auth.authenticated){
+			let nextPath = (this.props.location.state && this.props.location.state.location) || index_url;
+			this.props.router.replace(nextPath);
+		}
+	}
 
 	componentWillUpdate(nextProps){
-		if(nextProps.auth.redirect){
-			
-			console.log(this.props.location.state);
-
-			let nextPath = (this.props.location.state && this.props.location.state.nextPath) ? this.props.location.state.nextPath : index_url;
-			this.props.dispatchRedirect();
+		if(nextProps.auth.authenticated){
+			let nextPath = (this.props.location.state && this.props.location.state.location) || index_url;
 			this.props.router.replace(nextPath);
 		}
 	}
@@ -60,12 +55,7 @@ class Auth extends Component {
 			<div className="auth-page">
 				<div className="auth-page__container">
 
-					{
-						// console.log( this.props.router )
-					}
-
 					{ 
-						// auth.login && <Login />
 						auth.login && <Login />
 					}
 
@@ -97,26 +87,17 @@ class Auth extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		auth: state.auth,
-		recoverPasswordUser: state.recoverPassword.user
+		auth: state.auth.components,
+		recoverPasswordUser: state.auth.recoverPassword.user
 	}
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-
 		dispatchUserCheckword(user_checkword){
 			dispatch( userCheckword(user_checkword) );
-		},
-
-		dispatchRedirect(){
-			dispatch({type: "AUTH_REDIRECT", payload: false});
-		},
-
-		dispatchRedirectToTrue(){
-			dispatch({type: "AUTH_REDIRECT", payload: true});
 		}
 	}
 };
 
-export default connect( mapStateToProps,  mapDispatchToProps)(Auth);
+export default connect(mapStateToProps,  mapDispatchToProps)(Auth);

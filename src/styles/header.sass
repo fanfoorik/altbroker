@@ -104,6 +104,7 @@
     background: #f5f7f9
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15)
     border-radius: 3px
+    position: absolute
 
     &:before
     	position: absolute
@@ -223,18 +224,91 @@
 	float: right
 	position: relative
 	margin-top: 5px
-	cursor: pointer
 
 	&__trigger
 		width: 50px
 		height: 50px
+		border: 1px solid #f4f6f8
 		border-radius: 50%
-		background: pink
-		
+		background-position: 50% 50%
+		background-size: cover
+		cursor: pointer
+
+	&__droptip
+		right: -9px
+		top: 100%
+		margin-top: 26px
+		width: 300px
+
+	&__header
+		padding: 11px 24px 15px 24px
+
+	&__image
+		float: left
+		width: 78px
+		height: 78px
+		margin: 2px 16px 0px 0px
+		border: 4px solid #fff
+		box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3)
+		border-radius: 50%
+		overflow: hidden
+
+	&__name
+		font-size: 18px
+
+	&__position
+		margin-bottom: 9px
+		color: #626468
+
+	&__content
+		padding: 0px !important
+
+	&__link
+		display: block
+		color: #6b6f74
+		font-size: 14px
+		text-align: center
+		padding: 10px 0px
+		border-top: 1px solid #e3e6ea
+		cursor: pointer
+
+		&:first-child
+			border-top: 0
+
 		&:hover
-			background: red
+			color: #4da1ff
 
+.user-score
+	display: inline-block
+	vertical-align: top
+	
+	&__num
+		margin-right: 8px
 
+	&__icon
+		vertical-align: top
+
+	&_score
+		margin-right: 22px
+
+		.user-score__num
+			font-size: 22px
+			color: #d0021b
+
+		.user-score__icon
+			fill: #D0011B
+			margin-top: 4px
+
+	&_money
+		padding-top: 2px
+
+		.user-score__num
+			font-size: 20px
+			color: #4da1ff
+
+		.user-score__icon
+			fill: #D0011B
+			margin-top: 3px
 
 
 

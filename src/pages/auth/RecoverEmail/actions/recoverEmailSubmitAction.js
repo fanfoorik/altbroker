@@ -1,11 +1,10 @@
-import axios from 'axios';  
-import md5 from "md5";
+import ajax from 'js/ajax';  
 import { api_url } from "path.js";
 
 
 export default () => (dispatch, getState) => {
 
-    let { recoverEmail } = getState();
+    let { recoverEmail } = getState().auth;
     let { email } = recoverEmail;
 
     ( recoverEmail.form.touch || dispatch({type:"RECOVER_EMAIL_SUBMIT_TOUCH"}) )
@@ -15,11 +14,11 @@ export default () => (dispatch, getState) => {
         dispatch({type:"RECOVER_EMAIL_SUBMIT_START"});
 
         //Отправление эмейл для смены пароля
-        axios.post(api_url+'user/user_send_checkword/', {
+        ajax.post(api_url+'user/user_send_checkword/', {
             "USER_LOGIN":email.value
         })
         .then( res => {
-            
+
             let message = res.data.ANSWER.MESSAGE;
 
             dispatch({

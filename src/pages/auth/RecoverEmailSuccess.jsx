@@ -30,7 +30,7 @@ const RecoverEmailSuccess = ({message, ...props}) => {
 
 const mapStateToProps = (state) => {
 	return {
-		message: state.recoverEmail.form.successMessage
+		message: state.auth.recoverEmail.form.successMessage
 	}
 };
 

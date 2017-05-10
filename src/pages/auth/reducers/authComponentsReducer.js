@@ -1,5 +1,5 @@
 const initialState = {
-	"redirect":false,
+	"authenticated":false,
 	"login":true,
 	"recoverEmail":false,
 	"recoverEmailSuccess":false,
@@ -11,10 +11,10 @@ const initialState = {
 export default function(state = initialState, action){
 	switch(action.type){
 
-		case "AUTH_REDIRECT":
+		case "AUTH_USER":
 			return {
 				...state,
-				"redirect":action.payload
+				"authenticated":action.payload
 			}
 
 		case "LOGIN_PANEL":
