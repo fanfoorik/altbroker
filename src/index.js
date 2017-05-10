@@ -33,25 +33,6 @@ import style from "./styles/style.sass";
 const store = createStore(reducers, composeWithDevTools( applyMiddleware(thunk) ));
 
 
-function authenticate(nextState, replace){
-	const authenticated = localStorage.getItem('token') && localStorage.getItem('login');
-
-	if (!authenticated) {
-		replace({
-	      pathname: '/altbroker3/login/',
-	      state: { nextPath: nextState.location.pathname }
-	    });
-	}
-}
-
-// window.ondblclick = function(){
-// 	console.log(localStorage.getItem('token'), localStorage.getItem('login'));
-// 	console.log("Attempt to remove", localStorage.getItem('token') );
-// 	localStorage.removeItem('token');
-// 	console.log( localStorage.getItem('token') );
-// 	store.dispatch({type: "AUTH_USER", payload: false});
-// };
-
 let login = localStorage.getItem('login');
 let token = localStorage.getItem('token');
 

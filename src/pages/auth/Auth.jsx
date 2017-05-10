@@ -17,13 +17,13 @@ import userCheckword from './actions/userCheckwordAction';
 
 class Auth extends Component {
 
-	componentWillMount(){
-		console.log("authenticated -", this.props.auth.authenticated)
-		if(this.props.auth.authenticated){
-			let nextPath = (this.props.location.state && this.props.location.state.location) || index_url;
-			this.props.router.replace(nextPath);
-		}
-	}
+	// componentWillMount(){
+	// 	console.log("authenticated -", this.props.auth.authenticated)
+	// 	if(this.props.auth.authenticated){
+	// 		let nextPath = (this.props.location.state && this.props.location.state.location) || index_url;
+	// 		this.props.router.replace(nextPath);
+	// 	}
+	// }
 
 	componentWillUpdate(nextProps){
 		if(nextProps.auth.authenticated){
@@ -59,7 +59,7 @@ class Auth extends Component {
 						auth.login && <Login />
 					}
 
-					{ 
+					{
 						auth.recoverEmail && <RecoverEmail />
 					}
 

@@ -15,7 +15,6 @@ export default () => (dispatch, getState) => {
 
         //Запрос на получение соли
 
-        // axios.post(api_url+'http://alterainvest.ru:8080/api/v2/altbroker3/user/login/ ', {
         ajax.post(api_url+'user/login/ ', {
             LOGIN: login.email.value
         })

@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import { index_url } from 'path.js';
 
 //components
-import Navigation from './components/Navigation';
+import Navigation from './Navigation/Navigation';
 import PatchNotes from './PatchNotes/PatchNotes';
 
 import User from './User/User';
@@ -19,6 +19,7 @@ const Header = props => {
 	let { header } = props;
 	let { patchNotes } = header;
 	let { user } = header;
+	let { nav } = header;
 
 	return(
 		<header className="header" id="header">
@@ -31,20 +32,29 @@ const Header = props => {
 
 					<PatchNotes
 						data={patchNotes}
+						handleOuterClick={props.dispatchTriggerPatchNotes}
 						triggerPatchNotes={props.dispatchTriggerPatchNotes}
 						fetchPatchNotes={url => {
 							props.dispatchFetchPatchNotes(url);
 						}} />
-
 				</div>
 
 				<div className="header__center">
 					
-					<Navigation />
+					<Navigation nav={nav} />
 					
 				</div>
 
 				<div  className="header__right">
+					{
+						// <svg fill="#6B6F74" width="18" height="21" viewBox="0 0 18 21">
+						// 	<use xlinkHref="#icon_bell" />
+						// </svg>
+						// <svg fill="#666" height="18" viewBox="0 0 20 18">
+						// 	<use xlinkHref="#icon_message" />
+						// </svg>
+					}
+
 					<User user={user}
 						triggerUser={props.dispatchTriggerUsers}
 						logoutUser={props.dispatchLogoutUser}

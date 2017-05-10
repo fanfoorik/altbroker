@@ -23,13 +23,18 @@ export const fetchInit = () => dispatch => {
 			type: "SET_USER",
 			payload:user
 		});
+
+		dispatch({
+			type: "SET_NAVIGATION",
+			payload:parseNav(menu)
+		});
 	})
 	.catch(function(error){
 		console.log('fetch init error -',error);
 	});
 };
 
-function parseMenu(menu){
+function parseNav(menu){
 
 	let nav = [];
 

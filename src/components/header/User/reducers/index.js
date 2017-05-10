@@ -1,14 +1,14 @@
 const initialState = {
 	"active":false,
 	"data":{
-		"id": "1587",
-		"name": "Владимир",
-		"lastName": "Хафизов",
-		"shortName": "Хафизов В.",
-		"position": "HTML-верстальщик",
-		"city": "Санкт-Петербург",
-		"image": "/upload/main/fad/fadcbfd4452d97f06c16e39fb67b42ad.jpg",
-		"userpic": "/upload/resize_cache/main/fad/86_86_2/fadcbfd4452d97f06c16e39fb67b42ad.jpg"
+		"id": "",
+		"name": "",
+		"lastName": "",
+		"shortName": "",
+		"position": "",
+		"city": "",
+		"image": "",
+		"userpic": ""
 	},
 	"error":{
 		"on":false,
