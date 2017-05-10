@@ -30,7 +30,7 @@ import NotFound from "./pages/404";
 import style from "./styles/style.sass";
 
 
-const store = createStore(reducers, composeWithDevTools( applyMiddleware(thunk) ));
+export const store = createStore(reducers, composeWithDevTools( applyMiddleware(thunk) ));
 
 
 let login = localStorage.getItem('login');

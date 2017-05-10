@@ -1,5 +1,6 @@
 import ajax from "js/ajax";
 import getHeaders from "js/getHeaders";
+import handleError from "js/handleError";
 import { api_url } from "path.js";
 
 
@@ -30,7 +31,7 @@ export const fetchInit = () => dispatch => {
 		});
 	})
 	.catch(function(error){
-		console.log('fetch init error -',error);
+		handleError(error, dispatch);
 	});
 };
 
