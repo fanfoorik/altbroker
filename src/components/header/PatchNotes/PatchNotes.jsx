@@ -81,7 +81,6 @@ export default props => {
 					</div>
 				</DropTip>
 			}
-			
 		</div>
 	)
 }

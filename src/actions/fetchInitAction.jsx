@@ -13,7 +13,7 @@ export const fetchInit = () => dispatch => {
 	.then(data => {
 		let menu = data.ANSWER.MENU;
 		let patchNotes = data.ANSWER.PATCHNOUTS;
-		let user = data.ANSWER.USER;
+		let usertop = data.ANSWER.USER;
 
 		dispatch({
 			type: "SET_PATCH_NOTES",
@@ -22,7 +22,7 @@ export const fetchInit = () => dispatch => {
 
 		dispatch({
 			type: "SET_USER",
-			payload:user
+			payload:usertop
 		});
 
 		dispatch({

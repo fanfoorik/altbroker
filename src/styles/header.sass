@@ -30,6 +30,48 @@
 	padding-top: 20px
 
 
+.droptip
+    width: 400px
+    background: #f5f7f9
+    box-shadow: 0 0px 24px rgba(0, 0, 0, 0.15)
+    border-radius: 3px
+    position: absolute
+
+    &:before
+    	position: absolute
+    	right: 25px
+    	top: -7px
+    	width: 14px
+    	height: 14px
+    	display: block
+    	background: #f5f7f9
+    	box-shadow: 3px -3px 5px rgba(0, 0, 0, 0.02)
+    	content: ''
+    	transform: rotate(-45deg)
+    	z-index: 0
+	
+   	&__header
+   		padding: 24px 36px 19px 36px
+   		position: relative
+   		z-index: 100
+   		border-bottom: 1px solid #e1e3e9
+
+   	&__footer
+   		padding: 14px 36px
+   		position: relative
+   		border-top: 1px solid #e1e3e9
+
+   	&__content
+   		background: #fff
+   		padding: 24px 36px
+   		line-height: 26px
+   		max-height: 300px
+   		overflow: auto
+
+   		&:last-child
+   			border-radius: 0 0 3px 3px
+
+
 .patch-notes
 	float: left
 	position: relative
@@ -38,16 +80,20 @@
 
 	&__droptip
 		position: absolute
-		left: -92px
+		left: -95px
 		top: 100%
 		z-index: 300
-		margin-top: 36px
+		margin-top: 56px
+
+		&:before
+			left: 94px
 
 	&__trigger
 		display: inline-block
 		border-radius: 50%
 		cursor: pointer
 		vertical-align: top
+		margin-top: -1px
 
 		svg
 			fill: #989898
@@ -59,12 +105,12 @@
 	&__icon
 		float: right
 		width: 100px
-		margin-left: 16px
+		margin: 3px 0px 0px 16px
 
 	&__title
 		font-family: $gothapro
 		font-size: 20px
-		margin-bottom: 4px
+		margin-bottom: 5px
 
 	&__version
 		margin-bottom: 6px
@@ -97,46 +143,6 @@
 		
 		svg
 			fill: #c0c5ca
-
-
-.droptip
-    width: 400px
-    background: #f5f7f9
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15)
-    border-radius: 3px
-    position: absolute
-
-    &:before
-    	position: absolute
-    	right: 25px
-    	top: -7px
-    	width: 14px
-    	height: 14px
-    	display: block
-    	background: #f5f7f9
-    	box-shadow: 1px -1px 2px rgba(0, 0, 0, 0.04)
-    	content: ''
-    	transform: rotate(-45deg)
-    	z-index: 0
-	
-   	&__header
-   		padding: 24px 36px
-   		position: relative
-   		z-index: 100
-   		border-bottom: 1px solid #e1e3e9
-
-   	&__footer
-   		padding: 14px 36px
-   		position: relative
-   		border-top: 1px solid #e1e3e9
-
-   	&__content
-   		background: #fff
-   		padding: 24px 36px
-   		line-height: 26px
-
-   		&:last-child
-   			border-radius: 0 0 3px 3px
 
 
 .nav
@@ -223,22 +229,29 @@
 			fill: #fff
 
 
-.user
+.usertop
 	float: right
 	position: relative
-	margin-top: 5px
 
 	&__trigger
+		padding: 5px 10px
+		width: 70px
+		height: 60px
+		cursor: pointer
+
+		&.active
+			background: #f5faff
+
+	&__trigger-pic
 		width: 50px
 		height: 50px
 		border: 1px solid #f4f6f8
 		border-radius: 50%
 		background-position: 50% 50%
 		background-size: cover
-		cursor: pointer
 
 	&__droptip
-		right: -9px
+		right: -3px
 		top: 100%
 		margin-top: 26px
 		width: 300px
@@ -281,7 +294,8 @@
 		&:hover
 			color: #4da1ff
 
-.user-score
+
+.usertop-score
 	display: inline-block
 	vertical-align: top
 	
@@ -294,24 +308,103 @@
 	&_score
 		margin-right: 22px
 
-		.user-score__num
+		.usertop-score__num
 			font-size: 22px
 			color: #d0021b
 
-		.user-score__icon
+		.usertop-score__icon
 			fill: #D0011B
 			margin-top: 4px
 
 	&_money
 		padding-top: 2px
 
-		.user-score__num
+		.usertop-score__num
 			font-size: 20px
 			color: #4da1ff
 
-		.user-score__icon
+		.usertop-score__icon
 			fill: #D0011B
 			margin-top: 3px
+
+
+.stickers
+	float: right
+
+	&__trigger
+		width: 60px
+		height: 60px
+		text-align: center
+		display: -webkit-flex
+		display: -moz-flex
+		display: -ms-flex
+		display: -o-flex
+		display: flex
+		align-items: center
+		justify-content: center
+		cursor: pointer
+
+		&:hover
+			background: #f5faff
+
+	&__trigger-icon
+		fill: #6b6f74
+
+	&__overlay
+		position: fixed
+		left: 0
+		top: 60px
+		bottom: 0
+		width: 100%
+		background: #2b2b2b
+		z-index: 400
+		padding: 24px 18px
+
+.sticker
+	background: #fffbc4
+	position: relative
+	border-radius: 4px
+
+	&:before
+		display: block
+		width: 0
+		height: 0
+		padding-top: 100%
+		content: ''
+
+	&__inner
+		position: absolute
+		left: 0
+		top: 0
+		width: 100%
+		height: 100%
+
+	&__header
+		height: 38px
+		padding: 12px 24px 0px 24px
+		border-bottom: 1px solid rgba(0, 0, 0, 0.3)
+		color: rgba(0, 0, 0, 0.3)
+		font-size: 12px
+
+	&__time
+		float: left
+
+	&__name
+		overflow: hidden
+		text-align: right
+
+	&__content
+		position: absolute
+		width: 100%
+		top: 58px
+		bottom: 24px
+		left: 0px
+		padding: 0px 24px
+		overflow: auto
+		font-size: 16px
+		line-height: 26px
+
+
 
 
 
