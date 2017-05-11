@@ -6,7 +6,7 @@ import ajax from "./js/ajax";
 import axios from "axios";
 
 //components
-import Header from "./components/header/Header";
+import Header from "./components/Header/Header";
 import Footer from "./components/footer/";
 import Icons from "./components/Icons";
 

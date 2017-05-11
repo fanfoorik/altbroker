@@ -32,12 +32,16 @@ const Header = props => {
 
 					<PatchNotes
 						data={patchNotes}
-						handleOuterClick={props.dispatchTriggerPatchNotes}
+						
 						triggerPatchNotes={props.dispatchTriggerPatchNotes}
 						fetchPatchNotes={url => {
 							props.dispatchFetchPatchNotes(url);
 						}} />
 				</div>
+
+				{
+					// handleOuterClick={props.dispatchTriggerPatchNotes}
+				}
 
 				<div className="header__center">
 					
@@ -45,15 +49,14 @@ const Header = props => {
 					
 				</div>
 
-				<div  className="header__right">
-					{
-						// <svg fill="#6B6F74" width="18" height="21" viewBox="0 0 18 21">
-						// 	<use xlinkHref="#icon_bell" />
-						// </svg>
-						// <svg fill="#666" height="18" viewBox="0 0 20 18">
-						// 	<use xlinkHref="#icon_message" />
-						// </svg>
-					}
+				<div className="header__right">
+					
+					<svg fill="#6B6F74" width="18" height="21" viewBox="0 0 18 21">
+						<use xlinkHref="#icon_bell" />
+					</svg>
+					<svg fill="#666" height="18" viewBox="0 0 20 18">
+						<use xlinkHref="#icon_message" />
+					</svg>
 
 					<User user={user}
 						triggerUser={props.dispatchTriggerUsers}

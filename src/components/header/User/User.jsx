@@ -14,13 +14,13 @@ export default props => {
 		<div className="user">
 			<div className="user__trigger"
 				style={{backgroundImage: "url("+host_url+user.data.userpic+")"}}
-				onClick={()=> triggerUser()}
+				onClick={triggerUser}
 			></div>
 
 			{
 				user.active &&
 
-				<DropTip className="user__droptip">
+				<DropTip handleOuterClick={triggerUser} className="user__droptip">
 
 					<div className="droptip__header user__header clear">
 						

@@ -1,9 +1,10 @@
 import ajax from "js/ajax";
 import getHeaders from "js/getHeaders";
+import handleError from "js/handleError";
 import { api_url } from "path.js";
 
 export const logoutUser = url => dispatch => {
-
+	
 	ajax.post(api_url+"user/logout/",{
 		LOGIN:""
 	},
@@ -16,10 +17,6 @@ export const logoutUser = url => dispatch => {
 		dispatch({type: "AUTH_USER", payload: false});
 	})
 	.catch(function(error){
-		console.log("logout error");
+		handleError(error, dispatch);
 	});
-
-	// localStorage.removeItem('login');
-	// localStorage.removeItem('token');
-	// dispatch({type: "AUTH_USER", payload: false});
 };

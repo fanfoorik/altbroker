@@ -13,7 +13,7 @@ export default props => {
 	return(
 		<div className="patch-notes">
 
-			<span ref={(trg) => trg} className="patch-notes__trigger" onClick={()=>triggerPatchNotes()}>
+			<span ref={(trg) => trg} className="patch-notes__trigger" onClick={triggerPatchNotes}>
 				<svg width="13" height="13">
 					<use xlinkHref="#icon_info" />
 				</svg>
@@ -22,7 +22,7 @@ export default props => {
 			{
 				patchNotes.active && 
 				
-				<DropTip className="patch-notes__droptip">
+				<DropTip handleOuterClick={triggerPatchNotes} className="patch-notes__droptip">
 					<div className="droptip__header clear">
 						
 						<div className="patch-notes__icon">

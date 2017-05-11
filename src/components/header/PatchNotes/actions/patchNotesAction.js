@@ -1,4 +1,5 @@
 import ajax from "js/ajax";
+import handleError from "js/handleError";
 
 export const fetchPatchNotes = url => dispatch => {
 
@@ -19,7 +20,7 @@ export const fetchPatchNotes = url => dispatch => {
 			});
 		})
 		.catch(function(error){
-			console.log('fetch init error -',error);
+			handleError(error, dispatch);
 		});
 };
 
