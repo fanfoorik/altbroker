@@ -6,7 +6,7 @@ import { index_url } from 'path.js';
 //components
 import Navigation from './Navigation/Navigation';
 import PatchNotes from './PatchNotes/PatchNotes';
-import Stickers from './Stickers/Stickers';
+import StickersTrigger from './StickersTrigger/StickersTrigger';
 import Icon from 'components/Icon';
 
 import User from './User/User';
@@ -15,7 +15,6 @@ import User from './User/User';
 import { fetchPatchNotes, triggerPatchNotes } from './PatchNotes/actions/patchNotesAction';
 import { triggerUser } from './User/actions/userAction';
 import { logoutUser } from './User/actions/logoutUserAction';
-import { triggerStickers } from './Stickers/actions/stickersAction';
 
 const Header = props => {
 	
@@ -56,7 +55,7 @@ const Header = props => {
 					
 					<User usertop={usertop} triggerUser={props.dispatchTriggerUsers} logoutUser={props.dispatchLogoutUser} />
 
-					<Stickers stickers={stickers} triggerStickers={props.dispatchTriggerStickers} />
+					<StickersTrigger />
 
 				</div>
 
@@ -85,9 +84,6 @@ const mapDispatchToProps = dispatch => {
         },
         dispatchLogoutUser(){
             dispatch(logoutUser());
-        },
-        dispatchTriggerStickers(){
-            dispatch(triggerStickers());
         }
     }
 }

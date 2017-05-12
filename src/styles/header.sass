@@ -351,19 +351,27 @@
 		fill: #6b6f74
 
 	&__overlay
-		position: fixed
+		position: absolute
 		left: 0
 		top: 60px
-		bottom: 0
+		height: calc(100vh - 60px)
 		width: 100%
 		background: #2b2b2b
 		z-index: 400
-		padding: 24px 18px
+		padding: 24px 0
+		overflow: auto
+
+		.center
+			padding: 0px 22px
+
 
 .sticker
 	background: #fffbc4
 	position: relative
 	border-radius: 4px
+	float: left
+	width: calc(25% - 36px)
+	margin: 0px 18px 36px 18px
 
 	&:before
 		display: block
@@ -402,7 +410,7 @@
 		padding: 0px 24px
 		overflow: auto
 		font-size: 16px
-		line-height: 26px
+		line-height: 24px
 
 
 

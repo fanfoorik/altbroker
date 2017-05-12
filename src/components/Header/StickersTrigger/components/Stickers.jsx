@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import Sticker from "./Sticker";
 
-export default class StickersOverlay extends Component {
+export default class Stickers extends Component {
 	componentDidMount(){
 		document.addEventListener('click', this.onOutsideClick);
 		document.addEventListener('keyup', this.onOutsideClick);
@@ -10,15 +11,21 @@ export default class StickersOverlay extends Component {
 		document.removeEventListener('keyup', this.onOutsideClick);
 	}
 	onOutsideClick = (ev) => {
-		let stickersOverlay = this.refs.stickersOverlay;
-		if(ev.type === "click" && !stickersOverlay.contains(ev.target) || ev.type === "keyup" && ev.which === 27){
+		let stickers = this.refs.stickers;
+		if(ev.type === "click" && !stickers.contains(ev.target) || ev.target === stickers || ev.type === "keyup" && ev.which === 27){
 			this.props.handleOuterClick();
 		}
 	}
 	render(){
 		return(
-			<div className="stickers__overlay" ref="stickersOverlay">
-				{this.props.children}
+			<div className="stickers__overlay" ref="stickers">
+				<div className="center">
+					<Sticker />
+					<Sticker />
+					<Sticker />
+					<Sticker />
+					<Sticker />
+				</div>
 			</div>
 		)
 	}
