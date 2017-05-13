@@ -10,12 +10,14 @@ export default class Stickers extends Component {
 		document.removeEventListener('click', this.onOutsideClick);
 		document.removeEventListener('keyup', this.onOutsideClick);
 	}
+
 	onOutsideClick = (ev) => {
 		let stickers = this.refs.stickers;
 		if(ev.type === "click" && !stickers.contains(ev.target) || ev.target === stickers || ev.type === "keyup" && ev.which === 27){
 			this.props.handleOuterClick();
 		}
 	}
+	
 	render(){
 		return(
 			<div className="stickers__overlay" ref="stickers">

@@ -1,32 +1,16 @@
 import React from "react";
-import { connect } from "react-redux";
 import { Link } from 'react-router';
 import { index_url } from 'path.js';
 
 //components
-import Navigation from './Navigation/Navigation';
 import PatchNotes from './PatchNotes/PatchNotes';
-import StickersTrigger from './StickersTrigger/StickersTrigger';
-import Notifications from './Notifications/Notifications';
+import Navigation from './Navigation/Navigation';
 import SearchComponent from './SearchComponent/SearchComponent';
-import Icon from 'components/Icon';
+import Notifications from './Notifications/Notifications';
+import StickersComponent from './StickersComponent/StickersComponent';
+import Usertop from './Usertop/Usertop';
 
-import User from './User/User';
-
-//actions
-import { fetchPatchNotes, triggerPatchNotes } from './PatchNotes/actions/patchNotesAction';
-import { triggerUser } from './User/actions/userAction';
-import { logoutUser } from './User/actions/logoutUserAction';
-
-const Header = props => {
-	
-	let { header } = props;
-	let { patchNotes } = header;
-	let { usertop } = header;
-	let { nav } = header;
-	let { stickers } = header;
-
-	// console.log(props)
+const Header = (props) => {
 
 	return(
 		<header className="header" id="header">
@@ -36,26 +20,21 @@ const Header = props => {
 				<div  className="header__left">
 
 					<Link className="logo" to={index_url}>АльтБрокер</Link>
+					<PatchNotes />
 
-					<PatchNotes
-						data={patchNotes}
-						triggerPatchNotes={props.dispatchTriggerPatchNotes}
-						fetchPatchNotes={url => {
-							props.dispatchFetchPatchNotes(url);
-						}} />
 				</div>
 
 				<div className="header__center">
 					
-					<Navigation nav={nav} />
+					<Navigation />
 					
 				</div>
 
 				<div className="header__right">
 					
-					<User usertop={usertop} triggerUser={props.dispatchTriggerUsers} logoutUser={props.dispatchLogoutUser} />
+					<Usertop />
 
-					<StickersTrigger />
+					<StickersComponent />
 
 					<Notifications />
 
@@ -69,27 +48,4 @@ const Header = props => {
 	)
 }
 
-const mapStateToProps = state => {
-    return{
-        header: state.header
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return{
-        dispatchTriggerPatchNotes(url){
-            dispatch(triggerPatchNotes());
-        },
-        dispatchFetchPatchNotes(url){
-            dispatch(fetchPatchNotes(url));
-        },
-        dispatchTriggerUsers(){
-            dispatch(triggerUser());
-        },
-        dispatchLogoutUser(){
-            dispatch(logoutUser());
-        }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default Header;

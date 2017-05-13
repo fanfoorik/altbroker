@@ -1,6 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Link } from 'react-router';
-import { index_url } from 'path.js';
 
 import Icon from "components/Icon";
 
@@ -40,5 +40,10 @@ const Navigation = props => {
 	);
 }
 
+const mapStateToProps = state => {
+    return{
+        nav: state.header.nav
+    }
+}
 
-export default Navigation;
+export default connect(mapStateToProps)(Navigation);

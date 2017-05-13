@@ -1,27 +1,30 @@
 import React from "react";
+import { connect } from "react-redux";
 import htmlParser from 'html-react-parser';
 
 import DropTip from "components/DropTip/DropTip";
+import IsActive from "components/IsActive";
 import Icon from "components/Icon";
 
-export default props => {
+//actions
+import { triggerPatchNotes, fetchPatchNotes } from './actions/patchNotesAction';
 
-	let patchNotes = props.data;
+const PatchNotes = props => {
 
-	let fetchPatchNotes = props.fetchPatchNotes;
-	let triggerPatchNotes = props.triggerPatchNotes;
+	let patchNotes = props.patchNotes;
+
+	let { dispatchFetchPatchNotes } = props;
+	let { dispatchTriggerPatchNotes } = props;
 
 	return(
 		<div className="patch-notes">
 
-			<span ref={(trg) => trg} className="patch-notes__trigger" onClick={triggerPatchNotes}>
+			<span ref={(trg) => trg} className="patch-notes__trigger" onClick={dispatchTriggerPatchNotes}>
 				<Icon icon="info" width="13" height="13" />
 			</span>
 
-			{
-				patchNotes.active && 
-				
-				<DropTip handleOuterClick={triggerPatchNotes} className="patch-notes__droptip">
+			<IsActive active={patchNotes.active}>
+				<DropTip handleOuterClick={dispatchTriggerPatchNotes} className="patch-notes__droptip">
 					<div className="droptip__header clear">
 						
 						<div className="patch-notes__icon">
@@ -52,7 +55,7 @@ export default props => {
 								title={patchNotes.data.prev.name}
 								onClick={()=>{
 									if(patchNotes.data.prev.url){
-										fetchPatchNotes( patchNotes.data.prev.url );
+										dispatchFetchPatchNotes( patchNotes.data.prev.url );
 									}
 								}}>
 
@@ -64,7 +67,7 @@ export default props => {
 								title={patchNotes.data.next.name}
 								onClick={(event)=>{
 									if(patchNotes.data.next.url){
-										fetchPatchNotes( patchNotes.data.next.url );
+										dispatchFetchPatchNotes( patchNotes.data.next.url );
 									}
 								}}>
 
@@ -75,7 +78,27 @@ export default props => {
 
 					</div>
 				</DropTip>
-			}
+			</IsActive>
+			
 		</div>
 	)
 }
+
+const mapStateToProps = state => {
+    return{
+        patchNotes: state.header.patchNotes
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return{
+        dispatchTriggerPatchNotes(url){
+            dispatch(triggerPatchNotes());
+        },
+        dispatchFetchPatchNotes(url){
+            dispatch(fetchPatchNotes(url));
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PatchNotes);

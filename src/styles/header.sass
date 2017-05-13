@@ -83,7 +83,7 @@
 		left: -95px
 		top: 100%
 		z-index: 300
-		margin-top: 56px
+		margin-top: 44px
 
 		&:before
 			left: 94px
@@ -244,14 +244,18 @@
 	&:hover
 		.top-trigger__icon
 			fill: #4da1ff
-			stroke: #4da1ff
+
+			&_stroke
+				stroke: #4da1ff	
 
 	&.active
 		background: #f5faff
 	
 	&__icon
 		fill: #6b6f74
-		stroke: #6b6f74
+
+		&_stroke
+			stroke: #6b6f74
 
 
 .usertop
@@ -338,7 +342,7 @@
 			color: #d0021b
 
 		.usertop-score__icon
-			fill: #D0011B
+			fill: #d0021b
 			margin-top: 4px
 
 	&_money
@@ -349,35 +353,12 @@
 			color: #4da1ff
 
 		.usertop-score__icon
-			fill: #D0011B
+			fill: #4da1ff
 			margin-top: 3px
 
 
 .stickers
 	float: right
-
-	&__trigger
-		width: 60px
-		height: 60px
-		text-align: center
-		display: -webkit-flex
-		display: -moz-flex
-		display: -ms-flex
-		display: -o-flex
-		display: flex
-		align-items: center
-		justify-content: center
-		cursor: pointer
-
-		&.active
-			background: #f5faff
-
-		&:hover
-			.stickers__trigger-icon
-				fill: #4da1ff
-
-	&__trigger-icon
-		fill: #6b6f74
 
 	&__overlay
 		position: absolute
@@ -445,28 +426,6 @@
 .notifications
 	float: right
 	position: relative
-
-	&__trigger
-		width: 60px
-		height: 60px
-		display: -webkit-flex
-		display: -moz-flex
-		display: -ms-flex
-		display: -o-flex
-		display: flex
-		justify-content: center
-		align-items: center
-		cursor: pointer
-
-		&.active
-			background: #f5faff
-
-		&:hover
-			.notifications__trigger-icon
-				fill: #4da1ff
-
-	&__trigger-icon
-		fill: #6b6f74
 
 	&__droptip
 		right: -2px

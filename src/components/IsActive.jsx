@@ -5,12 +5,10 @@ const IsActive = ({component, active, ...props}) => {
 
 	if(component && active){
 		const Component = component;
-		console.log(1);
 		return <Component {...props} />
 	}
 
 	if(active){
-		console.log(2);
 		return props.children
 	}
 

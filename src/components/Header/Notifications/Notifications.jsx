@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import DropTip from "components/DropTip/DropTip";
+import IsActive from "components/IsActive";
 
 //components
 import Icon from "components/Icon";
@@ -15,13 +16,11 @@ const Notifications = props => {
 
 		<div className="notifications">
 
-			<div className={notifications.active ? "notifications__trigger active" : "notifications__trigger"} onClick={dispatchTriggerNotifications}>
-				<Icon className="notifications__trigger-icon" icon="bell" width="18" height="21" />
+			<div className={notifications.active ? "top-trigger active" : "top-trigger"} onClick={dispatchTriggerNotifications}>
+				<Icon className="top-trigger__icon" icon="bell" width="18" height="21" />
 			</div>
 
-			{
-				notifications.active &&
-
+			<IsActive active={notifications.active}>
 				<DropTip className="notifications__droptip" handleOuterClick={dispatchTriggerNotifications}>
 					<div className="droptip__header notifications__header clear">
 						<div className="notifications__title">Уведомления</div>
@@ -33,7 +32,8 @@ const Notifications = props => {
 						</div>
 					</div>
 				</DropTip>
-			}
+			</IsActive>
+
 		</div>
 	);
 };
@@ -52,5 +52,5 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Notifications)
+export default connect(mapStateToProps, mapDispatchToProps)(Notifications);
 

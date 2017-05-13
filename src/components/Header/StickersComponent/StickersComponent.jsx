@@ -3,10 +3,12 @@ import { connect } from "react-redux";
 
 //components
 import Icon from "components/Icon";
+import IsActive from "components/IsActive";
+
 import Stickers from "./components/Stickers";
 import { triggerStickers } from "./actions/triggerStickers";
 
-const StickersTrigger = props => {
+const StickersComponent = props => {
 
 	let { stickers } = props;
 	let { dispatchTriggerStickers } = props;
@@ -15,15 +17,12 @@ const StickersTrigger = props => {
 
 		<div className="stickers">
 
-			<div className={stickers.active ? "stickers__trigger active" : "stickers__trigger"} onClick={dispatchTriggerStickers}>
-				<Icon className="stickers__trigger-icon" icon="message" width="18" height="21" />
+			<div className={stickers.active ? "top-trigger active" : "top-trigger"} onClick={dispatchTriggerStickers}>
+				<Icon className="top-trigger__icon" icon="message" width="18" height="21" />
 			</div>
 
-			{
-				stickers.active &&
+			<IsActive component={Stickers} active={stickers.active} handleOuterClick={dispatchTriggerStickers} />
 
-				<Stickers handleOuterClick={dispatchTriggerStickers} />
-			}
 		</div>
 	);
 };
@@ -42,5 +41,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StickersTrigger)
-
+export default connect(mapStateToProps, mapDispatchToProps)(StickersComponent);

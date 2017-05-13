@@ -31,7 +31,7 @@ export default class SearchComponent extends Component {
 			<div className="searchbar">
 
 				<div className="top-trigger" onClick={()=>this.trigger()}>
-					<Icon className="top-trigger__icon" icon="lens" width="19" height="20" />
+					<Icon className="top-trigger__icon top-trigger__icon_stroke" icon="lens" width="19" height="20" />
 				</div>
 
 				<IsActive component={Search} active={active} handleSearchClose={()=>this.trigger()} />
