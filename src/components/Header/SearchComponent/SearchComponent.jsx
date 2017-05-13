@@ -34,7 +34,7 @@ export default class SearchComponent extends Component {
 					<Icon className="top-trigger__icon" icon="lens" width="19" height="20" />
 				</div>
 
-				<IsActive component={Search} active={active} handleOuterClick={()=>this.trigger()} />
+				<IsActive component={Search} active={active} handleSearchClose={()=>this.trigger()} />
 				
 			</div>
 		);

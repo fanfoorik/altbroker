@@ -6,14 +6,16 @@ import Icon from "components/Icon";
 export default class Notifications extends Component {
 
 	componentDidMount(){
-		document.addEventListener('keyup', this.onOutsideClick);
+		document.addEventListener('keyup', this.searchClose);
 	}
+	
 	componentWillUnmount(){
-		document.removeEventListener('keyup', this.onOutsideClick);
+		document.removeEventListener('keyup', this.searchClose);
 	}
-	onOutsideClick = (ev) => {
+
+	searchClose = (ev) => {
 		if(ev.which === 27){
-			this.props.handleOuterClick();
+			this.props.handleSearchClose();
 		}
 	}
 
@@ -25,7 +27,7 @@ export default class Notifications extends Component {
 				<div className="search__content">
 					
 					<div className="search__center clear">
-						<div className="search__close" onClick={()=>this.props.handleOuterClick()}>
+						<div className="search__close" onClick={()=>this.props.handleSearchClose()}>
 							Отменить
 							<Icon className="search__close-icon" icon="close" width="19" height="19" />
 						</div>
@@ -42,7 +44,7 @@ export default class Notifications extends Component {
 
 				</div>
 
-				<div className="search__overlay" onClick={()=>this.props.handleOuterClick()}></div>
+				<div className="search__overlay" onClick={()=>this.props.handleSearchClose()}></div>
 			</div>
 		);
 	}

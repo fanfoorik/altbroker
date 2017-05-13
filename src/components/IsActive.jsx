@@ -3,10 +3,15 @@ import PropTypes from "prop-types";
 
 const IsActive = ({component, active, ...props}) => {
 
-	const Component = component;
+	if(component && active){
+		const Component = component;
+		console.log(1);
+		return <Component {...props} />
+	}
 
 	if(active){
-		return <Component {...props} />
+		console.log(2);
+		return props.children
 	}
 
 	return false;
