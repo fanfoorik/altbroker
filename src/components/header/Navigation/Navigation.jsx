@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Link } from 'react-router';
 import { index_url } from 'path.js';
 
+import Icon from "components/Icon";
+
 
 const Navigation = props => {
 
@@ -21,9 +23,7 @@ const Navigation = props => {
 											<Link className={"subnav__link subnav__link-enabled-"+subLink.ENABLED} to={subLink.URL} key={subInd}>
 												
 												<span className="subnav__icon">
-                                                    <svg width="22" height="19">
-                                                        <use xlinkHref={"#"+subLink.ICO_CODE} width="22" height="19" />
-                                                    </svg>
+													<Icon icon={subLink.ICO_CODE} width="22" height="19" />
 												</span>
                                                 
 												{subLink.NAME}

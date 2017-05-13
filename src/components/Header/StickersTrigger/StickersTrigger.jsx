@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 //components
 import Icon from "components/Icon";
 import Stickers from "./components/Stickers";
-import Sticker from "./components/Sticker";
 import { triggerStickers } from "./actions/triggerStickers";
 
 const StickersTrigger = props => {
@@ -17,7 +16,7 @@ const StickersTrigger = props => {
 		<div className="stickers">
 
 			<div className={stickers.active ? "stickers__trigger active" : "stickers__trigger"} onClick={dispatchTriggerStickers}>
-				<Icon className="stickers__trigger-icon" icon="icon_message" width="18" height="21" viewBox="0 0 18 21" />
+				<Icon className="stickers__trigger-icon" icon="message" width="18" height="21" />
 			</div>
 
 			{

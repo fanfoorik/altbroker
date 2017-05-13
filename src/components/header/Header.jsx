@@ -7,6 +7,8 @@ import { index_url } from 'path.js';
 import Navigation from './Navigation/Navigation';
 import PatchNotes from './PatchNotes/PatchNotes';
 import StickersTrigger from './StickersTrigger/StickersTrigger';
+import Notifications from './Notifications/Notifications';
+import SearchComponent from './SearchComponent/SearchComponent';
 import Icon from 'components/Icon';
 
 import User from './User/User';
@@ -51,11 +53,13 @@ const Header = props => {
 
 				<div className="header__right">
 					
-					<Icon icon="icon_bell" fill="#6B6F74" width="18" height="21" viewBox="0 0 18 21" />
-					
 					<User usertop={usertop} triggerUser={props.dispatchTriggerUsers} logoutUser={props.dispatchLogoutUser} />
 
 					<StickersTrigger />
+
+					<Notifications />
+
+					<SearchComponent />
 
 				</div>
 

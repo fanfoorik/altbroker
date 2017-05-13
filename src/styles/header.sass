@@ -13,11 +13,11 @@
 
     &__right
     	float: right
-    	width: 15%
+    	width: 21%
 
    	&__center
    		float: left
-    	width: 70%
+    	width: 64%
 
 
 .logo
@@ -229,13 +229,38 @@
 			fill: #fff
 
 
+.top-trigger
+	width: 60px
+	height: 60px
+	display: -webkit-flex
+	display: -moz-flex
+	display: -ms-flex
+	display: -o-flex
+	display: flex
+	justify-content: center
+	align-items: center
+	cursor: pointer
+	
+	&:hover
+		.top-trigger__icon
+			fill: #4da1ff
+			stroke: #4da1ff
+
+	&.active
+		background: #f5faff
+	
+	&__icon
+		fill: #6b6f74
+		stroke: #6b6f74
+
+
 .usertop
 	float: right
 	position: relative
 
 	&__trigger
-		padding: 5px 10px
-		width: 70px
+		padding: 5px
+		width: 60px
 		height: 60px
 		cursor: pointer
 
@@ -344,8 +369,12 @@
 		justify-content: center
 		cursor: pointer
 
-		&:hover
+		&.active
 			background: #f5faff
+
+		&:hover
+			.stickers__trigger-icon
+				fill: #4da1ff
 
 	&__trigger-icon
 		fill: #6b6f74
@@ -358,11 +387,11 @@
 		width: 100%
 		background: #2b2b2b
 		z-index: 400
-		padding: 24px 0
+		padding: 6px 0
 		overflow: auto
 
 		.center
-			padding: 0px 22px
+			padding: 0px
 
 
 .sticker
@@ -371,7 +400,7 @@
 	border-radius: 4px
 	float: left
 	width: calc(25% - 36px)
-	margin: 0px 18px 36px 18px
+	margin: 18px
 
 	&:before
 		display: block
@@ -413,6 +442,106 @@
 		line-height: 24px
 
 
+.notifications
+	float: right
+	position: relative
+
+	&__trigger
+		width: 60px
+		height: 60px
+		display: -webkit-flex
+		display: -moz-flex
+		display: -ms-flex
+		display: -o-flex
+		display: flex
+		justify-content: center
+		align-items: center
+		cursor: pointer
+
+		&.active
+			background: #f5faff
+
+		&:hover
+			.notifications__trigger-icon
+				fill: #4da1ff
+
+	&__trigger-icon
+		fill: #6b6f74
+
+	&__droptip
+		right: -2px
+		top: 100%
+		margin-top: 26px
+
+	&__header
+		padding: 14px 36px
+
+	&__title
+		text-align: center
+		font-size: 16px
+
+	&__empty
+		padding: 12px 0px
+		text-align: center
+		color: #666666
 
 
+.searchbar
+	float: right
+
+
+.search
+	position: absolute
+	left: 0
+	top: 0
+	z-index: 400
+	width: 100%
+
+	&__content
+		position: relative
+		z-index: 410
+		background: #fff
+		
+	&__overlay
+		position: fixed
+		left: 0
+		top: 60px
+		bottom: 0
+		right: 0
+		background: rgba(0, 0, 0, 0.8)
+
+	&__center
+		max-width: 890px
+		margin: 0 auto
+
+	&__close
+		float: right
+		height: 60px
+		line-height: 60px
+		font-size: 18px
+		padding: 0px 20px
+		cursor: pointer
+
+		&:hover
+			color: #d0021b
+
+			.search__close-icon
+				stroke: #d0021b
+
+	&__close-icon
+		margin-left: 20px
+		vertical-align: middle
+		stroke: #666
+
+	&__text
+		overflow: hidden
+
+	&__input
+		font-size: 22px !important
+
+
+
+.search-categs
+	border-top: 1px solid #e3e3e3
+	height: 60px
 

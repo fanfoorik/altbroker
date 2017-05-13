@@ -2,6 +2,7 @@ import React from "react";
 import htmlParser from 'html-react-parser';
 
 import DropTip from "components/DropTip/DropTip";
+import Icon from "components/Icon";
 
 export default props => {
 
@@ -14,9 +15,7 @@ export default props => {
 		<div className="patch-notes">
 
 			<span ref={(trg) => trg} className="patch-notes__trigger" onClick={triggerPatchNotes}>
-				<svg width="13" height="13">
-					<use xlinkHref="#icon_info" />
-				</svg>
+				<Icon icon="info" width="13" height="13" />
 			</span>
 
 			{
@@ -56,10 +55,8 @@ export default props => {
 										fetchPatchNotes( patchNotes.data.prev.url );
 									}
 								}}>
-								
-								<svg width="10" height="16" viewBox="0 0 10 16">
-									<use xlinkHref="#icon_arrow-left" />
-								</svg>
+
+								<Icon icon="arrow-left" width="10" height="16" viewBox="0 0 10 16" />
 							</span>
 
 							<span
@@ -71,9 +68,7 @@ export default props => {
 									}
 								}}>
 
-								<svg width="10" height="16" viewBox="0 0 10 16">
-									<use xlinkHref="#icon_arrow-right" />
-								</svg>
+								<Icon icon="arrow-right" width="10" height="16" viewBox="0 0 10 16" />
 							</span>
 
 						</div>
