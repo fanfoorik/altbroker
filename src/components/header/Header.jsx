@@ -10,7 +10,7 @@ import Notifications from './Notifications/Notifications';
 import StickersComponent from './StickersComponent/StickersComponent';
 import Usertop from './Usertop/Usertop';
 
-const Header = (props) => {
+const Header = () => {
 
 	return(
 		<header className="header" id="header">

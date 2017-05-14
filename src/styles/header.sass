@@ -476,9 +476,8 @@
 	&__close
 		float: right
 		height: 60px
-		line-height: 60px
 		font-size: 18px
-		padding: 0px 20px
+		padding: 19px 20px 0px 20px
 		cursor: pointer
 
 		&:hover
@@ -488,19 +487,51 @@
 				stroke: #d0021b
 
 	&__close-icon
-		margin-left: 20px
-		vertical-align: middle
+		margin: 3px 0px 0px 22px
+		vertical-align: top
 		stroke: #666
 
 	&__text
 		overflow: hidden
 
 	&__input
+		height: 60px !important
 		font-size: 22px !important
+		border-width: 0 !important
 
+	&__icon
+		float: left
+		margin: 0px 20px 0px 50px
+		cursor: default
+
+	&__icon-icon
+		stroke: #c0c4ca
 
 
 .search-categs
 	border-top: 1px solid #e3e3e3
-	height: 60px
+
+	&__label
+		display: inline-block
+		vertical-align: top
+		font-size: 14px
+		color: #c0c4ca
+		padding-top: 20px
+		margin-right: 28px
+
+	&__option
+		display: inline-block
+		padding: 20px 15px 0px 15px
+		margin: 0px 15px
+		height: 60px
+		font-size: 16px
+		color: #6b6f74
+		cursor: pointer
+
+		&:hover
+			color: #4da1ff
+
+		&.active
+			color: #333333
+
 
