@@ -1,0 +1,57 @@
+@import reset
+
+@font-face
+    font-family: 'gothapro'
+    src: url('../fonts/gothapro-medium.eot')
+    src: url('../fonts/gothapro-medium.eot?#iefix') format('embedded-opentype'), url('../fonts/gothapro-medium.woff2') format('woff2'), url('../fonts/gothapro-medium.woff') format('woff'), url('../fonts/gothapro-medium.ttf') format('truetype')
+    font-weight: normal
+    font-style: normal
+
+@font-face
+    font-family: 'ptsans'
+    src: url('../fonts/ptsans.eot')
+    src: url('../fonts/ptsans.eot?#iefix') format('embedded-opentype'), url('../fonts/ptsans.woff2') format('woff2'), url('../fonts/ptsans.woff') format('woff'), url('../fonts/ptsans.ttf') format('truetype')
+    font-weight: normal
+    font-style: normal
+
+
+@import ui-style
+@import bootstrap-lg-grid.css
+@import auth
+@import header
+@import navigation
+@import user
+
+
+#root
+    height: 100%
+    overflow-x: hidden
+
+.center
+    max-width: 1280px
+    margin: 0 auto
+    padding: 0 18px
+    width: 100%
+
+
+.page-cover
+    height: calc(100vh - 60px)
+    display: -webkit-flex
+    display: -moz-flex
+    display: -ms-flex
+    display: -o-flex
+    display: flex
+    justify-content: center
+    align-items: center
+    overflow: hidden
+    margin-top: -20px
+
+    &__dots1
+        position: absolute
+        top: -50%
+        right: 60px
+
+    &__dots2
+        position: absolute
+        bottom: -60%
+        left: 60px
