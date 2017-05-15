@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
+import { host_url } from 'path.js';
 
 import { setCaptchaValue, refreshCaptcha } from '../actions/captchaAction';
 
@@ -13,7 +14,7 @@ const Captcha = ({ className, ...props }) => {
 				
 				<div className="clear">
 					<div className="captcha__image mb_12">
-						<img src={captcha.image} />
+						<img src={host_url+captcha.image} />
 					</div>
 
 					{
@@ -36,7 +37,7 @@ const Captcha = ({ className, ...props }) => {
 
 const mapStateToProps = (state) => {
 	return {
-		captcha: state.login.captcha
+		captcha: state.auth.login.captcha
 	}
 };
 

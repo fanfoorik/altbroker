@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { host_url } from "path.js";
+import { index_url } from "path.js";
 import { Link } from "react-router";
 import DropTip from "components/DropTip/DropTip";
 import IsActive from "components/IsActive";
@@ -50,9 +51,12 @@ const Usertop = props => {
 					</div>
 
 					<div className="droptip__content usertop__content fz_16">
-						<span className="usertop__link">Редактировать профиль</span>
+						<Link to={index_url+"user/"+usertop.data.id} onClick={dispatchTriggerUsers} className="usertop__link">Редактировать профиль</Link>
 						<span className="usertop__link">Мне нужна помощь</span>
-						<span className="usertop__link" onClick={dispatchLogoutUser}>Выйти</span>
+						<span className="usertop__link" onClick={()=>{
+							dispatchTriggerUsers();
+							dispatchLogoutUser();
+						}}>Выйти</span>
 					</div>
 
 				</DropTip>

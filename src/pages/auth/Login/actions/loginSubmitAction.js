@@ -36,7 +36,11 @@ export default () => (dispatch, getState) => {
             ajax.post(api_url+'user/login/', loginData)
             .then(function(response){
 
+                console.log("response -", response);
+
                 if( response.data && response.data.ANSWER && response.data.ANSWER.CAPCHA_SID ){
+
+                    console.log("1");
 
                     let captcha = response.data.ANSWER;
 
@@ -64,7 +68,7 @@ export default () => (dispatch, getState) => {
                 }
             })
             .catch(function (error) {
-
+                console.log("error.response -", error.response);
                 //Ошибка авторизации
                 handleSubmitError(error);
             });

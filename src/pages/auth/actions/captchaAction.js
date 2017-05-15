@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ajax from 'js/ajax'; 
 import { api_url } from "path.js";
 
 export const setCaptchaValue = value => (dispatch) => {
@@ -10,16 +10,18 @@ export const setCaptchaValue = value => (dispatch) => {
 
 export const refreshCaptcha = () => (dispatch, getState) => {
     
-    let login = getState().login.email.value;
+    let login = getState().auth.login.email.value;
 
     dispatch({type: "CAPTCHA_REFRESH_START"});
 
     //Запрос на получение картинки каптчи, через ошибку отправляемых данных
-    axios.post(api_url+'user/login/', {
+    ajax.post(api_url+'user/login/', {
     	LOGIN:login,
     	PASSWORD:"*"
     })
     .then(function(res){
+
+        console.log(res);
 
     	let sid = res.data.ANSWER.CAPCHA_SID;
     	let image = res.data.ANSWER.CAPCHA_URL;
@@ -33,6 +35,9 @@ export const refreshCaptcha = () => (dispatch, getState) => {
 	    });
     })
     .catch(function(error){
+
+        console.log(error);
+        
 		dispatch({
             type:"LOGIN_SUBMIT_ERROR",
             payload:"Ошибка обновления каптчи"

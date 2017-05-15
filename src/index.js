@@ -15,6 +15,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 
 //pages
+import User from "./pages/User/User";
 import Auth from "./pages/auth/Auth";
 import Broker from "./pages/Broker";
 import Deal from "./pages/Deal";
@@ -48,6 +49,12 @@ ReactDOM.render(
 			<Route path="/altbroker3" component={ProtectedRoute(App)}>
 
 				<IndexRoute component={ProtectedRoute(Index)} />
+
+				<Route path="user" component={ProtectedRoute(User)}>
+					<Route path=":id">
+						<Route path=":action" />
+					</Route>
+				</Route>
 
 				<Route path="about" component={ProtectedRoute(About)} />
 
