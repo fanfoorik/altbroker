@@ -20,9 +20,7 @@ export const refreshCaptcha = () => (dispatch, getState) => {
     	PASSWORD:"*"
     })
     .then(function(res){
-
-        console.log(res);
-
+        
     	let sid = res.data.ANSWER.CAPCHA_SID;
     	let image = res.data.ANSWER.CAPCHA_URL;
 
@@ -36,8 +34,6 @@ export const refreshCaptcha = () => (dispatch, getState) => {
     })
     .catch(function(error){
 
-        console.log(error);
-        
 		dispatch({
             type:"LOGIN_SUBMIT_ERROR",
             payload:"Ошибка обновления каптчи"

@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-//js
-import ajax from "./js/ajax";
-import axios from "axios";
-
 //components
 import Header from "./components/Header/Header";
 import Footer from "./components/footer/";
