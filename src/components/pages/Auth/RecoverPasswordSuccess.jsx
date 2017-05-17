@@ -38,7 +38,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     dispatchToLogin() {
-      dispatch({ type: types.LOGIN_PANEL });
+      dispatch({ type: LOGIN_PANEL });
     },
   };
 };

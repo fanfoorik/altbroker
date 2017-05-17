@@ -1,0 +1,62 @@
+@import "../utils/variables";
+
+.button {
+  background: $c-white;
+  border: 2px solid $c-blue-main;
+  border-radius: 3px;
+  color: $c-text-grey;
+  cursor: pointer;
+  display: inline-block;
+  height: 48px;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 48px;
+  padding: 0 20px;
+  position: relative;
+  text-align: center;
+  transition: 0.3s;
+
+  &::before {
+    border-radius: 100%;
+    bottom: 0;
+    box-shadow: 0 8px 26px -10px $c-blue-main;
+    content: "";
+    height: 48px;
+    left: 0;
+    position: absolute;
+    pointer-events: none;
+    right: 0;
+    transition: 0.3s;
+  }
+
+  &:hover {
+    background-color: $c-blue-light;
+
+    &::before {
+      box-shadow: 0 8px 26px -10px $c-blue-light;
+    }
+  }
+
+  &:active {
+    background-color: $c-blue-dark;
+
+    &::before {
+      box-shadow: 0 8px 26px -10px $c-blue-dark;
+    }
+  }
+
+  &[disabled],
+  &[disabled="disabled"] {
+    cursor: default;
+  }
+
+  &-primary {
+    background: $c-blue-main;
+    color: $c-white;
+  }
+
+  &-full-width {
+    display: block;
+    width: 100%;
+  }
+}

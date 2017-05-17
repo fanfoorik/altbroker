@@ -1,104 +1,101 @@
-import React, { Component } from 'react';
-import { browserHistory, Link } from 'react-router';
+import React from 'react';
 import { connect } from 'react-redux';
 
-import { indexUrl } from 'utils/urls.js';
-
-//actions
-import loginEmail  from './actions/loginEmailAction';
-import loginPassword  from './actions/loginPasswordAction';
-import loginSubmit from './actions/loginSubmitAction';
-
-//components
+import { RECOVER_EMAIL_PANEL } from 'constants/authTypes';
 import AuthPanel from '../components/AuthPanel';
 import AuthError from '../components/AuthError';
 import AuthButton from '../components/AuthButton';
 import LoginEmail from '../components/LoginEmail';
+import loginEmailAction from './actions/loginEmailAction';
 import LoginPassword from '../components/LoginPassword';
+import loginPasswordAction from './actions/loginPasswordAction';
+import loginSubmitAction from './actions/loginSubmitAction';
 import Captcha from '../components/Captcha';
 
-class Login extends Component {
+class Login extends React.Component {
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.props.dispatchLoginSubmit();
+  }
 
-	handleSubmit = (event) => {
-		event.preventDefault();
-		this.props.dispatchLoginSubmit();
-	}
+  render() {
+    const { login } = this.props;
 
-	render(){
+    return (
+      <AuthPanel>
+        <div className="auth-pane__title">Вход</div>
+        <form onSubmit={this.handleSubmit}>
+          <div className="auth-pane__error">
+            <AuthError error={login.form.error} message={login.form.message} />
+            <AuthError
+              error={login.form.touch && !login.email.valid}
+              message={login.email.message}
+            />
+            <AuthError
+              error={login.form.touch && !login.password.valid}
+              message={login.password.message}
+            />
+          </div>
 
-		let {login} = this.props;
+          <div className="auth-pane__row">
+            <LoginEmail
+              error={login.form.touch && !login.email.valid}
+              value={login.email.value}
+              changeHandler={event => this.props.dispatchLoginEmail(event.target.value)}
+            />
+          </div>
 
-		return(
+          <div className="auth-pane__row mb_36">
+            <LoginPassword
+              error={login.form.touch && !login.password.valid}
+              value={login.password.value}
+              changeHandler={event => this.props.dispatchLoginPassword(event.target.value)}
+            />
+          </div>
 
-			<AuthPanel>
+          {login.captcha.active && <Captcha />}
 
-				<div className="auth-pane__title">Вход</div>
-				
-				<form onSubmit={this.handleSubmit}>
+          <div className="mb_12">
+            <AuthButton
+              className="btn btn-primary btn-full-width"
+              loading={login.form.loading}
+              type="submit"
+            >Войти</AuthButton>
+          </div>
 
-					<div className="auth-pane__error">
-
-						<AuthError error={login.form.error} message={login.form.message} />
-						<AuthError error={login.form.touch && !login.email.valid} message={login.email.message} />
-						<AuthError error={login.form.touch && !login.password.valid} message={login.password.message} />
-
-					</div>
-
-					<div className="auth-pane__row">
-
-						<LoginEmail error={login.form.touch && !login.email.valid} value={login.email.value} changeHandler={(event) => { this.props.dispatchLoginEmail(event.target.value) } } />
-
-					</div>
-
-					<div className="auth-pane__row mb_36">
-
-						<LoginPassword error={login.form.touch && !login.password.valid} value={login.password.value} changeHandler={(event) => { this.props.dispatchLoginPassword(event.target.value) } } />
-
-					</div>
-					
-					{login.captcha.active && <Captcha />}
-
-					<div className="mb_12">
-
-						<AuthButton loading={login.form.loading} type="submit" className="button ext">Войти</AuthButton>
-
-					</div>
-
-					<div className="align_center">
-						<span onClick={this.props.dispatchToRecoverEmail} className="auth-pane__footlink">Я забыл пароль</span>
-					</div>
-
-				</form>
-
-			</AuthPanel>
-		)
-	}
+          <div className="align_center">
+            <span onClick={this.props.dispatchToRecoverEmail} className="auth-pane__footlink">Я забыл пароль</span>
+          </div>
+        </form>
+      </AuthPanel>
+    );
+  }
 }
 
 const mapStateToProps = (state) => {
-	return {
-		login: state.auth.login
-	}
+  return {
+    login: state.auth.login,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
-	return {
-		dispatchLoginSubmit(){
-			dispatch( loginSubmit() );
-		},
+  return {
+    dispatchLoginSubmit() {
+      dispatch(loginSubmitAction());
+    },
 
-		dispatchLoginEmail(value){
-			dispatch( loginEmail(value) );
-		},
+    dispatchLoginEmail(value) {
+      dispatch(loginEmailAction(value));
+    },
 
-		dispatchLoginPassword(value){
-			dispatch( loginPassword(value) );
-		},
+    dispatchLoginPassword(value) {
+      dispatch(loginPasswordAction(value));
+    },
 
-		dispatchToRecoverEmail(){
-			dispatch({type: "RECOVER_EMAIL_PANEL"});
-		}
-	}
+    dispatchToRecoverEmail() {
+      dispatch({ type: RECOVER_EMAIL_PANEL });
+    },
+  };
 };
 
-export default connect( mapStateToProps,  mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

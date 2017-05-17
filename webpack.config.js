@@ -34,7 +34,7 @@ module.exports = {
   devtool: dev ? 'eval' : false,
 
   resolve: {
-    extensions: ['.js', '.jsx', '.sass'],
+    extensions: ['.js', '.jsx', '.scss'],
     modules: ['node_modules', 'src'],
   },
 
@@ -51,7 +51,7 @@ module.exports = {
         },
       },
       {
-        test: /\.(sass|scss)$/,
+        test: /\.scss$/,
         use: cssConfig,
       },
       {
