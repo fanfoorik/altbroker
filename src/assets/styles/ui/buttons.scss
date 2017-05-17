@@ -1,10 +1,11 @@
 @import "../utils/variables";
 
-.button {
-  background: $c-white;
-  border: 2px solid $c-blue-main;
+.btn {
+  background-color: $c-white;
+  background-image: none;
+  border: 2px solid $c-btn-primary;
   border-radius: 3px;
-  color: $c-text-grey;
+  color: $c-text-main;
   cursor: pointer;
   display: inline-block;
   height: 48px;
@@ -16,10 +17,11 @@
   text-align: center;
   transition: 0.3s;
 
-  &::before {
+  &::after {
     border-radius: 100%;
     bottom: 0;
-    box-shadow: 0 8px 26px -10px $c-blue-main;
+    box-shadow: 0 8px 26px -10px $c-white;
+    clip: rect(50px, auto, 70px, auto);
     content: "";
     height: 48px;
     left: 0;
@@ -30,33 +32,49 @@
   }
 
   &:hover {
-    background-color: $c-blue-light;
+    background-color: $c-btn-hovered;
+    border-color: $c-btn-hovered;
+    color: $c-white;
 
-    &::before {
-      box-shadow: 0 8px 26px -10px $c-blue-light;
+    &::after {
+      box-shadow: 0 8px 26px -10px $c-btn-hovered;
     }
   }
 
   &:active {
-    background-color: $c-blue-dark;
+    background: $c-btn-active;
+    border-color: $c-btn-active;
+    color: $c-white;
 
-    &::before {
-      box-shadow: 0 8px 26px -10px $c-blue-dark;
+    &::after {
+      box-shadow: 0 8px 26px -10px $c-btn-active;
     }
   }
 
-  &[disabled],
-  &[disabled="disabled"] {
-    cursor: default;
-  }
-
   &-primary {
-    background: $c-blue-main;
+    background: $c-btn-primary;
     color: $c-white;
+
+    &::after {
+      box-shadow: 0 8px 26px -10px $c-btn-primary;
+    }
   }
 
   &-full-width {
     display: block;
     width: 100%;
+  }
+
+  &-disabled,
+  &[disabled],
+  &[disabled="disabled"] {
+    background: $c-btn-disabled;
+    border-color: $c-btn-disabled;
+    color: $c-text-disabled;
+    cursor: default;
+
+    &::after {
+      display: none;
+    }
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function About() {
+export default function About() {
   return (
     <div>
       <div className="center">
@@ -9,5 +9,3 @@ function About() {
     </div>
   );
 }
-
-export default About;

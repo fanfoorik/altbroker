@@ -1,18 +1,18 @@
 import React from 'react';
 
-function Broker(props) {
+export default function Broker(props) {
   const pages = {
     gb: 'Бизнесы',
     fr: 'Франшизы',
     collection: 'Подборки',
-    sellers: 'Продавцы',
     shoppers: 'Покупатели',
+    sellers: 'Продавцы',
     pub: 'Блог',
   };
 
   return (
     <div className="page-cover">
-      <div className="center align_center ps_rel">
+      <div className="center text-center ps_rel">
 
         <svg className="page-cover__dots1" width="190" height="130" viewBox="0 0 190 130">
           <g fill="#4DA1FF" fillRule="evenodd">
@@ -80,5 +80,3 @@ function Broker(props) {
     </div>
   );
 }
-
-export default Broker;

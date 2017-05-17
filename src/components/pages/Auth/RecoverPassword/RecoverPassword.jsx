@@ -74,7 +74,7 @@ const RecoverPassword = props => {
 
 						</div>
 
-						<div className="align_center">
+						<div className="text-center">
 							<span onClick={props.dispatchToLogin} className="auth-pane__footlink">Вспомнил пароль, войти</span>
 						</div>
 

@@ -1,7 +1,7 @@
 @import "./utils/variables";
 
 .header {
-  height: 60px;
+  height: $h-header;
   background: $c-white;
   box-shadow: 0 1px 1px #e2e2e2;
   margin-bottom: 20px;
@@ -26,7 +26,7 @@
 
 .logo {
   float: left;
-  height: 60px;
+  height: $h-header;
   margin-right: 9px;
   font-family: $f-gothapro;
   font-size: 16px;
@@ -41,7 +41,7 @@
   border-radius: 3px;
   position: absolute;
 
-  &:before {
+  &::before {
     position: absolute;
     right: 25px;
     top: -7px;
@@ -94,7 +94,7 @@
     z-index: 300;
     margin-top: 44px;
 
-    &:before {
+    &::before {
       left: 94px;
     }
   }
@@ -185,7 +185,7 @@
     padding: 0 20px;
 
     &:hover {
-      &:before {
+      &::before {
         position: absolute;
         left: 50%;
         bottom: -8px;
@@ -210,8 +210,8 @@
 
   &__link {
     display: block;
-    height: 60px;
-    padding: 18px 16px 0 16px;
+    height: $h-header;
+    padding: 18px 16px 0;
     color: #6b6f74;
     font-size: 16px;
     border-bottom: 2px solid transparent;
@@ -230,7 +230,7 @@
     left: 0;
     top: 100%;
     min-width: 1200px;
-    margin: 0 -3000px 0 -3000px;
+    margin: 0 -3000px;
     padding: 0 3000px;
     white-space: nowrap;
     background: $c-blue-light;
@@ -245,7 +245,7 @@
     display: inline-block;
     height: 92px;
     color: $c-white;
-    padding: 25px 0 0 0;
+    padding: 25px 0 0;
     text-align: center;
     width: 130px;
 
@@ -269,12 +269,8 @@
 }
 
 .top-trigger {
-  width: 60px;
-  height: 60px;
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -ms-flex;
-  display: -o-flex;
+  width: $h-header;
+  height: $h-header;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -309,9 +305,9 @@
 
   &__trigger {
     cursor: pointer;
-    height: 60px;
+    height: $h-header;
     padding: 5px;
-    width: 60px;
+    width: $h-header;
 
     &.active {
       background: #f5faff;
@@ -339,7 +335,7 @@
   }
 
   &__header {
-    padding: 11px 24px 15px 24px;
+    padding: 11px 24px;
   }
 
   &__image {
@@ -403,11 +399,11 @@
 
     .usertop-score__num {
       font-size: 22px;
-      color: #d0021b;
+      color: $c-red-main;
     }
 
     .usertop-score__icon {
-      fill: #d0021b;
+      fill: $c-red-main;
       margin-top: 4px;
     }
   }
@@ -433,8 +429,8 @@
   &__overlay {
     position: absolute;
     left: 0;
-    top: 60px;
-    height: calc(100vh - 60px);
+    top: $h-header;
+    height: calc(100vh - $h-header);
     width: 100%;
     background: #2b2b2b;
     z-index: 400;
@@ -455,7 +451,7 @@
   width: calc(25% - 36px);
   margin: 18px;
 
-  &:before {
+  &::before {
     display: block;
     width: 0;
     height: 0;
@@ -473,7 +469,7 @@
 
   &__header {
     height: 38px;
-    padding: 12px 24px 0 24px;
+    padding: 12px 24px 0;
     border-bottom: 1px solid rgba($c-black, 0.3);
     color: rgba($c-black, 0.3);
     font-size: 12px;
@@ -547,7 +543,7 @@
   &__overlay {
     position: fixed;
     left: 0;
-    top: 60px;
+    top: $h-header;
     bottom: 0;
     right: 0;
     background: rgba($c-black, 0.8);
@@ -560,16 +556,16 @@
 
   &__close {
     float: right;
-    height: 60px;
+    height: $h-header;
     font-size: 18px;
-    padding: 19px 20px 0 20px;
+    padding: 19px 20px 0;
     cursor: pointer;
 
     &:hover {
-      color: #d0021b;
+      color: $c-red-main;
 
       .search__close-icon {
-        stroke: #d0021b;
+        stroke: $c-red-main;
       }
     }
   }
@@ -585,9 +581,9 @@
   }
 
   &__input {
-    height: 60px !important;
-    font-size: 22px !important;
     border-width: 0 !important;
+    height: $h-header !important;
+    font-size: 22px !important;
   }
 
   &__icon {
@@ -615,7 +611,7 @@
 
   &__option {
     display: inline-block;
-    padding: 20px 15px 0 15px;
+    padding: 20px 15px 0;
     margin: 0 15px;
     height: 60px;
     font-size: 16px;
@@ -627,7 +623,7 @@
     }
 
     &.active {
-      color: #333333;
+      color: $c-text-main;
     }
   }
 }

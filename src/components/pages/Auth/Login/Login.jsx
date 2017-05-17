@@ -63,7 +63,7 @@ class Login extends React.Component {
             >Войти</AuthButton>
           </div>
 
-          <div className="align_center">
+          <div className="text-center">
             <span onClick={this.props.dispatchToRecoverEmail} className="auth-pane__footlink">Я забыл пароль</span>
           </div>
         </form>

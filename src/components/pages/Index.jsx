@@ -3,7 +3,7 @@ import React from 'react';
 function Index() {
   return (
     <div>
-      <div className="center">
+      <div className="text-center">
         Index!
       </div>
     </div>

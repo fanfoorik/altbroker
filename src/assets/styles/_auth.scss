@@ -2,7 +2,7 @@
 
 .auth-page {
   height: 100%;
-  background: url("../images/auth-page.png") no-repeat 50% 50%;
+  background: url("../images/auth-page.jpg") no-repeat 50% 50%;
   background-size: cover;
   overflow: auto;
 
@@ -17,13 +17,13 @@
 }
 
 .auth-pane {
-  width: 444px;
-  background: #fff;
+  background: $c-white;
   margin: 0 auto;
-  padding: 116px 96px 96px 96px;
+  padding: 116px 96px 96px;
   position: relative;
   border-radius: 8px;
-  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 20px rgba($c-black, 0.2);
+  width: 444px;
 
   &__extended {
     width: 684px;
@@ -85,7 +85,7 @@
 
   &__errors {
     margin-bottom: 16px;
-    color: #d0021b;
+    color: $c-red-main;
 
     p {
       margin-bottom: 8px;
@@ -102,7 +102,7 @@
 .auth-pane-error {
   margin-bottom: 8px;
   font-size: 16px;
-  color: #d0021b;
+  color: $c-red-main;
 }
 
 .recover-pass {
@@ -118,7 +118,7 @@
   }
 
   &__confirm {
-    color: #d0021b;
+    color: $c-red-main;
   }
 }
 
@@ -136,9 +136,9 @@
 
   &__label {
     color: #c0c4ca;
+    margin-bottom: 6px;
     position: relative;
     padding-left: 20px;
-    margin-bottom: 6px;
 
     &::before {
       position: absolute;
@@ -153,7 +153,7 @@
     }
 
     &.true {
-      color: #333333;
+      color: $c-text-main;
 
       &::before {
         border-color: $c-blue-main;

@@ -1,54 +1,50 @@
-import ajax from 'utils/ajax';
 import { apiUrl } from 'utils/urls.js';
+import ajax from 'utils/ajax';
 
 export default () => (dispatch, getState) => {
+  let { recoverEmail } = getState().auth;
+  let { email } = recoverEmail;
 
-    let { recoverEmail } = getState().auth;
-    let { email } = recoverEmail;
+  (recoverEmail.form.touch || dispatch({ type: "RECOVER_EMAIL_SUBMIT_TOUCH" }));
 
-    ( recoverEmail.form.touch || dispatch({type:"RECOVER_EMAIL_SUBMIT_TOUCH"}) )
+  if (email.valid) {
+    dispatch({ type: "RECOVER_EMAIL_SUBMIT_START" });
 
-    if( email.valid ){
+    // Отправление эмейл для смены пароля
+    ajax.post(apiUrl + 'user/user_send_checkword/', {
+      "USER_LOGIN": email.value,
+    })
+      .then(res => {
 
-        dispatch({type:"RECOVER_EMAIL_SUBMIT_START"});
+        let message = res.data.ANSWER.MESSAGE;
 
-        //Отправление эмейл для смены пароля
-        ajax.post(apiUrl+'user/user_send_checkword/', {
-            "USER_LOGIN":email.value
-        })
-        .then( res => {
-
-            let message = res.data.ANSWER.MESSAGE;
-
-            dispatch({
-                type:"RECOVER_EMAIL_SUBMIT_SUCCESS",
-                payload:message
-            });
-            
-            //from authReducer
-            dispatch({type:"RECOVER_EMAIL_SUCESS_PANEL"});
-
-        })
-        .catch(function(error){
-
-            if(error.response && error.response.data &&  error.response.data.ERRORS){
-            
-                let errors = error.response.data.ERRORS;
-                
-                dispatch({
-                    type:"RECOVER_EMAIL_SUBMIT_ERROR",
-                    payload:errors[0].MESSAGE
-                });
-
-                return;
-            }
-
-            dispatch({
-                type:"RECOVER_EMAIL_SUBMIT_ERROR",
-                payload:"Неизвестная ошибка."
-            });
+        dispatch({
+          type: "RECOVER_EMAIL_SUBMIT_SUCCESS",
+          payload: message
         });
 
-    }
+        //from authReducer
+        dispatch({ type: "RECOVER_EMAIL_SUCESS_PANEL" });
 
+      })
+      .catch(function(error) {
+
+        if (error.response && error.response.data && error.response.data.ERRORS) {
+
+          let errors = error.response.data.ERRORS;
+
+          dispatch({
+            type: "RECOVER_EMAIL_SUBMIT_ERROR",
+            payload: errors[0].MESSAGE
+          });
+
+          return;
+        }
+
+        dispatch({
+          type: "RECOVER_EMAIL_SUBMIT_ERROR",
+          payload: "Неизвестная ошибка."
+        });
+      });
+  }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Admin(props) {
+export default function Admin(props) {
   const pages = {
     mode: 'Модерация',
     candidate: 'Кандидаты',
@@ -12,7 +12,7 @@ function Admin(props) {
 
   return (
     <div className="page-cover">
-      <div className="center align_center ps_rel">
+      <div className="center text-center ps_rel">
         <svg className="page-cover__dots1" width="190" height="130" viewBox="0 0 190 130">
           <g fill="#4DA1FF" fillRule="evenodd">
             <circle cx="95" cy="125" r="5" />
@@ -78,5 +78,3 @@ function Admin(props) {
     </div>
   );
 }
-
-export default Admin;

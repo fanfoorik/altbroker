@@ -6,6 +6,12 @@ $c-blue-main: #4da1ff;
 $c-red-main: #d0011b;
 $c-white: #fff;
 
+// Buttons
+$c-btn-active: $c-blue-dark;
+$c-btn-disabled: #f5f7f9;
+$c-btn-hovered: $c-blue-light;
+$c-btn-primary: $c-blue-main;
+
 // Fonts
 $f-gothapro: "gothapro", Arial, sans-serif;
 $f-icons: "icons";
@@ -18,4 +24,8 @@ $c-input-error-bg: #fae5e8;
 $c-input-error-border: $c-red-main;
 
 // Text
-$c-text-grey: #333;
+$c-text-main: #333;
+$c-text-disabled: #d5dadf;
+
+// Heights
+$h-header: 60px;

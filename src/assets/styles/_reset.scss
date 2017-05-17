@@ -1,4 +1,7 @@
-html, body, div, span, h1, h2, h3, h4, h5, h6, p, em, img, strong, sub, sup, b, u, i, dl, dt, dd, ol, ul, li, fieldset, form, label, table, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, em, img,
+strong, sub, sup, b, u, i, dl, dt, dd, ol, ul, li, fieldset, form,
+label, table, tbody, tfoot, thead, tr, th, td, article, aside, canvas,
+details, figcaption, figure, footer, header, menu, nav, section, summary, time, mark, audio, video {
   margin: 0;
   padding: 0;
   border: 0;
@@ -19,17 +22,22 @@ a {
 table {
   border-spacing: 0;
 
-  td, td img {
+  td,
+  td img {
     vertical-align: middle;
   }
 }
 
-input, select, button, textarea {
+input,
+select,
+button,
+textarea {
   margin: 0;
   font-size: 100%;
 }
 
-input[type="button"], input[type="submit"], button {
+input[type="button"],
+input[type="submit"], button {
   cursor: pointer;
 }
 
@@ -43,7 +51,7 @@ input[type="radio"] {
 
 ::-webkit-contacts-auto-fill-button {
   visibility: hidden;
-  display: none !important;
+  display: none;
   pointer-events: none;
   position: absolute;
   right: 0;
@@ -51,7 +59,7 @@ input[type="radio"] {
 
 ::-webkit-credentials-auto-fill-button {
   visibility: hidden;
-  display: none !important;
+  display: none;
   pointer-events: none;
   position: absolute;
   right: 0;
@@ -87,11 +95,21 @@ sup {
   font-size: smaller;
 }
 
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+menu,
+nav,
+section {
   display: block;
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
 }
 
@@ -102,8 +120,8 @@ ul, ol {
   -webkit-focus-ring-color: rgba(255, 255, 255, 0);
   outline: none;
 
-  &:before,
-  &:after {
+  &::before,
+  &::after {
     box-sizing: border-box;
   }
 
