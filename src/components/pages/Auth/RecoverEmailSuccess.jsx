@@ -8,7 +8,7 @@ function RecoverEmailSuccess(props) {
 
   return (
     <AuthPanel>
-      <div className="text-center mb_36">
+      <div className="align-center mb-36">
         <svg width="80px" height="80px" viewBox="0 0 80 80" version="1.1">
           <g transform="translate(-680.000000, -338.000000)">
             <g transform="translate(498.000000, 216.000000)">

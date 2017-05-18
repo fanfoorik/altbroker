@@ -3,14 +3,10 @@ import React from 'react';
 export default function () {
   return (
     <svg width="0" height="0" style={{ display: 'none' }}>
-      <symbol id="icon_close" width="19" height="19" viewBox="0 0 19 19">
+      <symbol id="icon_close" label="Закрыть" width="19" height="19" viewBox="0 0 19 19">
         <path
-          fill="none"
-          fillRule="evenodd"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="1.4"
-          d="M9.5 9.5L.993.993 9.5 9.5 18.007.993 9.5 9.5zm0 0L.977 18.023 9.5 9.5l8.523 8.523L9.5 9.5z"
+          fillRule="nonzero"
+          d="M10.978 9.281L18.13 2.13C19.26.998 17.564-.7 16.433.433L9.28 7.584 2.071.374C.938-.759-.76.938.372 2.07l7.211 7.211-7.151 7.152C-.7 17.564.998 19.26 2.13 18.13l7.151-7.152 7.226 7.226c1.131 1.131 2.828-.566 1.697-1.697L10.978 9.28z"
         />
       </symbol>
       <symbol id="icon_message" width="20" height="18" viewBox="0 0 20 18">
@@ -272,6 +268,19 @@ export default function () {
         <path
           fillRule="evenodd"
           d="M22.477.459C22.783.153 23.135 0 23.532 0c.398 0 .75.153 1.055.459A1.4 1.4 0 0 1 25 1.49a1.4 1.4 0 0 1-.413 1.032L9.954 17.248l-.183.183a1.33 1.33 0 0 1-1.032.459 1.33 1.33 0 0 1-1.033-.459L.413 10.183A1.4 1.4 0 0 1 0 9.151 1.4 1.4 0 0 1 .413 8.12c.306-.306.657-.458 1.055-.458.397 0 .75.152 1.055.458l6.193 6.193L22.477.459z"
+        />
+      </symbol>
+      <symbol id="icon_check" label="Чек" width="25" height="18" viewBox="0 0 25 18">
+        <path
+          fillRule="evenodd"
+          d="M22.477.459C22.783.153 23.135 0 23.532 0c.398 0 .75.153 1.055.459A1.4 1.4 0 0 1 25 1.49a1.4 1.4 0 0 1-.413 1.032L9.954 17.248l-.183.183a1.33 1.33 0 0 1-1.032.459 1.33 1.33 0 0 1-1.033-.459L.413 10.183A1.4 1.4 0 0 1 0 9.151 1.4 1.4 0 0 1 .413 8.12c.306-.306.657-.458 1.055-.458.397 0 .75.152 1.055.458l6.193 6.193L22.477.459z"
+        />
+      </symbol>
+      <symbol id="icon_menu" label="Меню" width="20" height="17" viewBox="0 0 20 17">
+        <path
+          fill="#313436"
+          fillRule="evenodd"
+          d="M1.1 14h17.8a1.1 1.1 0 0 1 0 2.2H1.1a1.1 1.1 0 0 1 0-2.2zm0-14h17.8a1.1 1.1 0 0 1 0 2.2H1.1a1.1 1.1 0 0 1 0-2.2zm0 7h17.8a1.1 1.1 0 0 1 0 2.2H1.1a1.1 1.1 0 0 1 0-2.2z"
         />
       </symbol>
     </svg>

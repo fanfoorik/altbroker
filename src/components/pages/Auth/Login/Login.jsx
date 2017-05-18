@@ -45,7 +45,7 @@ class Login extends React.Component {
             />
           </div>
 
-          <div className="auth-pane__row mb_36">
+          <div className="auth-pane__row mb-36">
             <LoginPassword
               error={login.form.touch && !login.password.valid}
               value={login.password.value}

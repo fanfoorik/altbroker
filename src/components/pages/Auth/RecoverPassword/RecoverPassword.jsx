@@ -27,7 +27,7 @@ const RecoverPassword = props => {
 			 	props.dispatchPasswordSubmit();
 			}}>
 
-				<div className="auth-pane__subtitle mb_24">Изменение пароля</div>
+				<div className="auth-pane__subtitle mb-24">Изменение пароля</div>
 
 				<div className="recover-pass-errors">
 
@@ -41,7 +41,7 @@ const RecoverPassword = props => {
 
 					<div className="recover-pass__fields">
 						
-						<div className="auth-pane__row mb_24">
+						<div className="auth-pane__row mb-24">
 							<span className="auth-pane__label">Придумайте пароль</span>
 							
 							<label className="input-pane">
@@ -54,7 +54,7 @@ const RecoverPassword = props => {
 
 						</div>
 
-						<div className="auth-pane__row mb_36">
+						<div className="auth-pane__row mb-36">
 
 							<span className="auth-pane__label">Повторите, чтобы не ошибиться</span>
 
@@ -68,13 +68,13 @@ const RecoverPassword = props => {
 
 						</div>
 
-						<div className="mb_24">
+						<div className="mb-24">
 
 							<AuthButton loading={form.loading} type="submit" className="button ext">Сменить пароль</AuthButton>
 
 						</div>
 
-						<div className="text-center">
+						<div className="align-center">
 							<span onClick={props.dispatchToLogin} className="auth-pane__footlink">Вспомнил пароль, войти</span>
 						</div>
 

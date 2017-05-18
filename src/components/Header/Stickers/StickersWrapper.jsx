@@ -7,11 +7,12 @@ import StickerList from './StickerList';
 
 export default function StickersWrapper(props) {
   const {
+    active,
     addSticker,
+    updateStickersOrder,
     removeSticker,
     restoreSticker,
     stickers,
-    stickersObj: { active },
     triggerStickers,
   } = props;
 
@@ -34,19 +35,18 @@ export default function StickersWrapper(props) {
         restoreSticker={restoreSticker}
         stickers={stickers}
         triggerStickers={triggerStickers}
+        updateStickersOrder={updateStickersOrder}
       />
     </div>
   );
 }
 
 StickersWrapper.propTypes = {
+  active: PropTypes.bool.isRequired,
   addSticker: PropTypes.func.isRequired,
+  updateStickersOrder: PropTypes.func.isRequired,
   removeSticker: PropTypes.func.isRequired,
   restoreSticker: PropTypes.func.isRequired,
   stickers: PropTypes.arrayOf(PropTypes.object).isRequired,
-  stickersObj: PropTypes.shape({
-    active: PropTypes.bool,
-    data: PropTypes.array,
-  }).isRequired,
   triggerStickers: PropTypes.func.isRequired,
 };

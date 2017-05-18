@@ -9,7 +9,7 @@ const Work = props => {
   const { head, colleague, subordinates, workDetails } = props.work;
 
   return (
-    <div className="profile-pane mb_24">
+    <div className="profile-pane mb-24">
 
       <div className="profile-pane__title">Работа</div>
 

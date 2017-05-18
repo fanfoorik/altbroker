@@ -39,7 +39,7 @@ export default class StickerNew extends React.Component {
     const isChooseColorStep = this.state.chooseColorStep;
     const isFeelTextStep = this.state.selectedColor;
 
-    // user clicks + to create new Sticker
+    // User clicks '+' to create new Sticker
     if (isChooseColorStep && !isFeelTextStep) {
       return (
         <StickerWithCircles
@@ -50,7 +50,7 @@ export default class StickerNew extends React.Component {
       );
     }
 
-    // user has submitted color of new Sticker
+    // User has submitted color of new Sticker
     if (isChooseColorStep && isFeelTextStep) {
       return (
         <StickerWithTextField
@@ -62,7 +62,7 @@ export default class StickerNew extends React.Component {
       );
     }
 
-    // initial Stickers page state
+    // Initial Stickers page state
     return (
       <CSSTransitionGroup
         transitionName="sticker"
@@ -71,7 +71,7 @@ export default class StickerNew extends React.Component {
         transitionEnterTimeout={500}
         transitionLeaveTimeout={300}
       >
-        <div className="sticker sticker_empty">
+        <div className="sticker">
           <div
             className="sticker__inner sticker__inner_empty"
             onClick={() => this.handleCreateNew()}

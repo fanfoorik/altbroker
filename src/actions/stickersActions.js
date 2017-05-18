@@ -1,8 +1,8 @@
-import { apiUrl } from 'utils/urls';
-import { SET_STICKERS, TRIGGER_STICKERS } from 'constants/headerTypes';
 import ajax from 'utils/ajax';
 import getHeaders from 'utils/getHeaders';
 import handleError from 'utils/handleError';
+import { apiUrl } from 'utils/urls';
+import { SET_STICKERS, TRIGGER_STICKERS } from 'constants/headerTypes';
 
 function fetchStickers(dispatch) {
   ajax.post(`${apiUrl}tools/stiker/`, {},
@@ -22,8 +22,8 @@ function fetchStickers(dispatch) {
 export const addSticker = (text, color) => (dispatch) => {
   ajax.post(`${apiUrl}tools/stiker/add/`,
     {
-      TEXT: text,
       COLOR: color,
+      TEXT: text,
     },
     {
       headers: getHeaders(),
@@ -56,4 +56,22 @@ export const triggerStickers = (id) => {
     type: TRIGGER_STICKERS,
     payload: id,
   };
+};
+
+export const updateStickersOrder = sortedIds => (dispatch) => {
+  ajax.post(`${apiUrl}tools/stiker/`,
+    {
+      SORT: sortedIds,
+    },
+    {
+      headers: getHeaders(),
+    })
+    .then(res => res.data)
+    .then((data) => {
+      dispatch({
+        type: SET_STICKERS,
+        payload: data.ANSWER,
+      });
+    })
+    .catch(error => handleError(error));
 };

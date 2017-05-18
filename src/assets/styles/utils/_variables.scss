@@ -11,6 +11,9 @@ $c-white: #fff;
 // Body
 $c-body-bg: $c-grey-light;
 
+// Borders
+$c-border-main: #e1e5e9;
+
 // Buttons
 $c-btn-active: $c-blue-dark;
 $c-btn-disabled: $c-grey-light;
@@ -21,17 +24,30 @@ $c-btn-primary: $c-blue-main;
 $c-droptip-bg: #f5f7f9;
 $c-droptip-border: #e1e3e9;
 
+// Fonts
+$f-gothapro: "gothapro", Arial, sans-serif;
+$f-icons: "icons";
+$f-path: "../fonts/";
+$f-ptsans: "ptsans", Arial, sans-serif;
+
+// Heights
+$h-header: 60px;
+
 // Icons
 $c-icon-stoke: $c-grey-main;
 
-// Borders
-$c-border-main: #e1e5e9;
+// Images
+$i-path: "../images/";
 
 // Inputs
 $c-input-bg: #f5faff;
 $c-input-border: $c-blue-main;
 $c-input-error-bg: #fae5e8;
 $c-input-error-border: $c-red-main;
+
+// Notification
+$c-notification-bg: #6b6f74;
+$c-notification-message-hider: #6b6f74;
 
 // Stickers
 $c-sticker-bg-blue: #6fb6ff;
@@ -50,17 +66,9 @@ $c-text-grey: $c-grey-main;
 $c-text-list: #828282;
 $c-text-main: #333;
 
-// Fonts
-$f-path: "../fonts/";
-$f-gothapro: "gothapro", Arial, sans-serif;
-$f-icons: "icons";
-$f-ptsans: "ptsans", Arial, sans-serif;
-
-// Heights
-$h-header: 60px;
-
-// Images
-$i-path: "../images/";
-
 // Shadows
 $s-header-shadow: #e2e2e2;
+
+// User
+$c-avatar-bg: #f5f7f9;
+$c-avatar-fill: #c0c5ca;

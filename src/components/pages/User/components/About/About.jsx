@@ -2,7 +2,7 @@ import React from "react";
 
 const About = props => {
     return(
-        <div className="profile-pane mb_24 clear">
+        <div className="profile-pane mb-24 clear">
             <div className="profile-pane__title">О себе</div>
 
             <div className="profile-image">
@@ -48,7 +48,7 @@ const About = props => {
                     </div>
                 </div>
 
-                <div className="profile-info__row mb_0">
+                <div className="profile-info__row mb-0">
                     <div className="profile__label">Моя история успеха</div>
                     <textarea className="textarea" rows="5" cols="5" defaultValue="sdfsdfdsf"></textarea>
                 </div>

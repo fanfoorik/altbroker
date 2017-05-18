@@ -30,7 +30,7 @@ class UserCheckword extends React.Component {
 				{
 					user.error &&
 
-					<div className="text-center">
+					<div className="align-center">
 						<div className="mb_36">
 							
 							<svg width="80" height="80" viewBox="0 0 80 80">
@@ -42,13 +42,13 @@ class UserCheckword extends React.Component {
 
 						</div>
 
-						<div className="auth-pane__text mb_24 color_red">Ссылка недействительна.</div>
+						<div className="auth-pane__text mb-24 color_red">Ссылка недействительна.</div>
 
-						<div className="auth-pane__text mb_24">
+						<div className="auth-pane__text mb-24">
 							Либо вы уже её использовали, либо её кто то сломал.
 						</div>
 
-						<div className="text-center">
+						<div className="align-center">
 							<span onClick={this.props.dispatchToRecoverEmail} className="auth-pane__footlink">Восстановить пароль ещё раз</span>
 						</div>
 					</div>

@@ -10,7 +10,7 @@ function RecoverPasswordSuccess(props) {
 
   return (
     <AuthPanel>
-      <div className="text-center mb_36">
+      <div className="align-center mb-36">
         <svg fill="#4DA1FF" width="80" height="80" viewBox="0 0 80 80">
           <path
             fillRule="evenodd"
@@ -19,8 +19,8 @@ function RecoverPasswordSuccess(props) {
         </svg>
       </div>
 
-      <div className="text-center">
-        <div className="auth-pane__text mb_12">
+      <div className="align-center">
+        <div className="auth-pane__text mb-12">
           { htmlParser(form.successMessage) }
         </div>
         <span onClick={dispatchToLogin} className="auth-pane__footlink" role="link">Войти</span>

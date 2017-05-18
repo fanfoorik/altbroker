@@ -31,12 +31,12 @@ const RecoverEmail = (props) => {
           Введите свой адрес электронной почты и мы вышлем вам ссылку для изменения пароля.
         </div>
 
-        <div className="mb_24">
+        <div className="mb-24">
           <AuthError error={recoverEmail.form.error} message={recoverEmail.form.message} />
           <AuthError error={recoverEmail.form.touch && !recoverEmail.email.valid} message={recoverEmail.email.message} />
         </div>
 
-        <div className="auth-pane__row mb_24">
+        <div className="auth-pane__row mb-24">
           <LoginEmail
             error={recoverEmail.form.touch && !recoverEmail.email.valid}
             value={recoverEmail.email.value}

@@ -36,6 +36,26 @@
   padding-top: 20px;
 }
 
+.avatar {
+  background-color: $c-avatar-bg;
+  background-position: 50% 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  display: inline-block;
+  height: 86px;
+  position: relative;
+  width: 86px;
+
+  &__icon {
+    left: 50%;
+    fill: $c-avatar-fill;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
 .droptip {
   width: 400px;
   background: $c-droptip-bg;
@@ -168,76 +188,6 @@
     svg {
       fill: #c0c5ca;
     }
-  }
-}
-
-.nav {
-  text-align: center;
-
-  &:hover {
-    .nav__link {
-      border-bottom-color: transparent;
-    }
-  }
-
-  &__section {
-    display: inline-block;
-    position: relative;
-    padding: 0 20px;
-
-    &:hover {
-      &::before {
-        position: absolute;
-        left: 50%;
-        bottom: -8px;
-        width: 16px;
-        height: 16px;
-        margin-left: -8px;
-        background: $c-white;
-        z-index: 100;
-        transform: rotate(-45deg);
-        content: "";
-      }
-
-      .nav__subnav {
-        display: block !important;
-      }
-
-      .nav__link {
-        color: $c-blue-main;
-      }
-    }
-  }
-
-  &__link {
-    display: block;
-    height: $h-header;
-    padding: 18px 16px 0;
-    color: $c-text-grey;
-    font-size: 16px;
-    border-bottom: 2px solid transparent;
-
-    &:hover {
-      text-decoration: none;
-    }
-
-    &_active {
-      border-bottom-color: rgba(77, 161, 255, 0.8);
-    }
-  }
-
-  &__subnav {
-    position: absolute;
-    left: 0;
-    top: 100%;
-    min-width: 1200px;
-    margin: 0 -3000px;
-    padding: 0 3000px;
-    white-space: nowrap;
-    background: $c-blue-light;
-    display: none;
-    box-sizing: content-box;
-    text-align: left;
   }
 }
 
@@ -493,7 +443,7 @@
       color: $c-red-main;
 
       .search__close-icon {
-        stroke: $c-red-main;
+        fill: $c-red-main;
       }
     }
   }
@@ -501,7 +451,7 @@
   &__close-icon {
     margin: 3px 0 0 22px;
     vertical-align: top;
-    stroke: #666;
+    fill: #666;
   }
 
   &__text {

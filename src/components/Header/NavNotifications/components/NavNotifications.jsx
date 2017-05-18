@@ -24,7 +24,7 @@ export default function NavNotifications(props) {
           </div>
           <div className="droptip__content clear">
             <div className="notifications__empty">
-              <Icon fill="#e1e5e9" className="mb_24" icon="bell" width="86" height="99" viewBox="0 0 86 99" />
+              <Icon fill="#e1e5e9" className="mb-24" icon="bell" width="86" height="99" viewBox="0 0 86 99" />
               <div>Новых уведомлений нет</div>
             </div>
           </div>

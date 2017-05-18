@@ -157,26 +157,6 @@ textarea,
   }
 }
 
-.avatar {
-  width: 86px;
-  height: 86px;
-  display: inline-block;
-  position: relative;
-  border-radius: 50%;
-  background-size: cover;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  background-color: #f5f7f9;
-
-  &__icon {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    fill: #c0c5ca;
-  }
-}
-
 .no-padding {
-  padding: 0;
+  padding: 0 !important;
 }
