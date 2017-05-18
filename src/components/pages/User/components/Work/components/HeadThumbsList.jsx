@@ -1,68 +1,94 @@
-import React, { Component } from "react";
-import { hostUrl } from 'utils/urls.js';
-import Icon from "components/Icon";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { hostUrl, indexUrl } from 'utils/urls.js';
+import { Link } from 'react-router';
+import IsActive from 'utils/IsActive';
+import Avatar from 'components/Avatar';
+import Icon from 'components/Icon';
 
-class UserThumbsList extends Component {
+const HeadThumbsList = (props) => {
+  const { data } = props;
 
-    constructor(props){
-        super(props);
-        this.state = {
-            trigger:false,
-        }
-    };
+  return (
+    <div className="user-heads">
 
-    filterThumbs = (arr) => {
+      <div className="profile__label user-heads__label">{props.title}</div>
 
-        return arr.filter((item, ind)=>{
+      {
+        data.map((item) => {
+          const {
+            ID: id,
+            NAME: name,
+            PERSONAL_PHOTO_TEXT_86x86: avatar,
+            LAST_NAME: lastName,
+            WORK_PHONE: workPhone,
+            EMAIL: email,
+            WORK_POSITION: workPosition,
+            UF_CITY_TEXT: city,
+            UF_FACEBOOK: facebook,
+            UF_INSTAGRAMM: instagram,
+            UF_SKYPE: skype,
+            UF_TWITTER: twitter,
+            UF_VK: vk,
+          } = item;
 
-            if(!this.state.trigger){
-                if(ind < 8) return item;
-                return false;
-            }
-            return item;
-        });
-    };
+          return (
+            <div className="user-heads__list user-head clear" key={`user-thumb-${id}`}>
 
-    triggerThumbs = () => {
-        this.setState({"trigger": !this.state.trigger});
-    };
+              <div key={`user-thumb-${id}`} className="user-head__thumb user-thumb">
+                <Link to={`${indexUrl}user/${id}/`}>
+                  <Avatar src={avatar} className="user-thumb__avatar" sizes={36} />
+                </Link>
 
-    render(){
-
-        let { data } = this.props;
-        let thumbs = this.filterThumbs(data);
-
-        return(
-            <div className="user-thumbs">
-
-                <div className="profile__label user-thumbs__label">{this.props.title}</div>
-
-                <div className="user-thumbs__list">
-                    {
-                        thumbs.map((item, ind)=>{
-                            return(
-                                <div key={`user-thumb-${item.ID}`}  className="user-thumbs__thumb user-thumb"
-                                     style={item.PERSONAL_PHOTO_TEXT_86x86 && {backgroundImage:"url("+hostUrl+item.PERSONAL_PHOTO_TEXT_86x86+")"}} >
-
-                                    {!!item.PERSONAL_PHOTO_TEXT_86x86 || <Icon className="user-thumb__default-pic" icon="team" width="26" height="22" />}
-
-                                    <div className="thumb-tooltip user-thumb__tooltip">
-                                        <div className="thumb-tooltip__paragraph">{item.NAME +" "+ item.LAST_NAME}</div>
-                                        <div className="thumb-tooltip__paragraph">{item.WORK_PHONE}</div>
-                                        <div className="thumb-tooltip__paragraph">{item.EMAIL}</div>
-                                    </div>
-
-                                </div>
-                            )
-                        })
-                    }
+                <div className="thumb-tooltip user-thumb__tooltip">
+                  <div className="thumb-tooltip__paragraph">{workPhone}</div>
+                  <div className="thumb-tooltip__paragraph">{email}</div>
+                  <div className="thumb-social">
+                    <IsActive active={!!facebook}>
+                      <a href={facebook} className="thumb-social__link" target="_blank" rel="noopener noreferrer">
+                        <Icon icon="facebook" width="20" height="20" className="thumb-social__icon" />
+                      </a>
+                    </IsActive>
+                    <IsActive active={!!instagram}>
+                      <a href={instagram} className="thumb-social__link" target="_blank" rel="noopener noreferrer">
+                        <Icon icon="instagram" width="20" height="20" className="thumb-social__icon" />
+                      </a>
+                    </IsActive>
+                    <IsActive active={!!skype}>
+                      <a href={`skype:${skype}?chat`} className="thumb-social__link">
+                        <Icon icon="skype" width="20" height="20" className="thumb-social__icon" />
+                      </a>
+                    </IsActive>
+                    <IsActive active={!!twitter}>
+                      <a href={twitter} className="thumb-social__link" target="_blank" rel="noopener noreferrer">
+                        <Icon icon="twitter" width="20" height="20" className="thumb-social__icon" />
+                      </a>
+                    </IsActive>
+                    <IsActive active={!!vk}>
+                      <a href={vk} className="thumb-social__link" target="_blank" rel="noopener noreferrer">
+                        <Icon icon="vk" width="20" height="20" className="thumb-social__icon" />
+                      </a>
+                    </IsActive>
+                  </div>
                 </div>
+              </div>
 
-                <span className="user-thumbs__trigger" onClick={this.triggerThumbs}>{this.state.trigger ? "Свернуть" : "Показать всех"}</span>
+              <div className="user-head__info">
+                <div className="user-head__name">{`${name} ${lastName}`}</div>
+                <div className="user-head__position">{`${workPosition} (${city})`}</div>
+              </div>
 
             </div>
-        )
-    };
-}
+          );
+        })
+      }
+    </div>
+  );
+};
 
-export default UserThumbsList;
+HeadThumbsList.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  title: PropTypes.string.isRequired,
+};
+
+export default HeadThumbsList;

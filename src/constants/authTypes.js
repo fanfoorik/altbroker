@@ -1,3 +1,4 @@
+export const AUTH_USER = 'AUTH_USER';
 export const AUTH_REDIRECT = 'AUTH_REDIRECT';
 export const LOGIN_PANEL = 'LOGIN_PANEL';
 export const RECOVER_EMAIL_PANEL = 'RECOVER_EMAIL_PANEL';

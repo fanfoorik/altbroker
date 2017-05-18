@@ -1,22 +1,12 @@
-import { connect } from 'react-redux';
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Work from '../components/Work/Work';
 
-function WorkContainer(props) {
-  const data = {
-    user: props.user,
-    work: props.work,
-  };
-
-  return (
-    <Work data={data} />
-  );
-}
+const WorkContainer = props => <Work {...props} />;
 
 function mapStateToProps(state) {
   return {
-    user: state.user.user,
     work: state.user.work,
   };
 }

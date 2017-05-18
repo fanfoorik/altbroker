@@ -1,32 +1,47 @@
+import React  from 'react';
 import { hostUrl } from 'utils/urls.js';
-import React from 'react';
-
 import IsActive from 'utils/IsActive';
-import ProfileDetails from './components/ProfileDetails';
+import HeadThumbsList from './components/HeadThumbsList';
 import UserThumbsList from './components/UserThumbsList';
+import ProfileDetails from './components/ProfileDetails';
 
-export default function Work(props) {
-  const { work, user } = props.data;
+const Work = props => {
+  const { head, colleague, subordinates, workDetails } = props.work;
 
   return (
     <div className="profile-pane mb_24">
+
       <div className="profile-pane__title">Работа</div>
-      <ProfileDetails data={user} />
+
+      <ProfileDetails data={workDetails} />
 
       <div>
+
+        <IsActive
+          component={HeadThumbsList}
+          active={!!head.length}
+          title="Pуководители"
+          data={head}
+        />
+
         <IsActive
           component={UserThumbsList}
-          active={!!work.COLLEAGUE.length}
-          title="Мои коллеги"
-          data={work.COLLEAGUE}
+          active={!!colleague.length}
+          title="Коллеги"
+          data={colleague}
         />
+
         <IsActive
           component={UserThumbsList}
-          active={!!work.SUBORDINATES.length}
-          title="Мои подчиненные"
-          data={work.SUBORDINATES}
+          active={!!subordinates.length}
+          title="Подчиненные"
+          data={subordinates}
         />
+
       </div>
+
     </div>
   );
-}
+};
+
+export default Work;

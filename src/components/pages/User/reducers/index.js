@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
-
-import user from './userDataReducer';
-import work from './userWorkReducer';
+import data from './userDataReducer';
+import work from '../components/Work/reducers';
+import contacts from '../components/Contacts/reducers';
 
 export default combineReducers({
-  user,
+  data,
   work,
+  contacts,
 });

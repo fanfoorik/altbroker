@@ -1,8 +1,8 @@
-import { apiUrl } from 'utils/urls.js';
-import { SET_USER_DATA, SET_USER_WORK } from 'constants/userTypes';
 import ajax from 'utils/ajax';
 import getHeaders from 'utils/getHeaders';
 import handleError from 'utils/handleError';
+import { apiUrl } from 'utils/urls.js';
+import { SET_USER_DATA, SET_USER_WORK, SET_USER_CONTACTS } from 'constants/userTypes';
 
 export default function fetchUser(userId) {
   return (dispatch) => {
@@ -12,7 +12,6 @@ export default function fetchUser(userId) {
       .then(response => response.data)
       .then((data) => {
         const { USER: user } = data.ANSWER;
-        const { WORK: work } = user;
 
         dispatch({
           type: SET_USER_DATA,
@@ -21,7 +20,12 @@ export default function fetchUser(userId) {
 
         dispatch({
           type: SET_USER_WORK,
-          payload: work,
+          payload: user,
+        });
+
+        dispatch({
+          type: SET_USER_CONTACTS,
+          payload: user,
         });
       })
       .catch(error => handleError(error, dispatch));
