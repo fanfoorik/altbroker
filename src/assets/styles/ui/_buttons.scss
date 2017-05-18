@@ -1,0 +1,84 @@
+@import "../utils/variables";
+
+.btn {
+  background-color: $c-white;
+  background-image: none;
+  border: 2px solid $c-btn-primary;
+  border-radius: 3px;
+  color: $c-text-main;
+  cursor: pointer;
+  display: inline-block;
+  height: 36px;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1.4;
+  padding: 0 20px;
+  position: relative;
+  text-align: center;
+  transition: 0.3s;
+
+  &::after {
+    border-radius: 100%;
+    bottom: 0;
+    box-shadow: 0 8px 26px -10px $c-white;
+    clip: rect(50px, auto, 70px, auto);
+    content: "";
+    height: 48px;
+    left: 0;
+    position: absolute;
+    pointer-events: none;
+    right: 0;
+    transition: 0.3s;
+  }
+
+  &:hover {
+    background-color: $c-btn-hovered;
+    border-color: $c-btn-hovered;
+    color: $c-white;
+
+    &::after {
+      box-shadow: 0 8px 26px -10px $c-btn-hovered;
+    }
+  }
+
+  &:active {
+    background: $c-btn-active;
+    border-color: $c-btn-active;
+    color: $c-white;
+
+    &::after {
+      box-shadow: 0 8px 26px -10px $c-btn-active;
+    }
+  }
+
+  &-primary {
+    background: $c-btn-primary;
+    color: $c-white;
+
+    &::after {
+      box-shadow: 0 8px 26px -10px $c-btn-primary;
+    }
+  }
+
+  &-block {
+    display: block;
+    width: 100%;
+  }
+
+  &-disabled,
+  &[disabled],
+  &[disabled="disabled"] {
+    background: $c-btn-disabled;
+    border-color: $c-btn-disabled;
+    color: $c-text-disabled;
+    cursor: default;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  &-lg {
+    height: 48px;
+  }
+}

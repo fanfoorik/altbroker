@@ -31,7 +31,12 @@ const fetchInit = () => (dispatch) => {
     })
     .then(res => res.data)
     .then((data) => {
-      const { MENU: menu, PATCHNOUTS: patchNotes, USER: usertop } = data.ANSWER;
+      const {
+        MENU: menu,
+        PATCHNOUTS: patchNotes,
+        USER: usertop,
+        STICKERS: stickers,
+      } = data.ANSWER;
 
       dispatch({
         type: types.SET_PATCH_NOTES,
@@ -46,6 +51,11 @@ const fetchInit = () => (dispatch) => {
       dispatch({
         type: types.SET_NAVIGATION,
         payload: parseNav(menu),
+      });
+
+      dispatch({
+        type: types.SET_STICKERS,
+        payload: stickers,
       });
     })
     .catch(error => handleError(error, dispatch));

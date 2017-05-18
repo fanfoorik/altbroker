@@ -5,17 +5,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const dev = process.env.NODE_ENV === 'development';
 
-const cssDev = ['style-loader', 'css-loader', 'sass-loader'];
+const cssDev = ['style-loader', 'css-loader', 'sass-loader', 'import-glob-loader'];
 const cssProd = ExtractTextPlugin.extract({
   fallback: 'style-loader',
-  use: ['css-loader', 'sass-loader'],
+  use: ['css-loader', 'sass-loader', 'import-glob-loader'],
   publicPath: '../',
 });
 
 const cssConfig = dev ? cssDev : cssProd;
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/index.jsx',
 
   output: {
     path: path.resolve(__dirname, 'build'),

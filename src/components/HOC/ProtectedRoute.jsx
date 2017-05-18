@@ -1,5 +1,5 @@
-import React from 'react';
 import { connect } from 'react-redux';
+import React from 'react';
 
 import { indexUrl } from 'utils/urls.js';
 
@@ -7,7 +7,7 @@ export default (Component) => {
   class Authentication extends React.Component {
     static contextTypes = {
       router: React.PropTypes.object,
-    }
+    };
 
     componentWillMount() {
       if (!this.props.authenticated) {

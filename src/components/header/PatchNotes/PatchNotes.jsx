@@ -4,7 +4,7 @@ import htmlParser from 'html-react-parser';
 
 import { triggerPatchNotes, fetchPatchNotes } from './actions/patchNotesAction';
 import DropTip from 'components/DropTip/DropTip';
-import IsActive from 'components/IsActive';
+import IsActive from 'utils/IsActive';
 import Icon from 'components/Icon';
 
 const PatchNotes = (props) => {

@@ -1,0 +1,283 @@
+@import "../utils/variables";
+
+.stickers {
+  float: right;
+
+  &__overlay {
+    background: $c-sticker-overlay;
+    left: 0;
+    top: $h-header;
+    height: calc(100vh - #{$h-header});
+    padding: 6px 0;
+    position: absolute;
+    overflow: auto;
+    width: 100%;
+    z-index: 400;
+  }
+}
+
+.sticker {
+  background: $c-sticker-bg-yellow;
+  border-radius: 4px;
+  float: left;
+  margin: 18px;
+  position: relative;
+  transition: background-color 0.3s;
+  width: calc(25% - 36px);
+
+  &::before {
+    content: "";
+    display: block;
+    height: 0;
+    padding-top: 100%;
+    width: 0;
+  }
+
+  &__inner {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+    &_empty {
+      padding: 96px 0 0;
+    }
+  }
+
+  &__header {
+    height: 38px;
+    padding: 12px 24px 0;
+    border-bottom: 1px solid rgba($c-sticker-muted-text, 0.15);
+    color: rgba($c-black, 0.3);
+    font-size: 12px;
+    opacity: 1;
+    transition: 0.3s;
+
+    .sticker:hover & {
+      opacity: 0;
+    }
+  }
+
+  &__header-slide {
+    cursor: pointer;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    transform: translateY(-100%);
+    visibility: hidden;
+    width: 100%;
+
+    &:hover {
+      color: $c-sticker-muted-text;
+    }
+
+    .sticker__inner:hover & {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+      z-index: 1;
+    }
+  }
+
+  &__time {
+    float: right;
+  }
+
+  &__name {
+    float: left;
+    max-width: 130px;
+    overflow: hidden;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__content {
+    background: transparent;
+    border: 0;
+    bottom: 24px;
+    font-size: 16px;
+    left: 0;
+    line-height: 24px;
+    overflow: auto;
+    position: absolute;
+    padding: 0 24px;
+    top: 58px;
+    width: 100%;
+
+    &::placeholder {
+      color: rgba($c-sticker-placeholder, 0.5);
+    }
+
+    &_empty {
+      top: 177px;
+    }
+
+    &_textarea {
+      top: 21px;
+    }
+  }
+
+  &__plus {
+    height: 44px;
+    margin: auto;
+    position: relative;
+    width: 44px;
+
+    &::after,
+    &::before {
+      background: $c-white;
+      content: "";
+      position: absolute;
+    }
+
+    &::before {
+      height: 2px;
+      top: 50%;
+      transform: translateY(-1px);
+      width: 100%;
+    }
+
+    &::after {
+      height: 100%;
+      left: 50%;
+      width: 2px;
+    }
+  }
+}
+
+.sticker_empty {
+  background: none;
+  border: 1px dashed $c-white;
+  color: $c-white;
+  cursor: pointer;
+  font-size: 20px;
+  transition: 0.3s;
+
+  &:hover {
+    background: $c-sticker-empty-hover;
+    border-color: $c-sticker-empty-hover;
+  }
+}
+
+.sticker_new {
+  background: $c-sticker-empty-hover;
+  border-color: $c-sticker-empty-hover;
+}
+
+.sticker__circle {
+  background-color: $c-sticker-bg-yellow;
+  border: 1px solid $c-sticker-bg-yellow;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 60px;
+  position: relative;
+  transition: 0.3s;
+  width: 60px;
+
+  &s-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+    justify-content: space-between;
+    padding: 41px 64px 56px;
+  }
+
+  &:nth-child(2) {
+    background-color: $c-sticker-bg-pink;
+    border-color: $c-sticker-bg-pink;
+  }
+
+  &:nth-child(3) {
+    background-color: $c-sticker-bg-green;
+    border-color: $c-sticker-bg-green;
+  }
+
+  &:nth-child(4) {
+    background-color: $c-sticker-bg-blue;
+    border-color: $c-sticker-bg-blue;
+  }
+
+  &.active {
+    background-color: transparent;
+    border-color: transparent;
+  }
+
+  &.selected {
+    background-color: transparent;
+    border-color: rgba($c-sticker-checkbox-fill, 0.2);
+  }
+}
+
+.sticker__footer {
+  align-items: stretch;
+  bottom: 0;
+  border-top: 1px solid rgba($c-sticker-muted-text, 0.15);
+  color: rgba($c-sticker-muted-text, 0.5);
+  height: 50px;
+  justify-content: space-around;
+  display: flex;
+  position: absolute;
+  width: 100%;
+
+  &-item {
+    cursor: pointer;
+    display: flex;
+    flex-basis: 50%;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    transition: 0.3s;
+
+    &:hover,
+    &.active {
+      color: $c-sticker-muted-text;
+    }
+  }
+}
+
+.sticker__checkbox {
+  bottom: 0;
+  fill: $c-sticker-checkbox-fill;
+  left: 0;
+  margin: auto;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: 0.3s;
+
+  .active &,
+  .selected & {
+    opacity: 0.4;
+  }
+}
+
+.sticker-enter {
+  opacity: 0.01;
+
+  &.sticker-enter-active {
+    opacity: 1;
+    transition: opacity 0.5s;
+  }
+}
+
+.sticker-leave {
+  opacity: 1;
+
+  &.sticker-leave-active {
+    opacity: 0.01;
+    transition: opacity 0.3s;
+  }
+}
+
+.sticker-appear {
+  opacity: 0.01;
+
+  &.sticker-appear-active {
+    opacity: 1;
+    transition: opacity 0.5s;
+  }
+}
+

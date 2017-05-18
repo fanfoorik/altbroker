@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 
 import { hostUrl, indexUrl } from 'utils/urls.js';
 import DropTip from 'components/DropTip/DropTip';
-import IsActive from 'components/IsActive';
+import IsActive from 'utils/IsActive';
 import Icon from 'components/Icon';
 
 import triggerUser from './actions/userAction';
@@ -31,6 +31,7 @@ function Usertop(props) {
         className={`usertop__trigger ${usertop.active ? 'active' : ''}`}
         onClick={dispatchTriggerUsers}
         role="button"
+        tabIndex={0}
       >
         <div className="usertop__trigger-pic">{getAvatar(usertop, 50)}</div>
       </div>
@@ -41,7 +42,7 @@ function Usertop(props) {
             <div className="usertop__image">{getAvatar(usertop, 70)}</div>
 
             <div className="overflow_hidden">
-              <div className="usertop__name">{usertop.data.name + " " + usertop.data.lastName}</div>
+              <div className="usertop__name">{`${usertop.data.name} ${usertop.data.lastName}`}</div>
               <div className="usertop__position">{usertop.data.position}</div>
               <div className="usertop-scores">
                 <div className="usertop-score usertop-score_score">
@@ -61,7 +62,7 @@ function Usertop(props) {
             <Link
               className="usertop__link"
               onClick={dispatchTriggerUsers}
-              to={indexUrl + "user/" + usertop.data.id}
+              to={`${indexUrl}user/${usertop.data.id}/`}
             >Редактировать профиль</Link>
             <span className="usertop__link">Мне нужна помощь</span>
             <span
@@ -71,6 +72,7 @@ function Usertop(props) {
                 dispatchLogoutUser();
               }}
               role="link"
+              tabIndex={0}
             >Выйти</span>
           </div>
         </DropTip>
@@ -79,13 +81,13 @@ function Usertop(props) {
   );
 }
 
-const mapStateToProps = (state) => {
+function mapStateToProps(state) {
   return {
     usertop: state.header.usertop,
   };
-};
+}
 
-const mapDispatchToProps = (dispatch) => {
+function mapDispatchToProps(dispatch) {
   return {
     dispatchTriggerUsers() {
       dispatch(triggerUser());
@@ -94,6 +96,6 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(logoutUser());
     },
   };
-};
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Usertop);
