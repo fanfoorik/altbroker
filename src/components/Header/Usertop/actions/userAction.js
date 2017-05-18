@@ -1,5 +1,7 @@
-// import ajax from "js/ajax";
+import { TRIGGER_USER } from 'constants/userTypes';
 
-export const triggerUser = () => {
-	return {type: "TRIGGER_USER"};
+const triggerUser = () => {
+  return { type: TRIGGER_USER };
 };
+
+export default triggerUser;

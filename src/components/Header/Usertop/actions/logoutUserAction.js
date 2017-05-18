@@ -1,22 +1,25 @@
-import ajax from "js/ajax";
-import getHeaders from "js/getHeaders";
-import handleError from "js/handleError";
-import { api_url } from "path.js";
+import { apiUrl } from 'utils/urls';
+import { AUTH_USER } from 'constants/userTypes';
+import ajax from 'utils/ajax';
+import getHeaders from 'utils/getHeaders';
+import handleError from 'utils/handleError';
 
-export const logoutUser = url => dispatch => {
-	
-	ajax.post(api_url+"user/logout/",{
-		LOGIN:""
-	},
-	{
-    	headers:getHeaders()
-    })
-	.then(res => {
-		localStorage.removeItem('login');
-		localStorage.removeItem('token');
-		dispatch({type: "AUTH_USER", payload: false});
-	})
-	.catch(function(error){
-		handleError(error, dispatch);
-	});
+const logoutUser = () => (dispatch) => {
+  ajax.post(
+    `${apiUrl}user/logout/`,
+    {
+      LOGIN: '',
+    },
+    {
+      headers: getHeaders(),
+    },
+  )
+  .then(() => {
+    localStorage.removeItem('login');
+    localStorage.removeItem('token');
+    dispatch({ type: AUTH_USER, payload: false });
+  })
+  .catch(error => handleError(error, dispatch));
 };
+
+export default logoutUser;

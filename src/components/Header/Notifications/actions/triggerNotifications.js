@@ -1,4 +1,5 @@
+import * as types from 'constants/headerTypes';
 
 export const triggerNotifications = () => {
-	return {type: "TRIGGER_NOTIFICATIONS"};
+  return { type: types.TRIGGER_NOTIFICATIONS };
 };

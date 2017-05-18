@@ -1,22 +1,22 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const IsActive = ({component, active, ...props}) => {
+const IsActive = (props) => {
+  const { component, active, ...rest } = props;
 
-	if(component && active){
-		const Component = component;
-		return <Component {...props} />
-	}
+  if (component && active) {
+    const Component = component;
+    return <Component {...rest} />;
+  }
 
-	if(active){
-		return props.children
-	}
+  if (active) return rest.children;
 
-	return false;
+  return false;
 };
 
 IsActive.propTypes = {
-	active: PropTypes.bool.isRequired
-}
+  active: PropTypes.bool.isRequired,
+  component: PropTypes.func,
+};
 
 export default IsActive;
