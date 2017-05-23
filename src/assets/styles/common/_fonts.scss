@@ -1,0 +1,23 @@
+@import "../utils/variables";
+
+@font-face {
+  font-family: "gothapro";
+  src: url("#{$f-path}/gothapro-medium.eot");
+  src: url("#{$f-path}/gothapro-medium.eot?#iefix") format("embedded-opentype"),
+       url("#{$f-path}/gothapro-medium.woff2") format("woff2"),
+       url("#{$f-path}/gothapro-medium.woff") format("woff"),
+       url("#{$f-path}/gothapro-medium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ptsans";
+  src: url("#{$f-path}/ptsans.eot");
+  src: url("#{$f-path}/ptsans.eot?#iefix") format("embedded-opentype"),
+       url("#{$f-path}/ptsans.woff2") format("woff2"),
+       url("#{$f-path}/ptsans.woff") format("woff"),
+       url("#{$f-path}/ptsans.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}

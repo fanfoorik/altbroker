@@ -57,7 +57,7 @@ class Login extends React.Component {
 
           <div className="mb_12">
             <AuthButton
-              className="btn btn-primary btn-full-width"
+              className="btn btn-primary btn-lg btn-block"
               loading={login.form.loading}
               type="submit"
             >Войти</AuthButton>

@@ -1,9 +1,4 @@
-@import "reset";
-@import "fonts";
-@import "ui-style";
-@import "layout";
-@import "base";
-@import "header";
-@import "navigation";
-@import "auth";
-@import "user";
+@import "vendors/**/*";
+@import "ui/ui";
+@import "common/common";
+@import "pages/pages";

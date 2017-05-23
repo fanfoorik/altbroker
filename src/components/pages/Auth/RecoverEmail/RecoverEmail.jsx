@@ -9,7 +9,6 @@ import LoginEmail from '../components/LoginEmail';
 import recoverEmail from './actions/recoverEmailAction';
 import recoverEmailSubmit from './actions/recoverEmailSubmitAction';
 
-
 const RecoverEmail = (props) => {
   const {
     dispatchRecoverEmail,
@@ -49,7 +48,7 @@ const RecoverEmail = (props) => {
           <AuthButton
             loading={recoverEmail.form.loading}
             type="submit"
-            className="btn btn-primary btn-full-width"
+            className="btn btn-primary btn-lg btn-block"
           >Отправить</AuthButton>
         </div>
 

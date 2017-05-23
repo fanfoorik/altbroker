@@ -3,19 +3,26 @@ $c-black: #000;
 $c-blue-dark: #4c8cd2;
 $c-blue-light: #6fb6ff;
 $c-blue-main: #4da1ff;
+$c-grey-main: #6b6f74;
+$c-grey-light: #f5f7f9;
 $c-red-main: #d0011b;
 $c-white: #fff;
 
+// Body
+$c-body-bg: $c-grey-light;
+
 // Buttons
 $c-btn-active: $c-blue-dark;
-$c-btn-disabled: #f5f7f9;
+$c-btn-disabled: $c-grey-light;
 $c-btn-hovered: $c-blue-light;
 $c-btn-primary: $c-blue-main;
 
-// Fonts
-$f-gothapro: "gothapro", Arial, sans-serif;
-$f-icons: "icons";
-$f-ptsans: "ptsans", Arial, sans-serif;
+// Droptips
+$c-droptip-bg: #f5f7f9;
+$c-droptip-border: #e1e3e9;
+
+// Icons
+$c-icon-stoke: $c-grey-main;
 
 // Inputs
 $c-input-bg: #f5faff;
@@ -23,9 +30,34 @@ $c-input-border: $c-blue-main;
 $c-input-error-bg: #fae5e8;
 $c-input-error-border: $c-red-main;
 
+// Stickers
+$c-sticker-bg-blue: #6fb6ff;
+$c-sticker-bg-green: #b6e87f;
+$c-sticker-bg-pink: #ffd1d1;
+$c-sticker-bg-yellow: #fffbc4;
+$c-sticker-checkbox-fill: #323437;
+$c-sticker-empty-hover: $c-grey-main;
+$c-sticker-muted-text: #313436;
+$c-sticker-placeholder: #233438;
+$c-sticker-overlay: #2b2b2b;
+
 // Text
-$c-text-main: #333;
 $c-text-disabled: #d5dadf;
+$c-text-grey: $c-grey-main;
+$c-text-list: #828282;
+$c-text-main: #333;
+
+// Fonts
+$f-path: "../fonts/";
+$f-gothapro: "gothapro", Arial, sans-serif;
+$f-icons: "icons";
+$f-ptsans: "ptsans", Arial, sans-serif;
 
 // Heights
 $h-header: 60px;
+
+// Images
+$i-path: "../images/";
+
+// Shadows
+$s-header-shadow: #e2e2e2;
