@@ -15,7 +15,7 @@ const AboutStatic = (props) => {
 
         <Avatar src={avatar} className="profile-image__avatar" />
 
-        <div className="profile-image__edit">Изменить</div>
+        <div className="profile-image__edit">{avatar ? 'Изменить' : 'Добавить'}</div>
       </div>
 
       <div className="profile-info">
