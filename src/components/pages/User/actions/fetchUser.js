@@ -12,6 +12,7 @@ export default function fetchUser(userId) {
       .then(response => response.data)
       .then((data) => {
         const { USER: user } = data.ANSWER;
+        window.scrollTo(0, 0);
 
         dispatch({
           type: SET_USER_DATA,

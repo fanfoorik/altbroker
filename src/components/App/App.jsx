@@ -16,7 +16,9 @@ export default class App extends React.Component {
       <main>
         <Icons />
         <Header />
-        {this.props.children}
+        <section id="content">
+          {this.props.children}
+        </section>
       </main>
     );
   }

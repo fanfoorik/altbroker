@@ -55,7 +55,7 @@ class Login extends React.Component {
 
           {login.captcha.active && <Captcha />}
 
-          <div className="mb_12">
+          <div className="mb-12">
             <AuthButton
               className="btn btn-primary btn-lg btn-block"
               loading={login.form.loading}
@@ -63,7 +63,7 @@ class Login extends React.Component {
             >Войти</AuthButton>
           </div>
 
-          <div className="text-center">
+          <div className="align-center">
             <span onClick={this.props.dispatchToRecoverEmail} className="auth-pane__footlink">Я забыл пароль</span>
           </div>
         </form>

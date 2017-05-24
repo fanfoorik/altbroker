@@ -1,4 +1,4 @@
-@import "./utils/variables";
+@import "variables";
 
 
 .style {
@@ -338,7 +338,7 @@
   }
 }
 
-.clear:after {
+.clear::after {
   height: 0;
   clear: both;
   content: ".";

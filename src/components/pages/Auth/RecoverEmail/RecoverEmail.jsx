@@ -44,7 +44,7 @@ const RecoverEmail = (props) => {
           />
         </div>
 
-        <div className="mb_12">
+        <div className="mb-12">
           <AuthButton
             loading={recoverEmail.form.loading}
             type="submit"
@@ -52,7 +52,7 @@ const RecoverEmail = (props) => {
           >Отправить</AuthButton>
         </div>
 
-        <div className="text-center">
+        <div className="align-center">
           <span onClick={dispatchToLogin} className="auth-pane__footlink">Вспомнил пароль, войти</span>
         </div>
       </form>

@@ -22,16 +22,16 @@ const Contacts = (props) => {
 
                 <div className="profile-contact__line">
                   <div className="profile-contact__label">{link}</div>
-                  <div className="profile-contact__value">{value.split('/').splice(-1)}</div>
+                  <div className="profile-contact__value">{value.match(/\/?(.[^/]*)\/?$/)[1]}</div>
                 </div>
 
-                <div className="profile-contact__controls">
-                  Изменить
-                </div>
+                {/*<div className="profile-contact__controls">*/}
+                  {/*Изменить*/}
+                {/*</div>*/}
 
-                <div className="profile-contact__unchain">
-                  <Icon icon="close" width="19" height="19" className="profile-contact__unchain-icon" />
-                </div>
+                {/*<div className="profile-contact__unchain">*/}
+                  {/*<Icon icon="close" width="19" height="19" className="profile-contact__unchain-icon" />*/}
+                {/*</div>*/}
 
               </div>
             );

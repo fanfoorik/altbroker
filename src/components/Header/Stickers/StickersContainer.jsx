@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import * as actions from './actions/';
 import StickersWrapper from './components/StickersWrapper';
 
-function getActiveStickers(stickersObj) {
-  return stickersObj.stickers.filter(item => item.ACTIVE === 'Y');
+function getActiveStickers(obj) {
+  return obj.stickers.filter(item => item.ACTIVE === 'Y');
 }
 
 function mapStateToProps(state) {

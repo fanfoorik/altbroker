@@ -1,11 +1,13 @@
 @import "../utils/variables";
 
 .header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
   height: $h-header;
   background: $c-white;
   box-shadow: 0 1px 1px $s-header-shadow;
-  margin-bottom: 20px;
-  position: relative;
   z-index: 300;
 
   &__left {
