@@ -1,25 +1,24 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import DropTip from 'components/DropTip/DropTip';
-import IsActive from 'utils/IsActive';
 import Icon from 'components/Icon';
-import { triggerNotifications } from './actions/triggerNotifications';
+import IsActive from 'utils/IsActive';
 
-const Notifications = (props) => {
-  const { dispatchTriggerNotifications, notifications } = props;
+export default function NavNotifications(props) {
+  const { notifications, triggerNotifications } = props;
 
   return (
     <div className="notifications">
       <div
         className={notifications.active ? 'top-trigger active' : 'top-trigger'}
-        onClick={dispatchTriggerNotifications}
+        onClick={triggerNotifications}
       >
         <Icon className="top-trigger__icon" icon="bell" width="18" height="21" />
       </div>
 
       <IsActive active={notifications.active}>
-        <DropTip className="notifications__droptip" handleOuterClick={dispatchTriggerNotifications}>
+        <DropTip className="notifications__droptip" handleOuterClick={triggerNotifications}>
           <div className="droptip__header notifications__header clear">
             <div className="notifications__title">Уведомления</div>
           </div>
@@ -33,20 +32,13 @@ const Notifications = (props) => {
       </IsActive>
     </div>
   );
-};
+}
 
-const mapStateToProps = (state) => {
-  return {
-    notifications: state.header.notifications,
-  };
+NavNotifications.propTypes = {
+  notifications: PropTypes.shape({
+    active: PropTypes.bool,
+    data: PropTypes.array,
+    error: PropTypes.object,
+  }).isRequired,
+  triggerNotifications: PropTypes.func.isRequired,
 };
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    dispatchTriggerNotifications() {
-      dispatch(triggerNotifications());
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Notifications);
