@@ -1,7 +1,7 @@
 @import "../utils/variables";
 
 .auth-page {
-  height: 100%;
+  height: 100vh;
   background: url("#{$i-path}/auth-page.jpg") no-repeat 50% 50%;
   background-size: cover;
   overflow: auto;
