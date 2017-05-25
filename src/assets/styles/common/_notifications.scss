@@ -1,7 +1,57 @@
-.altbroker-notification {
-  background: #6b6f74 !important;
-  border-radius: 3px !important;
-  box-shadow: 0 5px 20px 0 rgba(50, 52, 55, 0.2) !important;
-  padding: 5px 16px 9px !important;
+@import "../utils/variables";
+
+// `!important` here is required to override react-notification inline styles.
+.notification {
+  &-bar {
+    background-color: $c-notification-bg !important;
+    border-radius: 3px !important;
+    box-shadow: 0 5px 20px 0 rgba(50, 52, 55, 0.2) !important;
+    padding: 12px 18px !important;
+  }
+
+  &-bar-message {
+    color: $c-white !important;
+    display: inline-block !important;
+    font-family: $f-ptsans !important;
+    font-size: 14px !important;
+    margin: 0 -8px 0 0 !important;
+  }
+
+  &-bar-action {
+    color: $c-white !important;
+    border-left: 1px solid rgba($c-white, 0.8);
+    border-radius: 0 !important;
+    display: inline-block !important;
+    font-family: $f-ptsans !important;
+    font-size: 14px !important;
+    opacity: 0.5;
+    text-transform: none !important;
+    padding: 0 0 0 16px !important;
+    transition: 0.3s;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
 }
 
+.notification-sticker-text {
+  display: inline-block;
+  margin: 0 0 0 8px;
+  max-width: 140px;
+  opacity: 0.4;
+  overflow: hidden;
+  position: relative;
+  white-space: nowrap;
+  vertical-align: bottom;
+
+  &::after {
+    background: linear-gradient(to right, transparent, $c-notification-message-hider);
+    content: "";
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 40px;
+  }
+}

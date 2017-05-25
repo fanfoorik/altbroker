@@ -9,11 +9,11 @@ const Captcha = ({ className, ...props }) => {
 	let {captcha} = props;
 
 	return(
-		<div className="auth-pane__row mb_36">
+		<div className="auth-pane__row mb-36">
 			<div className="captcha">
 				
 				<div className="clear">
-					<div className="captcha__image mb_12">
+					<div className="captcha__image mb-12">
 						<img src={hostUrl+captcha.image} />
 					</div>
 

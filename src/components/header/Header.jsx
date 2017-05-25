@@ -2,9 +2,9 @@ import { Link } from 'react-router';
 import React from 'react';
 
 import { indexUrl } from 'utils/urls';
-import Navigation from './Navigation/Navigation';
+import NavigationContainer from './Navigation/NavigationContainer';
 import Notifications from './NavNotifications/NavNotifications';
-import PatchNotes from './PatchNotes/PatchNotes';
+import PatchNotesContainer from './PatchNotes/PatchNotesContainer';
 import SearchWrapper from './Search/SearchWrapper';
 import StickersContainer from './Stickers/StickersContainer';
 import Usertop from './Usertop/Usertop';
@@ -15,11 +15,11 @@ export default function Header() {
       <div className="center clear">
         <div className="header__left">
           <Link className="logo" to={indexUrl}>АльтБрокер</Link>
-          <PatchNotes />
+          <PatchNotesContainer />
         </div>
 
         <div className="header__center">
-          <Navigation />
+          <NavigationContainer />
         </div>
 
         <div className="header__right">

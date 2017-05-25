@@ -12,23 +12,26 @@ export default class StickerWithTextField extends React.Component {
   }
 
   handleAddSticker = () => {
+    if (!this.textareaValue) return;
     this.props.addSticker(this.textareaValue, this.props.selectedColor);
     this.props.resetState();
   };
 
   handleChange = (value) => {
+    const saveBtn = document.querySelector('.js-save-sticker');
     this.textareaValue = value;
+
+    if (value) {
+      saveBtn.classList.remove('disabled');
+    } else {
+      saveBtn.classList.add('disabled');
+    }
   };
 
   render() {
     return (
-      <div
-        className="sticker sticker_new js-sticker-new"
-        role="button"
-        tabIndex={0}
-        style={{ backgroundColor: this.props.selectedColor }}
-      >
-        <div className="sticker__inner sticker__inner_new">
+      <div className="sticker sticker_new">
+        <div className="sticker__inner sticker__inner_new js-sticker-new" style={{ backgroundColor: this.props.selectedColor }}>
           <textarea
             className="sticker__content sticker__content_textarea"
             onChange={event => this.handleChange(event.target.value)}
@@ -39,13 +42,13 @@ export default class StickerWithTextField extends React.Component {
           <div className="sticker__footer">
             <div
               className="sticker__footer-item sticker__footer_left"
-              onClick={this.props.backToColor}
+              onClick={() => this.props.backToColor(this.props.selectedColor)}
               role="button"
               tabIndex={0}
             >Назад</div>
 
             <div
-              className="sticker__footer-item sticker__footer_right active"
+              className="sticker__footer-item sticker__footer_right disabled js-save-sticker"
               onClick={this.handleAddSticker}
               role="button"
               tabIndex={0}
@@ -61,5 +64,8 @@ StickerWithTextField.propTypes = {
   addSticker: PropTypes.func.isRequired,
   backToColor: PropTypes.func.isRequired,
   resetState: PropTypes.func.isRequired,
-  selectedColor: PropTypes.string.isRequired,
+  selectedColor: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.string,
+  ]).isRequired,
 };

@@ -6,7 +6,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { AUTH_USER } from 'constants/userTypes';
 import About from 'components/pages/About';
 import Admin from 'components/pages/Admin';
-import AppContainer from 'containers/AppContainer';
+import AppContainer from 'components/App/AppContainer';
 import Auth from 'components/pages/auth/Auth';
 import Broker from 'components/pages/Broker';
 import Deal from 'components/pages/Deal';

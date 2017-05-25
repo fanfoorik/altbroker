@@ -1,34 +1,126 @@
-// ссылка 1 Брокеру
-#nav-item-id-884778 {
-  .nav__subnav {
+@import "../utils/variables";
+
+.nav {
+  text-align: center;
+
+  &:hover {
+    .nav__link {
+      border-bottom-color: transparent;
+    }
+  }
+
+  &__section {
+    display: inline-block;
+    position: relative;
+    padding: 0 20px;
+
+    &:hover {
+      &::before {
+        position: absolute;
+        left: 50%;
+        bottom: -8px;
+        width: 16px;
+        height: 16px;
+        margin-left: -8px;
+        background: $c-white;
+        z-index: 100;
+        transform: rotate(-45deg);
+        content: "";
+      }
+
+      .nav__subnav {
+        display: block;
+      }
+
+      .nav__link {
+        color: $c-blue-main;
+      }
+    }
+  }
+
+  &__link {
+    display: block;
+    height: $h-header;
+    padding: 18px 16px 0;
+    color: $c-text-grey;
+    font-size: 16px;
+    border-bottom: 2px solid transparent;
+
+    &:hover {
+      text-decoration: none;
+    }
+
+    &_active {
+      border-bottom-color: rgba(77, 161, 255, 0.8);
+    }
+  }
+
+  &__subnav {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    min-width: 1200px;
+    margin: 0 -3000px;
+    padding: 0 3000px;
+    white-space: nowrap;
+    background: $c-blue-light;
+    display: none;
+    box-sizing: content-box;
+    text-align: left;
+  }
+}
+
+.subnav {
+  &__link {
+    display: inline-block;
+    height: 92px;
+    color: $c-white;
+    padding: 25px 0 0;
+    text-align: center;
+    width: 130px;
+
+    &:hover {
+      background: $c-blue-main;
+      text-decoration: none;
+    }
+  }
+
+  &__icon {
+    display: block;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    padding-bottom: 8px;
+
+    svg {
+      fill: $c-white;
+    }
+  }
+}
+
+.nav__section_item {
+  // Брокер
+  &-884778 {
     margin-left: -3130px;
   }
-}
 
-// ссылка 2 Сделки
-#nav-item-id-884779 {
-  .nav__subnav {
+  // Сделки
+  &-884779 {
     margin-left: -3264px;
   }
-}
 
-// ссылка 3 Мой прогресс
-#nav-item-id-884792 {
-  .nav__subnav {
+  // Мой прогресс
+  &-884792 {
     margin-left: -3371px;
   }
-}
 
-// ссылка 4 Статистика
-#nav-item-id-884794 {
-  .nav__subnav {
+  // Аналитика
+  &-884794 {
     margin-left: -3120px;
   }
-}
 
-// ссылка 4 Административный
-#nav-item-id-884799 {
-  .nav__subnav {
+  // Управление
+  &-884799 {
     margin-left: -3481px;
   }
 }

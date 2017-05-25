@@ -5,10 +5,10 @@ import Icons from 'components/Icons';
 
 export default class App extends React.Component {
   componentDidMount() {
-    const { dispatchFetchInit } = this.props;
+    const { fetchInit } = this.props;
     const { authenticated } = this.props.state.auth.components;
 
-    if (authenticated) dispatchFetchInit();
+    if (authenticated) fetchInit();
   }
 
   render() {
