@@ -79,7 +79,7 @@ export default class StickerNew extends React.Component {
             tabIndex={0}
           >
             <div className="sticker__plus" />
-            <div className="sticker__content sticker__content_empty text-center">Новый стикер</div>
+            <div className="sticker__content sticker__content_empty align-center">Новый стикер</div>
           </div>
         </div>
       </CSSTransitionGroup>

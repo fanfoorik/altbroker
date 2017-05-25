@@ -12,13 +12,11 @@ const initialState = {
   subordinates: [],
 };
 
-export default function (state = initialState, action) {
+export default function (state = initialState, { type, payload }) {
 
-  switch (action.type) {
+  switch (type) {
 
     case SET_USER_WORK:
-
-      const { payload } = action;
 
       return {
         ...state,
@@ -27,7 +25,7 @@ export default function (state = initialState, action) {
           department: payload.UF_DEP2_TEXT,
           roles: payload.CURUSER_GROUPS_TEXT,
           workPosition: payload.WORK_POSITION,
-          workSince: '',
+          workSince: payload.DATE_REGISTER_TEXT,
         },
         head: payload.WORK.HEAD,
         colleague: payload.WORK.COLLEAGUE,

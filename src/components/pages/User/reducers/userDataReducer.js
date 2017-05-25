@@ -21,6 +21,7 @@ const initialState = {
   photo: '',
   avatar: '',
   history: '',
+  birthday: '',
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -50,6 +51,7 @@ export default (state = initialState, { type, payload }) => {
         photo: payload.PERSONAL_PHOTO_TEXT,
         avatar: payload.PERSONAL_PHOTO_TEXT_86x86,
         history: payload.HISTORY.DETAIL_TEXT,
+        birthday: payload.PERSONAL_BIRTHDAY,
       };
 
     default:

@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import Avatar from 'components/Avatar';
 import { hostUrl } from 'utils/urls';
 import AboutText from './components/AboutText';
+import IsActive from 'utils/IsActive';
 
 const AboutStatic = (props) => {
-  const { avatar, name, lastName, city, history } = props.user;
+  const { avatar, name, lastName, city, history, birthday } = props.user;
 
   return (
     <div className="profile-pane clear">
@@ -24,12 +25,14 @@ const AboutStatic = (props) => {
 
         <div className="profile-details row">
 
-          <div className="col-lg-4">
-            <div className="profile-details__section">
-              <div className="profile__label">Год рождения</div>
-              <div className="profile-details__detail">04.03.1985</div>
+          <IsActive active={!!birthday}>
+            <div className="col-lg-4">
+              <div className="profile-details__section">
+                <div className="profile__label">Год рождения</div>
+                <div className="profile-details__detail">{birthday}</div>
+              </div>
             </div>
-          </div>
+          </IsActive>
 
           <div className="col-lg-8">
             <div className="profile-details__section">

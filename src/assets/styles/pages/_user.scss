@@ -184,7 +184,6 @@
     left: 50%;
     bottom: 100%;
     margin: 0 0 30px -100px;
-    transition: 0.2s;
 
     &::after {
       position: absolute;
@@ -205,6 +204,7 @@
       opacity: 1;
       visibility: visible;
       margin-bottom: 20px;
+      transition: 0.3s;
     }
   }
 }
