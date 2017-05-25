@@ -5,7 +5,10 @@ import * as actions from './actions/';
 import StickersWrapper from './components/StickersWrapper';
 
 function getActiveStickers(obj) {
-  return obj.stickers.filter(item => item.ACTIVE === 'Y');
+  if (obj.stickers) {
+    return obj.stickers.filter(item => item.ACTIVE === 'Y');
+  }
+  return [];
 }
 
 function mapStateToProps(state) {

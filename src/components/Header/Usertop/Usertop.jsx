@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import { hostUrl, indexUrl } from 'utils/urls.js';
+import Avatar from 'components/Avatar';
 import DropTip from 'components/DropTip/DropTip';
 import IsActive from 'utils/IsActive';
 import Icon from 'components/Icon';
@@ -10,20 +11,9 @@ import Icon from 'components/Icon';
 import triggerUser from './actions/userAction';
 import logoutUser from './actions/logoutUserAction';
 
-function getAvatar(usertop, size) {
-  return usertop.data.userpic ?
-    (
-      <img
-        alt="User logo"
-        className="usertop__trigger-pic"
-        src={hostUrl + usertop.data.userpic}
-      />
-    ) :
-    (<Icon className="usertop__default-avatar" icon="default_avatar" width={size} height={size} />);
-}
-
 function Usertop(props) {
   const { dispatchLogoutUser, dispatchTriggerUsers, usertop } = props;
+  const { userpic } = usertop.data;
 
   return (
     <div className="usertop">
@@ -33,13 +23,14 @@ function Usertop(props) {
         role="button"
         tabIndex={0}
       >
-        <div className="usertop__trigger-pic">{getAvatar(usertop, 50)}</div>
+        <Avatar src={userpic} sizes="36" className="usertop__trigger-pic" />
       </div>
 
       <IsActive active={usertop.active}>
         <DropTip handleOuterClick={dispatchTriggerUsers} className="usertop__droptip">
           <div className="droptip__header usertop__header clear">
-            <div className="usertop__image">{getAvatar(usertop, 70)}</div>
+
+            <Avatar src={userpic} sizes="56" className="usertop__image" />
 
             <div className="overflow_hidden">
               <div className="usertop__name">{`${usertop.data.name} ${usertop.data.lastName}`}</div>
@@ -63,7 +54,7 @@ function Usertop(props) {
               className="usertop__link"
               onClick={dispatchTriggerUsers}
               to={`${indexUrl}user/${usertop.data.id}/`}
-            >Редактировать профиль</Link>
+            >Профиль</Link>
             <span className="usertop__link">Мне нужна помощь</span>
             <span
               className="usertop__link"

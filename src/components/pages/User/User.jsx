@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 
 import fetchUser from './actions/fetchUser';
 
-import WorkContainer from './containers/WorkContainer';
 import AboutStaticContainer from './containers/AboutStaticContainer';
 import AboutEditableContainer from './containers/AboutEditableContainer';
 import ContactsContainer from './containers/ContactsContainer';
+import WorkContainer from './containers/WorkContainer';
 
 class User extends React.Component {
 

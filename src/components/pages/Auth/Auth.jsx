@@ -11,13 +11,6 @@ import UserCheckword from './UserCheckword/UserCheckword';
 import userCheckword from './actions/userCheckwordAction';
 
 class Auth extends React.Component {
-  componentWillMount() {
-    if (this.props.auth.authenticated) {
-      const state = this.props.location.state;
-      const nextPath = (state && state.location) || indexUrl;
-      this.props.router.replace(nextPath);
-    }
-  }
 
   componentWillUpdate(nextProps) {
     if (nextProps.auth.authenticated) {

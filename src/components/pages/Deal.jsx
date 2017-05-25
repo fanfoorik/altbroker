@@ -13,7 +13,7 @@ export default function Deal(props) {
 
   return (
     <div className="page-cover">
-      <div className="center text-center ps_rel">
+      <div className="center align-center position-rel">
 
         <svg className="page-cover__dots1" width="190" height="130" viewBox="0 0 190 130">
           <g fill="#4DA1FF" fillRule="evenodd">
@@ -65,7 +65,7 @@ export default function Deal(props) {
         </svg>
 
 
-        <div className="mb_36">
+        <div className="mb-36">
           <svg width="120" height="113" viewBox="0 0 120 113">
             <path
               fill="#E1E5E9"
@@ -73,10 +73,10 @@ export default function Deal(props) {
             />
           </svg>
         </div>
-        <div className="h1 mb_12" style={{ fontSize: 46 }}>
+        <div className="h1 mb-12" style={{ fontSize: 46 }}>
           {pages[props.params.page]}
         </div>
-        <div className="fz_18">Страница в разработке</div>
+        <div className="fz-18">Страница в разработке</div>
       </div>
     </div>
   );
