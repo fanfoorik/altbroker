@@ -1,0 +1,51 @@
+.paginator {
+  &__list {
+    border-radius: 3px;
+    display: flex;
+    margin: 0 25px;
+    overflow: hidden;
+    text-align: center;
+
+    &-item {
+      border: 1px solid #e1e5e9;
+      height: 28px;
+      line-height: 1.9;
+      margin-left: -1px;
+      transition: border-color 0.3s;
+      width: 28px;
+
+      &:first-child {
+        border-radius: 3px 0 0 3px;
+        margin-left: 0;
+      }
+
+      &:last-child {
+        border-radius: 0 3px 3px 0;
+      }
+
+      &:not(.disabled) {
+        cursor: pointer;
+      }
+
+      &:hover,
+      &.active {
+        border-color: #4da1ff;
+        position: relative;
+      }
+    }
+  }
+
+  &__count {
+    position: absolute;
+    right: 10px;
+
+    &-text {
+      position: relative;
+      top: 5px;
+    }
+
+    .paginator__list {
+      float: right;
+    }
+  }
+}

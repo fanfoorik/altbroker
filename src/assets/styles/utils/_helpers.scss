@@ -8,8 +8,8 @@
 
     &-underlined {
       @extend a;
-      text-decoration: underline;
       border-width: 0;
+      text-decoration: underline;
 
       &:hover {
         text-decoration: none;
@@ -346,4 +346,8 @@
   overflow: hidden;
   line-height: 0;
   font-size: 0;
+}
+
+.no-padding {
+  padding: 0 !important;
 }

@@ -12,7 +12,7 @@ export default function Admin(props) {
 
   return (
     <div className="page-cover">
-      <div className="center align-center position-rel">
+      <div className="container align-center position-rel">
         <svg className="page-cover__dots1" width="190" height="130" viewBox="0 0 190 130">
           <g fill="#4DA1FF" fillRule="evenodd">
             <circle cx="95" cy="125" r="5" />

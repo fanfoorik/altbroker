@@ -8,13 +8,13 @@ import About from 'components/pages/About';
 import Admin from 'components/pages/Admin';
 import AppContainer from 'components/App/AppContainer';
 import Auth from 'components/pages/auth/Auth';
-import Broker from 'components/pages/Broker';
+import BrokerContainer from 'components/pages/Broker/BrokerContainer';
 import Deal from 'components/pages/Deal';
 import Evolution from 'components/pages/Evolution';
 import Index from 'components/pages/Index';
 import NotFound from 'components/pages/404';
 import ProtectedRoute from './components/HOC/ProtectedRoute';
-import Stat from 'components/pages/Stat';
+import Statistic from 'components/pages/Statistic';
 import store from './store';
 import style from './assets/styles/style';
 import User from 'components/pages/User/User';
@@ -40,7 +40,7 @@ ReactDOM.render(
 
         <Route path="about" component={ProtectedRoute(About)} />
 
-        <Route path="broker" component={ProtectedRoute(Broker)}>
+        <Route path="broker" component={ProtectedRoute(BrokerContainer)}>
           <Route path=":page" />
         </Route>
 
@@ -52,7 +52,7 @@ ReactDOM.render(
           <Route path=":page" />
         </Route>
 
-        <Route path="stat" component={ProtectedRoute(Stat)}>
+        <Route path="stat" component={ProtectedRoute(Statistic)}>
           <Route path=":page" />
         </Route>
 
