@@ -1,42 +1,94 @@
 import React from 'react';
 import Icon from 'components/Icon';
+import IsActive from 'utils/IsActive';
+import ContactLink from './ContactLink';
 
 const Contacts = (props) => {
-  const { socials } = props.contacts;
+  const {
+    workPhone,
+    email,
+    facebook,
+    vk,
+    instagram,
+    twitter,
+    skype,
+  } = props.contacts.socials;
 
   return (
-    <div className="profile-pane clear">
+    <div className="profile-pane clear" data-anchor="contact">
       <div className="profile-pane__title">Контакты</div>
 
       <div className="profile-contacts">
-        {
-          socials.map((item) => {
-            const { name, value, icon, link } = item;
 
-            return value && (
-              <div key={`social-${name}`} className="profile-contacts__list profile-contact clear">
+        <IsActive
+          active={!!workPhone}
+          component={ContactLink}
+          value={workPhone}
+          href={`tel:${workPhone}`}
+          icon="phone"
+          label=""
+          target=""
+        />
 
-                <div className="profile-contact__iconbar">
-                  <Icon icon={icon} width="19" height="19" className="profile-contact__icon" />
-                </div>
+        <IsActive
+          active={!!email}
+          component={ContactLink}
+          value={email}
+          href={`mailto:${email}`}
+          icon="envelope"
+          label=""
+          target=""
+        />
 
-                <div className="profile-contact__line">
-                  <div className="profile-contact__label">{link}</div>
-                  <div className="profile-contact__value">{value.match(/\/?(.[^/]*)\/?$/)[1]}</div>
-                </div>
+        <IsActive
+          active={!!facebook}
+          component={ContactLink}
+          value={facebook}
+          href={facebook}
+          icon="facebook"
+          label="facebook.com/"
+          target="_blank"
+        />
 
-                {/*<div className="profile-contact__controls">*/}
-                  {/*Изменить*/}
-                {/*</div>*/}
+        <IsActive
+          active={!!vk}
+          component={ContactLink}
+          value={vk}
+          href={vk}
+          icon="vk"
+          label="vk.com/"
+          target="_blank"
+        />
 
-                {/*<div className="profile-contact__unchain">*/}
-                  {/*<Icon icon="close" width="19" height="19" className="profile-contact__unchain-icon" />*/}
-                {/*</div>*/}
+        <IsActive
+          active={!!instagram}
+          component={ContactLink}
+          value={instagram}
+          href={instagram}
+          icon="instagram"
+          label="instagram.com/"
+          target="_blank"
+        />
 
-              </div>
-            );
-          })
-        }
+        <IsActive
+          active={!!twitter}
+          component={ContactLink}
+          value={twitter}
+          href={twitter}
+          icon="twitter"
+          label="twitter.com/"
+          target="_blank"
+        />
+
+        <IsActive
+          active={!!skype}
+          component={ContactLink}
+          value={skype}
+          href={`skype:${skype}?chat`}
+          icon="skype"
+          label=""
+        />
+
       </div>
 
     </div>

@@ -4,13 +4,13 @@ import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import { AUTH_USER } from 'constants/userTypes';
-import About from 'components/pages/About';
 import Admin from 'components/pages/Admin';
 import AppContainer from 'components/App/AppContainer';
 import Auth from 'components/pages/auth/Auth';
 import BrokerContainer from 'components/pages/Broker/BrokerContainer';
 import Deal from 'components/pages/Deal';
 import Evolution from 'components/pages/Evolution';
+import FAQ from 'components/pages/FAQ/FAQ';
 import Index from 'components/pages/Index';
 import NotFound from 'components/pages/404';
 import ProtectedRoute from './components/HOC/ProtectedRoute';
@@ -38,7 +38,7 @@ ReactDOM.render(
           </Route>
         </Route>
 
-        <Route path="about" component={ProtectedRoute(About)} />
+        <Route path="faq" component={ProtectedRoute(FAQ)} />
 
         <Route path="broker" component={ProtectedRoute(BrokerContainer)}>
           <Route path=":page" />
@@ -60,6 +60,7 @@ ReactDOM.render(
           <Route path=":page" />
         </Route>
       </Route>
+
       <Route path="/altbroker3/login" component={Auth} />
       <Route path="*" component={NotFound} />
     </Router>

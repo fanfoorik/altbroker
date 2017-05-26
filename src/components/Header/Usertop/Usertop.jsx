@@ -55,7 +55,11 @@ function Usertop(props) {
               onClick={dispatchTriggerUsers}
               to={`${indexUrl}user/${usertop.data.id}/`}
             >Профиль</Link>
-            <span className="usertop__link">Мне нужна помощь</span>
+            <Link
+              className="usertop__link"
+              onClick={dispatchTriggerUsers}
+              to={`${indexUrl}faq/`}
+            >Мне нужна помощь</Link>
             <span
               className="usertop__link"
               onClick={() => {
