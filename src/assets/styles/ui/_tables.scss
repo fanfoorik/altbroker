@@ -1,5 +1,14 @@
 @import "../utils/variables";
 
+.clickable {
+  &:hover {
+    .icon {
+      color: $c-table-active-item;
+      fill: $c-table-active-item;
+    }
+  }
+}
+
 table {
   color: $c-grey-main;
   font-size: 12px;
@@ -104,7 +113,6 @@ tr:hover {
   }
 }
 
-
 .table-dot {
   background: $c-table-circles-bg;
   border-radius: 50%;
@@ -125,6 +133,7 @@ tr:hover {
     color: $c-white;
     display: flex;
     height: 24px;
+    line-height: 1;
     justify-content: center;
     width: 24px;
   }
@@ -167,6 +176,28 @@ tr:hover {
   }
 }
 
+.table-th {
+  &__icon {
+    fill: $c-table-nonactive-item;
+    position: relative;
+    top: 2px;
+    transition: 0.3s;
+  }
+
+  &__actions {
+    border: 1px solid;
+    border-radius: 50%;
+    color: $c-table-muted-text;
+    height: 22px;
+    display: inline-block;
+    font-family: serif;
+    font-size: 17px;
+    line-height: 1.1;
+    text-align: center;
+    width: 22px;
+  }
+}
+
 .table-color {
   background: #4da1ff; // FOR DEV ONLY
   height: calc(100% + 1px);
@@ -188,13 +219,48 @@ tr:hover {
   display: flex;
   height: $c-table-row-height;
   justify-content: center;
+  margin: 0 0 12px;
   position: relative;
 
   &__items {
-    color: #6b6f74;
+    color: $c-table-nonactive-item;
   }
 
   &__items-count {
-    color: #252729;
+    color: $c-table-active-text;
+  }
+}
+
+.table-actions {
+  color: $c-table-muted-text;
+  display: flex;
+  font-size: 12px;
+  padding: 0 11px;
+
+  &__checkbox {
+    flex: 1;
+  }
+
+  &__items {
+    display: flex;
+    line-height: 1.6;
+    flex: 7;
+  }
+
+  &__item {
+    margin: 0 24px 0 0;
+
+    &.active {
+      cursor: pointer;
+    }
+  }
+
+  &__title {
+    color: $c-table-active-item;
+    margin: 0 24px 0 0;
+  }
+
+  &__list {
+    display: flex;
   }
 }

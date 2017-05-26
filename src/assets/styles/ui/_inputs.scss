@@ -91,9 +91,11 @@ textarea,
   display: inline-block;
   cursor: pointer;
   height: 20px;
-  font-size: 18px;
+  line-height: 1.6;
   position: relative;
+  text-indent: 30px;
   vertical-align: middle;
+  white-space: nowrap;
   width: 20px;
 
   input {
