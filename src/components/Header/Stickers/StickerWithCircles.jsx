@@ -120,7 +120,6 @@ export default class StickerWithCircles extends React.Component {
 
   render() {
     const color = this.selectedColor;
-    console.log(this.selectedColor);
 
     return (
       <div className="sticker" role="button" tabIndex={0}>

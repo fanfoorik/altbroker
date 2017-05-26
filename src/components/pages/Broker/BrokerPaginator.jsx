@@ -25,8 +25,8 @@ export default function BrokerPaginator(props) {
         <div className="paginator__count">
           <span className="paginator__count-text">Показывать по:</span>
           <ul className="paginator__list">
-            <li className="paginator__list-item">15</li>
-            <li className="paginator__list-item active">25</li>
+            <li className="paginator__list-item active">15</li>
+            <li className="paginator__list-item">25</li>
             <li className="paginator__list-item">50</li>
           </ul>
         </div>
