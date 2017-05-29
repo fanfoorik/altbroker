@@ -44,7 +44,6 @@ export default class Stickers extends React.Component {
       stickers: props.stickers || [],
     };
     this.count = 0;
-    this.deletedStickerId = null;
   }
 
   componentDidMount() {
@@ -94,12 +93,12 @@ export default class Stickers extends React.Component {
   /**
    * Restores last 'removed' sticker's active param.
    */
-  handleRestoreSticker = (count) => {
+  handleRestoreSticker = (id) => {
     const { notifications } = this.state;
     this.setState({
-      notifications: notifications.filter(item => item.key !== count),
+      notifications: notifications.filter(item => item.key !== id),
     });
-    this.props.restoreSticker(this.deletedStickerId);
+    this.props.restoreSticker(id);
   };
 
   notificationText = (text) => {
@@ -147,7 +146,6 @@ export default class Stickers extends React.Component {
    * @param text - string - text value of sticker
    */
   handleRemoveSticker = (id, text) => {
-    this.deletedStickerId = id;
     this.addNotification(id, text);
     this.props.removeSticker(id);
   };
@@ -168,7 +166,7 @@ export default class Stickers extends React.Component {
 
     return (
       <div className="stickers__overlay" ref={(c) => { this.stickersRef = c; }}>
-        <div className="center no-padding">
+        <div className="container no-padding">
           {isStickersNotEmpty ?
             (
               <SortableList

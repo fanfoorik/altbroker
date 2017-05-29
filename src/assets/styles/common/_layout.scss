@@ -6,11 +6,11 @@
   overflow-x: hidden;
 }
 
-#content {
+.content {
   padding-top: $h-header + 20;
 }
 
-.center {
+.container {
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 18px;
@@ -27,8 +27,8 @@
 
   &__dots1 {
     position: absolute;
-    top: -50%;
     right: 60px;
+    top: -50%;
   }
 
   &__dots2 {

@@ -1,18 +1,15 @@
 import React from 'react';
 
-export default function Broker(props) {
+export default function Statistic(props) {
   const pages = {
-    gb: 'Бизнесы',
-    fr: 'Франшизы',
-    collection: 'Подборки',
-    shoppers: 'Покупатели',
-    sellers: 'Продавцы',
-    pub: 'Блог',
+    reports: 'Отчеты',
+    analytics: 'Аналитика',
+    norms: 'Нормативы',
   };
 
   return (
     <div className="page-cover">
-      <div className="center align-center position-rel">
+      <div className="container align-center position-rel">
 
         <svg className="page-cover__dots1" width="190" height="130" viewBox="0 0 190 130">
           <g fill="#4DA1FF" fillRule="evenodd">
@@ -62,7 +59,6 @@ export default function Broker(props) {
             <circle cx="5" cy="5" r="5" />
           </g>
         </svg>
-
 
         <div className="mb-36">
           <svg width="120" height="113" viewBox="0 0 120 113">

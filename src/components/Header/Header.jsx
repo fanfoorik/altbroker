@@ -12,7 +12,7 @@ import Usertop from './Usertop/Usertop';
 export default function Header() {
   return (
     <header className="header js-header" id="header">
-      <div className="center clear">
+      <div className="container clear">
         <div className="header__left">
           <Link className="logo" to={indexUrl}>АльтБрокер</Link>
           <PatchNotesContainer />

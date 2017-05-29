@@ -1,15 +1,8 @@
 @import "../utils/variables";
 @import "buttons";
-
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type=number] {
-  -moz-appearance: textfield;
-}
+@import "tables";
+@import "inputs";
+@import "paginator";
 
 select {
   font-family: $f-ptsans;
@@ -43,8 +36,8 @@ select:-moz-focusring {
   }
 
   select {
+    border: 1px solid #c0c5ca;
     display: block;
-    width: 100%;
     height: 36px;
     padding: 0 12px;
     border-radius: 4px;
@@ -52,7 +45,7 @@ select:-moz-focusring {
     background: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    border: 1px solid #c0c5ca;
+    width: 100%;
 
     &::-moz-focus-inner {
       border: 0;
@@ -61,102 +54,22 @@ select:-moz-focusring {
   }
 }
 
-.input,
-textarea,
-.textarea,
-input[type="text"],
-input[type="password"] {
-  height: 46px;
-  padding: 0 20px;
-  display: block;
-  width: 100%;
-  margin: 0;
-  border: 1px solid #c0c5ca;
-  border-radius: 4px;
-  resize: none;
-  font-size: 14px;
-  font-family: $f-ptsans;
-
-  &.input_smaller {
-    height: 36px;
-    padding: 0 16px;
-  }
-
-  &:focus {
-    border-color: $c-blue-main;
-
-    + .input-icon {
-      border-color: $c-blue-main;
-    }
-  }
-
-  &.error {
-    border-color: $c-input-error-border;
-
-    + .input-icon {
-      border-color: $c-input-error-border;
-      background: rgba(208, 1, 27, 0.1);
-    }
-
-    + .input-icon svg {
-      fill: $c-input-error-border;
-    }
-  }
-}
-
-.input {
-  &.input-with-icon {
-    padding-left: 66px;
-  }
-}
-
-textarea,
-.textarea {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  height: auto;
-}
-
-.input-icon {
-  position: absolute;
-  left: 1px;
-  top: 1px;
-  bottom: 1px;
-  width: 46px;
-  border-right: 1px solid #c0c5ca;
-  border-radius: 4px 0 0 4px;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(192, 197, 202, 0.1);
-}
-
-.input-pane {
-  display: block;
-  position: relative;
-}
-
 .ul {
   margin: 0 0 14px 18px;
 
   li {
-    position: relative;
     margin-bottom: 4px;
     padding-left: 18px;
+    position: relative;
 
     &::before {
+      background: #828282;
       position: absolute;
       top: 8px;
       left: 3px;
-      width: 4px;
       height: 4px;
-      background: #828282;
       content: "";
+      width: 4px;
     }
   }
-}
-
-.no-padding {
-  padding: 0 !important;
 }
