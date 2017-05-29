@@ -1,50 +1,16 @@
 import { SET_USER_CONTACTS } from 'constants/userTypes';
 
 const initialState = {
-  editable: true,
-  socials: [
-    {
-      name: 'workPhone',
-      value: '',
-      icon: 'phone',
-      link: '',
-    },
-    {
-      name: 'email',
-      value: '',
-      icon: 'envelope',
-      link: '',
-    },
-    {
-      name: 'facebook',
-      value: '',
-      icon: 'facebook',
-      link: 'facebook.com/',
-    },
-    {
-      name: 'vk',
-      value: '',
-      icon: 'vk',
-      link: 'vk.com/',
-    },
-    {
-      name: 'instagram',
-      value: '',
-      icon: 'instagram',
-      link: 'instagram.com/',
-    },
-    {
-      name: 'twitter',
-      value: '',
-      icon: 'twitter',
-      link: 'twitter.com/',
-    },
-    {
-      name: 'skype',
-      value: '',
-      icon: 'skype',
-      link: '',
-    }],
+  editable: false,
+  socials: {
+    workPhone: '',
+    email: '',
+    facebook: '',
+    vk: '',
+    instagram: '',
+    twitter: '',
+    skype: '',
+  },
 };
 
 export default function (state = initialState, { type, payload }) {
@@ -54,49 +20,16 @@ export default function (state = initialState, { type, payload }) {
 
       return {
         ...state,
-        socials: [
-          {
-            name: 'workPhone',
-            value: payload.WORK_PHONE,
-            icon: 'phone',
-            link: '',
-          },
-          {
-            name: 'email',
-            value: payload.EMAIL,
-            icon: 'envelope',
-            link: '',
-          },
-          {
-            name: 'facebook',
-            value: payload.UF_FACEBOOK,
-            icon: 'facebook',
-            link: 'facebook.com/',
-          },
-          {
-            name: 'vk',
-            value: payload.UF_VK,
-            icon: 'vk',
-            link: 'vk.com/',
-          },
-          {
-            name: 'instagram',
-            value: payload.UF_INSTAGRAMM,
-            icon: 'instagram',
-            link: 'instagram.com/',
-          },
-          {
-            name: 'twitter',
-            value: payload.UF_TWITTER,
-            icon: 'twitter',
-            link: 'twitter.com/',
-          },
-          {
-            name: 'skype',
-            value: payload.UF_SKYPE,
-            icon: 'skype',
-            link: '',
-          }],
+        socials: {
+          ...state.socials,
+          workPhone: payload.WORK_PHONE,
+          email: payload.EMAIL,
+          facebook: payload.UF_FACEBOOK,
+          vk: payload.UF_VK,
+          instagram: payload.UF_INSTAGRAMM,
+          twitter: payload.UF_TWITTER,
+          skype: payload.UF_SKYPE,
+        },
       };
 
     default:

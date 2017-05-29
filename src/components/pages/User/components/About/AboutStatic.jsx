@@ -10,7 +10,7 @@ const AboutStatic = (props) => {
   const { avatar, name, lastName, city, history, birthday } = props.user;
 
   return (
-    <div className="profile-pane clear">
+    <div className="profile-pane clear" data-anchor="about">
 
       <div className="profile-image">
 

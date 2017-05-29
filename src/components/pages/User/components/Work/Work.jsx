@@ -6,10 +6,15 @@ import UserThumbsList from './components/UserThumbsList';
 import ProfileDetails from './components/ProfileDetails';
 
 const Work = props => {
-  const { head, colleague, subordinates, workDetails } = props.work;
+  const {
+    head,
+    colleague,
+    subordinates,
+    workDetails,
+  } = props.work;
 
   return (
-    <div className="profile-pane mb-24">
+    <div className="profile-pane" data-anchor="work">
 
       <div className="profile-pane__title">Работа</div>
 

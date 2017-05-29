@@ -1,12 +1,23 @@
-import React, { Component } from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
 
 const ProfileDetails = (props) => {
+  const {
+    department,
+    roles,
+    workPosition,
+    workSince,
+  } = props.data;
 
-  const { department, roles, workPosition, workSince } = props.data;
+  function mapDepartment(item) {
+    return <div key={`profile-department-${item.ID}`} className="profile-details__detail">{item.VALUE}</div>;
+  }
+  function mapRoles(item) {
+    return <div key={`profile-role-${item.ID}`} className="profile-details__detail">{item.NAME}</div>;
+  }
 
   return (
-    <div className="profile-details row">
+    <div className="profile-details row mb-12">
 
       <div className="col-lg-4">
         <div className="profile-details__section">
@@ -26,9 +37,7 @@ const ProfileDetails = (props) => {
         <div className="profile-details__section">
           <div className="profile__label">Отделы</div>
           {
-            department.map((item) => {
-              return <div key={`profile-department-${item.ID}`} className="profile-details__detail">{item.VALUE}</div>
-            })
+            department.map(item => mapDepartment(item))
           }
         </div>
       </div>
@@ -37,9 +46,7 @@ const ProfileDetails = (props) => {
         <div className="profile-details__section">
           <div className="profile__label">Роли</div>
           {
-            roles.map((item) => {
-              return <div key={`profile-role-${item.ID}`} className="profile-details__detail">{item.NAME}</div>
-            })
+            roles.map(item => mapRoles(item))
           }
         </div>
       </div>

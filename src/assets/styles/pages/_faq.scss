@@ -1,0 +1,46 @@
+@import "./utils/variables";
+
+.faq {
+  max-width: 820px;
+  margin: 0 auto;
+
+  &__categories {
+    margin-right: -35px;
+  }
+
+  &__category {
+    float: left;
+    width: calc(50% - 35px);
+    margin: 0 35px 24px 0;
+  }
+}
+
+.faq-category {
+  background: $c-white;
+  border: 1px solid $c-border-main;
+  border-radius: 3px;
+  position: relative;
+  padding: 28px 24px 24px 68px;
+  height: 190px;
+
+  &__icon {
+    position: absolute;
+    left: 30px;
+    top: 24px;
+    fill: $c-blue-main;
+  }
+
+  &__title {
+    font-size: 16px;
+    font-family: $f-gothapro;
+    margin-bottom: 12px;
+  }
+
+  &__question {
+    margin-bottom: 8px;
+  }
+
+  &__more {
+    color: $c-text-disabled;
+  }
+}
