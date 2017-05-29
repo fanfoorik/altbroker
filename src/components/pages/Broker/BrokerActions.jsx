@@ -1,5 +1,8 @@
 import React from 'react';
 
+import DelegatePopover from 'components/popovers/DelegatePopover';
+import StatusPopover from 'components/popovers/StatusPopover';
+
 export default function BrokerActions(props) {
   return (
     <div className="container">
@@ -14,9 +17,15 @@ export default function BrokerActions(props) {
         <div className="table-actions__items">
           <span className="table-actions__title">С помечеными:</span>
           <ul className="table-actions__list">
-            <li className="table-actions__item">передать</li>
+            <li className="table-actions__item popover-parent">
+              передать
+              <DelegatePopover />
+            </li>
             <li className="table-actions__item">создать подборку</li>
-            <li className="table-actions__item">изменить статус</li>
+            <li className="table-actions__item popover-parent">
+              изменить статус
+              <StatusPopover />
+            </li>
             <li className="table-actions__item">наблюдать</li>
           </ul>
         </div>

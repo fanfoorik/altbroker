@@ -1,14 +1,14 @@
 @import "../utils/variables";
 
 .header {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: $h-header;
   background: $c-white;
   box-shadow: 0 1px 1px $s-header-shadow;
-  z-index: 300;
+  height: $h-header;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
 
   &__left {
     float: left;

@@ -1,13 +1,15 @@
+@import "../utils/variables";
+
 .paginator {
   &__list {
     border-radius: 3px;
     display: flex;
-    margin: 0 25px;
+    margin: 0 20px;
     overflow: hidden;
     text-align: center;
 
     &-item {
-      border: 1px solid #e1e5e9;
+      border: 1px solid $c-paginator-border;
       height: 28px;
       line-height: 1.9;
       margin-left: -1px;
@@ -29,7 +31,7 @@
 
       &:hover,
       &.active {
-        border-color: #4da1ff;
+        border-color: $c-paginator-border-active;
         position: relative;
       }
     }

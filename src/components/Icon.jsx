@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Icon = ({ className, ...props }) => {
+function Icon(props) {
+  const { className, ...rest } = props;
+
   return (
-    <svg {...props} className={['icon', className].join(' ')}>
-      <use width={props.width} height={props.height} xlinkHref={`#icon_${props.icon}`} />
+    <svg {...rest} className={['icon', className].join(' ')}>
+      <use xlinkHref={`#icon_${rest.icon}`} width={rest.width} height={rest.height} />
     </svg>
   );
-};
+}
 
 Icon.defaultProps = {
   className: '',

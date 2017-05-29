@@ -8,6 +8,7 @@ import Admin from 'components/pages/Admin';
 import AppContainer from 'components/App/AppContainer';
 import Auth from 'components/pages/auth/Auth';
 import BrokerContainer from 'components/pages/Broker/BrokerContainer';
+import Broker from 'components/pages/Broker/Broker';
 import Deal from 'components/pages/Deal';
 import Evolution from 'components/pages/Evolution';
 import FAQ from 'components/pages/FAQ/FAQ';
@@ -40,8 +41,9 @@ ReactDOM.render(
 
         <Route path="faq" component={ProtectedRoute(FAQ)} />
 
-        <Route path="broker" component={ProtectedRoute(BrokerContainer)}>
-          <Route path=":page" />
+        <Route path="broker">
+          <Route path="gb" component={ProtectedRoute(BrokerContainer)} />
+          <Route path=":page" component={ProtectedRoute(Broker)} />
         </Route>
 
         <Route path="deal" component={ProtectedRoute(Deal)}>

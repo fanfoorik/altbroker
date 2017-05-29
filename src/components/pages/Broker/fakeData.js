@@ -1,7 +1,7 @@
 const fakeData = [
   {
     id: 129478,
-    img: `https://unsplash.it/40?image=${Math.floor(Math.random() * 20)}`,
+    img: `https://unsplash.it/200?image=${Math.floor(Math.random() * 20)}`,
     name: 'Частный детский сад в Московском районе',
     category: 'Наркологические клиники',
     location: 'СБП',
@@ -17,8 +17,8 @@ const fakeData = [
   },
   {
     id: 129478,
-    img: `https://unsplash.it/40?image=${Math.floor(Math.random() * 10)}`,
-    name: 'Раскрученная клининговая компания с корпоративными клиентами',
+    img: `https://unsplash.it/200?image=${Math.floor(Math.random() * 10)}`,
+    name: 'Раскрученная клининговая компания с корпоративными клиентами. С каким-то длинным названием.',
     category: 'Рекламные агентства',
     location: 'СБП',
     price: '850 000 000',
@@ -33,7 +33,7 @@ const fakeData = [
   },
   {
     id: 129478,
-    img: `https://unsplash.it/40?image=${Math.floor(Math.random() * 10)}`,
+    img: `https://unsplash.it/200?image=${Math.floor(Math.random() * 10)}`,
     name: 'Федеральная сеть островных кафе в крупных ТРК с высокой проходимостью',
     category: 'Бизнес-школы',
     location: 'СБП',
@@ -48,7 +48,7 @@ const fakeData = [
   },
   {
     id: 129478,
-    img: `https://unsplash.it/40?image=${Math.floor(Math.random() * 10)}`,
+    img: `https://unsplash.it/200?image=${Math.floor(Math.random() * 10)}`,
     name: 'Частный детский сад в Московском районе',
     category: 'Наркологические клиники',
     location: 'СБП',
@@ -64,7 +64,7 @@ const fakeData = [
   },
   {
     id: 129478,
-    img: `https://unsplash.it/40?image=${Math.floor(Math.random() * 10)}`,
+    img: `https://unsplash.it/200?image=${Math.floor(Math.random() * 10)}`,
     name: 'Частный детский сад в Московском районе',
     category: 'Наркологические клиники',
     location: 'СБП',
@@ -80,7 +80,7 @@ const fakeData = [
   },
   {
     id: 129478,
-    img: `https://unsplash.it/40?image=${Math.floor(Math.random() * 10)}`,
+    img: `https://unsplash.it/200?image=${Math.floor(Math.random() * 10)}`,
     name: 'Частный детский сад в Московском районе',
     category: 'Наркологические клиники',
     location: 'СБП',
@@ -96,7 +96,7 @@ const fakeData = [
   },
   {
     id: 129478,
-    img: `https://unsplash.it/40?image=${Math.floor(Math.random() * 10)}`,
+    img: `https://unsplash.it/200?image=${Math.floor(Math.random() * 10)}`,
     name: 'Частный детский сад в Московском районе',
     category: 'Наркологические клиники',
     location: 'СБП',
@@ -112,7 +112,7 @@ const fakeData = [
   },
   {
     id: 129478,
-    img: `https://unsplash.it/40?image=${Math.floor(Math.random() * 10)}`,
+    img: `https://unsplash.it/200?image=${Math.floor(Math.random() * 10)}`,
     name: 'Частный детский сад в Московском районе',
     category: 'Наркологические клиники',
     location: 'СБП',
@@ -128,7 +128,7 @@ const fakeData = [
   },
   {
     id: 129478,
-    img: `https://unsplash.it/40?image=${Math.floor(Math.random() * 10)}`,
+    img: `https://unsplash.it/200?image=${Math.floor(Math.random() * 10)}`,
     name: 'Частный детский сад в Московском районе',
     category: 'Наркологические клиники',
     location: 'СБП',
@@ -144,7 +144,7 @@ const fakeData = [
   },
   {
     id: 129478,
-    img: `https://unsplash.it/40?image=${Math.floor(Math.random() * 10)}`,
+    img: `https://unsplash.it/200?image=${Math.floor(Math.random() * 10)}`,
     name: 'Частный детский сад в Московском районе',
     category: 'Наркологические клиники',
     location: 'СБП',
@@ -160,7 +160,7 @@ const fakeData = [
   },
   {
     id: 129478,
-    img: `https://unsplash.it/40?image=${Math.floor(Math.random() * 10)}`,
+    img: `https://unsplash.it/200?image=${Math.floor(Math.random() * 10)}`,
     name: 'Частный детский сад в Московском районе',
     category: 'Наркологические клиники',
     location: 'СБП',
@@ -176,7 +176,7 @@ const fakeData = [
   },
   {
     id: 129478,
-    img: `https://unsplash.it/40?image=${Math.floor(Math.random() * 10)}`,
+    img: `https://unsplash.it/200?image=${Math.floor(Math.random() * 10)}`,
     name: 'Частный детский сад в Московском районе',
     category: 'Наркологические клиники',
     location: 'СБП',
@@ -192,7 +192,7 @@ const fakeData = [
   },
   {
     id: 129478,
-    img: `https://unsplash.it/40?image=${Math.floor(Math.random() * 10)}`,
+    img: `https://unsplash.it/200?image=${Math.floor(Math.random() * 10)}`,
     name: 'Частный детский сад в Московском районе',
     category: 'Наркологические клиники',
     location: 'СБП',
@@ -208,7 +208,7 @@ const fakeData = [
   },
   {
     id: 129478,
-    img: `https://unsplash.it/40?image=${Math.floor(Math.random() * 10)}`,
+    img: `https://unsplash.it/200?image=${Math.floor(Math.random() * 10)}`,
     name: 'Частный детский сад в Московском районе',
     category: 'Наркологические клиники',
     location: 'СБП',
@@ -224,7 +224,7 @@ const fakeData = [
   },
   {
     id: 129478,
-    img: `https://unsplash.it/40?image=${Math.floor(Math.random() * 10)}`,
+    img: `https://unsplash.it/200?image=${Math.floor(Math.random() * 10)}`,
     name: 'Частный детский сад в Московском районе',
     category: 'Наркологические клиники',
     location: 'СБП',
