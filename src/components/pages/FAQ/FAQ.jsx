@@ -1,12 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import FAQCategory from './FAQCategory';
+import FAQSearch from './FAQSearch';
 
 class FAQ extends React.Component {
 
   componentDidMount() {
-    //fetch faq
+    //to do: run fetchFaq function here
   }
 
   render() {
@@ -17,11 +17,7 @@ class FAQ extends React.Component {
 
         <div className="h1">Помощь</div>
 
-        <div className="faq__search faq-search">
-          <div className="faq-search__lens">lens</div>
-          <input type="text" className="faq-search" />
-          <div className="faq-search__clean">x</div>
-        </div>
+        <FAQSearch />
 
         <div className="faq__categories clear">
           {
@@ -54,6 +50,13 @@ FAQ.defaultProps = {
           PREVIEW_TEXT: '',
           SELECTED: 'N',
         },
+        {
+          ID: '9851477',
+          NAME: 'У меня есть претензия, как с этим жить?',
+          URL: '/altbroker3/faq/8104/985147/',
+          PREVIEW_TEXT: '',
+          SELECTED: 'N',
+        },
       ],
     },
     {
@@ -70,11 +73,25 @@ FAQ.defaultProps = {
         },
       ],
     },
+    {
+      ID: '81052',
+      NAME: 'Дополнительные вопросы',
+      URL: '/altbroker3/faq/8105/',
+      ITEMS: [
+        {
+          ID: '985152',
+          NAME: 'Что делать когда голод не тетка?',
+          URL: '/altbroker3/faq/8105/985152/',
+          PREVIEW_TEXT: '',
+          SELECTED: 'N',
+        },
+      ],
+    },
   ],
 };
 
 FAQ.propTypes = {
-  data: PropTypes.array.isRequired,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default FAQ;

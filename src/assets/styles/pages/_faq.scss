@@ -13,6 +13,10 @@
     width: calc(50% - 35px);
     margin: 0 35px 24px 0;
   }
+
+  &__search {
+    margin-bottom: 24px;
+  }
 }
 
 .faq-category {
@@ -20,13 +24,13 @@
   border: 1px solid $c-border-main;
   border-radius: 3px;
   position: relative;
-  padding: 28px 24px 24px 68px;
-  height: 190px;
+  padding: 28px 24px 0 68px;
+  height: 218px;
 
   &__icon {
     position: absolute;
     left: 30px;
-    top: 24px;
+    top: 26px;
     fill: $c-blue-main;
   }
 
@@ -36,11 +40,65 @@
     margin-bottom: 12px;
   }
 
+  &__questions {
+    display: table-cell;
+    height: 114px;
+    vertical-align: middle;
+  }
+
   &__question {
     margin-bottom: 8px;
   }
 
+  &__link {
+    color: $c-text-main;
+  }
+
   &__more {
     color: $c-text-disabled;
+  }
+}
+
+.faq-search {
+  background: $c-white;
+  height: 60px;
+  position: relative;
+  border: 1px solid $c-border-main;
+  border-radius: 3px;
+
+  &__control {
+    position: absolute;
+    top: 0;
+    width: 58px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+
+    &_lens {
+      left: 0;
+      top: 0;
+    }
+
+    &_clean {
+      right: 0;
+      cursor: pointer;
+    }
+  }
+
+  &__lens-icon {
+    stroke: $c-text-disabled;
+  }
+
+  &__clean-icon {
+    fill: $c-text-disabled;
+  }
+
+  &__input.input {
+    height: 58px;
+    font-size: 22px;
+    border-width: 0;
+    padding: 0 60px;
   }
 }
