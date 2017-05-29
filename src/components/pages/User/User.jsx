@@ -33,9 +33,9 @@ class User extends React.Component {
     const headerOuterHeight = 80;
     const anchorLinks = Array.from(document.querySelectorAll('.profile-menu__link'));
     const profilePanes = Array.from(document.querySelectorAll('.profile-pane'));
-    const getAnchorPane = function (item, anchorLink) {
+    function getAnchorPane(item, anchorLink) {
       return item.getAttribute('data-anchor') === anchorLink && item;
-    };
+    }
 
     anchorLinks.forEach((element) => {
       const anchorLink = element.getAttribute('data-anchor');
