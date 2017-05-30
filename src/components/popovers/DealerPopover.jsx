@@ -32,7 +32,7 @@ export default class DealerPopover extends React.Component {
 
             <ul className="popover-actions-list">
               <li className="popover-actions-item popover-actions-item_share">
-                <Icon icon="location" width={16} height={16} />
+                <Icon icon="share" width={16} height={16} />
               </li>
               <li className="popover-actions-item disabled">
                 <Icon icon="check" width={20} height={15} />

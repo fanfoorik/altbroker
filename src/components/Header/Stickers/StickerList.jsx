@@ -180,7 +180,7 @@ export default class Stickers extends React.Component {
             ) : ''
           }
 
-          <StickerNew addSticker={this.props.addSticker}/>
+          <StickerNew addSticker={this.props.addSticker} />
           <NotificationStack
             notifications={this.state.notifications.toArray()}
             onDismiss={instance => this.handleNotificationDismiss(instance)}

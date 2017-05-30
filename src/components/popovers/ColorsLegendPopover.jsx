@@ -31,24 +31,25 @@ const colors = [
   },
 ];
 
-export default class ColorsLegendPopover extends React.Component {
-  render() {
-    return (
-      <div className="popover popover_md bottomed">
-        <div className="popover-body">
-          <div className="popover-content-wrapper active">
-            <ul className="popover-color-legend-list">
-              {colors.map((item) => (
-                <li className="popover-color-legend-item">
-                  <span className="popover-color-legend-date" style={{ backgroundColor: item.color }} />
-                  <span className="popover-color-legend-value">{item.text}</span>
-                </li>
-                ))
-              }
-            </ul>
-          </div>
+export default function ColorsLegendPopover() {
+  return (
+    <div className="popover popover_md bottomed">
+      <div className="popover-body">
+        <div className="popover-content-wrapper active">
+          <ul className="popover-color-legend-list">
+            {colors.map(item => (
+              <li
+                className="popover-color-legend-item"
+                key={`popover-color-legend-${Math.floor(Date.now() * Math.random())}`}
+              >
+                <span className="popover-color-legend-date" style={{ backgroundColor: item.color }} />
+                <span className="popover-color-legend-value">{item.text}</span>
+              </li>
+              ))
+            }
+          </ul>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }

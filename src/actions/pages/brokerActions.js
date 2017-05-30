@@ -1,24 +1,20 @@
 import ajax from 'utils/ajax';
 import getHeaders from 'utils/getHeaders';
 import handleError from 'utils/handleError';
-import { SET_PATCH_NOTES, TRIGGER_PATCH_NOTES } from 'constants/headerTypes';
+import { apiUrl } from 'utils/urls';
+import { FETCH_LISTING } from 'constants/listingTypes';
 
-export const fetchPatchNotes = url => (dispatch) => {
-  ajax.get(
-    url,
+export const fetchListingData = () => (dispatch) => {
+  ajax.post(`${apiUrl}broker/gb/`, {},
     {
       headers: getHeaders(),
     })
     .then(res => res.data)
     .then((data) => {
       dispatch({
-        type: SET_PATCH_NOTES,
+        type: FETCH_LISTING,
         payload: data.ANSWER,
       });
     })
     .catch(error => handleError(error, dispatch));
-};
-
-export const triggerPatchNotes = () => {
-  return { type: TRIGGER_PATCH_NOTES };
 };

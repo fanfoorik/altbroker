@@ -35,6 +35,15 @@
         position: relative;
       }
     }
+
+    &-link {
+      color: $c-table-active-item;
+      display: block;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
   }
 
   &__count {
