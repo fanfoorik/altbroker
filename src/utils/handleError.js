@@ -1,15 +1,16 @@
 import { AUTH_USER } from 'constants/authTypes';
+import store from 'store';
 
-export default (error, dispatch) => {
+export default (error) => {
   if (error.response) {
     // The request was made and the server responded with a status code
     // that falls out of the range of 2xx
     const errors = error.response.data.ERRORS;
 
-    if (errors.length && (errors[0].CODE === 1300 || errors[0].CODE === 1301) && dispatch) {
+    if (errors.length && (errors[0].CODE === 1300 || errors[0].CODE === 1301)) {
       localStorage.removeItem('login');
       localStorage.removeItem('token');
-      dispatch({ type: AUTH_USER, payload: false });
+      store.dispatch({ type: AUTH_USER, payload: false });
     }
   } else if (error.request) {
     // The request was made but no response was received
