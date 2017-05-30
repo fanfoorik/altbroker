@@ -1,15 +1,18 @@
-import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-import BrokerActions from './BrokerActions';
-import BrokerPaginator from './BrokerPaginator';
-import BrokerTable from './BrokerTable';
+import { fetchListingData } from 'actions/pages/brokerActions';
+import Broker from './Broker';
 
-export default function BrokerContainer(props) {
-  return (
-    <div>
-      <BrokerTable />
-      <BrokerPaginator />
-      <BrokerActions />
-    </div>
-  );
+function mapStateToProps(state) {
+  return {
+    listingItems: state.listing.listingItems,
+    listingNav: state.listing.nav,
+  };
 }
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchListingData }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Broker);

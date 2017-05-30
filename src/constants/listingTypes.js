@@ -1,0 +1,1 @@
+export const FETCH_LISTING = 'FETCH_LISTING';
