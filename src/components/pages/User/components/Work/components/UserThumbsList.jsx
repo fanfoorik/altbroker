@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { hostUrl, indexUrl } from 'utils/urls.js';
-import { Link } from 'react-router';
-import IsActive from 'utils/IsActive';
+import { indexUrl } from 'utils/urls.js';
+
 import Avatar from 'components/Avatar';
+import IsActive from 'utils/IsActive';
 import Icon from 'components/Icon';
+import { Link } from 'react-router';
 
 class UserThumbsList extends React.Component {
-
   constructor() {
     super();
     this.state = {

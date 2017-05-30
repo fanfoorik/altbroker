@@ -1,0 +1,249 @@
+@import "../utils/variables";
+
+.listing {
+  tr {
+    transition: color 0.3s;
+
+    &:hover {
+      color: $c-tr-hovered;
+
+      .table-cell__id,
+      .table-cell__price-text,
+      .table-cell__dealer-text,
+      .table-cell__broker-text {
+        border-bottom: 1px dashed;
+      }
+
+      .table-cell__dot {
+        opacity: 0.6;
+      }
+    }
+  }
+}
+
+
+.clickable {
+  &:hover {
+    .icon {
+      color: $c-table-active-item;
+      fill: $c-table-active-item;
+    }
+  }
+}
+
+.table-col {
+  &__checkbox {
+    text-align: center;
+  }
+}
+
+.table-dot {
+  background: $c-table-circles-bg;
+  border-radius: 50%;
+  height: 5px;
+  width: 5px;
+}
+
+// All table headings:
+.table-th {
+  &__icon {
+    fill: $c-table-nonactive-item;
+    position: relative;
+    top: 2px;
+    transition: 0.3s;
+  }
+
+  &__actions {
+    border: 1px solid;
+    border-radius: 50%;
+    color: $c-table-muted-text;
+    height: 22px;
+    display: inline-block;
+    font-family: serif;
+    font-size: 17px;
+    line-height: 1.1;
+    text-align: center;
+    top: 0;
+    width: 22px;
+  }
+}
+
+// All table cells:
+.table-cell {
+  &__id {
+    cursor: pointer;
+  }
+
+  &__span {
+    display: inline-block;
+    height: 47px;
+    overflow: hidden;
+  }
+
+  &__color {
+    position: relative;
+  }
+
+  &__comments {
+    align-items: center;
+    background: $c-table-circles-bg;
+    border-radius: 50%;
+    color: $c-white;
+    display: flex;
+    height: 24px;
+    line-height: 1;
+    justify-content: center;
+    width: 24px;
+  }
+
+  &__action-left {
+    opacity: 0;
+    transition: 0.3s;
+
+    .listing tr:hover & {
+      opacity: 1;
+    }
+  }
+
+  &__actions {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    width: 56px;
+  }
+
+  &__list {
+    cursor: pointer;
+    fill: $c-black;
+    opacity: 0.6;
+    transition: 0.3s;
+  }
+
+  &__dot {
+    background: $c-black;
+    border-radius: 50%;
+    display: inline-block;
+    height: 5px;
+    margin: 0 1px;
+    opacity: 0.12;
+    transition: 0.3s;
+    width: 5px;
+  }
+
+  &__name {
+    width: 128px;
+  }
+
+  &__img {
+    width: 40px;
+  }
+
+  &__price {
+    min-width: 90px;
+  }
+
+  &__profit {
+    min-width: 90px;
+  }
+}
+
+.table-color {
+  height: calc(100% + 1px);
+  left: 0;
+  position: absolute;
+  top: -1px;
+  width: 5px;
+}
+
+// Table footer:
+.table-footer {
+  align-items: center;
+  background: $c-white;
+  border-bottom: 1px solid $c-table-border;
+  display: flex;
+  height: $table-row-height;
+  justify-content: center;
+  margin: 0 0 12px;
+  position: relative;
+
+  &__items {
+    color: $c-grey-main;
+  }
+
+  &__items-count {
+    color: $c-table-active-text;
+  }
+}
+
+.table-actions {
+  color: $c-table-muted-text;
+  display: flex;
+  font-size: 12px;
+  padding: 0 11px;
+
+  &__checkbox {
+    flex: 1;
+  }
+
+  &__items {
+    display: flex;
+    line-height: 1.6;
+    flex: 7;
+  }
+
+  &__item {
+    margin: 0 24px 0 0;
+    position: relative;
+
+    &.active {
+      cursor: pointer;
+    }
+
+    .popover {
+      bottom: 30px;
+    }
+  }
+
+  &__title {
+    color: $c-table-active-item;
+    margin: 0 24px 0 0;
+  }
+
+  &__list {
+    display: flex;
+  }
+}
+
+// Table tooltip:
+.table-tooltip {
+  position: relative;
+  z-index: 1;
+
+  &__content {
+    background: $c-white;
+    border-radius: 4px;
+    bottom: 100%;
+    box-shadow: 0 4px 22px rgba($c-black, 0.2);
+    cursor: default;
+    left: 50%;
+    opacity: 0;
+    padding: 4px;
+    pointer-events: none;
+    position: absolute;
+    transform: scale3d(0.7, 0.3, 1) translateX(-75%);
+    transform-origin: 50% 100%;
+    transition: opacity 0.2s, transform 0.2s;
+    z-index: 100;
+
+    &-img {
+      max-height: none;
+      max-width: none;
+    }
+  }
+
+  &:hover .table-tooltip__content {
+    pointer-events: auto;
+    opacity: 1;
+    transform: translateX(-50%) translate3d(0, 0, 0) rotate3d(0, 0, 0, 0);
+  }
+}
