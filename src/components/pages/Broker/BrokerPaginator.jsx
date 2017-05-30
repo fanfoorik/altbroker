@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import { formatNumber } from 'utils/formaters';
+
 export default function BrokerPaginator(props) {
   const itemsCount = props.itemsCount;
   const listingNav = props.listingNav || {};
-  const objectsCount = listingNav.COUNT_OBJ;
+  const objectsCount = listingNav.COUNT_OBJ || 0;
 
   const {
     CUR_GAGE: currentPage,
@@ -17,7 +19,7 @@ export default function BrokerPaginator(props) {
     <div className="container">
       <div className="table-footer">
         <div className="table-footer__items">
-          Всего <span className="table-footer__items-count">{objectsCount}</span> объектов
+          Всего <span className="table-footer__items-count">{formatNumber(objectsCount)}</span> объектов
         </div>
 
         <ul className="paginator__list">
