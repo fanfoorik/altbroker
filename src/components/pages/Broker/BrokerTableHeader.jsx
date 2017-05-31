@@ -3,13 +3,13 @@ import React from 'react';
 import ColorsLegendPopover from 'components/popovers/ColorsLegendPopover';
 import Icon from 'components/Icon';
 
-export default function BrokerTableHeader(props) {
+export default function BrokerTableHeader() {
   return (
     <thead>
       <tr>
         <th className="table-col__checkbox">
-          <label className="checkbox">
-            <input type="checkbox" />
+          <label className="checkbox" htmlFor="checkbox-select-all-header">
+            <input type="checkbox" id="checkbox-select-all-header" />
             <div className="checkbox_indicator" />
           </label>
         </th>
