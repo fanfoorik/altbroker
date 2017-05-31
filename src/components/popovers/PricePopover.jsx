@@ -26,7 +26,7 @@ export default class PricePopover extends React.Component {
         <div className="popover-body">
           <div className="popover-content-wrapper active no-padding-top" data-id="01">
             <input
-              className="popover-input"
+              className="popover-input align-right"
               defaultValue="1000000"
               onChange={this.handleChange}
               type="number"
