@@ -9,7 +9,7 @@ export default function Broker(props) {
   const { fetchListingData, listingItems, listingNav } = props;
 
   return (
-    <div>
+    <div className="container">
       <BrokerTable fetchListingData={fetchListingData} listingItems={listingItems} />
       <BrokerPaginator listingNav={listingNav} itemsCount={listingItems && listingItems.length} />
       <BrokerActions />

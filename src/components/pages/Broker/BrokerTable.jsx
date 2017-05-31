@@ -1,30 +1,15 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import BrokerTableHeader from './BrokerTableHeader';
-import Icon from 'components/Icon';
 import CommentsPopover from 'components/popovers/CommentsPopover';
 import DelegatePopover from 'components/popovers/DelegatePopover';
 import DealPopover from 'components/popovers/DealPopover';
 import DealerPopover from 'components/popovers/DealerPopover';
+import Icon from 'components/Icon';
 import PricePopover from 'components/popovers/PricePopover';
 import TaskPopover from 'components/popovers/TaskPopover';
-
-const fakeData = {
-  id: 129478,
-  img: `https://unsplash.it/200?image=${Math.floor(Math.random() * 20)}`,
-  name: 'Частный детский сад в Московском районе',
-  category: 'Наркологические клиники',
-  location: 'СБП',
-  price: '1 000 000 000',
-  profit: '250 000 000',
-  broker: 'Дубровин Н.',
-  dealer: 'Сидачев К.',
-  created: 'сегодня',
-  lastUpdate: '1 день',
-  viewed: '289',
-  likes: '87%',
-  comments: '1',
-};
+import { formatNumber } from 'utils/formaters';
 
 const colors = {
   0: '#e1e5e9',
@@ -33,6 +18,10 @@ const colors = {
   3: '#4da1ff',
   4: '#6dd100',
 };
+
+function getColor(value) {
+  return colors[value] || '';
+}
 
 export default class BrokerTable extends React.Component {
   constructor(props) {
@@ -53,11 +42,28 @@ export default class BrokerTable extends React.Component {
 
   render() {
     return (
-      <table className="container listing">
+      <table className="listing">
         <BrokerTableHeader />
 
         <tbody>
           {this.state.listingItems.map((item) => {
+            const {
+              PROPERTY_BROKER_VALUE_TEXT: broker,
+              IBLOCK_SECTION_ID_TEXT: category,
+              COMMENTS: comments,
+              DATE_CREATE_TEXT: created,
+              PROPERTY_KLIENT_FIO_VALUE: dealer,
+              PROPERTY_DATE_UP_VALUE: lastUpdate,
+              SCORE: likes,
+              PROPERTY_GEO_ID_VALUE_TEXT: location,
+              NAME: name,
+              SHOW_COUNTER: viewed,
+            } = item;
+            const color = getColor(item.PROPERTY_STATUS_OBJ_VALUE);
+            const img = `http://alterainvest.ru/${item.DETAIL_PICTURE_TEXT}`;
+            const price = formatNumber(item.PROPERTY_PRICE_BUSINESS_VALUE, '-');
+            const profit = formatNumber(item.PROPERTY_CHIST_PRIB_VALUE, '-');
+
             return (
               <tr key={`table-item-${Math.floor(Date.now() * Math.random())}`}>
                 <td className="table-col__checkbox">
@@ -67,63 +73,61 @@ export default class BrokerTable extends React.Component {
                   </label>
                 </td>
                 <td className="table-cell__color no-padding">
-                  <span className="table-color" style={{ backgroundColor: colors[Math.floor(Math.random() * 5)] }} />
+                  <span className="table-color" style={{ backgroundColor: color }} />
                 </td>
                 <td><span className="table-cell__id">{item.ID}</span></td>
                 <td className="no-padding">
                   <div className="table-cell__img-wrapper">
-                    <img className="table-cell__img table-tooltip" src={item.img || fakeData.img} alt={item.NAME} />
+                    <img className="table-cell__img table-tooltip" src={img} alt={name} />
                     <span className="table-tooltip__content clearfix">
-                      <img className="table-tooltip__content-img" src={item.img || fakeData.img} alt={item.NAME} />
+                      <img className="table-tooltip__content-img" src={img} alt={name} />
                     </span>
                   </div>
                 </td>
                 <td>
                   <div className="table-cell__name">
-                    <span className="table-cell__span table-cell__name-text">{item.NAME}</span>
+                    <span className="table-cell__span table-cell__name-text">{name}</span>
                   </div>
                 </td>
-                <td><span className="table-cell__category">{item.CATEGORY || fakeData.category }</span></td>
+                <td><span className="table-cell__category">{category}</span></td>
                 <td className="no-padding">
-                  <span className="table-cell__location no-padding">{item.LOCATION || fakeData.location}</span>
+                  <span className="table-cell__location no-padding">{location}</span>
                 </td>
                 <td className="align-right no-padding-left popover-parent">
                   <div className="table-cell__price">
-                    <span className="table-cell__price-text">{item.PRICE || fakeData.price}</span>
+                    <span className="table-cell__price-text">{price}</span>
                     <PricePopover />
                   </div>
                 </td>
                 <td className="align-right no-padding-left">
-                  <div className="table-cell__profit">{item.PROFIT || fakeData.profit}</div>
+                  <div className="table-cell__profit">{profit}</div>
                 </td>
                 <td className="popover-parent no-padding-left">
                   <div className="table-cell__broker">
-                    <span className="table-cell__broker-text">{item.BROKER || fakeData.broker}</span>
+                    <span className="table-cell__broker-text">{broker}</span>
                     <DelegatePopover />
                   </div>
                 </td>
                 <td className="popover-parent no-padding-left">
                   <div className="table-cell__dealer">
-                    <span className="table-cell__dealer-text">{item.DEALER || fakeData.dealer}</span>
+                    <span className="table-cell__dealer-text">{dealer}</span>
                     <DealerPopover />
                   </div>
                 </td>
                 <td className="no-padding-left">
-                  <span className="table-cell__created">{item.CREATED || fakeData.created}</span>
+                  <span className="table-cell__created">{created}</span>
                 </td>
                 <td className="no-padding-left">
-                  <span className="table-cell__last-update">{item.LASTUPDATE || fakeData.lastUpdate}</span>
+                  <span className="table-cell__last-update">{lastUpdate}</span>
                 </td>
                 <td className="align-right no-padding-right">
-                  <span className="table-cell__viewed">{item.VIEWED || fakeData.viewed}</span>
+                  <span className="table-cell__viewed">{viewed || '-'}</span>
                 </td>
                 <td className="align-right no-padding-right">
-                  <span className="table-cell__likes">{item.LIKES || fakeData.likes}</span>
+                  <span className="table-cell__likes">{likes}</span>
                 </td>
                 <td className="align-center no-padding-right popover-parent">
-                  {(item.comments || fakeData.comments) &&
-                    <span className="table-cell__comments">{item.COMMENTS || fakeData.comments}</span>
-                  }
+                  <span className="table-cell__comments">{comments || Math.floor((Math.random() * 10) + 1)}</span>
                   <CommentsPopover />
                 </td>
                 <td>
@@ -148,3 +152,13 @@ export default class BrokerTable extends React.Component {
     );
   }
 }
+
+BrokerTable.propTypes = {
+  fetchListingData: PropTypes.func.isRequired,
+  listingItems: PropTypes.arrayOf(PropTypes.object),
+
+};
+
+BrokerTable.defaultProps = {
+  listingItems: [],
+};
