@@ -27,9 +27,9 @@ export default class PricePopover extends React.Component {
           <div className="popover-content-wrapper active no-padding-top" data-id="01">
             <input
               className="popover-input"
+              defaultValue="1000000"
               onChange={this.handleChange}
-              type="text"
-              value="1 000 000 000"
+              type="number"
             />
 
             <ul className="popover-decrease-list">

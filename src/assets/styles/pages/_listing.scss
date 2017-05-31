@@ -222,7 +222,6 @@
   &__content {
     background: $c-white;
     border-radius: 4px;
-    bottom: 100%;
     box-shadow: 0 4px 22px rgba($c-black, 0.2);
     cursor: default;
     left: 50%;
@@ -230,8 +229,8 @@
     padding: 4px;
     pointer-events: none;
     position: absolute;
-    transform: scale3d(0.7, 0.3, 1) translateX(-75%);
-    transform-origin: 50% 100%;
+    top: -85px;
+    transform: scale3d(0.3, 0.3, 0.3) translateX(-166%);
     transition: opacity 0.2s, transform 0.2s;
     z-index: 100;
 
@@ -241,9 +240,14 @@
     }
   }
 
-  &:hover .table-tooltip__content {
-    pointer-events: auto;
-    opacity: 1;
-    transform: translateX(-50%) translate3d(0, 0, 0) rotate3d(0, 0, 0, 0);
+  &:hover {
+    opacity: 0;
+    z-index: 101;
+
+    ~ .table-tooltip__content {
+      pointer-events: auto;
+      opacity: 1;
+      transform: translateX(-50%) translate3d(0, 0, 0);
+    }
   }
 }

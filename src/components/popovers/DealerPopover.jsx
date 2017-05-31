@@ -5,7 +5,7 @@ import Icon from 'components/Icon';
 export default class DealerPopover extends React.Component {
   render() {
     return (
-      <div className="popover popover_lg">
+      <div className="popover popover_md">
         <div className="popover-body">
           <div className="popover-content-wrapper no-padding-top active">
             <ul className="popover-deal-list">

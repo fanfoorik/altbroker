@@ -2,6 +2,7 @@ import React from 'react';
 
 import BrokerTableHeader from './BrokerTableHeader';
 import Icon from 'components/Icon';
+import CommentsPopover from 'components/popovers/CommentsPopover';
 import DelegatePopover from 'components/popovers/DelegatePopover';
 import DealPopover from 'components/popovers/DealPopover';
 import DealerPopover from 'components/popovers/DealerPopover';
@@ -60,8 +61,8 @@ export default class BrokerTable extends React.Component {
             return (
               <tr key={`table-item-${Math.floor(Date.now() * Math.random())}`}>
                 <td className="table-col__checkbox">
-                  <label className="checkbox" htmlFor={`checkbox-${item}`}>
-                    <input id={`checkbox-${item}`} type="checkbox" />
+                  <label className="checkbox" htmlFor={`checkbox-${item.ID}`}>
+                    <input id={`checkbox-${item.ID}`} type="checkbox" />
                     <div className="checkbox_indicator" />
                   </label>
                 </td>
@@ -70,8 +71,8 @@ export default class BrokerTable extends React.Component {
                 </td>
                 <td><span className="table-cell__id">{item.ID}</span></td>
                 <td className="no-padding">
-                  <div className="table-cell__img-wrapper table-tooltip">
-                    <img className="table-cell__img" src={item.img || fakeData.img} alt={item.NAME} />
+                  <div className="table-cell__img-wrapper">
+                    <img className="table-cell__img table-tooltip" src={item.img || fakeData.img} alt={item.NAME} />
                     <span className="table-tooltip__content clearfix">
                       <img className="table-tooltip__content-img" src={item.img || fakeData.img} alt={item.NAME} />
                     </span>
@@ -119,10 +120,11 @@ export default class BrokerTable extends React.Component {
                 <td className="align-right no-padding-right">
                   <span className="table-cell__likes">{item.LIKES || fakeData.likes}</span>
                 </td>
-                <td className="align-center no-padding-right clickable">
+                <td className="align-center no-padding-right popover-parent">
                   {(item.comments || fakeData.comments) &&
                     <span className="table-cell__comments">{item.COMMENTS || fakeData.comments}</span>
                   }
+                  <CommentsPopover />
                 </td>
                 <td>
                   <div className="table-cell__actions">
