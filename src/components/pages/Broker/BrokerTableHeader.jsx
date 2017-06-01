@@ -5,7 +5,7 @@ import Icon from 'components/Icon';
 
 export default function BrokerTableHeader() {
   return (
-    <thead>
+    <thead id="listing-heading">
       <tr>
         <th className="table-col__checkbox">
           <label className="checkbox" htmlFor="checkbox-select-all-header">

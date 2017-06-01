@@ -59,12 +59,14 @@
 
 // Popover with top direction:
 .popover {
-  &.bottomed {
+  &.top {
     bottom: auto;
     top: 48px;
 
     &::before {
+      background: $c-grey-light;
       bottom: auto;
+      box-shadow: 2px -3px 5px rgba($c-black, 0.02);
       top: -7px;
     }
   }
@@ -107,9 +109,13 @@
 }
 
 // Content part:
-.popover-content {
-  height: 92px;
+.popover-history-list {
+  height: 115px;
   overflow: scroll;
+
+  &_task {
+    height: 119px;
+  }
 }
 
 .popover-content-wrapper {
@@ -196,7 +202,7 @@ input.popover-input {
   border: 0;
   border-bottom: 1px solid $c-popover-border;
   border-radius: 0;
-  font-size: 12px;
+  font-size: 14px;
   margin: 0 -#{$listing-offset} 12px;
   padding: 0 $listing-offset;
   width: calc(100% + #{$listing-offset} * 2);
@@ -217,6 +223,7 @@ input.popover-input {
     margin-bottom: 6px;
     transition: 0.3s;
     text-align: right;
+    user-select: none;
 
     &:hover {
       color: $c-popover-text-active;
@@ -311,6 +318,10 @@ input.popover-input {
 .popover-comments {
   height: 146px;
   overflow: auto;
+
+  &_clients {
+    height: 192px;
+  }
 
   &__item {
     border-bottom: 1px solid $c-popover-border;

@@ -131,28 +131,31 @@
   }
 
   &__name {
-    width: 128px;
+    width: 120px;
+  }
+
+  &__category {
+    width: 105px;
   }
 
   &__img-wrapper {
     width: 40px;
   }
 
-  &__price {
-    min-width: 85px;
+  &__last-update {
+    width: 50px;
   }
 
-  &__profit {
-    min-width: 85px;
-  }
-
+  &__price,
+  &__profit,
   &__dealer,
   &__broker {
-    min-width: 90px;
+    min-width: 75px;
   }
 }
 
 .table-color {
+  background: $c-border-main;
   height: calc(100% + 1px);
   left: 0;
   position: absolute;

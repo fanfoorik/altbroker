@@ -6,11 +6,11 @@ import BrokerPaginator from './BrokerPaginator';
 import BrokerTable from './BrokerTable';
 
 export default function Broker(props) {
-  const { fetchListingData, listingItems, listingNav } = props;
+  const { fetchListing, listingItems, listingNav } = props;
 
   return (
     <div className="container">
-      <BrokerTable fetchListingData={fetchListingData} listingItems={listingItems} />
+      <BrokerTable fetchListing={fetchListing} listingItems={listingItems} />
       <BrokerPaginator listingNav={listingNav} itemsCount={listingItems && listingItems.length} />
       <BrokerActions />
     </div>
@@ -18,7 +18,7 @@ export default function Broker(props) {
 }
 
 Broker.propTypes = {
-  fetchListingData: PropTypes.func.isRequired,
+  fetchListing: PropTypes.func.isRequired,
   listingItems: PropTypes.arrayOf(PropTypes.object),
   listingNav: PropTypes.shape({
     COUNT_OBJ: PropTypes.number,

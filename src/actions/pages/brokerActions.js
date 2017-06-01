@@ -4,7 +4,7 @@ import handleError from 'utils/handleError';
 import { apiUrl } from 'utils/urls';
 import { FETCH_LISTING } from 'constants/listingTypes';
 
-export const fetchListingData = () => (dispatch) => {
+export const fetchListing = () => (dispatch) => {
   ajax.post(`${apiUrl}broker/gb/`, {},
     {
       headers: getHeaders(),

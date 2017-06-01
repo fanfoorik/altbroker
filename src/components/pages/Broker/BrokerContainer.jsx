@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { fetchListingData } from 'actions/pages/brokerActions';
+import { fetchListing } from 'actions/pages/brokerActions';
 import Broker from './Broker';
 
 function mapStateToProps(state) {
@@ -12,7 +12,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchListingData }, dispatch);
+  return bindActionCreators({ fetchListing }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Broker);
