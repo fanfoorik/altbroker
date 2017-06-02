@@ -5,13 +5,12 @@ import { intersection } from 'mezr';
 export default function PopoverBaseHOC(Popover) {
   return class extends React.Component {
     /**
-     * Adds `top` class to pop
+     * Adds `top` class to popover if it intersects with Listing header.
      */
-    setDirection = () => {
-      console.log(this.popover);
+    setDirection = (popover) => {
       const heading = document.getElementById('listing-heading');
-      if (!intersection(heading, this.popover)) return;
-      this.popover.classList.add('top');
+      if (!intersection(heading, popover)) return;
+      popover.classList.add('top');
     };
 
     render() {
@@ -19,7 +18,6 @@ export default function PopoverBaseHOC(Popover) {
         <Popover
           {...this.props}
           setDirection={this.setDirection}
-          ref={(node) => { this.popover = node; }}
         />
       );
     }

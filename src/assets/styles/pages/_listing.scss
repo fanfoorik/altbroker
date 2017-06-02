@@ -97,7 +97,10 @@
   }
 
   &__action-left {
+    cursor: pointer;
+    min-height: 40px;
     opacity: 0;
+    padding: 11px 0 0 16px;
     transition: 0.3s;
 
     .listing tr:hover & {
@@ -105,11 +108,18 @@
     }
   }
 
-  &__actions {
+  &__action-right {
     cursor: pointer;
+    min-height: 40px;
+    padding: 10px;
+  }
+
+  &__actions {
+    align-items: center;
     display: flex;
     justify-content: space-between;
-    width: 56px;
+    height: 100%;
+    width: 76px;
   }
 
   &__list {

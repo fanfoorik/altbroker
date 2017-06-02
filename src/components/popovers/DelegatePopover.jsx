@@ -1,11 +1,17 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Icon from 'components/Icon';
+import PopoverBaseHOC from 'components/popovers/PopoverBaseHOC';
 
-export default class DelegatePopover extends React.Component {
+class DelegatePopover extends React.Component {
+  componentDidMount() {
+    this.props.setDirection(this.popover);
+  }
+
   render() {
     return (
-      <div className="popover">
+      <div className="popover" ref={(node) => { this.popover = node; }}>
         <div className="popover-header">
           <div className="popover-header__tab">Кому передать</div>
         </div>
@@ -35,3 +41,9 @@ export default class DelegatePopover extends React.Component {
     );
   }
 }
+
+DelegatePopover.propTypes = {
+  setDirection: PropTypes.func.isRequired,
+};
+
+export default PopoverBaseHOC(DelegatePopover);

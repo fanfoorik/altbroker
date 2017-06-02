@@ -131,7 +131,7 @@ export default class BrokerTable extends React.Component {
                   <span className="table-cell__comments">{comments}</span>
                   <CommentsPopover />
                 </td>
-                <td>
+                <td className="no-padding">
                   <div className="table-cell__actions">
                     <div className="table-cell__action-left popover-parent">
                       <Icon className="table-cell__list" icon="list" width={18} height={18} />

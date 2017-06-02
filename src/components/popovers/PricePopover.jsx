@@ -16,7 +16,7 @@ class PricePopover extends React.Component {
   }
 
   componentDidMount() {
-    this.props.setDirection();
+    this.props.setDirection(this.popover);
   }
 
   handleChange = (event) => {
@@ -40,7 +40,7 @@ class PricePopover extends React.Component {
     const isDisabled = this.state.changed ? '' : 'disabled';
 
     return (
-      <div className="popover">
+      <div className="popover" ref={(node) => { this.popover = node; }}>
         <div className="popover-header js-target-trigger">
           <div className="popover-header__tab active js-popover-tab">Цена</div>
           <div className="popover-header__tab js-popover-tab">История</div>
@@ -109,6 +109,7 @@ class PricePopover extends React.Component {
 
 PricePopover.propTypes = {
   changed: PropTypes.bool,
+  setDirection: PropTypes.func.isRequired,
   value: PropTypes.number,
 };
 

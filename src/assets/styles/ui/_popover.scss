@@ -70,6 +70,10 @@
       top: -7px;
     }
   }
+
+  &_without-tabs.top::before {
+    background: $c-white;
+  }
 }
 
 // Popover sizes:
