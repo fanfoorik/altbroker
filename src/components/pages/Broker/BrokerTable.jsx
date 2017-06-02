@@ -10,6 +10,7 @@ import Icon from 'components/Icon';
 import PricePopover from 'components/popovers/PricePopover';
 import TaskPopover from 'components/popovers/TaskPopover';
 import { formatNumber } from 'utils/formaters';
+import { hostUrl } from 'utils/urls';
 
 const colors = {
   0: '#e1e5e9',
@@ -46,7 +47,7 @@ export default class BrokerTable extends React.Component {
   render() {
     function getImage(item) {
       return item.DETAIL_PICTURE_TEXT ?
-        `http://alterainvest.ru${item.DETAIL_PICTURE_TEXT}` :
+        `${hostUrl}${item.DETAIL_PICTURE_TEXT}` :
         'http://via.placeholder.com/200?text=A';
     }
 
