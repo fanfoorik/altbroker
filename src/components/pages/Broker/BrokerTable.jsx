@@ -30,10 +30,13 @@ export default class BrokerTable extends React.Component {
     this.state = {
       listingItems: props.listingItems || [],
     };
+
+    this.pageIndex = this.props.query.PAGE || 0;
+    this.itemsCount = this.props.query.COUNT || 15;
   }
 
   componentDidMount() {
-    this.props.fetchListing();
+    this.props.fetchListing(this.pageIndex, this.itemsCount);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -41,6 +44,12 @@ export default class BrokerTable extends React.Component {
   }
 
   render() {
+    function getImage(item) {
+      return item.DETAIL_PICTURE_TEXT ?
+        `http://alterainvest.ru${item.DETAIL_PICTURE_TEXT}` :
+        'http://via.placeholder.com/200?text=A';
+    }
+
     return (
       <table className="listing">
         <BrokerTableHeader />
@@ -60,7 +69,6 @@ export default class BrokerTable extends React.Component {
               SHOW_COUNTER: viewed,
             } = item;
             const color = getColor(item.PROPERTY_STATUS_OBJ_VALUE);
-            const img = `http://alterainvest.ru${item.DETAIL_PICTURE_TEXT}`;
             const price = parseInt(item.PROPERTY_PRICE_BUSINESS_VALUE, 10);
             const formattedPrice = formatNumber(price, '-');
             const profit = formatNumber(item.PROPERTY_CHIST_PRIB_VALUE, '-');
@@ -79,9 +87,9 @@ export default class BrokerTable extends React.Component {
                 <td><span className="table-cell__id">{item.ID}</span></td>
                 <td className="no-padding">
                   <div className="table-cell__img-wrapper">
-                    <img className="table-cell__img table-tooltip" src={img} alt={name} />
+                    <img className="table-cell__img table-tooltip" src={getImage(item)} alt={name} />
                     <span className="table-tooltip__content clearfix">
-                      <img className="table-tooltip__content-img" src={img} alt={name} />
+                      <img className="table-tooltip__content-img" src={getImage(item)} alt={name} />
                     </span>
                   </div>
                 </td>
@@ -157,8 +165,16 @@ export default class BrokerTable extends React.Component {
 BrokerTable.propTypes = {
   fetchListing: PropTypes.func.isRequired,
   listingItems: PropTypes.arrayOf(PropTypes.object),
+  query: PropTypes.shape({
+    COUNT: PropTypes.object,
+    PAGE: PropTypes.object,
+  }),
 };
 
 BrokerTable.defaultProps = {
   listingItems: [],
+  query: PropTypes.shape({
+    COUNT: PropTypes.object,
+    PAGE: PropTypes.object,
+  }),
 };

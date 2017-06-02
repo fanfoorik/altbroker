@@ -1,8 +1,8 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { fetchListing } from 'actions/pages/brokerActions';
 import Broker from './Broker';
+import { fetchListing } from 'actions/pages/brokerActions';
 
 function mapStateToProps(state) {
   return {

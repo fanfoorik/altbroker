@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { compose } from 'redux';
 
 import Icon from 'components/Icon';
 import PopoverBaseHOC from 'components/popovers/PopoverBaseHOC';
@@ -89,4 +90,4 @@ CommentsPopover.propTypes = {
   setDirection: PropTypes.func.isRequired,
 };
 
-export default PopoverBaseHOC(PopoverWithTabsHOC(CommentsPopover));
+export default compose(PopoverBaseHOC, PopoverWithTabsHOC)(CommentsPopover);

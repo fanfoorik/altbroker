@@ -16,7 +16,6 @@ function parseNav(menu) {
     }
 
     delete menu[el].CHILDREN;
-
     nav.push(menu[el]);
   }
 
@@ -24,13 +23,10 @@ function parseNav(menu) {
 }
 
 const fetchInit = () => (dispatch) => {
-  ajax.get(
-    `${apiUrl}init/`,
-    {
-      headers: getHeaders(),
-    })
-    .then(res => res.data)
-    .then((data) => {
+  ajax.get(`${apiUrl}init/`,
+    { headers: getHeaders() })
+    .then((response) => {
+      const data = response.data;
       const {
         MENU: menu,
         PATCHNOUTS: patchNotes,

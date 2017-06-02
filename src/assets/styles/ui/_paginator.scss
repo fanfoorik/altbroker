@@ -10,6 +10,7 @@
 
     &-item {
       border: 1px solid $c-paginator-border;
+      cursor: pointer;
       height: 28px;
       line-height: 1.9;
       margin-left: -1px;
@@ -25,12 +26,13 @@
         border-radius: 0 3px 3px 0;
       }
 
-      &:not(.disabled) {
-        cursor: pointer;
+      &.disabled {
+        color: $c-text-disabled;
+        cursor: default;
       }
 
-      &:hover,
-      &.active {
+      &:hover:not(.disabled),
+      &.active:not(.disabled) {
         border-color: $c-paginator-border-active;
         position: relative;
       }
@@ -38,11 +40,6 @@
 
     &-link {
       color: $c-table-active-item;
-      display: block;
-
-      &:hover {
-        text-decoration: none;
-      }
     }
   }
 
