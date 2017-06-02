@@ -20,15 +20,18 @@ const FAQCategory = (props) => {
 
       <div className="faq-category__questions">
         {
-          items.map(item => (
-            <div className="faq-category__question" key={`faq-category-question-${item.ID}`}>
-              <Link to={item.URL} className="faq-category__link">{item.NAME}</Link>
-            </div>
-          ))
+          items.map((item) => {
+            const { ID: itemId, URL: itemUrl, NAME: itemName } = item;
+            return (
+              <div className="faq-category__question" key={`faq-category-question-${itemId}`}>
+                <Link to={itemUrl} className="faq-category__link">{itemName}</Link>
+              </div>
+            );
+          })
         }
       </div>
 
-      <IsActive active={items.length > 2} >
+      <IsActive active={items.length > 2}>
         <Link to={url} className="faq-category__more">Смотреть все &gt;</Link>
       </IsActive>
 
@@ -37,10 +40,9 @@ const FAQCategory = (props) => {
 };
 
 FAQCategory.propTypes = {
-  NAME: PropTypes.string.isRequired,
   ITEMS: PropTypes.arrayOf(PropTypes.object).isRequired,
+  NAME: PropTypes.string.isRequired,
   URL: PropTypes.string.isRequired,
 };
 
 export default FAQCategory;
-

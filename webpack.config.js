@@ -36,6 +36,9 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.scss'],
     modules: ['node_modules', 'src'],
+    alias: {
+      mezr: 'assets/js/mezr.min.js',
+    },
   },
 
   module: {
@@ -61,6 +64,10 @@ module.exports = {
       {
         test: /\.(woff2?|ttf|eot)$/,
         use: 'file-loader?name=fonts/[name].[ext]',
+      },
+      {
+        test: /mezr\.min\.js$/,
+        use: 'imports-loader?this=>window',
       },
     ],
   },

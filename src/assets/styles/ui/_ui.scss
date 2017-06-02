@@ -15,6 +15,7 @@ select:-moz-focusring {
 }
 
 .selectbox {
+  display: block;
   position: relative;
 
   &::before {
@@ -51,6 +52,10 @@ select:-moz-focusring {
     &::-moz-focus-inner {
       border: 0;
       outline: none;
+    }
+
+    &.select-lg {
+      height: 46px;
     }
   }
 }

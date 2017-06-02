@@ -13,6 +13,8 @@ import BrokerNavItems from 'components/pages/Broker/BrokerNavItems';
 import Deal from 'components/pages/Deal';
 import Evolution from 'components/pages/Evolution';
 import FAQ from 'components/pages/FAQ/FAQ';
+import FAQList from 'components/pages/FAQ/FAQList';
+import FAQAskQuestion from 'components/pages/FAQ/FAQAskQuestion';
 import Index from 'components/pages/Index';
 import NotFound from 'components/pages/404';
 import ProtectedRoute from './components/HOC/ProtectedRoute';
@@ -40,7 +42,17 @@ ReactDOM.render(
           </Route>
         </Route>
 
-        <Route path="faq" component={ProtectedRoute(FAQ)} />
+        <Route path="faq">
+
+          <IndexRoute component={ProtectedRoute(FAQ)} />
+
+          <Route path="getask" component={ProtectedRoute(FAQAskQuestion)} />
+
+          <Route path=":listId" component={ProtectedRoute(FAQList)}>
+            <Route path=":questionId" />
+          </Route>
+
+        </Route>
 
         <Route path="broker">
           <Route path="gb" component={ProtectedRoute(BrokerContainer)} />
