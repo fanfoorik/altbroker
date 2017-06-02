@@ -61,10 +61,10 @@ class FAQAddQuestions extends React.Component {
       .then((data) => {
         const { SUCCESS: success, ERRORS: errors } = data.ANSWER;
 
-        if (!success) {
-          this.setState({ errors });
-        } else {
+        if (success) {
           this.setState({ cover: true });
+        } else {
+          this.setState({ errors });
         }
       })
       .catch(error => handleError(error));

@@ -7,17 +7,13 @@ import FAQErrors from './FAQErrors';
 function FAQForm(props) {
   const { errors, options, faqFormSubmit } = props.data;
 
-  function handleSubmit(ev) {
-    faqFormSubmit(ev);
-  }
-
   return (
     <div>
 
       <div className="h1">Задать вопрос</div>
 
       <div className="faq-form">
-        <form action="faq-form__fieldset" onSubmit={handleSubmit} name="frm">
+        <form action="faq-form__fieldset" onSubmit={faqFormSubmit} name="frm">
 
           <IsActive active={!!errors.length} component={FAQErrors} errors={errors} />
 

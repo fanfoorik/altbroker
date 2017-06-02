@@ -49,19 +49,22 @@ class FAQList extends React.Component {
 
         <div className="faq-list">
           {
-            questions.map(item => (
-              <div
-                key={`question-id-${item.ID}`}
-                className={`faq-list__item${questionId === item.ID ? ' faq-list__item_active' : ''}`}
-              >
-                <Link to={item.URL} className="faq-list__link">{item.NAME}</Link>
-                <div className="faq-list__answer">
-                  {
-                    htmlParser(item.PREVIEW_TEXT)
-                  }
+            questions.map((item) => {
+              const { ID: id, URL: url, NAME: name } = item;
+              return (
+                <div
+                  key={`question-id-${id}`}
+                  className={`faq-list__item${questionId === id ? ' faq-list__item_active' : ''}`}
+                >
+                  <Link to={url} className="faq-list__link">{name}</Link>
+                  <div className="faq-list__answer">
+                    {
+                      htmlParser(item.PREVIEW_TEXT)
+                    }
+                  </div>
                 </div>
-              </div>
-            ))
+              );
+            })
           }
         </div>
       </div>
