@@ -12,13 +12,13 @@ export default class DropTip extends React.Component {
     document.removeEventListener('keyup', this.onOutsideClick);
   }
 
-  onOutsideClick = (ev) => {
+  onOutsideClick = (event) => {
     const droptip = this.refs.droptip;
 
-    if (ev.type === 'click' && !droptip.contains(ev.target) || ev.type === 'keyup' && ev.which === 27) {
+    if (event.type === 'click' && !droptip.contains(event.target) || event.type === 'keyup' && event.which === 27) {
       this.props.handleOuterClick();
     }
-  }
+  };
 
   render() {
     const classAttr = this.props.className;

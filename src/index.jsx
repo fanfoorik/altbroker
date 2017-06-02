@@ -7,7 +7,9 @@ import { AUTH_USER } from 'constants/userTypes';
 import Admin from 'components/pages/Admin';
 import AppContainer from 'components/App/AppContainer';
 import Auth from 'components/pages/auth/Auth';
+import Broker from 'components/pages/Broker/Broker';
 import BrokerContainer from 'components/pages/Broker/BrokerContainer';
+import BrokerNavItems from 'components/pages/Broker/BrokerNavItems';
 import Deal from 'components/pages/Deal';
 import Evolution from 'components/pages/Evolution';
 import FAQ from 'components/pages/FAQ/FAQ';
@@ -52,8 +54,9 @@ ReactDOM.render(
 
         </Route>
 
-        <Route path="broker" component={ProtectedRoute(BrokerContainer)}>
-          <Route path=":page" />
+        <Route path="broker">
+          <Route path="gb" component={ProtectedRoute(BrokerContainer)} />
+          <Route path=":page" component={ProtectedRoute(BrokerNavItems)} />
         </Route>
 
         <Route path="deal" component={ProtectedRoute(Deal)}>
