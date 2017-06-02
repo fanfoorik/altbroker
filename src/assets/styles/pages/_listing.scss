@@ -97,7 +97,10 @@
   }
 
   &__action-left {
+    cursor: pointer;
+    min-height: 40px;
     opacity: 0;
+    padding: 11px 0 0 16px;
     transition: 0.3s;
 
     .listing tr:hover & {
@@ -105,11 +108,18 @@
     }
   }
 
-  &__actions {
+  &__action-right {
     cursor: pointer;
+    min-height: 40px;
+    padding: 10px;
+  }
+
+  &__actions {
+    align-items: center;
     display: flex;
     justify-content: space-between;
-    width: 56px;
+    height: 100%;
+    width: 76px;
   }
 
   &__list {
@@ -131,28 +141,31 @@
   }
 
   &__name {
-    width: 128px;
+    width: 120px;
+  }
+
+  &__category {
+    width: 105px;
   }
 
   &__img-wrapper {
     width: 40px;
   }
 
-  &__price {
-    min-width: 85px;
+  &__last-update {
+    width: 50px;
   }
 
-  &__profit {
-    min-width: 85px;
-  }
-
+  &__price,
+  &__profit,
   &__dealer,
   &__broker {
-    min-width: 90px;
+    min-width: 75px;
   }
 }
 
 .table-color {
+  background: $c-border-main;
   height: calc(100% + 1px);
   left: 0;
   position: absolute;

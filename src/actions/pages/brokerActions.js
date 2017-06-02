@@ -4,16 +4,13 @@ import handleError from 'utils/handleError';
 import { apiUrl } from 'utils/urls';
 import { FETCH_LISTING } from 'constants/listingTypes';
 
-export const fetchListingData = () => (dispatch) => {
-  ajax.post(`${apiUrl}broker/gb/`, {},
-    {
-      headers: getHeaders(),
-    })
-    .then(res => res.data)
-    .then((data) => {
+export const fetchListing = (page, count) => (dispatch) => {
+  ajax.post(`${apiUrl}broker/gb/`, { PAGE: page, COUNT: count },
+    { headers: getHeaders() })
+    .then((response) => {
       dispatch({
         type: FETCH_LISTING,
-        payload: data.ANSWER,
+        payload: response.data.ANSWER,
       });
     })
     .catch(error => handleError(error, dispatch));

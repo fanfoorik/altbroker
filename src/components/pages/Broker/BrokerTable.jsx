@@ -3,13 +3,14 @@ import React from 'react';
 
 import BrokerTableHeader from './BrokerTableHeader';
 import CommentsPopover from 'components/popovers/CommentsPopover';
-import DelegatePopover from 'components/popovers/DelegatePopover';
 import DealPopover from 'components/popovers/DealPopover';
+import DelegatePopover from 'components/popovers/DelegatePopover';
 import DealerPopover from 'components/popovers/DealerPopover';
 import Icon from 'components/Icon';
 import PricePopover from 'components/popovers/PricePopover';
 import TaskPopover from 'components/popovers/TaskPopover';
 import { formatNumber } from 'utils/formaters';
+import { hostUrl } from 'utils/urls';
 
 const colors = {
   0: '#e1e5e9',
@@ -30,10 +31,13 @@ export default class BrokerTable extends React.Component {
     this.state = {
       listingItems: props.listingItems || [],
     };
+
+    this.pageIndex = this.props.query.PAGE || 0;
+    this.itemsCount = this.props.query.COUNT || 15;
   }
 
   componentDidMount() {
-    this.props.fetchListingData();
+    this.props.fetchListing(this.pageIndex, this.itemsCount);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -41,6 +45,12 @@ export default class BrokerTable extends React.Component {
   }
 
   render() {
+    function getImage(item) {
+      return item.DETAIL_PICTURE_TEXT ?
+        `${hostUrl}${item.DETAIL_PICTURE_TEXT}` :
+        'http://via.placeholder.com/200?text=A';
+    }
+
     return (
       <table className="listing">
         <BrokerTableHeader />
@@ -48,20 +58,20 @@ export default class BrokerTable extends React.Component {
         <tbody>
           {this.state.listingItems.map((item) => {
             const {
-              PROPERTY_BROKER_VALUE_TEXT: broker,
-              IBLOCK_SECTION_ID_TEXT: category,
-              COMMENTS: comments,
+              COMMENT: comments,
               DATE_CREATE_TEXT: created,
-              PROPERTY_KLIENT_FIO_VALUE: dealer,
-              PROPERTY_DATE_UP_VALUE: lastUpdate,
-              SCORE: likes,
-              PROPERTY_GEO_ID_VALUE_TEXT: location,
+              IBLOCK_SECTION_ID_TEXT: category,
               NAME: name,
+              PROPERTY_ACTUAL_VALUE_TEXT: lastUpdate,
+              PROPERTY_BROKER_VALUE_TEXT: broker,
+              PROPERTY_GEO_ID_VALUE_TEXT: location,
+              PROPERTY_KLIENT_FIO_VALUE: dealer,
+              SCORE: likes,
               SHOW_COUNTER: viewed,
             } = item;
             const color = getColor(item.PROPERTY_STATUS_OBJ_VALUE);
-            const img = `http://alterainvest.ru/${item.DETAIL_PICTURE_TEXT}`;
-            const price = formatNumber(item.PROPERTY_PRICE_BUSINESS_VALUE, '-');
+            const price = parseInt(item.PROPERTY_PRICE_BUSINESS_VALUE, 10);
+            const formattedPrice = formatNumber(price, '-');
             const profit = formatNumber(item.PROPERTY_CHIST_PRIB_VALUE, '-');
 
             return (
@@ -78,9 +88,9 @@ export default class BrokerTable extends React.Component {
                 <td><span className="table-cell__id">{item.ID}</span></td>
                 <td className="no-padding">
                   <div className="table-cell__img-wrapper">
-                    <img className="table-cell__img table-tooltip" src={img} alt={name} />
+                    <img className="table-cell__img table-tooltip" src={getImage(item)} alt={name} />
                     <span className="table-tooltip__content clearfix">
-                      <img className="table-tooltip__content-img" src={img} alt={name} />
+                      <img className="table-tooltip__content-img" src={getImage(item)} alt={name} />
                     </span>
                   </div>
                 </td>
@@ -89,14 +99,14 @@ export default class BrokerTable extends React.Component {
                     <span className="table-cell__span table-cell__name-text">{name}</span>
                   </div>
                 </td>
-                <td><span className="table-cell__category">{category}</span></td>
+                <td><div className="table-cell__category">{category}</div></td>
                 <td className="no-padding">
                   <span className="table-cell__location no-padding">{location}</span>
                 </td>
                 <td className="align-right no-padding-left popover-parent">
                   <div className="table-cell__price">
-                    <span className="table-cell__price-text">{price}</span>
-                    <PricePopover />
+                    <span className="table-cell__price-text">{formattedPrice}</span>
+                    <PricePopover value={price} />
                   </div>
                 </td>
                 <td className="align-right no-padding-left">
@@ -118,7 +128,7 @@ export default class BrokerTable extends React.Component {
                   <span className="table-cell__created">{created}</span>
                 </td>
                 <td className="no-padding-left">
-                  <span className="table-cell__last-update">{lastUpdate}</span>
+                  <div className="table-cell__last-update">{lastUpdate}</div>
                 </td>
                 <td className="align-right no-padding-right">
                   <span className="table-cell__viewed">{viewed || '-'}</span>
@@ -127,10 +137,10 @@ export default class BrokerTable extends React.Component {
                   <span className="table-cell__likes">{likes}</span>
                 </td>
                 <td className="align-center no-padding-right popover-parent">
-                  <span className="table-cell__comments">{comments || Math.floor((Math.random() * 10) + 1)}</span>
+                  <span className="table-cell__comments">{comments}</span>
                   <CommentsPopover />
                 </td>
-                <td>
+                <td className="no-padding">
                   <div className="table-cell__actions">
                     <div className="table-cell__action-left popover-parent">
                       <Icon className="table-cell__list" icon="list" width={18} height={18} />
@@ -154,11 +164,18 @@ export default class BrokerTable extends React.Component {
 }
 
 BrokerTable.propTypes = {
-  fetchListingData: PropTypes.func.isRequired,
+  fetchListing: PropTypes.func.isRequired,
   listingItems: PropTypes.arrayOf(PropTypes.object),
-
+  query: PropTypes.shape({
+    COUNT: PropTypes.object,
+    PAGE: PropTypes.object,
+  }),
 };
 
 BrokerTable.defaultProps = {
   listingItems: [],
+  query: PropTypes.shape({
+    COUNT: PropTypes.object,
+    PAGE: PropTypes.object,
+  }),
 };

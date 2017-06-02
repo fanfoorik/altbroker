@@ -1,11 +1,17 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Icon from 'components/Icon';
+import PopoverBaseHOC from 'components/popovers/PopoverBaseHOC';
 
-export default class DealPopover extends React.Component {
+class DealPopover extends React.Component {
+  componentDidMount() {
+    this.props.setDirection(this.popover);
+  }
+
   render() {
     return (
-      <div className="popover popover_md">
+      <div className="popover popover_without-tabs popover_md" ref={(node) => { this.popover = node; }}>
         <div className="popover-body">
           <div className="popover-content-wrapper no-padding-top no-padding-bottom active">
             <ul className="popover-deal-list">
@@ -40,3 +46,9 @@ export default class DealPopover extends React.Component {
     );
   }
 }
+
+DealPopover.propTypes = {
+  setDirection: PropTypes.func.isRequired,
+};
+
+export default PopoverBaseHOC(DealPopover);

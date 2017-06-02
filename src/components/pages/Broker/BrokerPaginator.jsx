@@ -11,9 +11,21 @@ export default function BrokerPaginator(props) {
   const {
     CUR_GAGE: currentPage,
     NAV_HREF: navHrefs,
-    NEXT_GAGE: nextPage,
-    PREV_GAGE: prevPage,
   } = listingNav;
+
+  const prevPageIndex = navHrefs && navHrefs.indexOf(currentPage);
+  const nextPageIndex = prevPageIndex + 2;
+  const PrevLink = prevPageIndex > 0 ?
+    (
+      <li
+        className="paginator__list-item paginator__prev"
+        onClick={() => props.fetchListing(prevPageIndex)}
+      >&lt;</li>
+    ) :
+    (
+      <li className="paginator__list-item paginator__prev disabled">&lt;</li>
+    )
+  ;
 
   return (
     <div className="table-footer">
@@ -22,20 +34,18 @@ export default function BrokerPaginator(props) {
       </div>
 
       <ul className="paginator__list">
-        <li className="paginator__list-item paginator__prev">
-          <a className="paginator__list-link" href={prevPage}>&lt;</a>
-        </li>
+        {PrevLink}
         {navHrefs && navHrefs.map((item, index) => (
           <li
             className={`paginator__list-item ${currentPage === item ? 'active' : ''}`}
             key={`paginator-link-${Math.floor(Date.now() * Math.random())}`}
-          >
-            <a className="paginator__list-link" href={item}>{index + 1}</a>
-          </li>
+            onClick={() => props.fetchListing(index + 1)}
+          >{index + 1}</li>
         ))}
-        <li className="paginator__list-item paginator__next">
-          <a className="paginator__list-link" href={nextPage}>&gt;</a>
-        </li>
+        <li
+          className="paginator__list-item paginator__next"
+          onClick={() => props.fetchListing(nextPageIndex)}
+        >&gt;</li>
       </ul>
 
       <div className="table-footer__items">
@@ -55,6 +65,7 @@ export default function BrokerPaginator(props) {
 }
 
 BrokerPaginator.propTypes = {
+  fetchListing: PropTypes.func.isRequired,
   itemsCount: PropTypes.number,
   listingNav: PropTypes.oneOfType([
     PropTypes.func,
