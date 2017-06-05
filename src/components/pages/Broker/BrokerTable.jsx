@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { StickyContainer, Sticky } from 'react-sticky';
 
-import BrokerTableHeader from './BrokerTableHeader';
 import CommentsPopover from 'components/popovers/CommentsPopover';
 import DealPopover from 'components/popovers/DealPopover';
 import DelegatePopover from 'components/popovers/DelegatePopover';
@@ -98,7 +96,7 @@ export default class BrokerTable extends React.Component {
                 <span className="table-cell__span table-cell__name-text">{name}</span>
               </div>
               <div className="table-cell table-col__category">{category}</div>
-              <div className="table-cell no-padding table-col__location">{location}</div>
+              <div className="table-cell table-col__location no-padding">{location}</div>
               <div className="table-cell table-col__price align-right no-padding-left popover-parent">
                 <span className="table-cell__price-text">{formattedPrice}</span>
                 <PricePopover value={price} />
@@ -112,9 +110,7 @@ export default class BrokerTable extends React.Component {
                 <span className="table-cell__dealer">{dealer}</span>
                 <DealerPopover />
               </div>
-              <div className="table-cell no-padding-left">
-                <span className="table-cell__created">{created}</span>
-              </div>
+              <div className="table-cell table-col__created no-padding-left">{created}</div>
               <div className="table-cell table-col__updated no-padding-left">{lastUpdate}</div>
               <div className="table-cell table-col__watched align-right no-padding-right">{viewed || '-'}</div>
               <div className="table-cell table-col__like align-right no-padding-right">{likes}</div>
@@ -148,15 +144,15 @@ BrokerTable.propTypes = {
   fetchListing: PropTypes.func.isRequired,
   listingItems: PropTypes.arrayOf(PropTypes.object),
   query: PropTypes.shape({
-    COUNT: PropTypes.object,
-    PAGE: PropTypes.object,
+    COUNT: PropTypes.string,
+    PAGE: PropTypes.string,
   }),
 };
 
 BrokerTable.defaultProps = {
   listingItems: [],
   query: PropTypes.shape({
-    COUNT: PropTypes.object,
-    PAGE: PropTypes.object,
+    COUNT: 15,
+    PAGE: 0,
   }),
 };

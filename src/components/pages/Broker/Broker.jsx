@@ -8,12 +8,12 @@ import BrokerTable from './BrokerTable';
 import BrokerTableHeader from './BrokerTableHeader';
 
 export default function Broker(props) {
+  const query = props.location.query;
   const {
     fetchListing,
     listingItems,
     listingNav,
   } = props;
-  const query = props.location.query;
 
   return (
     <div>
