@@ -1,26 +1,85 @@
 @import "../utils/variables";
 
-.listing {
-  tr {
-    transition: color 0.3s;
+// Required for <Sticky /> component:
+.sticky {
+  top: 60px !important;
+}
 
-    &:hover {
-      color: $c-tr-hovered;
+// First div with <Sticky /> element:
+.listing-wrapper > div:first-child {
+  font-weight: bold;
+  position: relative;
+  z-index: 10;
+}
 
-      .table-cell__id,
-      .table-cell__price-text,
-      .table-cell__dealer-text,
-      .table-cell__broker-text {
-        border-bottom: 1px dashed;
-      }
+@import "../utils/variables";
 
-      .table-cell__dot {
-        opacity: 0.6;
-      }
+.table {
+  color: $c-grey-main;
+  font-size: 12px;
+  width: 100%;
+
+  &::after {
+    display: block;
+    font-size: 0;
+    clear: both;
+    content: " ";
+    height: 0;
+    visibility: hidden;
+  }
+
+  &-th {
+    padding: 6px 16px;
+  }
+}
+
+.table-row {
+  align-items: center;
+  background: $c-white;
+  border-bottom: 1px solid $c-table-border;
+  height: $table-row-height;
+  display: flex;
+  transition: color 0.3s;
+
+  &:hover {
+    color: $c-tr-hovered;
+
+    .table-cell__id,
+    .table-cell__broker,
+    .table-cell__price,
+    .table-cell__dealer {
+      border-bottom: 1px dashed;
+    }
+
+    .table-cell__dot {
+      opacity: 0.6;
     }
   }
 }
 
+.table-th-wrapper {
+  background: $c-grey-light;
+  border-width: 2px;
+}
+
+.table-heading,
+.table-body,
+.table-foot {
+  clear: both;
+}
+
+.table-cell {
+  background: $c-white;
+}
+
+.table-cell,
+.table-head {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  padding: 6px 16px;
+  position: relative;
+}
 
 .clickable {
   &:hover {
@@ -33,7 +92,60 @@
 
 .table-col {
   &__checkbox {
-    text-align: center;
+    width: 52px;
+  }
+
+  &__color {
+    position: relative;
+    width: 5px;
+    z-index: 1;
+  }
+
+  &__id {
+    width: 80px;
+  }
+
+  &__img {
+    width: 40px;
+  }
+
+  &__name {
+    width: 160px;
+  }
+
+  &__category {
+    width: 140px;
+  }
+
+  &__location {
+    width: 70px;
+  }
+
+  &__price,
+  &__profit,
+  &__dealer,
+  &__broker {
+    width: 100px;
+  }
+
+  &__created {
+    width: 65px;
+  }
+
+  &__updated {
+    width: 65px;
+  }
+
+  &__watched {
+    width: 40px;
+  }
+
+  &__comments {
+    width: 45px;
+  }
+
+  &__actions {
+    width: 75px;
   }
 }
 
@@ -70,18 +182,10 @@
 
 // All table cells:
 .table-cell {
-  &__id {
-    cursor: pointer;
-  }
-
   &__span {
     display: inline-block;
     height: 47px;
     overflow: hidden;
-  }
-
-  &__color {
-    position: relative;
   }
 
   &__comments {
@@ -103,7 +207,7 @@
     padding: 11px 0 0 16px;
     transition: 0.3s;
 
-    .listing tr:hover & {
+    .rTableRow:hover & {
       opacity: 1;
     }
   }
@@ -138,29 +242,6 @@
     opacity: 0.12;
     transition: 0.3s;
     width: 5px;
-  }
-
-  &__name {
-    width: 120px;
-  }
-
-  &__category {
-    width: 105px;
-  }
-
-  &__img-wrapper {
-    width: 40px;
-  }
-
-  &__last-update {
-    width: 50px;
-  }
-
-  &__price,
-  &__profit,
-  &__dealer,
-  &__broker {
-    min-width: 75px;
   }
 }
 
@@ -253,6 +334,7 @@
     z-index: 100;
 
     &-img {
+      display: block;
       max-height: none;
       max-width: none;
     }

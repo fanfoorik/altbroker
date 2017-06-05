@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DelegatePopover from 'components/popovers/DelegatePopover';
+import FooterDelegatePopover from 'components/popovers/FooterDelegatePopover';
 import StatusPopover from 'components/popovers/StatusPopover';
 
 export default function BrokerActions() {
@@ -18,7 +18,7 @@ export default function BrokerActions() {
         <ul className="table-actions__list">
           <li className="table-actions__item popover-parent">
             передать
-            <DelegatePopover />
+            <FooterDelegatePopover />
           </li>
           <li className="table-actions__item">создать подборку</li>
           <li className="table-actions__item popover-parent">
