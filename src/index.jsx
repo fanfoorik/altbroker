@@ -42,15 +42,11 @@ ReactDOM.render(
         </Route>
 
         <Route path="faq">
-
           <IndexRoute component={ProtectedRoute(FAQ)} />
-
           <Route path="getask" component={ProtectedRoute(FAQAskQuestion)} />
-
           <Route path=":listId" component={ProtectedRoute(FAQList)}>
             <Route path=":questionId" />
           </Route>
-
         </Route>
 
         <Route path="broker">
