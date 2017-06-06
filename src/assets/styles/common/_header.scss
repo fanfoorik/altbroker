@@ -310,11 +310,11 @@
 
   &__link {
     display: block;
+    border-top: 1px solid $c-droptip-border;
     color: $c-text-grey;
     font-size: 14px;
     text-align: center;
     padding: 10px 0;
-    border-top: 1px solid $c-grey-main;
     cursor: pointer;
 
     &:first-child {
