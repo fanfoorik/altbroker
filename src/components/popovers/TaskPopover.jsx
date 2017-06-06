@@ -12,7 +12,7 @@ class TaskPopover extends React.Component {
 
   render() {
     return (
-      <div className="popover popover_lg" ref={(node) => { this.popover = node; }}>
+      <div className="popover popover_lg popover_last" ref={(node) => { this.popover = node; }}>
         <div className="popover-header js-target-trigger">
           <div className="popover-header__tab active js-popover-tab">Задача</div>
           <div className="popover-header__tab js-popover-tab">История</div>

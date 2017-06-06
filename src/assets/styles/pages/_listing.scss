@@ -81,71 +81,63 @@
   position: relative;
 }
 
-.clickable {
-  &:hover {
-    .icon {
-      color: $c-table-active-item;
-      fill: $c-table-active-item;
-    }
-  }
-}
-
 .table-col {
   &__checkbox {
-    width: 52px;
+    flex-basis: 52px;
   }
 
   &__color {
     position: relative;
-    width: 5px;
+    flex-basis: 5px;
     z-index: 1;
   }
 
   &__id {
-    width: 80px;
+    flex-basis: 80px;
   }
 
   &__img {
-    width: 40px;
+    flex-basis: 40px;
   }
 
   &__name {
-    width: 160px;
+    flex-basis: 160px;
   }
 
   &__category {
-    width: 140px;
+    flex-basis: 140px;
   }
 
   &__location {
-    width: 70px;
+    flex-basis: 70px;
   }
 
   &__price,
-  &__profit,
-  &__dealer,
-  &__broker {
-    width: 100px;
+  &__profit {
+    flex-basis: 100px;
   }
 
-  &__created {
-    width: 65px;
+  &__broker,
+  &__dealer {
+    flex-basis: 110px;
   }
 
+  &__created,
   &__updated {
-    width: 65px;
+    flex-basis: 65px;
   }
 
   &__watched {
-    width: 40px;
+    flex-basis: 40px;
   }
 
+  &__like,
   &__comments {
-    width: 45px;
+    flex-basis: 45px;
   }
 
   &__actions {
-    width: 75px;
+    flex-basis: 75px;
   }
 }
 
@@ -207,7 +199,7 @@
     padding: 11px 0 0 16px;
     transition: 0.3s;
 
-    .rTableRow:hover & {
+    .table-row:hover & {
       opacity: 1;
     }
   }

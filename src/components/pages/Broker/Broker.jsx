@@ -41,11 +41,19 @@ Broker.propTypes = {
   listingItems: PropTypes.arrayOf(PropTypes.object),
   listingNav: PropTypes.shape({
     COUNT_OBJ: PropTypes.number,
-    COUNT_HREF: PropTypes.number,
-    PREV_GAGE: PropTypes.string,
-    CUR_GAGE: PropTypes.string,
-    NEXT_GAGE: PropTypes.string,
+    CUR_GAGE: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+    ]),
     NAV_HREF: PropTypes.array,
+    NEXT_GAGE: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+    ]),
+    PREV_GAGE: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+    ]),
   }),
 };
 

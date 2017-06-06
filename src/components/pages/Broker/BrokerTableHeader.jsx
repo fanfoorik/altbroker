@@ -28,19 +28,19 @@ export default function BrokerTableHeader() {
       <div className="table-th table-col__broker no-padding-left">Брокер</div>
       <div className="table-th table-col__dealer no-padding-left">Продавец</div>
       <div className="table-th table-col__created no-padding-left">Создан</div>
-      <div className="table-th table-col__updated no-padding-left clickable">
+      <div className="table-th table-col__updated no-padding-left">
         <Icon className="table-th__icon table-th__updated" icon="loading" width={14} height={14} />
       </div>
-      <div className="table-th table-col__watched clickable align-right no-padding-right">
+      <div className="table-th table-col__watched align-right no-padding-right">
         <Icon className="table-th__icon table-th__watched" icon="eye" width={14} height={14} />
       </div>
-      <div className="table-th table-col__like clickable align-right no-padding-right">
+      <div className="table-th table-col__like align-right no-padding-right">
         <Icon className="table-th__icon table-th__like" icon="like" width={14} height={14} />
       </div>
-      <div className="table-th table-col__comments no-padding-right clickable">
+      <div className="table-th table-col__comments no-padding-right">
         <Icon className="table-th__icon table-th__like" icon="message" width={14} height={14} />
       </div>
-      <div className="table-th table-col__actions clickable align-right">
+      <div className="table-th table-col__actions align-right">
         <span className="table-th__icon table-th__actions icon">i</span>
       </div>
     </div>

@@ -57,6 +57,22 @@
   visibility: visible;
 }
 
+.popover_last {
+  left: -24px;
+
+  &::before {
+    left: 90%;
+  }
+
+  &.popover_lg {
+    left: -34px;
+
+    &::before {
+      left: 78%;
+    }
+  }
+}
+
 // Popover with top direction:
 .popover {
   &.top {
