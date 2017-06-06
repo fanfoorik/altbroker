@@ -6,22 +6,23 @@ import IsActive from 'utils/IsActive';
 
 const FAQCategory = (props) => {
   const {
-    NAME: name,
+    ICO: icon,
     ITEMS: items,
+    NAME: name,
     URL: url,
   } = props;
 
   return (
     <div className="faq__category faq-category">
 
-      <Icon icon="info" width="20" height="20" className="faq-category__icon" />
+      <Icon icon={icon || 'info'} width="20" height="20" className="faq-category__icon" />
 
       <div className="faq-category__title">{name}</div>
 
       <div className="faq-category__questions">
         {
           items.map((item) => {
-            const { ID: itemId, URL: itemUrl, NAME: itemName } = item;
+            const { ID: itemId, NAME: itemName, URL: itemUrl } = item;
             return (
               <div className="faq-category__question" key={`faq-category-question-${itemId}`}>
                 <Link to={itemUrl} className="faq-category__link">{itemName}</Link>
@@ -39,10 +40,15 @@ const FAQCategory = (props) => {
   );
 };
 
+FAQCategory.defaultProps = {
+  ICO: 'info',
+};
+
 FAQCategory.propTypes = {
   ITEMS: PropTypes.arrayOf(PropTypes.object).isRequired,
   NAME: PropTypes.string.isRequired,
   URL: PropTypes.string.isRequired,
+  ICO: PropTypes.string,
 };
 
 export default FAQCategory;
