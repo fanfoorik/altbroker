@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import App from 'components/App/App';
+import App from './App';
 import fetchInit from 'actions/fetchInitAction';
 
 function mapStateToProps(state) {

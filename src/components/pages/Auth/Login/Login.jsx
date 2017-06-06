@@ -1,22 +1,17 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
-import { RECOVER_EMAIL_PANEL } from 'constants/authTypes';
 import AuthPanel from '../components/AuthPanel';
 import AuthError from '../components/AuthError';
 import AuthButton from '../components/AuthButton';
+import CaptchaContainer from '../components/CaptchaContainer';
 import LoginEmail from '../components/LoginEmail';
-import loginEmailAction from './actions/loginEmailAction';
 import LoginPassword from '../components/LoginPassword';
-import loginPasswordAction from './actions/loginPasswordAction';
-import loginSubmitAction from './actions/loginSubmitAction';
-import Captcha from '../components/Captcha';
 
-class Login extends React.Component {
+export default class Login extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
     this.props.dispatchLoginSubmit();
-  }
+  };
 
   render() {
     const { login } = this.props;
@@ -53,7 +48,7 @@ class Login extends React.Component {
             />
           </div>
 
-          {login.captcha.active && <Captcha />}
+          {login.captcha.active && <CaptchaContainer />}
 
           <div className="mb-12">
             <AuthButton
@@ -71,31 +66,3 @@ class Login extends React.Component {
     );
   }
 }
-
-const mapStateToProps = (state) => {
-  return {
-    login: state.auth.login,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    dispatchLoginSubmit() {
-      dispatch(loginSubmitAction());
-    },
-
-    dispatchLoginEmail(value) {
-      dispatch(loginEmailAction(value));
-    },
-
-    dispatchLoginPassword(value) {
-      dispatch(loginPasswordAction(value));
-    },
-
-    dispatchToRecoverEmail() {
-      dispatch({ type: RECOVER_EMAIL_PANEL });
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
