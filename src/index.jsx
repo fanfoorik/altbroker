@@ -6,7 +6,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { AUTH_USER } from 'constants/userTypes';
 import Admin from 'components/pages/Admin';
 import AppContainer from 'components/App/AppContainer';
-import Auth from 'components/pages/auth/Auth';
+import AuthContainer from 'components/pages/Auth/AuthContainer';
 import BrokerContainer from 'components/pages/Broker/BrokerContainer';
 import BrokerNavItems from 'components/pages/Broker/BrokerNavItems';
 import Deal from 'components/pages/Deal';
@@ -75,7 +75,7 @@ ReactDOM.render(
         </Route>
       </Route>
 
-      <Route path="/altbroker3/login" component={Auth} />
+      <Route path="/altbroker3/login" component={AuthContainer} />
       <Route path="*" component={NotFound} />
     </Router>
   </Provider>,

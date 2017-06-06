@@ -13,7 +13,7 @@ export default class DropTip extends React.Component {
   }
 
   onOutsideClick = (event) => {
-    const droptip = this.refs.droptip;
+    const droptip = this.droptip;
 
     if (event.type === 'click' && !droptip.contains(event.target) ||
       event.type === 'keyup' && event.which === 27) {
@@ -25,7 +25,7 @@ export default class DropTip extends React.Component {
     const classAttr = this.props.className;
 
     return (
-      <div className={`droptip ${classAttr || ''}`} ref="droptip">
+      <div className={`droptip ${classAttr || ''}`} ref={(c) => { this.droptip = c; }}>
         {this.props.children}
       </div>
     );
@@ -33,5 +33,15 @@ export default class DropTip extends React.Component {
 }
 
 DropTip.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
+  className: PropTypes.string,
   handleOuterClick: PropTypes.func.isRequired,
+};
+
+DropTip.defaultProps = {
+  children: null,
+  className: '',
 };

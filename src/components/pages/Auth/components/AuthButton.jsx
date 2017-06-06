@@ -18,10 +18,14 @@ export default function AuthButton(props) {
 }
 
 AuthButton.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
   loading: PropTypes.bool,
-  children: PropTypes.element.isRequired,
 };
 
 AuthButton.defaultProps = {
+  children: null,
   loading: false,
 };

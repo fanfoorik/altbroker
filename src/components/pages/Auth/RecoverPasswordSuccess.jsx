@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import htmlParser from 'html-react-parser';
 
-import { LOGIN_PANEL } from 'constants/authTypes';
 import AuthPanel from './components/AuthPanel';
+import { LOGIN_PANEL } from 'constants/authTypes';
 
 function RecoverPasswordSuccess(props) {
   const { form, dispatchToLogin } = props;
@@ -29,18 +29,18 @@ function RecoverPasswordSuccess(props) {
   );
 }
 
-const mapStateToProps = (state) => {
+function mapStateToProps(state) {
   return {
     form: state.auth.recoverPassword.form,
   };
-};
+}
 
-const mapDispatchToProps = (dispatch) => {
+function mapDispatchToProps(dispatch) {
   return {
     dispatchToLogin() {
       dispatch({ type: LOGIN_PANEL });
     },
   };
-};
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecoverPasswordSuccess);

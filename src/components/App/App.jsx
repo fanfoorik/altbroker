@@ -26,10 +26,14 @@ export default class App extends React.Component {
 
 App.propTypes = {
   authenticated: PropTypes.bool,
-  children: PropTypes.elements.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
   fetchInit: PropTypes.func.isRequired,
 };
 
 App.defaultProps = {
   authenticated: false,
+  children: null,
 };
