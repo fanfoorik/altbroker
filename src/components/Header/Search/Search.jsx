@@ -7,15 +7,14 @@ export default class Search extends React.Component {
     super(props);
 
     this.state = {
-      value: '',
       category: 'broker',
+      value: '',
     };
   }
 
   componentDidMount() {
     document.addEventListener('keyup', this.searchClose);
-    const categoryNodes = document.querySelectorAll('.search-categs__option');
-    this.categs = Array.from(categoryNodes);
+    this.categs = Array.from(document.querySelectorAll('.js-category'));
     this.searchInput.focus();
   }
 
@@ -81,19 +80,19 @@ export default class Search extends React.Component {
             <div className="search__center">
               <div className="search-categs__label">Раздел поиска:</div>
               <span
-                className="search-categs__option active"
+                className="search-categs__option js-category active"
                 onClick={this.setCategory}
                 data-option="broker"
               >Брокер</span>
-              <span className="search-categs__option" onClick={this.setCategory} data-option="deal">Сделки</span>
+              <span className="search-categs__option js-category" onClick={this.setCategory} data-option="deal">Сделки</span>
               <span
-                className="search-categs__option"
+                className="search-categs__option js-category"
                 onClick={this.setCategory}
                 data-option="analitics"
               >Аналитика</span>
-              <span className="search-categs__option" onClick={this.setCategory} data-option="progress">Развитие</span>
+              <span className="search-categs__option js-category" onClick={this.setCategory} data-option="progress">Развитие</span>
               <span
-                className="search-categs__option"
+                className="search-categs__option js-category"
                 onClick={this.setCategory}
                 data-option="management"
               >Управление</span>

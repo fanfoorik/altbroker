@@ -1,18 +1,18 @@
-import { apiUrl } from 'utils/urls';
-import { AUTH_USER } from 'constants/userTypes';
 import ajax from 'utils/ajax';
 import getHeaders from 'utils/getHeaders';
 import handleError from 'utils/handleError';
+import { apiUrl } from 'utils/urls';
+import { AUTH_USER, TRIGGER_USER } from 'constants/userTypes';
 
-const logoutUser = () => (dispatch) => {
+export const triggerUser = () => {
+  return { type: TRIGGER_USER };
+};
+
+export const logoutUser = () => (dispatch) => {
   ajax.post(
     `${apiUrl}user/logout/`,
-    {
-      LOGIN: '',
-    },
-    {
-      headers: getHeaders(),
-    },
+    { LOGIN: '' },
+    { headers: getHeaders() },
   )
   .then(() => {
     localStorage.removeItem('login');
@@ -21,5 +21,3 @@ const logoutUser = () => (dispatch) => {
   })
   .catch(error => handleError(error, dispatch));
 };
-
-export default logoutUser;

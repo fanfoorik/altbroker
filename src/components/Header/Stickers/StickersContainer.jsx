@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as actions from 'actions/stickersActions';
+import * as actions from 'actions/header/stickersActions';
 import StickersWrapper from './StickersWrapper';
 
 function getActiveStickers(obj) {

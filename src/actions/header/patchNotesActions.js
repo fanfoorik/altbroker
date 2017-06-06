@@ -6,14 +6,11 @@ import { SET_PATCH_NOTES, TRIGGER_PATCH_NOTES } from 'constants/headerTypes';
 export const fetchPatchNotes = url => (dispatch) => {
   ajax.get(
     url,
-    {
-      headers: getHeaders(),
-    })
-    .then(res => res.data)
-    .then((data) => {
+    { headers: getHeaders() })
+    .then((response) => {
       dispatch({
         type: SET_PATCH_NOTES,
-        payload: data.ANSWER,
+        payload: response.data.ANSWER,
       });
     })
     .catch(error => handleError(error, dispatch));

@@ -156,20 +156,6 @@
     top: 2px;
     transition: 0.3s;
   }
-
-  &__actions {
-    border: 1px solid;
-    border-radius: 50%;
-    color: $c-table-muted-text;
-    height: 22px;
-    display: inline-block;
-    font-family: serif;
-    font-size: 17px;
-    line-height: 1.1;
-    text-align: center;
-    top: 0;
-    width: 22px;
-  }
 }
 
 // All table cells:

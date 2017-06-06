@@ -2,7 +2,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import PatchNotes from './PatchNotes';
-import { fetchPatchNotes, triggerPatchNotes } from 'actions/patchNotesActions';
+import { fetchPatchNotes, triggerPatchNotes } from 'actions/header/patchNotesActions';
 
 function mapStateToProps(state) {
   return {

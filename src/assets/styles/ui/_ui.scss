@@ -25,7 +25,7 @@ select:-moz-focusring {
     height: 0;
     margin-top: -1px;
     border: 4px solid transparent;
-    border-top-color: #313436;
+    border-top-color: $c-grey-dark;
     pointer-events: none;
     content: "";
   }
@@ -37,7 +37,7 @@ select:-moz-focusring {
   }
 
   select {
-    border: 1px solid #c0c5ca;
+    border: 1px solid $c-grey-middle;
     display: block;
     height: 36px;
     padding: 0 12px;
@@ -68,7 +68,7 @@ select:-moz-focusring {
     position: relative;
 
     &::before {
-      background: #828282;
+      background: $c-list-bullet;
       position: absolute;
       top: 8px;
       left: 3px;
