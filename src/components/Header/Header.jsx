@@ -1,13 +1,13 @@
-import { Link } from 'react-router';
 import React from 'react';
+import { Link } from 'react-router';
 
-import { indexUrl } from 'utils/urls';
 import NavigationContainer from './Navigation/NavigationContainer';
-import Notifications from './NavNotifications/NavNotifications';
+import NotificationsContainer from './NavNotifications/NavNotificationsContainer';
 import PatchNotesContainer from './PatchNotes/PatchNotesContainer';
 import SearchWrapper from './Search/SearchWrapper';
 import StickersContainer from './Stickers/StickersContainer';
-import Usertop from './Usertop/Usertop';
+import UsertopContainer from './Usertop/UsertopContainer';
+import { indexUrl } from 'utils/urls';
 
 export default function Header() {
   return (
@@ -23,9 +23,9 @@ export default function Header() {
         </div>
 
         <div className="header__right">
-          <Usertop />
+          <UsertopContainer />
           <StickersContainer />
-          <Notifications />
+          <NotificationsContainer />
           <SearchWrapper />
         </div>
       </div>

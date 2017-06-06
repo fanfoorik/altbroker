@@ -1,25 +1,21 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
-import { hostUrl, indexUrl } from 'utils/urls.js';
 import Avatar from 'components/Avatar';
 import DropTip from 'components/DropTip/DropTip';
-import IsActive from 'utils/IsActive';
 import Icon from 'components/Icon';
-
-import triggerUser from './actions/userAction';
-import logoutUser from './actions/logoutUserAction';
+import IsActive from 'utils/IsActive';
+import { indexUrl } from 'utils/urls.js';
 
 function Usertop(props) {
-  const { dispatchLogoutUser, dispatchTriggerUsers, usertop } = props;
+  const { logoutUser, triggerUser, usertop } = props;
   const { userpic } = usertop.data;
 
   return (
     <div className="usertop">
       <div
         className={`usertop__trigger ${usertop.active ? 'active' : ''}`}
-        onClick={dispatchTriggerUsers}
+        onClick={triggerUser}
         role="button"
         tabIndex={0}
       >
@@ -27,9 +23,8 @@ function Usertop(props) {
       </div>
 
       <IsActive active={usertop.active}>
-        <DropTip handleOuterClick={dispatchTriggerUsers} className="usertop__droptip">
+        <DropTip handleOuterClick={triggerUser} className="usertop__droptip">
           <div className="droptip__header usertop__header clear">
-
             <Avatar src={userpic} sizes="56" className="usertop__image" />
 
             <div className="overflow_hidden">
@@ -49,22 +44,22 @@ function Usertop(props) {
             </div>
           </div>
 
-          <div className="droptip__content usertop__content fz_16">
+          <div className="droptip__content usertop__content fz_16 no-padding">
             <Link
               className="usertop__link"
-              onClick={dispatchTriggerUsers}
+              onClick={triggerUser}
               to={`${indexUrl}user/${usertop.data.id}/`}
             >Профиль</Link>
             <Link
               className="usertop__link"
-              onClick={dispatchTriggerUsers}
+              onClick={triggerUser}
               to={`${indexUrl}faq/`}
             >Мне нужна помощь</Link>
             <span
               className="usertop__link"
               onClick={() => {
-                dispatchTriggerUsers();
-                dispatchLogoutUser();
+                triggerUser();
+                logoutUser();
               }}
               role="link"
               tabIndex={0}
@@ -76,21 +71,4 @@ function Usertop(props) {
   );
 }
 
-function mapStateToProps(state) {
-  return {
-    usertop: state.header.usertop,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatchTriggerUsers() {
-      dispatch(triggerUser());
-    },
-    dispatchLogoutUser() {
-      dispatch(logoutUser());
-    },
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Usertop);
+export default Usertop;

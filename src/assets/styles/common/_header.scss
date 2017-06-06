@@ -128,12 +128,12 @@
     vertical-align: top;
 
     svg {
-      fill: #989898;
+      fill: $c-grey-main;
     }
 
     &:hover {
       svg {
-        fill: #4a90e2;
+        fill: $c-blue-main;
       }
     }
   }
@@ -178,7 +178,7 @@
 
   &:hover {
     svg {
-      fill: #4a90e2;
+      fill: $c-blue-main;
     }
   }
 
@@ -186,7 +186,7 @@
     cursor: default;
 
     svg {
-      fill: #c0c5ca;
+      fill: $c-grey-middle;
     }
   }
 }
@@ -238,7 +238,7 @@
   }
 
   &.active {
-    background: #f5faff;
+    background: $c-navigation-link-bg-hover;
   }
 
   &__icon {
@@ -262,20 +262,17 @@
     width: $h-header;
 
     &.active {
-      background: #f5faff;
+      background: $c-navigation-link-bg-hover;
     }
   }
 
   &__default-avatar {
-    fill: #c0c5ca;
+    fill: $c-grey-middle;
   }
 
   &__trigger-pic {
-    background-color: #f5f7f9;
-    border-radius: 50%;
-    overflow: hidden;
-    position: relative;
     height: 50px;
+    overflow: hidden;
     width: 50px;
   }
 
@@ -307,12 +304,8 @@
   }
 
   &__position {
+    color: $c-navigation-user-position;
     margin-bottom: 9px;
-    color: #626468;
-  }
-
-  &__content {
-    padding: 0 !important;
   }
 
   &__link {
@@ -321,7 +314,7 @@
     font-size: 14px;
     text-align: center;
     padding: 10px 0;
-    border-top: 1px solid #e3e6ea;
+    border-top: 1px solid $c-grey-main;
     cursor: pointer;
 
     &:first-child {
@@ -395,9 +388,9 @@
   }
 
   &__empty {
+    color: $c-grey-main;
     padding: 12px 0;
     text-align: center;
-    color: #666666;
   }
 }
 
@@ -449,19 +442,13 @@
   }
 
   &__close-icon {
+    fill: $c-grey-main;
     margin: 3px 0 0 22px;
     vertical-align: top;
-    fill: #666;
   }
 
   &__text {
     overflow: hidden;
-  }
-
-  &__input {
-    border-width: 0 !important;
-    height: $h-header !important;
-    font-size: 22px !important;
   }
 
   &__icon {
@@ -471,18 +458,24 @@
   }
 
   &__icon-icon {
-    stroke: #c0c4ca;
+    stroke: $c-grey-middle;
   }
 }
 
+.search__text .search__input {
+  border-width: 0;
+  height: $h-header;
+  font-size: 22px;
+}
+
 .search-categs {
-  border-top: 1px solid #e3e3e3;
+  border-top: 1px solid $c-navigation-border;
 
   &__label {
     display: inline-block;
     vertical-align: top;
     font-size: 14px;
-    color: #c0c4ca;
+    color: $c-grey-middle;
     padding-top: 20px;
     margin-right: 28px;
   }
