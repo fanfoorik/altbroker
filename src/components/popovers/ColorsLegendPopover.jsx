@@ -33,7 +33,7 @@ const colors = [
 
 export default function ColorsLegendPopover() {
   return (
-    <div className="popover popover_sm bottomed">
+    <div className="popover popover_sm top">
       <div className="popover-body">
         <div className="popover-content-wrapper active">
           <ul className="popover-color-legend-list">

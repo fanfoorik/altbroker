@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import BrokerTableHeader from './BrokerTableHeader';
 import CommentsPopover from 'components/popovers/CommentsPopover';
 import DealPopover from 'components/popovers/DealPopover';
 import DelegatePopover from 'components/popovers/DelegatePopover';
@@ -52,113 +51,91 @@ export default class BrokerTable extends React.Component {
     }
 
     return (
-      <table className="listing">
-        <BrokerTableHeader />
+      <div>
+        {this.state.listingItems.map((item) => {
+          const {
+            COMMENT: comments,
+            DATE_CREATE_TEXT: created,
+            IBLOCK_SECTION_ID_TEXT: category,
+            NAME: name,
+            PROPERTY_ACTUAL_VALUE_TEXT: lastUpdate,
+            PROPERTY_BROKER_VALUE_TEXT: broker,
+            PROPERTY_GEO_ID_VALUE_TEXT: location,
+            PROPERTY_KLIENT_FIO_VALUE: dealer,
+            SCORE: likes,
+            SHOW_COUNTER: viewed,
+          } = item;
+          const color = getColor(item.PROPERTY_STATUS_OBJ_VALUE);
+          const price = parseInt(item.PROPERTY_PRICE_BUSINESS_VALUE, 10);
+          const formattedPrice = formatNumber(price, '-');
+          const profit = formatNumber(item.PROPERTY_CHIST_PRIB_VALUE, '-');
 
-        <tbody>
-          {this.state.listingItems.map((item) => {
-            const {
-              COMMENT: comments,
-              DATE_CREATE_TEXT: created,
-              IBLOCK_SECTION_ID_TEXT: category,
-              NAME: name,
-              PROPERTY_ACTUAL_VALUE_TEXT: lastUpdate,
-              PROPERTY_BROKER_VALUE_TEXT: broker,
-              PROPERTY_GEO_ID_VALUE_TEXT: location,
-              PROPERTY_KLIENT_FIO_VALUE: dealer,
-              SCORE: likes,
-              SHOW_COUNTER: viewed,
-            } = item;
-            const color = getColor(item.PROPERTY_STATUS_OBJ_VALUE);
-            const price = parseInt(item.PROPERTY_PRICE_BUSINESS_VALUE, 10);
-            const formattedPrice = formatNumber(price, '-');
-            const profit = formatNumber(item.PROPERTY_CHIST_PRIB_VALUE, '-');
-
-            return (
-              <tr key={`table-item-${Math.floor(Date.now() * Math.random())}`}>
-                <td className="table-col__checkbox">
-                  <label className="checkbox" htmlFor={`checkbox-${item.ID}`}>
-                    <input id={`checkbox-${item.ID}`} type="checkbox" />
-                    <div className="checkbox_indicator" />
-                  </label>
-                </td>
-                <td className="table-cell__color no-padding">
-                  <span className="table-color" style={{ backgroundColor: color }} />
-                </td>
-                <td><span className="table-cell__id">{item.ID}</span></td>
-                <td className="no-padding">
-                  <div className="table-cell__img-wrapper">
-                    <img className="table-cell__img table-tooltip" src={getImage(item)} alt={name} />
-                    <span className="table-tooltip__content clearfix">
-                      <img className="table-tooltip__content-img" src={getImage(item)} alt={name} />
-                    </span>
+          return (
+            <div className="table-row" key={`table-item-${Math.floor(Date.now() * Math.random())}`}>
+              <div className="table-cell table-col__checkbox">
+                <label className="checkbox" htmlFor={`checkbox-${item.ID}`}>
+                  <input id={`checkbox-${item.ID}`} type="checkbox" />
+                  <div className="checkbox_indicator" />
+                </label>
+              </div>
+              <div className="table-cell table-col__color no-padding">
+                <span className="table-color" style={{ backgroundColor: color }} />
+              </div>
+              <div className="table-cell table-col__id">
+                <div className="table-cell__id">{item.ID}</div>
+              </div>
+              <div className="table-cell table-col__img no-padding">
+                <div className="table-col__img">
+                  <img className="table-cell__img table-tooltip" src={getImage(item)} alt={name} />
+                  <span className="table-tooltip__content clearfix">
+                    <img className="table-tooltip__content-img" src={getImage(item)} alt={name} />
+                  </span>
+                </div>
+              </div>
+              <div className="table-cell table-col__name">
+                <span className="table-cell__span table-cell__name-text">{name}</span>
+              </div>
+              <div className="table-cell table-col__category">{category}</div>
+              <div className="table-cell table-col__location no-padding">{location}</div>
+              <div className="table-cell table-col__price align-right no-padding-left popover-parent">
+                <span className="table-cell__price-text">{formattedPrice}</span>
+                <PricePopover value={price} />
+              </div>
+              <div className="table-cell table-col__profit align-right no-padding-left">{profit}</div>
+              <div className="table-cell table-col__broker popover-parent no-padding-left">
+                <span className="table-cell__broker">{broker}</span>
+                <DelegatePopover />
+              </div>
+              <div className="table-cell table-col__dealer popover-parent no-padding-left">
+                <span className="table-cell__dealer">{dealer}</span>
+                <DealerPopover />
+              </div>
+              <div className="table-cell table-col__created no-padding-left">{created}</div>
+              <div className="table-cell table-col__updated no-padding-left">{lastUpdate}</div>
+              <div className="table-cell table-col__watched align-right no-padding-right">{viewed || '-'}</div>
+              <div className="table-cell table-col__like align-right no-padding-right">{likes}</div>
+              <div className="table-cell table-col__comments align-center no-padding-right popover-parent">
+                <span className="table-cell__comments">{comments}</span>
+                <CommentsPopover />
+              </div>
+              <div className="table-cell table-col__actions no-padding">
+                <div className="table-cell__actions">
+                  <div className="table-cell__action-left popover-parent">
+                    <Icon className="table-cell__list" icon="list" width={18} height={18} />
+                    <TaskPopover />
                   </div>
-                </td>
-                <td>
-                  <div className="table-cell__name">
-                    <span className="table-cell__span table-cell__name-text">{name}</span>
+                  <div className="table-cell__action-right popover-parent">
+                    <span className="table-cell__dot" />
+                    <span className="table-cell__dot" />
+                    <span className="table-cell__dot" />
+                    <DealPopover />
                   </div>
-                </td>
-                <td><div className="table-cell__category">{category}</div></td>
-                <td className="no-padding">
-                  <span className="table-cell__location no-padding">{location}</span>
-                </td>
-                <td className="align-right no-padding-left popover-parent">
-                  <div className="table-cell__price">
-                    <span className="table-cell__price-text">{formattedPrice}</span>
-                    <PricePopover value={price} />
-                  </div>
-                </td>
-                <td className="align-right no-padding-left">
-                  <div className="table-cell__profit">{profit}</div>
-                </td>
-                <td className="popover-parent no-padding-left">
-                  <div className="table-cell__broker">
-                    <span className="table-cell__broker-text">{broker}</span>
-                    <DelegatePopover />
-                  </div>
-                </td>
-                <td className="popover-parent no-padding-left">
-                  <div className="table-cell__dealer">
-                    <span className="table-cell__dealer-text">{dealer}</span>
-                    <DealerPopover />
-                  </div>
-                </td>
-                <td className="no-padding-left">
-                  <span className="table-cell__created">{created}</span>
-                </td>
-                <td className="no-padding-left">
-                  <div className="table-cell__last-update">{lastUpdate}</div>
-                </td>
-                <td className="align-right no-padding-right">
-                  <span className="table-cell__viewed">{viewed || '-'}</span>
-                </td>
-                <td className="align-right no-padding-right">
-                  <span className="table-cell__likes">{likes}</span>
-                </td>
-                <td className="align-center no-padding-right popover-parent">
-                  <span className="table-cell__comments">{comments}</span>
-                  <CommentsPopover />
-                </td>
-                <td className="no-padding">
-                  <div className="table-cell__actions">
-                    <div className="table-cell__action-left popover-parent">
-                      <Icon className="table-cell__list" icon="list" width={18} height={18} />
-                      <TaskPopover />
-                    </div>
-                    <div className="table-cell__action-right popover-parent">
-                      <span className="table-cell__dot" />
-                      <span className="table-cell__dot" />
-                      <span className="table-cell__dot" />
-                      <DealPopover />
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     );
   }
 }
@@ -167,15 +144,15 @@ BrokerTable.propTypes = {
   fetchListing: PropTypes.func.isRequired,
   listingItems: PropTypes.arrayOf(PropTypes.object),
   query: PropTypes.shape({
-    COUNT: PropTypes.object,
-    PAGE: PropTypes.object,
+    COUNT: PropTypes.string,
+    PAGE: PropTypes.string,
   }),
 };
 
 BrokerTable.defaultProps = {
   listingItems: [],
   query: PropTypes.shape({
-    COUNT: PropTypes.object,
-    PAGE: PropTypes.object,
+    COUNT: 15,
+    PAGE: 0,
   }),
 };

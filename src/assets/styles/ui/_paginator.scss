@@ -12,7 +12,7 @@
       border: 1px solid $c-paginator-border;
       cursor: pointer;
       height: 28px;
-      line-height: 1.9;
+      line-height: 2.1;
       margin-left: -1px;
       transition: border-color 0.3s;
       width: 28px;
@@ -39,21 +39,26 @@
     }
 
     &-link {
+      display: block;
       color: $c-table-active-item;
+
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
+}
 
-  &__count {
-    position: absolute;
-    right: 10px;
+.paginator__count {
+  position: absolute;
+  right: 10px;
 
-    &-text {
-      position: relative;
-      top: 5px;
-    }
+  &-text {
+    position: relative;
+    top: 5px;
+  }
 
-    .paginator__list {
-      float: right;
-    }
+  .paginator__list {
+    float: right;
   }
 }

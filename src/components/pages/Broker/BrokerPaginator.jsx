@@ -1,31 +1,88 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { browserHistory } from 'react-router';
 
 import { formatNumber } from 'utils/formaters';
+import { indexUrl } from 'utils/urls.js';
+
+const itemsPerPage = [15, 25, 50];
 
 export default function BrokerPaginator(props) {
-  const itemsCount = props.itemsCount;
-  const listingNav = props.listingNav || {};
+  let NextLink;
+  const { itemsCount, listingNav } = props;
   const objectsCount = listingNav.COUNT_OBJ || 0;
+  let PrevLink;
+  let currPageIndex = 0;
+
+  /**
+   * Updates url & fetches new items.
+   * @param index - number - page index
+   * @param count - number - items per page
+   * @param url - string - url with query params
+   */
+  function fetchItems(index, count, url) {
+    browserHistory.push(`${indexUrl}broker/gb/${url}`);
+    props.fetchListing(index, count);
+  }
+
+  /**
+   * Generates links for fetching items by count.
+   * @param count - number - items per page
+   * @param url - string - url with query params
+   */
+  function generateItemsPerPageLinks(count, url) {
+    return itemsPerPage.map((item) => {
+      return (
+        <li
+          className={`paginator__list-item ${item === count ? 'active' : ''}`}
+          key={`paginator__item-${Math.floor(Date.now() * Math.random())}`}
+        >
+          <span
+            className="paginator__list-link"
+            onClick={() => fetchItems(url, item, `?PAGE=${url}&COUNT=${item}`)}
+          >{item}</span>;
+        </li>
+      );
+    });
+  }
 
   const {
-    CUR_GAGE: currentPage,
+    COUNT_SHOW: countPerPage,
+    CUR_GAGE: currPage,
     NAV_HREF: navHrefs,
+    NEXT_GAGE: nextPage,
+    PREV_GAGE: prevPage,
   } = listingNav;
 
-  const prevPageIndex = navHrefs && navHrefs.indexOf(currentPage);
-  const nextPageIndex = prevPageIndex + 2;
-  const PrevLink = prevPageIndex > 0 ?
-    (
-      <li
-        className="paginator__list-item paginator__prev"
-        onClick={() => props.fetchListing(prevPageIndex)}
-      >&lt;</li>
-    ) :
-    (
-      <li className="paginator__list-item paginator__prev disabled">&lt;</li>
-    )
-  ;
+  if (navHrefs) {
+    currPageIndex = currPage.ID;
+    NextLink = nextPage ?
+      (
+        <li className="paginator__list-item paginator__next">
+          <span
+            className="paginator__list-link"
+            onClick={() => fetchItems(nextPage.ID, countPerPage, nextPage.URL)}
+          >&gt;</span>
+        </li>
+      ) :
+        <li className="paginator__list-item paginator__next disabled">&gt;</li>
+    ;
+
+    PrevLink = prevPage ?
+      (
+        <li className="paginator__list-item paginator__prev">
+          <span
+            className="paginator__list-link"
+            onClick={() => fetchItems(prevPage.ID, countPerPage, prevPage.URL)}
+          >&lt;</span>
+        </li>
+      ) :
+        <li className="paginator__list-item paginator__prev disabled">&lt;</li>
+    ;
+  } else {
+    NextLink = <li className="paginator__list-item paginator__next disabled">&gt;</li>;
+    PrevLink = <li className="paginator__list-item paginator__prev disabled">&lt;</li>;
+  }
 
   return (
     <div className="table-footer">
@@ -35,29 +92,35 @@ export default function BrokerPaginator(props) {
 
       <ul className="paginator__list">
         {PrevLink}
-        {navHrefs && navHrefs.map((item, index) => (
+        {navHrefs && navHrefs.map(item => (
           <li
-            className={`paginator__list-item ${currentPage === item ? 'active' : ''}`}
+            className={`paginator__list-item ${currPageIndex === item.ID ? 'active' : ''}`}
             key={`paginator-link-${Math.floor(Date.now() * Math.random())}`}
-            onClick={() => props.fetchListing(index + 1)}
-          >{index + 1}</li>
+          >
+            <span
+              className="paginator__list-link"
+              onClick={() => fetchItems(item.ID, countPerPage, item.URL)}
+            >{item.ID}</span>
+          </li>
         ))}
-        <li
-          className="paginator__list-item paginator__next"
-          onClick={() => props.fetchListing(nextPageIndex)}
-        >&gt;</li>
+        {NextLink}
       </ul>
 
-      <div className="table-footer__items">
-        Показаны с <span className="table-footer__items-count">1 по {itemsCount}</span>
-      </div>
+      {currPageIndex ?
+        (
+          <div className="table-footer__items">
+            Показаны с <span className="table-footer__items-count">
+              {(currPageIndex * itemsCount) + 1} по {(currPageIndex * itemsCount) + itemsCount}
+            </span>
+          </div>
+        ) :
+          ''
+      }
 
       <div className="paginator__count">
         <span className="paginator__count-text">Показывать по:</span>
         <ul className="paginator__list">
-          <li className="paginator__list-item active">15</li>
-          <li className="paginator__list-item">25</li>
-          <li className="paginator__list-item">50</li>
+          {navHrefs && generateItemsPerPageLinks(countPerPage, currPageIndex)}
         </ul>
       </div>
     </div>

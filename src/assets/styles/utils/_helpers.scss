@@ -1,9 +1,5 @@
 @import "variables";
 
-.clickable {
-  cursor: pointer;
-}
-
 .style {
   &-link {
     @extend a;
@@ -62,6 +58,7 @@
 
   &-right {
     text-align: right;
+    justify-content: flex-end;
   }
 
   &-center {

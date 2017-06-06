@@ -14,7 +14,7 @@
   transform: translateX(-50%);
   visibility: hidden;
   width: 150px;
-  z-index: 5;
+  z-index: 10;
 
   &::before {
     background: $c-white;
@@ -55,6 +55,22 @@
   opacity: 1;
   transition: 0.3s;
   visibility: visible;
+}
+
+.popover_last {
+  left: -24px;
+
+  &::before {
+    left: 90%;
+  }
+
+  &.popover_lg {
+    left: -34px;
+
+    &::before {
+      left: 78%;
+    }
+  }
 }
 
 // Popover with top direction:
