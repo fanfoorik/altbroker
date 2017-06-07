@@ -3,7 +3,7 @@ import React from 'react';
 import { hostUrl } from 'utils/urls.js';
 
 export default function Captcha({ className, ...props }) {
-  const { captcha, refreshCaptcha } = props;
+  const { captcha, refreshCaptcha, setCaptchaValue } = props;
 
   return (
     <div className="auth-pane__row mb-36">
@@ -18,6 +18,8 @@ export default function Captcha({ className, ...props }) {
             <span
               className={captcha.loading ? 'captcha-refresh loading' : 'captcha-refresh'}
               onClick={() => refreshCaptcha()}
+              role="Button"
+              tabIndex="0"
             >
               <svg width="20" height="20" viewBox="0 0 20 20">
                 <path
@@ -32,7 +34,7 @@ export default function Captcha({ className, ...props }) {
         <input
           className={`input ${className}`}
           placeholder="Введите код с картинки"
-          onChange={event => refreshCaptcha(event.target.value)}
+          onChange={event => setCaptchaValue(event.target.value)}
           type="text"
           value={captcha.value}
         />
