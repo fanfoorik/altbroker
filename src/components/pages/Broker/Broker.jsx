@@ -13,6 +13,7 @@ export default function Broker(props) {
     fetchListing,
     listingItems,
     listingNav,
+    refreshListingItem,
   } = props;
 
   return (
@@ -22,7 +23,12 @@ export default function Broker(props) {
           <BrokerTableHeader />
         </Sticky>
 
-        <BrokerTable fetchListing={fetchListing} listingItems={listingItems} query={query} />
+        <BrokerTable
+          fetchListing={fetchListing}
+          listingItems={listingItems}
+          query={query}
+          refreshListingItem={refreshListingItem}
+        />
 
         <BrokerPaginator
           fetchListing={fetchListing}
@@ -55,6 +61,7 @@ Broker.propTypes = {
       PropTypes.object,
     ]),
   }),
+  refreshListingItem: PropTypes.func.isRequired,
 };
 
 Broker.defaultProps = {

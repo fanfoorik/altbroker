@@ -11,6 +11,7 @@ function handleSelectTab(event) {
 
   // Removes active class from all tabs:
   allTargets.forEach(item => item.classList.remove('active'));
+
   // Adds active class to selected tab:
   const targets = allTargets.filter((_, index) => (index % 2 === selectedTabIndex));
   targets.forEach(item => item.classList.add('active'));
@@ -21,10 +22,6 @@ export default function PopoverWithTabsHOC(Popover) {
     componentDidMount() {
       tabsTriggers = Array.from(document.querySelectorAll(tabTrigger));
       tabsTriggers.forEach(item => item.addEventListener('click', handleSelectTab));
-    }
-
-    componentWillUnmount() {
-      tabsTriggers.forEach(item => item.removeEventListener('click', handleSelectTab));
     }
 
     render() {

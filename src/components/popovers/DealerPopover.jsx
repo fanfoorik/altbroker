@@ -5,13 +5,12 @@ import Icon from 'components/Icon';
 import PopoverBaseHOC from 'components/popovers/PopoverBaseHOC';
 
 class DealerPopover extends React.Component {
-  componentDidMount() {
-    this.props.setDirection(this.popover);
-  }
 
   render() {
+    const { providePopover } = this.props;
+
     return (
-      <div className="popover popover_without-tabs popover_md" ref={(node) => { this.popover = node; }}>
+      <div className="popover popover_visible popover_without-tabs popover_md" ref={node => providePopover(node)}>
         <div className="popover-body">
           <div className="popover-content-wrapper no-padding-top active">
             <ul className="popover-deal-list">
@@ -55,7 +54,7 @@ class DealerPopover extends React.Component {
 }
 
 DealerPopover.propTypes = {
-  setDirection: PropTypes.func.isRequired,
+  providePopover: PropTypes.func.isRequired,
 };
 
 export default PopoverBaseHOC(DealerPopover);

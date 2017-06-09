@@ -1,15 +1,17 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import CommentsPopover from 'components/popovers/CommentsPopover';
-import DealPopover from 'components/popovers/DealPopover';
-import DelegatePopover from 'components/popovers/DelegatePopover';
-import DealerPopover from 'components/popovers/DealerPopover';
-import Icon from 'components/Icon';
-import PricePopover from 'components/popovers/PricePopover';
-import TaskPopover from 'components/popovers/TaskPopover';
 import { formatNumber } from 'utils/formaters';
 import { hostUrl } from 'utils/urls';
+
+import IsActive from 'utils/IsActive';
+import DetailPage from './DetailPage/DetailPage';
+import TablePrice from './Table/TablePrice';
+import TableBroker from './Table/TableBroker';
+import TableDealer from './Table/TableDealer';
+import TableComments from './Table/TableComments';
+import TableTask from './Table/TableTask';
+import TableOptions from './Table/TableOptions';
 
 const colors = {
   0: '#e1e5e9',
@@ -29,6 +31,10 @@ export default class BrokerTable extends React.Component {
 
     this.state = {
       listingItems: props.listingItems || [],
+      detailPage: {
+        active: false,
+        id: '',
+      },
     };
 
     this.pageIndex = this.props.query.PAGE || 0;
@@ -43,6 +49,15 @@ export default class BrokerTable extends React.Component {
     this.setState({ listingItems: nextProps.listingItems });
   }
 
+  triggerDetailPage = (id) => {
+    this.setState({
+      detailPage: {
+        active: !this.state.detailPage.active,
+        id: id || '',
+      },
+    });
+  };
+
   render() {
     function getImage(item) {
       return item.DETAIL_PICTURE_TEXT ?
@@ -50,10 +65,14 @@ export default class BrokerTable extends React.Component {
         'http://via.placeholder.com/200?text=A';
     }
 
+    const { refreshListingItem } = this.props;
+    const { detailPage } = this.state;
+
     return (
       <div>
         {this.state.listingItems.map((item) => {
           const {
+            ID: id,
             COMMENT: comments,
             DATE_CREATE_TEXT: created,
             IBLOCK_SECTION_ID_TEXT: category,
@@ -66,8 +85,7 @@ export default class BrokerTable extends React.Component {
             SHOW_COUNTER: viewed,
           } = item;
           const color = getColor(item.PROPERTY_STATUS_OBJ_VALUE);
-          const price = parseInt(item.PROPERTY_PRICE_BUSINESS_VALUE, 10);
-          const formattedPrice = formatNumber(price, '-');
+          const price = +item.PROPERTY_PRICE_BUSINESS_VALUE;
           const profit = formatNumber(item.PROPERTY_CHIST_PRIB_VALUE, '-');
 
           return (
@@ -97,44 +115,43 @@ export default class BrokerTable extends React.Component {
               </div>
               <div className="table-cell table-col__category">{category}</div>
               <div className="table-cell table-col__location no-padding">{location}</div>
-              <div className="table-cell table-col__price align-right no-padding-left popover-parent">
-                <span className="table-cell__price-text">{formattedPrice}</span>
-                <PricePopover value={price} />
+              <div className="table-cell table-col__price align-right no-padding-left">
+                <TablePrice
+                  id={id}
+                  price={price}
+                  refreshListingItem={refreshListingItem}
+                />
               </div>
               <div className="table-cell table-col__profit align-right no-padding-left">{profit}</div>
-              <div className="table-cell table-col__broker popover-parent no-padding-left">
-                <span className="table-cell__broker">{broker}</span>
-                <DelegatePopover />
+              <div className="table-cell table-col__broker no-padding-left">
+                <TableBroker broker={broker} />
               </div>
-              <div className="table-cell table-col__dealer popover-parent no-padding-left">
-                <span className="table-cell__dealer">{dealer}</span>
-                <DealerPopover />
+              <div className="table-cell table-col__dealer no-padding-left">
+                <TableDealer dealer={dealer} />
               </div>
               <div className="table-cell table-col__created no-padding-left">{created}</div>
               <div className="table-cell table-col__updated no-padding-left">{lastUpdate}</div>
               <div className="table-cell table-col__watched align-right no-padding-right">{viewed || '-'}</div>
               <div className="table-cell table-col__like align-right no-padding-right">{likes}</div>
-              <div className="table-cell table-col__comments align-center no-padding-right popover-parent">
-                <span className="table-cell__comments">{comments}</span>
-                <CommentsPopover />
+              <div className="table-cell table-col__comments align-center no-padding-right">
+                <TableComments comments={comments} />
               </div>
               <div className="table-cell table-col__actions no-padding">
                 <div className="table-cell__actions">
-                  <div className="table-cell__action-left popover-parent">
-                    <Icon className="table-cell__list" icon="list" width={18} height={18} />
-                    <TaskPopover />
+                  <div className="table-cell__action-left">
+                    <TableTask />
                   </div>
-                  <div className="table-cell__action-right popover-parent">
-                    <span className="table-cell__dot" />
-                    <span className="table-cell__dot" />
-                    <span className="table-cell__dot" />
-                    <DealPopover />
+                  <div className="table-cell__action-right">
+                    <TableOptions id={id} triggerDetailPage={this.triggerDetailPage} />
                   </div>
                 </div>
               </div>
             </div>
           );
         })}
+        <IsActive active={detailPage.active}>
+          <DetailPage id={detailPage.id} triggerDetailPage={this.triggerDetailPage} />
+        </IsActive>
       </div>
     );
   }
@@ -147,6 +164,7 @@ BrokerTable.propTypes = {
     COUNT: PropTypes.string,
     PAGE: PropTypes.string,
   }),
+  refreshListingItem: PropTypes.func.isRequired,
 };
 
 BrokerTable.defaultProps = {

@@ -7,13 +7,12 @@ import PopoverBaseHOC from 'components/popovers/PopoverBaseHOC';
 import PopoverWithTabsHOC from 'components/popovers/PopoverWithTabsHOC';
 
 class CommentsPopover extends React.Component {
-  componentDidMount() {
-    this.props.setDirection(this.popover);
-  }
 
   render() {
+    const { providePopover } = this.props;
+
     return (
-      <div className="popover popover_md" ref={(node) => { this.popover = node; }}>
+      <div className="popover popover_visible popover_md" ref={node => providePopover(node)}>
         <div className="popover-header js-target-trigger">
           <div className="popover-header__tab active js-popover-tab">Брокеры</div>
           <div className="popover-header__tab js-popover-tab">Клиенты</div>
@@ -87,7 +86,7 @@ class CommentsPopover extends React.Component {
 }
 
 CommentsPopover.propTypes = {
-  setDirection: PropTypes.func.isRequired,
+  providePopover: PropTypes.func.isRequired,
 };
 
 export default compose(PopoverBaseHOC, PopoverWithTabsHOC)(CommentsPopover);

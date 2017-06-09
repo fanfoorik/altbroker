@@ -129,3 +129,19 @@ b {
   font-weight: bold;
 }
 
+.more-trigger {
+  color: $c-blue-light;
+  cursor: pointer;
+
+  &__arrow {
+    margin: 0 0 -1px 2px;
+    fill: $c-blue-main;
+    transform: rotate(90deg);
+  }
+
+  &.active {
+    .more-trigger__arrow {
+      transform: rotate(-90deg);
+    }
+  }
+}

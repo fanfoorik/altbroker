@@ -5,17 +5,20 @@ import Icon from 'components/Icon';
 import PopoverBaseHOC from 'components/popovers/PopoverBaseHOC';
 
 class DealPopover extends React.Component {
-  componentDidMount() {
-    this.props.setDirection(this.popover);
-  }
+
+  triggerDetailPage = () => {
+    this.props.triggerDetailPage(this.props.id);
+  };
 
   render() {
+    const { providePopover } = this.props;
+
     return (
-      <div className="popover popover_without-tabs popover_last popover_md" ref={(node) => { this.popover = node; }}>
+      <div className="popover popover_visible popover_without-tabs popover_last popover_md" ref={node => providePopover(node)}>
         <div className="popover-body">
           <div className="popover-content-wrapper no-padding-top no-padding-bottom active">
             <ul className="popover-deal-list">
-              <li className="popover-deal-item">
+              <li className="popover-deal-item" onClick={this.triggerDetailPage}>
                 <Icon className="popover-deal-list-icon" icon="eye" width={16} height={16} />
                 Смотреть
               </li>
@@ -48,7 +51,9 @@ class DealPopover extends React.Component {
 }
 
 DealPopover.propTypes = {
-  setDirection: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
+  providePopover: PropTypes.func.isRequired,
+  triggerDetailPage: PropTypes.func.isRequired,
 };
 
 export default PopoverBaseHOC(DealPopover);

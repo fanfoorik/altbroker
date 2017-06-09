@@ -220,6 +220,7 @@
     opacity: 0.12;
     transition: 0.3s;
     width: 5px;
+    vertical-align: top;
   }
 }
 
@@ -327,5 +328,147 @@
       opacity: 1;
       transform: translateX(-50%) translate3d(0, 0, 0);
     }
+  }
+}
+
+// Detail page:
+.detail-page {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba($c-black, 0.5);
+  z-index: 300;
+  color: $c-text-main;
+
+  &__gallery {
+    margin: -24px -36px 24px;
+  }
+
+  &__label {
+    font-size: 13px;
+    color: $c-text-disabled;
+    margin-bottom: 12px;
+  }
+
+  &__title {
+    font-size: 16px;
+    font-family: $f-gothapro;
+    margin-bottom: 16px;
+  }
+}
+
+.detail-page-blank {
+  background: $c-white;
+  padding: 24px 36px;
+  border: 1px solid $c-border-main;
+  border-radius: 3px;
+  margin-bottom: 16px;
+}
+
+.detail-page-aside {
+  float: right;
+  height: 100%;
+  width: 640px;
+  background: $c-body-bg;
+}
+
+.detail-page-header {
+  padding: 8px 24px 24px 24px;
+  background: $c-white;
+  height: 114px;
+  position: relative;
+  border-bottom: 1px solid $c-border-main;
+
+  &__title {
+    font-size: 16px;
+    font-family: $f-gothapro;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+}
+
+.detail-page-body {
+  padding: 17px 24px;
+  height: calc(100% - 114px);
+  overflow: auto;
+}
+
+.detail-page-menu {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  display: table;
+  width: 100%;
+  padding: 0 10px;
+
+  &__item {
+    display: table-cell;
+    text-align: center;
+    font-size: 14px;
+    vertical-align: middle;
+    cursor: pointer;
+
+    &.active {
+      .detail-page-menu__link {
+        border-bottom-color: $c-blue-main;
+      }
+    }
+  }
+
+  &__link {
+    display: inline-block;
+    padding: 8px 0px;
+    border-bottom: 1px solid transparent;
+  }
+}
+
+.detail-page-status {
+  &__label {
+    display: inline-block;
+    padding: 0 9px;
+    margin-right: 16px;
+    background: $c-border-main;
+    line-height: 20px;
+  }
+
+  &__last-update {
+    color: $c-text-disabled;
+  }
+}
+
+.detail-page-gallery {
+  height: 200px;
+  background: $c-border-main;
+}
+
+.detail-page-main {
+  &__info {
+    border-bottom: 1px solid $c-border-main;
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+  }
+
+  &__text {
+    margin-bottom: 20px;
+  }
+}
+
+.detail-page-info {
+  margin-bottom: 12px;
+
+  &__key {
+    float: left;
+    width: 175px;
+    margin-right: 20px;
+    font-size: 13px;
+    color: $c-text-disabled;
+  }
+
+  &__value {
+    overflow: hidden;
   }
 }
