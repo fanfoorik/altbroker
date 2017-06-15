@@ -3,12 +3,14 @@ $c-black: #000;
 $c-blue-dark: #4c8cd2;
 $c-blue-light: #6fb6ff;
 $c-blue-main: #4da1ff;
-$c-grey-dark: #313436;
-$c-grey-main: #6b6f74;
-$c-grey-light: #f5f7f9;
-$c-grey-middle: #c0c5ca;
-$c-red-main: #d0011b;
+$c-blue-transparent: transparentize($c-blue-main, .95);
 $c-white: #fff;
+$c-grey-light: #f5f7f9;
+$c-grey-middle: #b8bdc2;
+$c-grey-main: #6b6f74;
+$c-grey-dark: #313436;
+$c-red-main: #d0011b;
+$c-red-transparent: transparentize($c-red-main, .9);
 
 // Checkboxes
 $c-checkbox-bg-hover: #f5faff;
@@ -28,7 +30,7 @@ $c-btn-primary: $c-blue-main;
 
 // Droptips
 $c-droptip-bg: $c-grey-light;
-$c-droptip-border: #e1e3e9;
+$c-droptip-border: $c-border-main;
 
 // Fonts
 $f-gothapro: "gothapro", Arial, sans-serif;
@@ -49,7 +51,7 @@ $i-path: "../images/";
 $c-input-bg: #f5faff;
 $c-input-border: $c-grey-middle;
 $c-input-icon-bg: $c-grey-middle;
-$c-input-error-bg: #fae5e8;
+$c-input-error-bg: $c-red-transparent;
 $c-input-error-border: $c-red-main;
 
 // Listing page:
@@ -90,7 +92,7 @@ $c-table-active-item: #233438;
 $c-table-active-text: #252729;
 $c-table-border: #e1e5e9;
 $c-table-circles-bg: $c-grey-middle;
-$c-table-nonactive-item: #6b6f74;
+$c-table-nonactive-item: $c-grey-main;
 $c-table-muted-text: $c-grey-middle;
 $table-row-height: 60px;
 

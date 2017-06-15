@@ -52,10 +52,29 @@
 
   &__link {
     color: $c-text-main;
+    &:hover {
+      text-decoration: none;
+      color: $c-blue-main;
+    }
   }
 
   &__more {
-    color: $c-text-disabled;
+    color: $c-blue-main;
+
+    &::after {
+      content: '\003e';
+      margin-left: 4px;
+      transition: margin-left ease .1s;
+    }
+
+    &:hover {
+      text-decoration: none;
+      color: $c-blue-dark;
+
+      &::after {
+        margin-left: 8px;
+      }
+    }
   }
 }
 
@@ -66,14 +85,15 @@
   border: 1px solid $c-border-main;
 
   &__item {
-    padding: 8px 24px 0;
     position: relative;
+    padding: 0 24px;
     color: $c-text-grey;
+    &:not(:last-of-type){ border-bottom: 1px solid $c-border-main; };
 
     &::before {
       position: absolute;
-      left: 0;
-      top: 24px;
+      left: 6px;
+      top: 20px;
       width: 4px;
       height: 4px;
       background: $c-list-bullet;
@@ -90,6 +110,10 @@
 
       .faq-list__link {
         color: $c-text-main;
+        font-weight: bold;
+        &:hover {
+          color: $c-text-main;
+        }
       }
 
       .faq-list__answer {
@@ -102,7 +126,12 @@
     color: $c-text-grey;
     font-size: 16px;
     display: inline-block;
-    padding: 8px 0;
+    padding: 12px 0;
+
+    &:hover {
+      text-decoration: none;
+      color: $c-blue-main;
+    }
   }
 
   &__answer {

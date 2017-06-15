@@ -33,7 +33,7 @@ const FAQCategory = (props) => {
       </div>
 
       <IsActive active={items.length > 2}>
-        <Link to={url} className="faq-category__more">Смотреть все &gt;</Link>
+        <Link to={url} className="faq-category__more">Смотреть все</Link>
       </IsActive>
 
     </div>
