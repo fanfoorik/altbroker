@@ -15,8 +15,8 @@
   }
 
   &__label {
-    font-size: 13px;
-    color: $c-text-disabled;
+    font-size: 14px;
+    color: $c-grey-middle;
     margin-bottom: 8px;
   }
 }
@@ -38,6 +38,11 @@
 
     &:first-child {
       border-top-width: 0;
+    }
+
+    &:hover {
+      color: $c-blue-main;
+      background-color: $c-blue-transparent;
     }
   }
 }
@@ -73,8 +78,12 @@
   &__edit {
     width: 96px;
     text-align: center;
-    color: $c-blue-light;
+    color: $c-blue-main;
     cursor: pointer;
+
+    &:hover {
+      color: $c-blue-dark;
+    }
   }
 }
 
@@ -101,12 +110,12 @@
 
   &__text-trigger {
     cursor: pointer;
-    color: $c-blue-light;
+    color: $c-blue-main;
     display: inline-block;
     margin-top: 16px;
 
     &:hover {
-      text-decoration: underline;
+      color: $c-blue-dark;
     }
   }
 }
@@ -129,10 +138,10 @@
 
   &__trigger {
     cursor: pointer;
-    color: $c-blue-light;
+    color: $c-blue-main;
 
     &:hover {
-      text-decoration: underline;
+      color: $c-blue-dark;
     }
   }
 }

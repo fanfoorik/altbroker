@@ -42,7 +42,7 @@ input[type="password"] {
 
     + .input-icon {
       border-color: $c-input-error-border;
-      background: rgba($c-input-error-border, 0.1);
+      background: $c-input-error-bg;
     }
 
     + .input-icon svg {

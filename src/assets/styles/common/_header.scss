@@ -323,6 +323,8 @@
 
     &:hover {
       color: $c-blue-main;
+      text-decoration: none;
+      background-color: $c-blue-transparent;
     }
   }
 }
