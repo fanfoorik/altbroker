@@ -4,6 +4,7 @@
 @import "paginator";
 @import "popover";
 @import "editor";
+@import "menu";
 
 select {
   font-family: $f-ptsans;
@@ -76,6 +77,42 @@ select:-moz-focusring {
       height: 4px;
       content: "";
       width: 4px;
+    }
+  }
+}
+
+.menu-tpl {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-around;
+
+  &__link {
+    text-align: center;
+    font-size: 14px;
+    vertical-align: middle;
+    cursor: pointer;
+    padding: 0 12px;
+
+    &.active {
+      .menu-tpl__label {
+        border-bottom-color: $c-blue-main;
+      }
+    }
+  }
+
+  &__label {
+    display: inline-block;
+    padding: 8px 0;
+    border-bottom: 1px solid transparent;
+  }
+}
+
+.tabs {
+  &__tab {
+    display: none;
+
+    &.active {
+      display: block;
     }
   }
 }

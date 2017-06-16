@@ -5,6 +5,8 @@ import { formatNumber } from 'utils/formaters';
 import { hostUrl } from 'utils/urls';
 
 import IsActive from 'utils/IsActive';
+
+// Panels
 import DetailPage from './DetailPage/DetailPage';
 import TablePrice from './Table/TablePrice';
 import TableBroker from './Table/TableBroker';
@@ -100,7 +102,12 @@ export default class BrokerTable extends React.Component {
                 <span className="table-color" style={{ backgroundColor: color }} />
               </div>
               <div className="table-cell table-col__id">
-                <div className="table-cell__id">{item.ID}</div>
+                <div
+                  className="table-cell__id"
+                  onClick={() => this.triggerDetailPage(id)}
+                  role="button"
+                  tabIndex="0"
+                >{item.ID}</div>
               </div>
               <div className="table-cell table-col__img no-padding">
                 <div className="table-col__img">

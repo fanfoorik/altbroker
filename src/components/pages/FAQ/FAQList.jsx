@@ -3,10 +3,7 @@ import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import htmlParser from 'html-react-parser';
 
-import getHeaders from 'utils/getHeaders';
-import handleError from 'utils/handleError';
 import ajax from 'utils/ajax';
-import { apiUrl } from 'utils/urls';
 
 class FAQList extends React.Component {
 
@@ -25,17 +22,11 @@ class FAQList extends React.Component {
   fetchFaqList = () => {
     const { listId } = this.props.params;
 
-    ajax.get(
-      `${apiUrl}faq/${listId}/`,
-      {
-        headers: getHeaders(),
-      })
-      .then(res => res.data)
+    ajax.get(`faq/${listId}/`)
       .then((data) => {
         const { ITEMS: questions } = data.ANSWER.CONTENT[0];
         this.setState({ questions });
-      })
-      .catch(error => handleError(error));
+      });
   };
 
   render() {

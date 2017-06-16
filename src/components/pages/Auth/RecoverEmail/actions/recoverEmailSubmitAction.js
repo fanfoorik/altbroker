@@ -1,50 +1,46 @@
-import { apiUrl } from 'utils/urls.js';
 import ajax from 'utils/ajax';
 
 export default () => (dispatch, getState) => {
-  let { recoverEmail } = getState().auth;
-  let { email } = recoverEmail;
+  const { recoverEmail } = getState().auth;
+  const { email } = recoverEmail;
 
-  (recoverEmail.form.touch || dispatch({ type: "RECOVER_EMAIL_SUBMIT_TOUCH" }));
+  if (!recoverEmail.form.touch) {
+    dispatch({ type: 'RECOVER_EMAIL_SUBMIT_TOUCH' });
+  }
 
   if (email.valid) {
-    dispatch({ type: "RECOVER_EMAIL_SUBMIT_START" });
+    dispatch({ type: 'RECOVER_EMAIL_SUBMIT_START' });
 
     // Отправление эмейл для смены пароля
-    ajax.post(apiUrl + 'user/user_send_checkword/', {
-      "USER_LOGIN": email.value,
+    ajax.post('user/user_send_checkword/', {
+      USER_LOGIN: email.value,
     })
-      .then(res => {
-
-        let message = res.data.ANSWER.MESSAGE;
+      .then((data) => {
+        const message = data.ANSWER.MESSAGE;
 
         dispatch({
-          type: "RECOVER_EMAIL_SUBMIT_SUCCESS",
-          payload: message
+          type: 'RECOVER_EMAIL_SUBMIT_SUCCESS',
+          payload: message,
         });
 
-        //from authReducer
-        dispatch({ type: "RECOVER_EMAIL_SUCESS_PANEL" });
-
+        // from authReducer
+        dispatch({ type: 'RECOVER_EMAIL_SUCESS_PANEL' });
       })
-      .catch(function(error) {
-
+      .catch((error) => {
         if (error.response && error.response.data && error.response.data.ERRORS) {
-
-          let errors = error.response.data.ERRORS;
+          const errors = error.response.data.ERRORS;
 
           dispatch({
-            type: "RECOVER_EMAIL_SUBMIT_ERROR",
-            payload: errors[0].MESSAGE
+            type: 'RECOVER_EMAIL_SUBMIT_ERROR',
+            payload: errors[0].MESSAGE,
           });
-
           return;
         }
 
         dispatch({
-          type: "RECOVER_EMAIL_SUBMIT_ERROR",
-          payload: "Неизвестная ошибка."
+          type: 'RECOVER_EMAIL_SUBMIT_ERROR',
+          payload: 'Неизвестная ошибка.',
         });
       });
   }
-}
+};

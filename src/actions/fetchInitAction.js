@@ -1,12 +1,9 @@
-import { apiUrl } from 'utils/urls.js';
 import * as types from 'constants/headerTypes';
 import ajax from 'utils/ajax';
-import getHeaders from 'utils/getHeaders';
-import handleError from 'utils/handleError';
 
 function parseNav(menu) {
   const nav = [];
-
+  // TODO: To fix linting errors.
   for (const el in menu) {
     const origSubnav = menu[el].CHILDREN;
     menu[el].subnav = [];
@@ -23,10 +20,8 @@ function parseNav(menu) {
 }
 
 const fetchInit = () => (dispatch) => {
-  ajax.get(`${apiUrl}init/`,
-    { headers: getHeaders() })
-    .then((response) => {
-      const data = response.data;
+  ajax.get('init/')
+    .then((data) => {
       const {
         MENU: menu,
         PATCHNOUTS: patchNotes,
@@ -53,8 +48,7 @@ const fetchInit = () => (dispatch) => {
         type: types.SET_STICKERS,
         payload: stickers,
       });
-    })
-    .catch(error => handleError(error, dispatch));
+    });
 };
 
 export default fetchInit;
