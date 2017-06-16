@@ -54,7 +54,7 @@ module.exports = {
         },
       },
       {
-        test: /\.scss$/,
+        test: /\.(scss|css)$/,
         use: cssConfig,
       },
       {

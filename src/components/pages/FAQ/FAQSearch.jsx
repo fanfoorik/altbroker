@@ -27,8 +27,8 @@ class FAQSearch extends React.Component {
     ajax.post(`${apiUrl}faq/search/`,
       { STRING_SEARCH: ev.target.value },
       { headers: getHeaders() })
-      .then(res => res.data)
-      .then((data) => {
+      .then((response) => {
+        const { data } = response;
         const error = data.ERRORS;
 
         if (error.length) {
@@ -39,11 +39,13 @@ class FAQSearch extends React.Component {
           if (answer.length) {
             this.setState({ items: answer });
           } else {
-            this.setState({ items: [{
-              notFound: true,
-              text: 'Ничего похожего ещё никто не искал!',
-              extraText: 'Задайте вопрос самостоятельно >',
-            }] });
+            this.setState({
+              items: [{
+                notFound: true,
+                text: 'Ничего похожего ещё никто не искал!',
+                extraText: 'Задайте вопрос самостоятельно >',
+              }],
+            });
           }
         }
       })

@@ -5,13 +5,12 @@ import Icon from 'components/Icon';
 import PopoverBaseHOC from 'components/popovers/PopoverBaseHOC';
 
 class DelegatePopover extends React.Component {
-  componentDidMount() {
-    this.props.setDirection(this.popover);
-  }
 
   render() {
+    const { providePopover } = this.props;
+
     return (
-      <div className="popover" ref={(node) => { this.popover = node; }}>
+      <div className="popover popover_visible" ref={node => providePopover(node)}>
         <div className="popover-header">
           <div className="popover-header__tab">Кому передать</div>
         </div>
@@ -43,7 +42,7 @@ class DelegatePopover extends React.Component {
 }
 
 DelegatePopover.propTypes = {
-  setDirection: PropTypes.func.isRequired,
+  providePopover: PropTypes.func.isRequired,
 };
 
 export default PopoverBaseHOC(DelegatePopover);

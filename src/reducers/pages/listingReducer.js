@@ -1,12 +1,20 @@
-import { FETCH_LISTING } from 'constants/listingTypes';
+import { FETCH_LISTING, REFRESH_LISTING_ITEM } from 'constants/listingTypes';
 
-export default function (state = {}, action) {
-  switch (action.type) {
+export default function (state = {}, { type, payload }) {
+  switch (type) {
     case FETCH_LISTING:
       return {
         ...state,
-        listingItems: action.payload.ITEMS,
-        nav: action.payload.NAV,
+        listingItems: payload.ITEMS,
+        nav: payload.NAV,
+      };
+
+    case REFRESH_LISTING_ITEM:
+      return {
+        ...state,
+        listingItems: state.listingItems.map(item => (
+          item.ID === payload.ID ? { ...item, ...payload } : item
+        )),
       };
 
     default:

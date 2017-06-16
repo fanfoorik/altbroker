@@ -6,13 +6,11 @@ import PopoverBaseHOC from 'components/popovers/PopoverBaseHOC';
 import PopoverWithTabsHOC from 'components/popovers/PopoverWithTabsHOC';
 
 class TaskPopover extends React.Component {
-  componentDidMount() {
-    this.props.setDirection(this.popover);
-  }
-
   render() {
+    const { providePopover } = this.props;
+
     return (
-      <div className="popover popover_lg popover_last" ref={(node) => { this.popover = node; }}>
+      <div className="popover popover_visible popover_lg popover_last" ref={node => providePopover(node)}>
         <div className="popover-header js-target-trigger">
           <div className="popover-header__tab active js-popover-tab">Задача</div>
           <div className="popover-header__tab js-popover-tab">История</div>
@@ -29,44 +27,44 @@ class TaskPopover extends React.Component {
           </div>
 
           <div className="popover-content-wrapper js-popover-tab">
-            <ul className="popover-history-list popover-history-list_task">
-              <li className="popover-history-item">
-                <span className="popover-history-date popover-history-date_task">30.04–</span>
-                <span className="popover-history-value popover-history-value_task">
+            <div className="popover-history popover-history_task">
+              <div className="popover-history__item">
+                <span className="popover-history__date popover-history__date_task">30.04–</span>
+                <span className="popover-history__value popover-history__value_task">
                   <Icon icon="time" width={12} height={12} /> Понижение цены
                 </span>
-              </li>
-              <li className="popover-history-item">
-                <span className="popover-history-date popover-history-date_task">28.04-29.04</span>
-                <span className="popover-history-value popover-history-value_task">
+              </div>
+              <div className="popover-history__item">
+                <span className="popover-history__date popover-history__date_task">28.04-29.04</span>
+                <span className="popover-history__value popover-history__value_task">
                   <Icon icon="check" width={12} height={12} /> Изменение
                 </span>
-              </li>
-              <li className="popover-history-item">
-                <span className="popover-history-date popover-history-date_task">28.04-29.04</span>
-                <span className="popover-history-value popover-history-value_task">
+              </div>
+              <div className="popover-history__item">
+                <span className="popover-history__date popover-history__date_task">28.04-29.04</span>
+                <span className="popover-history__value popover-history__value_task">
                   <Icon icon="check" width={12} height={12} /> Понижение цены
                 </span>
-              </li>
-              <li className="popover-history-item">
-                <span className="popover-history-date popover-history-date_task">28.04-29.04</span>
-                <span className="popover-history-value popover-history-value_task">
+              </div>
+              <div className="popover-history__item">
+                <span className="popover-history__date popover-history__date_task">28.04-29.04</span>
+                <span className="popover-history__value popover-history__value_task">
                   <Icon icon="check" width={12} height={12} /> Понижение цены
                 </span>
-              </li>
-              <li className="popover-history-item">
-                <span className="popover-history-date popover-history-date_task">28.04-29.04</span>
-                <span className="popover-history-value popover-history-value_task">
+              </div>
+              <div className="popover-history__item">
+                <span className="popover-history__date popover-history__date_task">28.04-29.04</span>
+                <span className="popover-history__value popover-history__value_task">
                   <Icon icon="check" width={12} height={12} /> Понижение цены
                 </span>
-              </li>
-              <li className="popover-history-item">
-                <span className="popover-history-date popover-history-date_task">28.04-29.04</span>
-                <span className="popover-history-value popover-history-value_task">
+              </div>
+              <div className="popover-history__item">
+                <span className="popover-history__date popover-history__date_task">28.04-29.04</span>
+                <span className="popover-history__value popover-history__value_task">
                   <Icon icon="check" width={12} height={12} /> Понижение цены
                 </span>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -75,7 +73,7 @@ class TaskPopover extends React.Component {
 }
 
 TaskPopover.propTypes = {
-  setDirection: PropTypes.func.isRequired,
+  providePopover: PropTypes.func.isRequired,
 };
 
 export default PopoverBaseHOC(PopoverWithTabsHOC(TaskPopover));

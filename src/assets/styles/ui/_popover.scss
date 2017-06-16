@@ -49,6 +49,11 @@
       fill: $c-blue-main;
     }
   }
+
+  &_visible {
+    opacity: 1;
+    visibility: visible;
+  }
 }
 
 .popover-parent:hover .popover {
@@ -129,15 +134,6 @@
 }
 
 // Content part:
-.popover-history-list {
-  height: 115px;
-  overflow: scroll;
-
-  &_task {
-    height: 119px;
-  }
-}
-
 .popover-content-wrapper {
   display: none;
   padding: $listing-offset;
@@ -177,12 +173,19 @@
 
 // Content with history list:
 .popover-history {
-  &-item {
+  height: 115px;
+  overflow: auto;
+
+  &_task {
+    height: 119px;
+  }
+
+  &__item {
     display: flex;
     margin: 0 0 10px;
   }
 
-  &-date {
+  &__date {
     color: $c-grey-middle;
     padding: 0 13px 0 0;
 
@@ -196,7 +199,7 @@
     }
   }
 
-  &-value {
+  &__value {
     color: $c-popover-text-active;
 
     &_task {
@@ -214,6 +217,12 @@
         top: 3px;
       }
     }
+  }
+
+  &__no-history {
+    padding-top: 46px;
+    text-align: center;
+    color: $c-grey-middle;
   }
 }
 
@@ -262,7 +271,7 @@ input.popover-input {
   }
 
   &-item {
-    padding: 0 0 0 $listing-offset;
+    margin: 0 0 0 $listing-offset;
 
     &.disabled .icon,
     &.disabled .icon:hover {
@@ -418,5 +427,14 @@ input.popover-input_comments {
       top: 50%;
       width: 0;
     }
+  }
+}
+
+.table-options {
+  &__trigger {
+    display: block;
+    height: 15px;
+    padding: 5px 0;
+    margin-top: 2px;
   }
 }

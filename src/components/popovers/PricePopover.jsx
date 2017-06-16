@@ -1,6 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import ajax from 'utils/ajax';
+import getHeaders from 'utils/getHeaders';
+import handleError from 'utils/handleError';
+import { apiUrl } from 'utils/urls';
+import { formatNumber } from 'utils/formaters';
+
 import Icon from 'components/Icon';
 import PopoverBaseHOC from 'components/popovers/PopoverBaseHOC';
 import PopoverWithTabsHOC from 'components/popovers/PopoverWithTabsHOC';
@@ -11,36 +17,72 @@ class PricePopover extends React.Component {
 
     this.state = {
       changed: false,
-      value: parseInt(props.value, 10),
+      value: formatNumber(props.price),
+      priceHistory: [],
     };
   }
 
   componentDidMount() {
-    this.props.setDirection(this.popover);
+    this.fetchPriceHistory();
   }
 
+  fetchPriceHistory = () => {
+    ajax.get(`${apiUrl}broker/gb/${this.props.id}/getpricehistory/`, {
+      headers: getHeaders(),
+    })
+      .then((response) => {
+        const { data } = response;
+        this.setState({ priceHistory: data.ANSWER.HISTORY });
+      })
+      .catch(error => handleError(error));
+  };
+
   handleChange = (event) => {
+    const val = event.target.value.replace(/\D/gi, '');
     this.setState({
       changed: true,
-      value: event.target.value,
+      value: formatNumber(val),
     });
   };
 
   handleDecreasePrice = (event) => {
     const valueToDecrease = event.target.dataset.value;
-    const newValue = this.state.value - valueToDecrease;
+    const newValue = +(this.state.value.replace(/\D/gi, '')) - valueToDecrease;
+
     if (newValue < 0) return;
 
     this.setState({
-      value: newValue,
+      changed: true,
+      value: formatNumber(newValue),
     });
+  };
+
+  changePrice = () => {
+    if (this.state.changed) {
+      ajax.post(`${apiUrl}broker/gb/${this.props.id}/changeprice/`,
+        { VAL: this.state.value.replace(/\D/gi, '') },
+        { headers: getHeaders() })
+        .then((response) => {
+          const { data } = response;
+          const success = data.ANSWER.SUCCESS;
+
+          if (success) {
+            const item = data.ANSWER.ITEM[0];
+            this.props.refreshListingItem(item);
+          }
+          // TODO: handle and visualize change price error
+        })
+        .catch(error => handleError(error));
+    }
   };
 
   render() {
     const isDisabled = this.state.changed ? '' : 'disabled';
+    const { providePopover } = this.props;
+    const { value, priceHistory } = this.state;
 
     return (
-      <div className="popover" ref={(node) => { this.popover = node; }}>
+      <div className="popover popover_visible" ref={node => providePopover(node)}>
         <div className="popover-header js-target-trigger">
           <div className="popover-header__tab active js-popover-tab">Цена</div>
           <div className="popover-header__tab js-popover-tab">История</div>
@@ -50,10 +92,10 @@ class PricePopover extends React.Component {
           <div className="popover-content-wrapper active no-padding-top js-popover-tab">
             <input
               className="popover-input align-right"
-              value={this.state.value}
+              value={value}
               min={0}
               onChange={this.handleChange}
-              type="number"
+              type="text"
             />
 
             <ul className="popover-decrease-list" onClick={this.handleDecreasePrice}>
@@ -64,7 +106,12 @@ class PricePopover extends React.Component {
             </ul>
 
             <ul className="popover-actions-list">
-              <li className={`popover-actions-item ${isDisabled}`}>
+              <li
+                className={`popover-actions-item ${isDisabled}`}
+                onClick={this.changePrice}
+                role="button"
+                tabIndex="0"
+              >
                 <Icon icon="check" width={20} height={15} />
               </li>
               <li className="popover-actions-item">
@@ -74,32 +121,27 @@ class PricePopover extends React.Component {
           </div>
 
           <div className="popover-content-wrapper js-popover-tab">
-            <ul className="popover-history-list">
-              <li className="popover-history-item">
-                <span className="popover-history-date">27.04</span>
-                <span className="popover-history-value">1 250 000 000</span>
-              </li>
-              <li className="popover-history-item">
-                <span className="popover-history-date">26.04</span>
-                <span className="popover-history-value">1 550 000 000</span>
-              </li>
-              <li className="popover-history-item">
-                <span className="popover-history-date">22.04</span>
-                <span className="popover-history-value">3 290 000 100</span>
-              </li>
-              <li className="popover-history-item">
-                <span className="popover-history-date">01.04</span>
-                <span className="popover-history-value">3 290 000 100</span>
-              </li>
-              <li className="popover-history-item">
-                <span className="popover-history-date">21.03</span>
-                <span className="popover-history-value">290 000 100</span>
-              </li>
-              <li className="popover-history-item">
-                <span className="popover-history-date">10.03</span>
-                <span className="popover-history-value">100</span>
-              </li>
-            </ul>
+            <div className="popover-history">
+              {
+                priceHistory.length > 0 ?
+                priceHistory.map((item) => {
+                  const {
+                    ID: id,
+                    DATE_CREATE: date,
+                    PROPERTY_VAL_VALUE: price,
+                  } = item;
+                  const formattedHistoryPrice = formatNumber(price, '-');
+                  return (
+                    <div className="popover-history__item" key={`history-price-${id}`}>
+                      <span className="popover-history__date">{date}</span>
+                      <span className="popover-history__value">{formattedHistoryPrice}</span>
+                    </div>
+                  );
+                })
+                :
+                <div className="popover-history__no-history">Нет истории</div>
+              }
+            </div>
           </div>
         </div>
       </div>
@@ -108,14 +150,14 @@ class PricePopover extends React.Component {
 }
 
 PricePopover.propTypes = {
-  changed: PropTypes.bool,
-  setDirection: PropTypes.func.isRequired,
-  value: PropTypes.number,
+  id: PropTypes.string.isRequired,
+  providePopover: PropTypes.func.isRequired,
+  price: PropTypes.number,
+  refreshListingItem: PropTypes.func.isRequired,
 };
 
 PricePopover.defaultProps = {
-  changed: false,
-  value: 0,
+  price: 0,
 };
 
 export default PopoverBaseHOC(PopoverWithTabsHOC(PricePopover));
