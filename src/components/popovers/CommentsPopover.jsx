@@ -50,7 +50,7 @@ class CommentsPopover extends React.Component {
                 placeholder="Ваш комментарий..."
                 type="text"
               />
-              <Icon icon="send_message" width={16} height={16} />
+              <Icon icon="send-message" width={16} height={16} />
             </div>
           </div>
 

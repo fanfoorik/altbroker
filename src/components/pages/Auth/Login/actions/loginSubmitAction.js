@@ -8,7 +8,6 @@ import {
   LOGIN_SUBMIT_SUCCESS,
   SET_CAPTCHA_ACTIVE,
 } from 'constants/authTypes';
-import { apiUrl } from 'utils/urls.js';
 
 export default () => (dispatch, getState) => {
   function handleSubmitError(error) {
@@ -36,10 +35,10 @@ export default () => (dispatch, getState) => {
     dispatch({ type: LOGIN_SUBMIT_START });
 
     // Запрос на получение соли
-    ajax.post(`${apiUrl}user/login/`,
+    ajax.post('user/login/',
       { LOGIN: login.email.value })
-      .then((resp) => {
-        const salt = resp.data.ANSWER.SOLD;
+      .then((data) => {
+        const salt = data.ANSWER.SOLD;
 
         const loginData = {
           LOGIN: login.email.value,
@@ -52,10 +51,10 @@ export default () => (dispatch, getState) => {
         }
 
         // Запрос на авторизацию
-        ajax.post(`${apiUrl}user/login/`, loginData)
-          .then((response) => {
-            if (response.data && response.data.ANSWER && response.data.ANSWER.CAPCHA_SID) {
-              const captcha = response.data.ANSWER;
+        ajax.post('user/login/', loginData)
+          .then((innreData) => {
+            if (innreData && innreData.ANSWER && innreData.ANSWER.CAPCHA_SID) {
+              const captcha = innreData.ANSWER;
 
               dispatch({
                 type: SET_CAPTCHA_ACTIVE,
@@ -64,12 +63,11 @@ export default () => (dispatch, getState) => {
                   image: captcha.CAPCHA_URL,
                 },
               });
-
               return;
             }
 
-            const user = response.data.ANSWER.USER;
-            const token = response.data.ANSWER.TOKEN;
+            const user = innreData.ANSWER.USER;
+            const token = innreData.ANSWER.TOKEN;
 
             if (user && token) {
               localStorage.setItem('login', user.LOGIN);

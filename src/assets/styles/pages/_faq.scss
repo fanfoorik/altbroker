@@ -52,6 +52,7 @@
 
   &__link {
     color: $c-text-main;
+
     &:hover {
       text-decoration: none;
       color: $c-blue-main;
@@ -62,7 +63,7 @@
     color: $c-blue-main;
 
     &::after {
-      content: '\003e';
+      content: "\003e";
       margin-left: 4px;
       transition: margin-left ease .1s;
     }
@@ -88,7 +89,10 @@
     position: relative;
     padding: 0 24px;
     color: $c-text-grey;
-    &:not(:last-of-type){ border-bottom: 1px solid $c-border-main; };
+
+    &:not(:last-of-type) {
+      border-bottom: 1px solid $c-border-main;
+    };
 
     &::before {
       position: absolute;
@@ -111,6 +115,7 @@
       .faq-list__link {
         color: $c-text-main;
         font-weight: bold;
+
         &:hover {
           color: $c-text-main;
         }

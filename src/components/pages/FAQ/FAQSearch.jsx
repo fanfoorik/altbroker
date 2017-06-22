@@ -6,9 +6,7 @@ import IsActive from 'utils/IsActive';
 import Autocomplete from 'react-autocomplete';
 
 import ajax from 'utils/ajax';
-import getHeaders from 'utils/getHeaders';
-import handleError from 'utils/handleError';
-import { indexUrl, apiUrl } from 'utils/urls';
+import { indexUrl } from 'utils/urls';
 
 class FAQSearch extends React.Component {
 
@@ -24,11 +22,9 @@ class FAQSearch extends React.Component {
   onChange = (ev) => {
     this.setState({ value: ev.target.value });
 
-    ajax.post(`${apiUrl}faq/search/`,
-      { STRING_SEARCH: ev.target.value },
-      { headers: getHeaders() })
-      .then((response) => {
-        const { data } = response;
+    ajax.post(`faq/search/`,
+      { STRING_SEARCH: ev.target.value })
+      .then((data) => {
         const error = data.ERRORS;
 
         if (error.length) {
@@ -48,8 +44,7 @@ class FAQSearch extends React.Component {
             });
           }
         }
-      })
-      .catch(error => handleError(error));
+      });
   };
 
   onSelect = (value, item) => {

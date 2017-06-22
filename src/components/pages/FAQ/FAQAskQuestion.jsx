@@ -1,10 +1,7 @@
 import React from 'react';
 
-import IsActive from 'utils/IsActive';
-import getHeaders from 'utils/getHeaders';
-import handleError from 'utils/handleError';
 import ajax from 'utils/ajax';
-import { apiUrl, indexUrl } from 'utils/urls';
+import IsActive from 'utils/IsActive';
 
 import FAQCover from './FAQCover';
 import FAQForm from './FAQForm';
@@ -26,17 +23,11 @@ class FAQAddQuestions extends React.Component {
   }
 
   fetchFaqFormData = () => {
-    ajax.get(
-      `${apiUrl}faq/getask/`,
-      {
-        headers: getHeaders(),
-      })
-      .then(res => res.data)
+    ajax.get('faq/getask/')
       .then((data) => {
         const { SECTIONS_LIST: options } = data.ANSWER.CONTENT;
         this.setState({ options });
-      })
-      .catch(error => handleError(error));
+      });
   };
 
   faqFormSubmit = (ev) => {
@@ -46,18 +37,13 @@ class FAQAddQuestions extends React.Component {
     const category = ev.target.querySelector('.js-faq-form-category').value;
     const message = ev.target.querySelector('.js-faq-form-message').value;
 
-    ajax.post(
-      `${apiUrl}faq/add/`,
+    ajax.post('faq/add/',
       {
         NAME: title,
         SECTION: category,
         TEXT: message,
       },
-      {
-        headers: getHeaders(),
-      },
     )
-      .then(res => res.data)
       .then((data) => {
         const { SUCCESS: success, ERRORS: errors } = data.ANSWER;
 
@@ -66,8 +52,7 @@ class FAQAddQuestions extends React.Component {
         } else {
           this.setState({ errors });
         }
-      })
-      .catch(error => handleError(error));
+      });
   };
 
   render() {

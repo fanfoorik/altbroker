@@ -2,9 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import ajax from 'utils/ajax';
-import getHeaders from 'utils/getHeaders';
-import handleError from 'utils/handleError';
-import { apiUrl } from 'utils/urls';
 import { formatNumber } from 'utils/formaters';
 
 import Icon from 'components/Icon';
@@ -27,14 +24,10 @@ class PricePopover extends React.Component {
   }
 
   fetchPriceHistory = () => {
-    ajax.get(`${apiUrl}broker/gb/${this.props.id}/getpricehistory/`, {
-      headers: getHeaders(),
-    })
-      .then((response) => {
-        const { data } = response;
+    ajax.get(`broker/gb/${this.props.id}/getpricehistory/`)
+      .then((data) => {
         this.setState({ priceHistory: data.ANSWER.HISTORY });
-      })
-      .catch(error => handleError(error));
+      });
   };
 
   handleChange = (event) => {
@@ -59,11 +52,9 @@ class PricePopover extends React.Component {
 
   changePrice = () => {
     if (this.state.changed) {
-      ajax.post(`${apiUrl}broker/gb/${this.props.id}/changeprice/`,
-        { VAL: this.state.value.replace(/\D/gi, '') },
-        { headers: getHeaders() })
-        .then((response) => {
-          const { data } = response;
+      ajax.post(`broker/gb/${this.props.id}/changeprice/`,
+        { VAL: this.state.value.replace(/\D/gi, '') })
+        .then((data) => {
           const success = data.ANSWER.SUCCESS;
 
           if (success) {
@@ -71,8 +62,7 @@ class PricePopover extends React.Component {
             this.props.refreshListingItem(item);
           }
           // TODO: handle and visualize change price error
-        })
-        .catch(error => handleError(error));
+        });
     }
   };
 

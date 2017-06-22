@@ -1,9 +1,6 @@
 import React from 'react';
 
 import ajax from 'utils/ajax';
-import getHeaders from 'utils/getHeaders';
-import handleError from 'utils/handleError';
-import { apiUrl } from 'utils/urls';
 
 import FAQCategory from './FAQCategory';
 import FAQSearch from './FAQSearch';
@@ -23,16 +20,10 @@ class FAQ extends React.Component {
   }
 
   fetchFaq = () => {
-    ajax.get(
-      `${apiUrl}faq/`,
-      {
-        headers: getHeaders(),
-      })
-      .then(res => res.data)
+    ajax.get('faq/')
       .then((data) => {
         this.setState({ category: data.ANSWER.CONTENT });
-      })
-      .catch(error => handleError(error));
+      });
   };
 
   render() {

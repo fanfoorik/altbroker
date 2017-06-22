@@ -1,0 +1,29 @@
+@import "../utils/variables";
+
+.menu-tpl {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  border-bottom: 1px solid $c-border-main;
+
+  &__link {
+    text-align: center;
+    font-size: 14px;
+    vertical-align: middle;
+    cursor: pointer;
+    padding: 0 12px;
+    margin-bottom: -1px;
+
+    &.active {
+      .menu-tpl__label {
+        border-bottom-color: $c-blue-main;
+      }
+    }
+  }
+
+  &__label {
+    display: inline-block;
+    padding: 8px 0;
+    border-bottom: 1px solid transparent;
+  }
+}
