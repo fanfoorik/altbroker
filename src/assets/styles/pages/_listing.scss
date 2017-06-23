@@ -70,6 +70,15 @@
 
 .table-cell {
   background: $c-white;
+
+  &__id,
+  &__broker,
+  &__price,
+  &__dealer {
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
 
 .table-cell,
@@ -176,16 +185,23 @@
     line-height: 1;
     justify-content: center;
     width: 24px;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   &__action-left {
     cursor: pointer;
     min-height: 40px;
-    opacity: 0;
     padding: 11px 0 0 16px;
-    transition: 0.3s;
 
-    .table-row:hover & {
+    svg {
+      opacity: 0;
+      transition: 0.3s;
+    }
+
+    .table-row:hover & svg {
       opacity: 1;
     }
   }
@@ -300,7 +316,7 @@
   &__content {
     background: $c-white;
     border-radius: 4px;
-    box-shadow: 0 4px 22px rgba($c-black, 0.2);
+    box-shadow: $s-popover;
     cursor: default;
     left: 50%;
     opacity: 0;

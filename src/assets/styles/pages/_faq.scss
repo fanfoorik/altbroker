@@ -257,7 +257,7 @@
     border-radius: 3px;
 
     &_focused {
-      box-shadow: 0 0 26px rgba($c-black, 0.1);
+      box-shadow: $s-popover;
     }
   }
 

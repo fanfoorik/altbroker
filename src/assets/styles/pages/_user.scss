@@ -71,7 +71,7 @@
     height: 96px;
     border-radius: 50%;
     border: 5px solid $c-white;
-    box-shadow: 0 4px 18px rgba($c-black, 0.3);
+    box-shadow: $s-popover;
     margin-bottom: 12px;
   }
 
@@ -207,7 +207,7 @@
 
   &:hover {
     .user-thumb__avatar {
-      box-shadow: 0 1px 22px rgba($c-black, .15);
+      box-shadow: $s-popover;
     }
 
     .user-thumb__tooltip {
@@ -222,7 +222,7 @@
 .thumb-tooltip {
   width: 210px;
   padding: 24px 24px 12px;
-  box-shadow: 0 4px 22px rgba($c-black, .2);
+  box-shadow: $s-popover;
   background: $c-white;
   border-radius: 3px;
   opacity: 0;
@@ -237,7 +237,7 @@
     margin: 0 0 0 -7px;
     display: block;
     background: $c-white;
-    box-shadow: -3px 3px 5px rgba($c-black, .02);
+    box-shadow: -3px 3px 5px rgba($c-black, .05);
     transform: rotate(-45deg);
     z-index: 0;
     content: "";
