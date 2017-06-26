@@ -127,6 +127,7 @@ class TaskPopover extends React.Component {
 TaskPopover.propTypes = {
   id: PropTypes.string.isRequired,
   providePopover: PropTypes.func.isRequired,
+  triggerPopover: PropTypes.func.isRequired,
   pageUrl: PropTypes.string.isRequired,
   brokerEmail: PropTypes.string.isRequired,
 };

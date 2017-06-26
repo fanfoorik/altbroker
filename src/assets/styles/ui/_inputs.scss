@@ -95,54 +95,101 @@ textarea,
 .checkbox {
   display: inline-block;
   cursor: pointer;
-  height: 20px;
-  line-height: 1.6;
+  min-height: 20px;
+  line-height: 1.4;
   position: relative;
-  text-indent: 30px;
-  vertical-align: middle;
-  white-space: nowrap;
-  width: 20px;
+  min-width: 20px;
+  $this: &;
+
+  &__indicator {
+    float: left;
+    background: $bg-white;
+    border: 1px solid $bd-grey;
+    width: 20px;
+    height: 20px;
+    position: relative;
+
+    &::after {
+      border: solid $bd-blue;
+      border-width: 0 2px 2px 0;
+      left: 6px;
+      top: 1px;
+      width: 7px;
+      height: 13px;
+      position: absolute;
+      transform: rotate(45deg);
+      display: none;
+      content: "";
+    }
+  }
+
+  &__label {
+    padding-left: 12px;
+    display: block;
+    overflow: hidden;
+    width: auto;
+    font-size: 13px;
+    padding-top: 2px;
+  }
 
   input {
     opacity: 0;
     position: absolute;
     z-index: -1;
+    left: 0;
+    pointer-events: none;
 
-    &:checked ~ .checkbox_indicator {
-      border-color: $c-checkbox-border;
+    &[type="radio"] {
+      ~ #{$this}__indicator {
+        border-radius: 50%;
+
+        &::after {
+          width: 12px;
+          height: 12px;
+          left: 50%;
+          top: 50%;
+          margin: -6px 0 0 -6px;
+          border: 0;
+          background: $bg-blue;
+          transform: none;
+          border-radius: 50%;
+        }
+      }
     }
 
-    &:checked ~ .checkbox_indicator::after {
-      transform: scale(1) rotate(45deg);
+    &:checked {
+      ~ #{$this}__indicator {
+        border-color: $bd-blue;
+
+        &::after {
+          transform: rotate(45deg);
+          display: block;
+        }
+      }
+
+      ~ #{$this}__label {
+        color: $c-blue-main;
+      }
+    }
+
+    &:focus {
+      ~ #{$this}__indicator {
+        background: $bg-blue-grey;
+      }
+    }
+
+    &[type="radio"] {
+      background: $bg-blue-grey;
     }
   }
 
-  input:focus ~ .checkbox_indicator,
-  &:hover input ~ .checkbox_indicator {
-    background: $c-checkbox-bg-hover;
-  }
-}
+  &:hover {
+    #{$this}__label {
+      color: $c-blue-main;
+    }
 
-.checkbox_indicator {
-  background: $c-white;
-  border: 1px solid $c-input-border;
-  top: 0;
-  left: 0;
-  height: 100%;
-  position: absolute;
-  transition: 0.3s;
-  width: 100%;
-
-  &::after {
-    border: solid $c-checkbox-border;
-    border-width: 0 2px 2px 0;
-    content: "";
-    left: 6px;
-    top: 2px;
-    height: 12px;
-    position: absolute;
-    transform: scale(0) rotate(45deg);
-    transition: transform 0.3s;
-    width: 6px;
+    #{$this}__indicator {
+      background: $bg-blue-grey;
+    }
   }
 }

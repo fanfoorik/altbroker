@@ -1,5 +1,10 @@
 import ajax from 'utils/ajax';
-import { SET_LISTING, REFRESH_LISTING_ITEM, CHANGE_FILTER } from 'constants/listingTypes';
+import {
+  SET_LISTING,
+  REFRESH_LISTING_ITEM,
+  CHANGE_FILTER,
+  SET_FILTER,
+} from 'constants/listingTypes';
 
 export const fetchListing = (page, count) => (dispatch) => {
   ajax.post('broker/gb/', { PAGE: page, COUNT: count })
@@ -18,12 +23,9 @@ export const filterChange = data => (dispatch) => {
   });
 };
 
-export const filterListing = () => (dispatch, getState) => {
-  const filterData = getState().listing.page;
+export const filterListing = filterData => (dispatch) => {
   ajax.post('broker/gb/', filterData)
     .then((data) => {
-      console.log(data);
-
       dispatch({
         type: SET_LISTING,
         payload: data.ANSWER,

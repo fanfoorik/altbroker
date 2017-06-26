@@ -61,7 +61,9 @@ export default class Broker extends React.Component {
       refreshListingItem,
       filterChange,
       filterListing,
+      fetchGBfilter,
       page,
+      filter,
     } = this.props;
 
     const { detailPageSettings } = this.state;
@@ -71,11 +73,6 @@ export default class Broker extends React.Component {
       closeDetailPage: this.closeDetailPage,
       getStatusColor,
     };
-
-    const options = [
-      { value: 'one', label: 'One' },
-      { value: 'two', label: 'Two2' },
-    ];
 
     return (
       <div>
@@ -87,7 +84,8 @@ export default class Broker extends React.Component {
           <BusinessFilter
             filterChange={filterChange}
             filterListing={filterListing}
-            filter={page.FILTER}
+            filter={filter}
+            fetchGBfilter={fetchGBfilter}
           />
         </div>
         <StickyContainer className="table container listing-wrapper">
@@ -127,6 +125,16 @@ Broker.propTypes = {
   filterListing: PropTypes.func.isRequired,
   filterChange: PropTypes.func.isRequired,
   listingItems: PropTypes.arrayOf(PropTypes.object),
+  fetchGBfilter: PropTypes.func.isRequired,
+  filter: PropTypes.shape({
+    ALL_BROKER: PropTypes.array.isRequired,
+    ALL_STATUS_OBJ: PropTypes.array.isRequired,
+    ALL_CITY: PropTypes.array.isRequired,
+    ALL_RAYONS: PropTypes.array.isRequired,
+    ALL_METRO: PropTypes.array.isRequired,
+    ALL_CATEGORY_GB_1: PropTypes.array.isRequired,
+    ALL_CATEGORY_GB_2: PropTypes.array.isRequired,
+  }).isRequired,
   page: PropTypes.shape({
     SORT_CODE: PropTypes.array,
     SORT_METOD: PropTypes.array,

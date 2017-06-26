@@ -347,6 +347,8 @@ input.popover-input {
   padding: 11px 21px 11px 38px;
   transition: 0.3s;
   position: relative;
+  word-wrap: break-word;
+
 
   &:last-child {
     border: 0;

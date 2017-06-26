@@ -1,4 +1,8 @@
-import { REFRESH_LISTING_ITEM, SET_LISTING, CHANGE_FILTER } from 'constants/listingTypes';
+import {
+  REFRESH_LISTING_ITEM,
+  SET_LISTING,
+  CHANGE_FILTER,
+} from 'constants/listingTypes';
 
 const initialState = {
   listingItems: [],

@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import Icon from 'components/Icon';
-import FilterTooltipHOC from 'components/Filter/FilterTooltipHOC';
 
 class FilterCategory extends React.Component {
   render() {
@@ -68,4 +67,4 @@ class FilterCategory extends React.Component {
   }
 }
 
-export default FilterTooltipHOC(FilterCategory);
+export default FilterCategory;
