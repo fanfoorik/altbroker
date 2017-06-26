@@ -7,7 +7,7 @@ import PopoverBaseHOC from 'components/popovers/PopoverBaseHOC';
 class DealPopover extends React.Component {
 
   triggerDetailPage = () => {
-    this.props.triggerDetailPage(this.props.id);
+    this.props.openDetailPage(this.props.id);
   };
 
   render() {
@@ -53,7 +53,7 @@ class DealPopover extends React.Component {
 DealPopover.propTypes = {
   id: PropTypes.string.isRequired,
   providePopover: PropTypes.func.isRequired,
-  triggerDetailPage: PropTypes.func.isRequired,
+  openDetailPage: PropTypes.func.isRequired,
 };
 
 export default PopoverBaseHOC(DealPopover);

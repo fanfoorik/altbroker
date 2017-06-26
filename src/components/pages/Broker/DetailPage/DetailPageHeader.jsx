@@ -2,7 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 function DetailPageHeader(props) {
-  const { name, timestamp } = props;
+  const {
+    name,
+    timestamp,
+    statusColor,
+    statusText,
+  } = props;
 
   return (
     <div className="detail-page-header">
@@ -10,7 +15,9 @@ function DetailPageHeader(props) {
       <div className="detail-page-header__title">{name}</div>
 
       <div className="detail-page-status">
-        <span className="detail-page-status__label">Черновик</span>
+        <span className={`detail-page-status__label detail-page-status__label_${statusColor}`}>
+          {statusText || 'Размещен'}
+        </span>
         <span className="detail-page-status__last-update">Последнее изменение: {timestamp}</span>
       </div>
 
@@ -45,6 +52,8 @@ function DetailPageHeader(props) {
 DetailPageHeader.propTypes = {
   name: PropTypes.string.isRequired,
   timestamp: PropTypes.string.isRequired,
+  statusColor: PropTypes.string.isRequired,
+  statusText: PropTypes.string.isRequired,
 };
 
 export default DetailPageHeader;

@@ -27,42 +27,62 @@ class TaskPopover extends React.Component {
           </div>
 
           <div className="popover-content-wrapper js-popover-tab">
-            <div className="popover-history popover-history_task">
-              <div className="popover-history__item">
-                <span className="popover-history__date popover-history__date_task">30.04–</span>
-                <span className="popover-history__value popover-history__value_task">
-                  <Icon icon="time" width={12} height={12} /> Понижение цены
-                </span>
-              </div>
-              <div className="popover-history__item">
-                <span className="popover-history__date popover-history__date_task">28.04-29.04</span>
-                <span className="popover-history__value popover-history__value_task">
-                  <Icon icon="check" width={12} height={12} /> Изменение
-                </span>
-              </div>
-              <div className="popover-history__item">
-                <span className="popover-history__date popover-history__date_task">28.04-29.04</span>
-                <span className="popover-history__value popover-history__value_task">
-                  <Icon icon="check" width={12} height={12} /> Понижение цены
-                </span>
-              </div>
-              <div className="popover-history__item">
-                <span className="popover-history__date popover-history__date_task">28.04-29.04</span>
-                <span className="popover-history__value popover-history__value_task">
-                  <Icon icon="check" width={12} height={12} /> Понижение цены
-                </span>
-              </div>
-              <div className="popover-history__item">
-                <span className="popover-history__date popover-history__date_task">28.04-29.04</span>
-                <span className="popover-history__value popover-history__value_task">
-                  <Icon icon="check" width={12} height={12} /> Понижение цены
-                </span>
-              </div>
-              <div className="popover-history__item">
-                <span className="popover-history__date popover-history__date_task">28.04-29.04</span>
-                <span className="popover-history__value popover-history__value_task">
-                  <Icon icon="check" width={12} height={12} /> Понижение цены
-                </span>
+            <div className="popover-history popover-history_task js-scrollable">
+              <div>
+                <div className="popover-history__item">
+                  <span className="popover-history__date popover-history__date_task">30.04–</span>
+                  <span className="popover-history__value popover-history__value_task">
+                    <Icon icon="time" width={12} height={12} /> Понижение цены
+                  </span>
+                </div>
+                <div className="popover-history__item">
+                  <span className="popover-history__date popover-history__date_task">28.04-29.04</span>
+                  <span className="popover-history__value popover-history__value_task">
+                    <Icon icon="check" width={12} height={12} /> Изменение
+                  </span>
+                </div>
+                <div className="popover-history__item">
+                  <span className="popover-history__date popover-history__date_task">28.04-29.04</span>
+                  <span className="popover-history__value popover-history__value_task">
+                    <Icon icon="check" width={12} height={12} /> Понижение цены
+                  </span>
+                </div>
+                <div className="popover-history__item">
+                  <span className="popover-history__date popover-history__date_task">28.04-29.04</span>
+                  <span className="popover-history__value popover-history__value_task">
+                    <Icon icon="check" width={12} height={12} /> Понижение цены
+                  </span>
+                </div>
+                <div className="popover-history__item">
+                  <span className="popover-history__date popover-history__date_task">28.04-29.04</span>
+                  <span className="popover-history__value popover-history__value_task">
+                    <Icon icon="check" width={12} height={12} /> Понижение цены
+                  </span>
+                </div>
+                <div className="popover-history__item">
+                  <span className="popover-history__date popover-history__date_task">28.04-29.04</span>
+                  <span className="popover-history__value popover-history__value_task">
+                    <Icon icon="check" width={12} height={12} /> Понижение цены
+                  </span>
+                </div>
+                <div className="popover-history__item">
+                  <span className="popover-history__date popover-history__date_task">28.04-29.04</span>
+                  <span className="popover-history__value popover-history__value_task">
+                    <Icon icon="check" width={12} height={12} /> Понижение цены
+                  </span>
+                </div>
+                <div className="popover-history__item">
+                  <span className="popover-history__date popover-history__date_task">28.04-29.04</span>
+                  <span className="popover-history__value popover-history__value_task">
+                    <Icon icon="check" width={12} height={12} /> Понижение цены
+                  </span>
+                </div>
+                <div className="popover-history__item">
+                  <span className="popover-history__date popover-history__date_task">28.04-29.04</span>
+                  <span className="popover-history__value popover-history__value_task">
+                    <Icon icon="check" width={12} height={12} /> Понижение цены
+                  </span>
+                </div>
               </div>
             </div>
           </div>

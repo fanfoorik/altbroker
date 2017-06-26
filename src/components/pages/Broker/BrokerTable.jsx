@@ -15,16 +15,18 @@ import TableComments from './Table/TableComments';
 import TableTask from './Table/TableTask';
 import TableOptions from './Table/TableOptions';
 
-const colors = {
-  0: '#e1e5e9',
-  1: '#ffd900',
-  2: '#8b572a',
-  3: '#4da1ff',
-  4: '#6dd100',
+const statusColors = {
+  '': 'posted',
+  17519: 'draft',
+  18709: 'moderation',
+  18710: 'rejected',
+  18711: 'preparatory',
+  14115: 'sold',
+  14116: 'withdrawn',
 };
 
-function getColor(value) {
-  return colors[value] || '';
+function getStatusColor(value) {
+  return statusColors[value] || 'posted';
 }
 
 export default class BrokerTable extends React.Component {
@@ -60,6 +62,21 @@ export default class BrokerTable extends React.Component {
     });
   };
 
+  openDetailPage = (id) => {
+    this.setState({
+      detailPage: {
+        active: true,
+        id,
+      },
+    });
+  };
+
+  closeDetailPage = () => {
+    this.setState({
+      detailPage: { active: false },
+    });
+  };
+
   render() {
     function getImage(item) {
       return item.DETAIL_PICTURE_TEXT ?
@@ -69,6 +86,11 @@ export default class BrokerTable extends React.Component {
 
     const { refreshListingItem } = this.props;
     const { detailPage } = this.state;
+    const detailPageData = {
+      id: detailPage.id,
+      closeDetailPage: this.closeDetailPage,
+      getStatusColor,
+    };
 
     return (
       <div>
@@ -86,7 +108,7 @@ export default class BrokerTable extends React.Component {
             SCORE: likes,
             SHOW_COUNTER: viewed,
           } = item;
-          const color = getColor(item.PROPERTY_STATUS_OBJ_VALUE);
+          const statusColor = getStatusColor(item.PROPERTY_STATUS_OBJ_ENUM_ID);
           const price = +item.PROPERTY_PRICE_BUSINESS_VALUE;
           const profit = formatNumber(item.PROPERTY_CHIST_PRIB_VALUE, '-');
 
@@ -99,12 +121,12 @@ export default class BrokerTable extends React.Component {
                 </label>
               </div>
               <div className="table-cell table-col__color no-padding">
-                <span className="table-color" style={{ backgroundColor: color }} />
+                <span className={`table-status table-status_${statusColor}`} />
               </div>
               <div className="table-cell table-col__id">
                 <div
                   className="table-cell__id"
-                  onClick={() => this.triggerDetailPage(id)}
+                  onClick={() => this.openDetailPage(id)}
                   role="button"
                   tabIndex="0"
                 >{item.ID}</div>
@@ -149,16 +171,17 @@ export default class BrokerTable extends React.Component {
                     <TableTask />
                   </div>
                   <div className="table-cell__action-right">
-                    <TableOptions id={id} triggerDetailPage={this.triggerDetailPage} />
+                    <TableOptions id={id} openDetailPage={this.openDetailPage} />
                   </div>
                 </div>
               </div>
             </div>
           );
         })}
-        <IsActive active={detailPage.active}>
-          <DetailPage id={detailPage.id} triggerDetailPage={this.triggerDetailPage} />
-        </IsActive>
+        {
+          detailPage.active &&
+          <DetailPage {...detailPageData} />
+        }
       </div>
     );
   }

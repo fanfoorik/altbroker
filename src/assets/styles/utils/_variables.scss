@@ -11,6 +11,10 @@ $c-grey-main: #6b6f74;
 $c-grey-dark: #313436;
 $c-red-main: #d0011b;
 $c-red-transparent: transparentize($c-red-main, .9);
+$c-yellow: #f8e81c;
+$c-green: #f8e81c;
+$c-lime-green: #f8e81c;
+$c-brown: #b47335;
 
 // Checkboxes
 $c-checkbox-bg-hover: #f5faff;
@@ -113,3 +117,11 @@ $c-avatar-fill: $c-grey-middle;
 
 // Default list(li)
 $c-list-bullet: $c-grey-middle;
+
+// Backgrounds
+$bg-yellow: $c-yellow;
+$bg-grey-main: $c-grey-main;
+$bg-red-main: $c-red-main;
+$bg-green: $c-green;
+$bg-lime-green: $c-lime-green;
+$bg-brown: $c-brown;

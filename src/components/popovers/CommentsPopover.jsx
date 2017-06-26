@@ -20,7 +20,7 @@ class CommentsPopover extends React.Component {
 
         <div className="popover-body">
           <div className="popover-content-wrapper no-padding active js-popover-tab">
-            <ul className="popover-comments">
+            <ul className="popover-comments js-scrollable">
               <li className="popover-comments__item">
                 <span className="popover-comments__name">Антон Васильев</span>
                 <Icon icon="check" width={16} height={16} />
@@ -55,7 +55,7 @@ class CommentsPopover extends React.Component {
           </div>
 
           <div className="popover-content-wrapper no-padding js-popover-tab">
-            <ul className="popover-comments popover-comments_clients">
+            <ul className="popover-comments popover-comments_clients js-scrollable">
               <li className="popover-comments__item">
                 <span className="popover-comments__name">Антон Васильев</span>
                 <Icon icon="check" width={16} height={16} />

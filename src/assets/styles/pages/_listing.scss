@@ -240,13 +240,40 @@
   }
 }
 
-.table-color {
-  background: $c-border-main;
+.table-status {
   height: calc(100% + 1px);
   left: 0;
   position: absolute;
   top: -1px;
   width: 5px;
+
+  &_posted {
+    background: $c-blue-main;
+  }
+
+  &_draft {
+    background: $bg-yellow;
+  }
+
+  &_moderation {
+    background: $bg-grey-main;
+  }
+
+  &_rejected {
+    background: $bg-red-main;
+  }
+
+  &_preparatory {
+    background: $bg-lime-green;
+  }
+
+  &_sold {
+    background: $bg-green;
+  }
+
+  &_withdrawn {
+    background: $bg-brown;
+  }
 }
 
 // Table footer:
@@ -447,6 +474,35 @@
     margin-right: 16px;
     background: $c-border-main;
     line-height: 20px;
+
+    &_posted {
+      background: $c-blue-main;
+      color: $c-white;
+    }
+
+    &_draft {
+      background: $bg-yellow;
+    }
+
+    &_moderation {
+      background: $bg-grey-main;
+    }
+
+    &_rejected {
+      background: $bg-red-main;
+    }
+
+    &_preparatory {
+      background: $bg-lime-green;
+    }
+
+    &_sold {
+      background: $bg-green;
+    }
+
+    &_withdrawn {
+      background: $bg-brown;
+    }
   }
 
   &__last-update {
