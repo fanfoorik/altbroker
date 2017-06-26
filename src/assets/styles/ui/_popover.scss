@@ -4,8 +4,8 @@
 .popover {
   background: $c-white;
   border-radius: 3px;
-  bottom: 60px;
-  box-shadow: 0 4px 22px rgba($c-black, 0.2);
+  bottom: 55px;
+  box-shadow: $s-popover;
   font-size: 12px;
   left: 50%;
   opacity: 0;
@@ -19,7 +19,7 @@
   &::before {
     background: $c-white;
     bottom: -7px;
-    box-shadow: -3px 3px 5px rgba($c-black, 0.02);
+    box-shadow: -3px 3px 5px rgba($c-black, 0.05);
     content: "";
     position: absolute;
     left: 50%;
@@ -44,10 +44,6 @@
     cursor: pointer;
     fill: $c-grey-middle;
     transition: 0.3s;
-
-    &:hover {
-      fill: $c-blue-main;
-    }
   }
 
   &_visible {
@@ -87,7 +83,7 @@
     &::before {
       background: $c-grey-light;
       bottom: auto;
-      box-shadow: 2px -3px 5px rgba($c-black, 0.02);
+      box-shadow: 2px -3px 5px rgba($c-black, 0.05);
       top: -7px;
     }
   }
@@ -125,6 +121,10 @@
     color: $c-grey-main;
     flex: 1;
     padding: 10px 10px 9px;
+
+    &:hover {
+      background: darken($c-grey-light, 2%);
+    }
 
     &.active {
       border-color: $c-blue-main;
@@ -254,8 +254,13 @@ input.popover-input {
     text-align: right;
     user-select: none;
 
+    &:nth-of-type(3),
+    &:nth-of-type(4) {
+      margin-bottom: 0;
+    }
+
     &:hover {
-      color: $c-popover-text-active;
+      color: $c-blue-main;
     }
   }
 }
@@ -273,17 +278,25 @@ input.popover-input {
   &-item {
     margin: 0 0 0 $listing-offset;
 
-    &.disabled .icon,
-    &.disabled .icon:hover {
+    .icon {
+      fill: $c-grey-dark;
+    }
+
+    &.disabled .icon {
       cursor: default;
       fill: $c-grey-middle;
       opacity: 0.5;
+    }
+
+    &:not(.disabled) .icon:hover {
+      fill: $c-blue-main;
     }
 
     &_share {
       display: flex;
       flex: 1;
       padding: 0 0 0 5px;
+      margin-left: 0;
     }
   }
 }
@@ -307,6 +320,10 @@ input.popover-input {
     &.active,
     &:active {
       color: $c-blue-main;
+
+      &:not(.disabled) {
+        background-color: $c-blue-transparent;
+      }
     }
 
     &.disabled {
@@ -335,10 +352,15 @@ input.popover-input {
     &:hover,
     &:active {
       color: $c-blue-main;
+      background-color: $c-blue-transparent;
+
+      .icon {
+        fill: $c-blue-main;
+      }
     }
 
     .icon {
-      margin: 0 21px 0 0;
+      margin: 0 16px 0 0;
     }
   }
 }

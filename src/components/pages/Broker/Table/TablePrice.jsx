@@ -21,7 +21,7 @@ const TablePrice = (props) => {
   return (
     <div className="table-trigger-container">
       <span
-        className="table-cell__price-text"
+        className="table-cell__price"
         role="button"
         tabIndex="0"
         onClick={triggerPopover}

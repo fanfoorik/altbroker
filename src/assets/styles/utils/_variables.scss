@@ -104,6 +104,8 @@ $c-text-main: #333;
 
 // Shadows
 $s-header-shadow: #e2e2e2;
+//$s-popover: 0 4px 22px rgba($c-black, 0.2);
+$s-popover: 0 4px 22px rgba(darken($c-blue-main, 45%), 0.2);
 
 // User
 $c-avatar-bg: $c-grey-light;

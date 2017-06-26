@@ -37,6 +37,14 @@ input[type="password"] {
     }
   }
 
+  &:hover {
+    border-color: $c-blue-light;
+
+    + .input-icon {
+      border-color: $c-blue-main;
+    }
+  }
+
   &.error {
     border-color: $c-input-error-border;
 

@@ -22,7 +22,7 @@
   padding: 116px 96px 96px;
   position: relative;
   border-radius: 8px;
-  box-shadow: 0 8px 20px rgba($c-black, 0.2);
+  box-shadow: $s-popover;
   width: 444px;
 
   &__extended {

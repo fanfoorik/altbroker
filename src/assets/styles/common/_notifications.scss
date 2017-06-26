@@ -5,7 +5,7 @@
   &-bar {
     background-color: $c-notification-bg !important;
     border-radius: 3px !important;
-    box-shadow: 0 5px 20px 0 rgba(50, 52, 55, 0.2) !important;
+    box-shadow: $s-popover !important;
     padding: 12px 18px !important;
   }
 
