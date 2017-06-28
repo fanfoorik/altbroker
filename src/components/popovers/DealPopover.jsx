@@ -6,7 +6,7 @@ import PopoverBaseHOC from 'components/popovers/PopoverBaseHOC';
 
 class DealPopover extends React.Component {
 
-  triggerDetailPage = () => {
+  openDetailPage = () => {
     this.props.openDetailPage(this.props.id);
   };
 
@@ -18,7 +18,7 @@ class DealPopover extends React.Component {
         <div className="popover-body">
           <div className="popover-content-wrapper no-padding-top no-padding-bottom active">
             <ul className="popover-deal-list">
-              <li className="popover-deal-item" onClick={this.triggerDetailPage}>
+              <li className="popover-deal-item" onClick={this.openDetailPage}>
                 <Icon className="popover-deal-list-icon" icon="eye" width={16} height={16} />
                 Смотреть
               </li>

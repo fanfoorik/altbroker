@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import IsActive from 'utils/IsActive';
 
 import PopoverTriggerHOC from 'components/popovers/PopoverTriggerHOC';
 import CommentsPopover from 'components/popovers/CommentsPopover';
 
 const TableComments = (props) => {
   const {
+    id,
     active,
     comments,
     triggerPopover,
@@ -22,9 +22,10 @@ const TableComments = (props) => {
       >
         {comments}
       </span>
-      <IsActive active={active}>
-        <CommentsPopover triggerPopover={triggerPopover} />
-      </IsActive>
+      {
+        active &&
+        <CommentsPopover id={id} triggerPopover={triggerPopover} />
+      }
     </div>
   );
 };

@@ -7,6 +7,8 @@ import BrokerPaginator from './BrokerPaginator';
 import BrokerTable from './BrokerTable';
 import BrokerTableHeader from './BrokerTableHeader';
 
+import BusinessFilter from 'components/Filter/BusinessFilter';
+
 export default function Broker(props) {
   const query = props.location.query;
   const {
@@ -18,6 +20,10 @@ export default function Broker(props) {
 
   return (
     <div>
+      <div className="container">
+        <div className="h1">Бизнесы</div>
+        <BusinessFilter />
+      </div>
       <StickyContainer className="table container listing-wrapper">
         <Sticky>
           <BrokerTableHeader />

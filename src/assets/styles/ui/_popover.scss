@@ -365,59 +365,6 @@ input.popover-input {
   }
 }
 
-// Popover with comments:
-.popover-comments {
-  height: 146px;
-  overflow: auto;
-
-  &_clients {
-    height: 192px;
-  }
-
-  &__item {
-    border-bottom: 1px solid $c-popover-border;
-    color: $c-listing-dark-grey;
-    padding: 10px $listing-offset;
-  }
-
-  &__name {
-    color: $c-blue-main;
-    float: left;
-    margin: 0 8px 10px 0;
-  }
-
-  &__date {
-    color: $c-grey-middle;
-    float: right;
-  }
-
-  &__text {
-    clear: both;
-    line-height: 1.5;
-  }
-
-  &__add-wrapper {
-    position: relative;
-
-    .icon {
-      position: absolute;
-      right: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-  }
-
-  .icon {
-    fill: $c-blue-main;
-  }
-}
-
-input.popover-input_comments {
-  border: 0;
-  margin: 0;
-  width: 100%;
-}
-
 // Custom select:
 .popover-select {
   -moz-appearance: none;

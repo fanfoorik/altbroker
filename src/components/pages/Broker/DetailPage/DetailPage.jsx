@@ -67,10 +67,10 @@ class DetailPage extends React.Component {
   };
 
   onOuterClick = (event) => {
-    const clickEvent = event.type === 'click' && event.target === this.detailPage;
-    const keyupEvent = event.type === 'keyup' && event.which === 27;
+    const outerClick = event.type === 'click' && event.target === this.detailPage;
+    const escKeyup = event.type === 'keyup' && event.which === 27;
 
-    if (clickEvent || keyupEvent) {
+    if (outerClick || escKeyup) {
       this.props.closeDetailPage();
     }
   };
@@ -109,7 +109,6 @@ class DetailPage extends React.Component {
   };
 
   render() {
-    const { error } = this.state;
     const { id, closeDetailPage, getStatusColor } = this.props;
 
     const {
@@ -157,8 +156,8 @@ class DetailPage extends React.Component {
     } = this.state.client;
 
     const {
-      INNER_COM: staffComment = [],
-      KLIENT_COM: clientComment = [],
+      INNER_COM: staffComments = [],
+      KLIENT_COM: clientComments = [],
     } = this.state.comments;
 
     // Components data constants
@@ -211,8 +210,8 @@ class DetailPage extends React.Component {
 
     const detailsComments = {
       id,
-      staffComment,
-      clientComment,
+      staffComments,
+      clientComments,
       updateComments: this.updateComments,
     };
 
@@ -222,8 +221,6 @@ class DetailPage extends React.Component {
           <span className="detail-page__close" onClick={closeDetailPage} role="button" tabIndex="0">
             <Icon icon="close" className="detail-page__close-icon" width={18} height={18} />
           </span>
-
-          {error}
 
           <DetailPageHeader {...detailsHeader} />
 

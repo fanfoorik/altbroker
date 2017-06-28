@@ -1,15 +1,55 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { compose } from 'redux';
+import ajax from 'utils/ajax';
 
+import CommentsList from 'components/Comments/CommentsList';
+import CommentsForm from 'components/Comments/CommentsForm';
 import Icon from 'components/Icon';
+
 import PopoverBaseHOC from 'components/popovers/PopoverBaseHOC';
 import PopoverWithTabsHOC from 'components/popovers/PopoverWithTabsHOC';
 
+
 class CommentsPopover extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      staffComments: [],
+      clientComments: [],
+    };
+  }
+
+  componentDidMount() {
+    this.fetchComments();
+  }
+
+  fetchComments = () => {
+    const url = `broker/gb/${this.props.id}/detail/`;
+    const ths = this;
+
+    ajax.post(url, { TAB: 'MAIN' })
+      .then((data) => {
+        if (!data.ERRORS.length) {
+          ths.setState({
+            staffComments: data.ANSWER.COMMENTS.INNER_COM,
+            clientComments: data.ANSWER.COMMENTS.KLIENT_COM,
+          });
+        }
+      });
+  };
+
+  updateComments = (data) => {
+    this.setState({
+      staffComments: data.ANSWER.COMMENTS.INNER_COM,
+    });
+    this.scrollable.scrollTop = this.scrollable.scrollHeight;
+  };
 
   render() {
-    const { providePopover } = this.props;
+    const { id, providePopover } = this.props;
+    const { staffComments, clientComments } = this.state;
+    const url = `broker/gb/${id}/addcomments/`;
 
     return (
       <div className="popover popover_visible popover_md" ref={node => providePopover(node)}>
@@ -20,64 +60,20 @@ class CommentsPopover extends React.Component {
 
         <div className="popover-body">
           <div className="popover-content-wrapper no-padding active js-popover-tab">
-            <ul className="popover-comments js-scrollable">
-              <li className="popover-comments__item">
-                <span className="popover-comments__name">Антон Васильев</span>
-                <Icon icon="check" width={16} height={16} />
-                <span className="popover-comments__date">Вчера</span>
-                <div className="popover-comments__text">Леша отличный мужик. Шарит в теме, отлично аргуменирет.</div>
-              </li>
-              <li className="popover-comments__item">
-                <span className="popover-comments__name">Иван Сервер</span>
-                <span className="popover-comments__date">13 мая</span>
-                <div className="popover-comments__text">Парни, аккуратнее!</div>
-              </li>
-              <li className="popover-comments__item">
-                <span className="popover-comments__name">Петр Сервер</span>
-                <span className="popover-comments__date">13 января</span>
-                <div className="popover-comments__text">Парни, аккуратнее!</div>
-              </li>
-              <li className="popover-comments__item">
-                <span className="popover-comments__name">Коля Сервер</span>
-                <span className="popover-comments__date">13 мая</span>
-                <div className="popover-comments__text">Парни, аккуратнее!</div>
-              </li>
-            </ul>
-
-            <div className="popover-comments__add-wrapper">
-              <input
-                className="popover-input popover-input_comments"
-                placeholder="Ваш комментарий..."
-                type="text"
-              />
-              <Icon icon="send-message" width={16} height={16} />
+            <div className="popover-comments">
+              <div className="popover-comments__scrollable js-scrollable" ref={(node) => { this.scrollable = node; }}>
+                <CommentsList comments={staffComments} />
+              </div>
+              <CommentsForm url={url} updateComments={this.updateComments} />
             </div>
           </div>
 
           <div className="popover-content-wrapper no-padding js-popover-tab">
-            <ul className="popover-comments popover-comments_clients js-scrollable">
-              <li className="popover-comments__item">
-                <span className="popover-comments__name">Антон Васильев</span>
-                <Icon icon="check" width={16} height={16} />
-                <span className="popover-comments__date">Вчера</span>
-                <div className="popover-comments__text">Леша отличный мужик. Шарит в теме, отлично аргуменирет.</div>
-              </li>
-              <li className="popover-comments__item">
-                <span className="popover-comments__name">Иван Сервер</span>
-                <span className="popover-comments__date">13 мая</span>
-                <div className="popover-comments__text">Парни, аккуратнее!</div>
-              </li>
-              <li className="popover-comments__item">
-                <span className="popover-comments__name">Петр Сервер</span>
-                <span className="popover-comments__date">13 января</span>
-                <div className="popover-comments__text">Парни, аккуратнее!</div>
-              </li>
-              <li className="popover-comments__item">
-                <span className="popover-comments__name">Коля Сервер</span>
-                <span className="popover-comments__date">13 мая</span>
-                <div className="popover-comments__text">Парни, аккуратнее!</div>
-              </li>
-            </ul>
+            <div className="popover-comments">
+              <div className="popover-comments__scrollable js-scrollable">
+                <CommentsList comments={clientComments} />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -86,6 +82,7 @@ class CommentsPopover extends React.Component {
 }
 
 CommentsPopover.propTypes = {
+  id: PropTypes.string.isRequired,
   providePopover: PropTypes.func.isRequired,
 };
 

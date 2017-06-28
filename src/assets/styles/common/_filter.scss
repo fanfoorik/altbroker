@@ -1,0 +1,80 @@
+@import "../utils/variables";
+
+.filter {
+  border-radius: 3px;
+  background: $bg-white;
+  border: 1px solid $bd-main;
+
+  &__row {
+    clear: both;
+    margin-right: -1px;
+  }
+
+  &__cell {
+    float: left;
+    width: calc(20% - 1px);
+    height: 40px;
+    outline: 1px solid $bd-main;
+    margin-bottom: 1px;
+    margin-right: 1px;
+    background: $bg-white;
+    position: relative;
+    z-index: 0;
+    transition-duration: 0.2s;
+
+    &:hover {
+      z-index: 1;
+    }
+
+    &_hover {
+      &:hover {
+        outline-color: $bd-blue;
+      }
+    }
+
+    &_deeper {
+      width: calc(50% - 1px);
+    }
+  }
+
+  &__footer {
+    height: 40px;
+    background: $bg-blue-grey;
+    border-top: 1px solid $bd-main;
+    margin-top: -1px;
+  }
+
+  &__input.input {
+    border: 0;
+    height: 40px;
+    padding: 0 12px;
+  }
+}
+
+.filter-trigger {
+  display: block;
+  height: 40px;
+  padding: 0 12px;
+  color: $c-grey-middle;
+  cursor: pointer;
+  $this: &;
+
+  &_binded {
+    #{$this}__label {
+      font-size: 10px;
+      line-height: 1;
+      margin: 7px 0 1px;
+    }
+  }
+
+  &__label {
+    display: block;
+    line-height: 40px;
+    font-size: 12px;
+  }
+
+  &__value {
+    color: $c-blue-main;
+    font-size: 12px;
+  }
+}

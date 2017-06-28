@@ -4,8 +4,6 @@ import React from 'react';
 import { formatNumber } from 'utils/formaters';
 import { hostUrl } from 'utils/urls';
 
-import IsActive from 'utils/IsActive';
-
 // Panels
 import DetailPage from './DetailPage/DetailPage';
 import TablePrice from './Table/TablePrice';
@@ -35,7 +33,7 @@ export default class BrokerTable extends React.Component {
 
     this.state = {
       listingItems: props.listingItems || [],
-      detailPage: {
+      detailPageSettings: {
         active: false,
         id: '',
       },
@@ -53,18 +51,9 @@ export default class BrokerTable extends React.Component {
     this.setState({ listingItems: nextProps.listingItems });
   }
 
-  triggerDetailPage = (id) => {
-    this.setState({
-      detailPage: {
-        active: !this.state.detailPage.active,
-        id: id || '',
-      },
-    });
-  };
-
   openDetailPage = (id) => {
     this.setState({
-      detailPage: {
+      detailPageSettings: {
         active: true,
         id,
       },
@@ -73,7 +62,7 @@ export default class BrokerTable extends React.Component {
 
   closeDetailPage = () => {
     this.setState({
-      detailPage: { active: false },
+      detailPageSettings: { active: false },
     });
   };
 
@@ -85,9 +74,9 @@ export default class BrokerTable extends React.Component {
     }
 
     const { refreshListingItem } = this.props;
-    const { detailPage } = this.state;
+    const { detailPageSettings } = this.state;
     const detailPageData = {
-      id: detailPage.id,
+      id: detailPageSettings.id,
       closeDetailPage: this.closeDetailPage,
       getStatusColor,
     };
@@ -163,7 +152,7 @@ export default class BrokerTable extends React.Component {
               <div className="table-cell table-col__watched align-right no-padding-right">{viewed || '-'}</div>
               <div className="table-cell table-col__like align-right no-padding-right">{likes}</div>
               <div className="table-cell table-col__comments align-center no-padding-right">
-                <TableComments comments={comments} />
+                <TableComments id={id} comments={comments} />
               </div>
               <div className="table-cell table-col__actions no-padding">
                 <div className="table-cell__actions">
@@ -179,7 +168,7 @@ export default class BrokerTable extends React.Component {
           );
         })}
         {
-          detailPage.active &&
+          detailPageSettings.active &&
           <DetailPage {...detailPageData} />
         }
       </div>
