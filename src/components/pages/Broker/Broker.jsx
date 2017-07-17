@@ -16,13 +16,20 @@ export default function Broker(props) {
     listingItems,
     listingNav,
     refreshListingItem,
+    filterChange,
+    filterListing,
+    page,
   } = props;
 
   return (
     <div>
       <div className="container">
         <div className="h1">Бизнесы</div>
-        <BusinessFilter />
+        <BusinessFilter
+          filterChange={filterChange}
+          filterListing={filterListing}
+          filter={page.FILTER}
+        />
       </div>
       <StickyContainer className="table container listing-wrapper">
         <Sticky>
@@ -50,7 +57,18 @@ export default function Broker(props) {
 
 Broker.propTypes = {
   fetchListing: PropTypes.func.isRequired,
+  filterListing: PropTypes.func.isRequired,
+  filterChange: PropTypes.func.isRequired,
   listingItems: PropTypes.arrayOf(PropTypes.object),
+  page: PropTypes.shape({
+    SORT_CODE: PropTypes.array,
+    SORT_METOD: PropTypes.array,
+    PAGE: PropTypes.string,
+    COUNT: PropTypes.string,
+    FILTER: PropTypes.object,
+    SHOW_SHARED: PropTypes.string,
+    DEBUG: PropTypes.string,
+  }).isRequired,
   listingNav: PropTypes.shape({
     COUNT_OBJ: PropTypes.number,
     CUR_GAGE: PropTypes.oneOfType([

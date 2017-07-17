@@ -22,13 +22,14 @@
     z-index: 0;
     transition-duration: 0.2s;
 
-    &:hover {
+    &:hover,
+    &.active {
       z-index: 1;
     }
 
     &_hover {
       &:hover {
-        outline-color: $bd-blue;
+        background: $bg-blue-grey;
       }
     }
 
@@ -37,18 +38,20 @@
     }
   }
 
-  &__footer {
-    height: 40px;
-    background: $bg-blue-grey;
-    border-top: 1px solid $bd-main;
-    margin-top: -1px;
-  }
-
   &__input.input {
     border: 0;
     height: 40px;
     padding: 0 12px;
   }
+}
+
+.filter-footer {
+  height: 40px;
+  background: $bg-blue-grey;
+  border-top: 1px solid $bd-main;
+  border-radius: 0 0 3px 3px;
+  margin-top: -1px;
+  line-height: 40px;
 }
 
 .filter-trigger {
@@ -63,7 +66,7 @@
     #{$this}__label {
       font-size: 10px;
       line-height: 1;
-      margin: 7px 0 1px;
+      padding: 7px 0 1px;
     }
   }
 
@@ -74,7 +77,145 @@
   }
 
   &__value {
+    display: block;
     color: $c-blue-main;
     font-size: 12px;
+    overflow: hidden;
   }
+
+  &__more {
+    float: right;
+    color: $c-grey-middle;
+    font-size: 12px;
+    margin-left: 4px;
+  }
+}
+
+.filter-controls {
+  display: table;
+  width: 100%;
+
+  &__item {
+    height: 40px;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+
+    &_trigger {
+      padding: 0 16px;
+      white-space: nowrap;
+
+      .icon {
+        margin-left: 3px;
+        transform: rotate(90deg);
+        fill: $c-blue-main;
+      }
+
+      &.active {
+        .icon {
+          transform: rotate(-90deg);
+        }
+      }
+
+      &:hover {
+        background: $bg-blue-grey;
+      }
+    }
+
+    &_submit {
+      outline: 1px solid $bd-main;
+      background: $bg-grey-light;
+      border-width: 0;
+      padding: 0 16px;
+
+      &:hover {
+        background: $bg-blue-grey;
+      }
+    }
+
+    &_reset {
+      width: 40px;
+
+      .filter-reset-icon {
+        fill: $c-grey-main;
+      }
+
+      &:hover {
+        .filter-reset-icon {
+          fill: $c-red-main
+        }
+      }
+    }
+  }
+}
+
+.filter-stored {
+  padding: 0 12px;
+  overflow: hidden;
+}
+
+.filter-stored-label {
+  display: inline-block;
+  margin-right: 24px;
+  font-size: 12px;
+  height: 40px;
+  vertical-align: top;
+}
+
+.filter-stored-item {
+  display: inline-block;
+  margin-right: 16px;
+  color: $c-grey-main;
+  cursor: pointer;
+  font-size: 12px;
+  vertical-align: top;
+  $this: &;
+
+  &:hover {
+    color: $c-blue-main;
+  }
+
+  &__remove {
+    display: inline-block;
+    width: 24px;
+    height: 40px;
+    text-align: center;
+
+    &:hover {
+      color: $c-red-main;
+
+      #{$this}__remove-icon {
+        fill: $c-red-main;
+      }
+    }
+  }
+
+  &__remove-icon {
+    fill: $c-grey-main;
+    margin-bottom: -1px;
+  }
+}
+
+.filter-stored-save {
+  height: 40px;
+  float: right;
+  width: calc(20% + 1px);
+  border-left: 1px solid $bd-main;
+  padding: 0 12px;
+  cursor: pointer;
+
+  &:hover {
+    color: $c-blue-main;
+  }
+}
+
+.filter-tooltip {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 100%;
+  margin-top: 1px;
+  background: $bg-white;
+  box-shadow: 0 0 18px rgba($c-black, 0.2);
 }
