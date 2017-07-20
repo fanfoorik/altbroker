@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import { intersection } from 'mezr';
+import preventOverScroll from 'utils/preventOverScroll';
 
 export default function PopoverBaseHOC(Popover) {
   return class TransitComponent extends React.Component {
@@ -23,16 +24,8 @@ export default function PopoverBaseHOC(Popover) {
       window.addEventListener('scroll', this.onOuterClick);
       this.setDirection(this.popover);
 
-      // TODO: stop scroll propagation in popovers
-      // if (scrollable) {
-      //   scrollable.addEventListener('mousewheel', function(event) {
-      //     console.log(event.target);
-      //     event.stopPropagation();
-      //     event.preventDefault();
-      //     event.returnValue = false;
-      //     return false;
-      //   });
-      // }
+      const scrollable = Array.from(this.popover.querySelectorAll('.js-scrollable'));
+      preventOverScroll(scrollable);
     }
 
     componentWillUnmount() {
@@ -43,10 +36,11 @@ export default function PopoverBaseHOC(Popover) {
 
     onOuterClick = (event) => {
       const popover = this.popover;
+      const clickEvent = event.type === 'click' && !popover.contains(event.target);
+      const keyupEvent = event.type === 'keyup' && event.which === 27;
+      const scrollEvent = event.type === 'scroll';
 
-      if (event.type === 'click' && !popover.contains(event.target) ||
-        event.type === 'keyup' && event.which === 27 ||
-        event.type === 'scroll') {
+      if (clickEvent || keyupEvent || scrollEvent) {
         this.props.triggerPopover();
       }
     };

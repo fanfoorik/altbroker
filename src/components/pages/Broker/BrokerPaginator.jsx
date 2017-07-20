@@ -16,9 +16,9 @@ export default function BrokerPaginator(props) {
 
   /**
    * Updates url & fetches new items.
-   * @param index - number - page index
-   * @param count - number - items per page
-   * @param url - string - url with query params
+   * @param {number} index - page index
+   * @param {number } count - items per page
+   * @param {string} url - url with query params
    */
   function fetchItems(index, count, url) {
     browserHistory.push(`${indexUrl}broker/gb/${url}`);
@@ -27,23 +27,23 @@ export default function BrokerPaginator(props) {
 
   /**
    * Generates links for fetching items by count.
-   * @param count - number - items per page
-   * @param url - string - url with query params
+   * @param {number} count - items per page
+   * @param {string} url  - url with query params
    */
   function generateItemsPerPageLinks(count, url) {
-    return itemsPerPage.map((item) => {
-      return (
-        <li
-          className={`paginator__list-item ${item === count ? 'active' : ''}`}
-          key={`paginator__item-${Math.floor(Date.now() * Math.random())}`}
-        >
-          <span
-            className="paginator__list-link"
-            onClick={() => fetchItems(url, item, `?PAGE=${url}&COUNT=${item}`)}
-          >{item}</span>;
-        </li>
-      );
-    });
+    return itemsPerPage.map(item => (
+      <li
+        className={`paginator__list-item ${item === count ? 'active' : ''}`}
+        key={`paginator__item-${Math.floor(Date.now() * Math.random())}`}
+      >
+        <span
+          className="paginator__list-link"
+          onClick={() => fetchItems(url, item, `?PAGE=${url}&COUNT=${item}`)}
+          role="button"
+          tabIndex="0"
+        >{item}</span>;
+      </li>
+    ));
   }
 
   const {
@@ -62,6 +62,8 @@ export default function BrokerPaginator(props) {
           <span
             className="paginator__list-link"
             onClick={() => fetchItems(nextPage.ID, countPerPage, nextPage.URL)}
+            role="button"
+            tabIndex="0"
           >&gt;</span>
         </li>
       ) :
@@ -74,6 +76,8 @@ export default function BrokerPaginator(props) {
           <span
             className="paginator__list-link"
             onClick={() => fetchItems(prevPage.ID, countPerPage, prevPage.URL)}
+            role="button"
+            tabIndex="0"
           >&lt;</span>
         </li>
       ) :
@@ -100,6 +104,8 @@ export default function BrokerPaginator(props) {
             <span
               className="paginator__list-link"
               onClick={() => fetchItems(item.ID, countPerPage, item.URL)}
+              role="button"
+              tabIndex="0"
             >{item.ID}</span>
           </li>
         ))}
@@ -109,8 +115,11 @@ export default function BrokerPaginator(props) {
       {currPageIndex ?
         (
           <div className="table-footer__items">
-            Показаны с <span className="table-footer__items-count">
-              {(currPageIndex * itemsCount) + 1} по {(currPageIndex * itemsCount) + itemsCount}
+            {'Показаны с '}
+            <span className="table-footer__items-count">
+              { ((currPageIndex * itemsCount) - itemsCount) + 1 }
+              {' по '}
+              {currPageIndex * itemsCount}
             </span>
           </div>
         ) :

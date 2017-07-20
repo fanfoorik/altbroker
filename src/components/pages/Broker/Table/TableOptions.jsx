@@ -9,7 +9,7 @@ const TableOptions = (props) => {
   const {
     active,
     triggerPopover,
-    triggerDetailPage,
+    openDetailPage,
     id,
   } = props;
 
@@ -29,7 +29,7 @@ const TableOptions = (props) => {
         <DealPopover
           id={id}
           triggerPopover={triggerPopover}
-          triggerDetailPage={triggerDetailPage}
+          openDetailPage={openDetailPage}
         />
       </IsActive>
     </div>
@@ -40,7 +40,7 @@ TableOptions.propTypes = {
   active: PropTypes.bool.isRequired,
   id: PropTypes.string.isRequired,
   triggerPopover: PropTypes.func.isRequired,
-  triggerDetailPage: PropTypes.func.isRequired,
+  openDetailPage: PropTypes.func.isRequired,
 };
 
 export default PopoverTriggerHOC(TableOptions);

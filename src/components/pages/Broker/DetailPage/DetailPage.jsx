@@ -25,6 +25,7 @@ class DetailPage extends React.Component {
       actives: {},
       client: {},
       comments: {},
+      error: '',
     };
   }
 
@@ -32,6 +33,7 @@ class DetailPage extends React.Component {
     document.addEventListener('click', this.onOuterClick);
     document.addEventListener('keyup', this.onOuterClick);
     this.fetchDetails();
+    document.body.style.overflow = 'hidden';
 
     const detailsMenuLinks = Array.from(document.querySelectorAll('.js-detail-menu-link'));
     detailsMenuLinks.forEach(el => el.addEventListener('click', this.onMenuLinkClick));
@@ -39,12 +41,14 @@ class DetailPage extends React.Component {
     this.detailBody = document.querySelector('.detail-page-body');
     this.detailPanels = Array.from(document.querySelectorAll('.detail-page-blank'));
 
+    // TODO: define active menu link on detail page scroll
     // this.detailBody.addEventListener('scroll', this.onDetailBodyScroll);
   }
 
   componentWillUnmount() {
     document.removeEventListener('click', this.onOuterClick);
     document.removeEventListener('keyup', this.onOuterClick);
+    document.body.style.overflow = '';
   }
 
   onMenuLinkClick = (ev) => {
@@ -63,11 +67,11 @@ class DetailPage extends React.Component {
   };
 
   onOuterClick = (event) => {
-    const clickEvent = event.type === 'click' && event.target === this.detailPage;
-    const keyupEvent = event.type === 'keyup' && event.which === 27;
+    const outerClick = event.type === 'click' && event.target === this.detailPage;
+    const escKeyup = event.type === 'keyup' && event.which === 27;
 
-    if (clickEvent || keyupEvent) {
-      this.props.triggerDetailPage();
+    if (outerClick || escKeyup) {
+      this.props.closeDetailPage();
     }
   };
 
@@ -81,15 +85,20 @@ class DetailPage extends React.Component {
       ajax.post(url, { TAB: 'ROOM' }),
       ajax.post(url, { TAB: 'ACTIVE' })])
       .then(ajax.spread((main, finance, staff, room, actives) => {
-        this.setState({
-          main: main.ANSWER.ITEM,
-          client: main.ANSWER.KLIENT,
-          comments: main.ANSWER.COMMENTS,
-          finance: finance.ANSWER.ITEM,
-          staff: staff.ANSWER.ITEM,
-          room: room.ANSWER.ITEM,
-          actives: actives.ANSWER.ITEM,
-        });
+        const error = main.ERRORS.length && main.ERRORS[0].MESSAGE;
+        if (error) {
+          this.setState({ error });
+        } else {
+          this.setState({
+            main: main.ANSWER.ITEM,
+            client: main.ANSWER.KLIENT,
+            comments: main.ANSWER.COMMENTS,
+            finance: finance.ANSWER.ITEM,
+            staff: staff.ANSWER.ITEM,
+            room: room.ANSWER.ITEM,
+            actives: actives.ANSWER.ITEM,
+          });
+        }
       }));
   };
 
@@ -100,7 +109,8 @@ class DetailPage extends React.Component {
   };
 
   render() {
-    const { id, triggerDetailPage } = this.props;
+    const { id, closeDetailPage, getStatusColor } = this.props;
+
     const {
       NAME: name = 'Загрузка...',
       TIMESTAMP_X: timestamp = '',
@@ -110,6 +120,8 @@ class DetailPage extends React.Component {
       PROPERTY_REASON_FOR_SALE_VALUE: sellReason = '',
       DOP_ICON: advantages = [],
       PROPERTY_DOP_INFO_VALUE: description = '',
+      PROPERTY_STATUS_OBJ_ENUM_ID: statusColorId = '',
+      PROPERTY_STATUS_OBJ_VALUE: statusText = '',
     } = this.state.main;
 
     const {
@@ -144,9 +156,17 @@ class DetailPage extends React.Component {
     } = this.state.client;
 
     const {
-      INNER_COM: staffComment = [],
-      KLIENT_COM: clientComment = [],
+      INNER_COM: staffComments = [],
+      KLIENT_COM: clientComments = [],
     } = this.state.comments;
+
+    // Components data constants
+    const detailsHeader = {
+      name,
+      timestamp,
+      statusColor: getStatusColor(statusColorId),
+      statusText,
+    };
 
     const detailsMain = {
       id,
@@ -190,19 +210,19 @@ class DetailPage extends React.Component {
 
     const detailsComments = {
       id,
-      staffComment,
-      clientComment,
+      staffComments,
+      clientComments,
       updateComments: this.updateComments,
     };
 
     return (
       <div className="detail-page" ref={(node) => { this.detailPage = node; }}>
         <div className="detail-page-aside">
-          <span className="detail-page__close" onClick={() => triggerDetailPage(id)} role="button" tabIndex="0">
+          <span className="detail-page__close" onClick={closeDetailPage} role="button" tabIndex="0">
             <Icon icon="close" className="detail-page__close-icon" width={18} height={18} />
           </span>
 
-          <DetailPageHeader name={name} timestamp={timestamp} />
+          <DetailPageHeader {...detailsHeader} />
 
           <div className="detail-page-body">
             <div className="detail-page-blank" data-anchor="main">
@@ -234,7 +254,8 @@ class DetailPage extends React.Component {
 
 DetailPage.propTypes = {
   id: PropTypes.string.isRequired,
-  triggerDetailPage: PropTypes.func.isRequired,
+  closeDetailPage: PropTypes.func.isRequired,
+  getStatusColor: PropTypes.func.isRequired,
 };
 
 export default DetailPage;

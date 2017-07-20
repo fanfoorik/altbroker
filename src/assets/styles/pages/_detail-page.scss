@@ -1,0 +1,228 @@
+@import "../utils/variables";
+
+.detail-page {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba($c-black, 0.5);
+  z-index: 300;
+  color: $c-text-main;
+  $this: &;
+
+  &__carousel {
+    margin: -24px -36px 24px;
+  }
+
+  &__label {
+    font-size: 13px;
+    color: $c-text-disabled;
+    margin-bottom: 12px;
+  }
+
+  &__title {
+    font-size: 16px;
+    font-family: $f-gothapro;
+    margin-bottom: 16px;
+  }
+
+  &__menu {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    padding: 0 12px;
+  }
+
+  &__close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: block;
+    cursor: pointer;
+    z-index: 300;
+    padding: 10px;
+
+    &:hover {
+      #{$this}__close-icon {
+        fill: $c-grey-middle;
+      }
+    }
+  }
+
+  &__close-icon {
+    fill: $c-text-main;
+    transition-duration: 0.15s;
+  }
+}
+
+.detail-page-aside {
+  float: right;
+  height: 100%;
+  width: 643px;
+  background: $bg-grey-light;
+}
+
+.detail-page-blank {
+  background: $c-white;
+  padding: 24px 36px 18px;
+  border: 1px solid $c-border-main;
+  border-radius: 3px;
+  margin-bottom: 16px;
+}
+
+.detail-page-header {
+  padding: 8px 24px 24px;
+  background: $c-white;
+  height: 114px;
+  position: relative;
+  border-bottom: 1px solid $c-border-main;
+
+  &__title {
+    font-size: 16px;
+    font-family: $f-gothapro;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    padding-right: 30px;
+  }
+}
+
+.detail-page-body {
+  padding: 17px 24px;
+  height: calc(100% - 114px);
+  overflow: auto;
+}
+
+.detail-page-status {
+  &__label {
+    display: inline-block;
+    padding: 0 9px;
+    margin-right: 16px;
+    background: $c-border-main;
+    line-height: 20px;
+
+    &_posted {
+      background: $c-blue-main;
+      color: $c-white;
+    }
+
+    &_draft {
+      background: $bg-yellow;
+    }
+
+    &_moderation {
+      background: $bg-grey-main;
+    }
+
+    &_rejected {
+      background: $bg-red-main;
+    }
+
+    &_preparatory {
+      background: $bg-lime-green;
+    }
+
+    &_sold {
+      background: $bg-green;
+    }
+
+    &_withdrawn {
+      background: $bg-brown;
+    }
+  }
+
+  &__last-update {
+    color: $c-text-disabled;
+  }
+}
+
+.detail-page-carousel {
+  height: 200px;
+  background: $c-grey-light;
+
+  .swiper-container {
+    border-radius: 2px 2px 0 0;
+  }
+
+  .swiper-button-prev {
+    left: 24px;
+    margin-top: -13px;
+    background: none;
+    opacity: 0.5;
+    width: 26px;
+    height: 26px;
+    border-left: 2px solid $c-white;
+    border-bottom: 2px solid $c-white;
+    transform: rotate(45deg);
+
+    &.swiper-button-disabled {
+      opacity: 0.2;
+    }
+  }
+
+  .swiper-button-next {
+    right: 24px;
+    margin-top: -13px;
+    background: none;
+    opacity: 0.5;
+    width: 26px;
+    height: 26px;
+    border-right: 2px solid $c-white;
+    border-bottom: 2px solid $c-white;
+    transform: rotate(-45deg);
+
+    &.swiper-button-disabled {
+      opacity: 0.2;
+    }
+  }
+
+  &__cover {
+    text-align: center;
+    padding-top: 90px;
+  }
+
+  &__item {
+    float: left;
+    width: auto;
+  }
+
+  &__image {
+    height: 200px;
+  }
+}
+
+.detail-page-main {
+  &__info {
+    border-bottom: 1px solid $c-border-main;
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+  }
+
+  &__text {
+    margin-bottom: 20px;
+  }
+}
+
+.detail-page-info {
+  margin-bottom: 12px;
+
+  &__key {
+    float: left;
+    width: 175px;
+    margin-right: 20px;
+    font-size: 13px;
+    color: $c-text-disabled;
+  }
+
+  &__value {
+    overflow: hidden;
+  }
+
+  &__link {
+    color: $c-text-main;
+  }
+}
+

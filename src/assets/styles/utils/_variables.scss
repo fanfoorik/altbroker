@@ -11,13 +11,14 @@ $c-grey-main: #6b6f74;
 $c-grey-dark: #313436;
 $c-red-main: #d0011b;
 $c-red-transparent: transparentize($c-red-main, .9);
+$c-yellow: #f8e81c;
+$c-green: #f8e81c;
+$c-lime-green: #f8e81c;
+$c-brown: #b47335;
 
 // Checkboxes
 $c-checkbox-bg-hover: #f5faff;
 $c-checkbox-border: $c-blue-main;
-
-// Body
-$c-body-bg: $c-grey-light;
 
 // Borders
 $c-border-main: #e1e5e9;
@@ -113,3 +114,19 @@ $c-avatar-fill: $c-grey-middle;
 
 // Default list(li)
 $c-list-bullet: $c-grey-middle;
+
+// Backgrounds
+$bg-white: #fff;
+$bg-black: #fff;
+$bg-yellow: $c-yellow;
+$bg-grey-main: $c-grey-main;
+$bg-grey-light: $c-grey-light;
+$bg-blue-grey: #f5faff;
+$bg-red-main: $c-red-main;
+$bg-green: $c-green;
+$bg-lime-green: $c-lime-green;
+$bg-brown: $c-brown;
+
+// Borders
+$bd-main: #e1e5e9;
+$bd-blue: #4da1ff;

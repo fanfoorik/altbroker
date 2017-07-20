@@ -1,38 +1,68 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import IsActive from 'utils/IsActive';
 
 import PopoverTriggerHOC from 'components/popovers/PopoverTriggerHOC';
 import CommentsPopover from 'components/popovers/CommentsPopover';
 
-const TableComments = (props) => {
-  const {
-    active,
-    comments,
-    triggerPopover,
-  } = props;
+class TableComments extends React.Component {
 
-  return (
-    <div className="table-trigger-container">
-      <span
-        className="table-cell__comments"
-        role="button"
-        tabIndex="0"
-        onClick={triggerPopover}
-      >
-        {comments}
-      </span>
-      <IsActive active={active}>
-        <CommentsPopover triggerPopover={triggerPopover} />
-      </IsActive>
-    </div>
-  );
-};
+  constructor(props) {
+    super(props);
+    this.state = {
+      comments: props.comments,
+    };
+  }
+
+  componentWillReceiveProps() {
+    console.log('componentWillReceiveProps');
+  }
+
+  updateCommentsLength = (commentsLength) => {
+    this.setState({ comments: commentsLength });
+  };
+
+  render() {
+    const {
+      id,
+      active,
+      triggerPopover,
+      refreshListingItem,
+      commentsPopoverActive,
+    } = this.props;
+
+    const { comments } = this.state;
+
+    return (
+      <div className="table-trigger-container">
+        <span
+          className="table-cell__comments"
+          role="button"
+          tabIndex="0"
+          onClick={triggerPopover}
+        >
+          {comments}
+        </span>
+        {
+          active &&
+          <CommentsPopover
+            id={id}
+            triggerPopover={triggerPopover}
+            updateComments={this.updateComments}
+            updateCommentsLength={this.updateCommentsLength}
+          />
+        }
+      </div>
+    );
+  }
+}
 
 TableComments.propTypes = {
   active: PropTypes.bool.isRequired,
+  id: PropTypes.string.isRequired,
   comments: PropTypes.string.isRequired,
   triggerPopover: PropTypes.func.isRequired,
+  refreshListingItem: PropTypes.func.isRequired,
 };
 
+// export default TableComments;
 export default PopoverTriggerHOC(TableComments);

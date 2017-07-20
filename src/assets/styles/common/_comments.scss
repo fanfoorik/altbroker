@@ -1,0 +1,154 @@
+@import "../utils/variables";
+
+.comments-menu {
+  justify-content: flex-start;
+}
+
+.comments-list {
+  padding-top: 24px;
+  word-break: break-all;
+
+  &__item {
+    margin-bottom: 14px;
+  }
+
+  &__avatar {
+    float: left;
+    width: 50px;
+    height: 50px;
+    margin-right: 16px;
+  }
+
+  &__comment {
+    overflow: hidden;
+  }
+
+  &__name {
+    font-size: 14px;
+    margin-right: 10px;
+  }
+
+  &__date {
+    font-size: 12px;
+    color: $c-grey-middle;
+  }
+}
+
+.comments-cover {
+  padding: 24px 0;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.comments-form {
+  border-top: 1px solid $c-border-main;
+  position: relative;
+  $this: &;
+
+  &__input.input {
+    border: 0;
+    height: 38px;
+    padding: 10px 60px 12px 16px;
+    font-size: 12px;
+  }
+
+  &__submit {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 44px;
+    height: 38px;
+    border-width: 0;
+    background: none;
+    cursor: pointer;
+
+    &:hover #{$this}__icon {
+      fill: $c-blue-main;
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -8px 0 0 -8px;
+    fill: $c-text-disabled;
+  }
+}
+
+.detail-page-comments {
+  &.detail-page-blank {
+    padding-bottom: 0;
+  }
+
+  .comments-form {
+    margin: 0 -36px;
+
+    &__input.input {
+      padding: 0 76px  0  102px;
+    }
+
+    &__submit {
+      width: 74px;
+    }
+
+    &__icon {
+      left: 11px;
+      margin-left: 0;
+    }
+  }
+
+  .comments-menu {
+    margin: 0 -36px;
+    padding: 0 24px;
+  }
+}
+
+.popover-comments {
+  overflow: auto;
+  position: relative;
+
+  &__scrollable {
+    height: 139px;
+    overflow: auto;
+  }
+
+  .comments-list {
+    padding: 0;
+
+    &__item {
+      padding: 10px 16px;
+      margin-bottom: 0;
+      border-top: 1px solid $c-popover-border;
+
+      &:first-child {
+        border-top: 0;
+      }
+    }
+
+    &__nameset {
+      margin-bottom: 10px;
+    }
+
+    &__name {
+      float: left;
+      font-size: 12px;
+      margin-right: 4px;
+      color: $c-blue-main;
+    }
+
+    &__date {
+      float: right;
+    }
+
+    &__text {
+      line-height: 1.4;
+      color: $c-text-main;
+    }
+  }
+
+  .comments-cover {
+    margin: 0;
+    padding: 60px 0;
+  }
+}
