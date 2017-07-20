@@ -32,8 +32,9 @@ class PricePopover extends React.Component {
 
   handleChange = (event) => {
     const val = event.target.value.replace(/\D/gi, '');
+
     this.setState({
-      changed: true,
+      changed: +val !== this.props.price,
       value: formatNumber(val),
     });
   };
@@ -50,25 +51,27 @@ class PricePopover extends React.Component {
     });
   };
 
-  changePrice = () => {
+  changePrice = (event) => {
+    event.preventDefault();
+    const { refreshPrice, triggerPopover } = this.props;
+
     if (this.state.changed) {
       ajax.post(`broker/gb/${this.props.id}/changeprice/`,
         { VAL: this.state.value.replace(/\D/gi, '') })
         .then((data) => {
           const success = data.ANSWER.SUCCESS;
-
           if (success) {
-            const item = data.ANSWER.ITEM[0];
-            this.props.refreshListingItem(item);
+            const newPrice = +data.ANSWER.ITEM[0].PROPERTY_PRICE_BUSINESS_VALUE;
+            refreshPrice(newPrice);
+            triggerPopover();
           }
-          // TODO: handle and visualize change price error
         });
     }
   };
 
   render() {
     const isDisabled = this.state.changed ? '' : 'disabled';
-    const { providePopover } = this.props;
+    const { providePopover, triggerPopover } = this.props;
     const { value, priceHistory } = this.state;
 
     return (
@@ -80,34 +83,31 @@ class PricePopover extends React.Component {
 
         <div className="popover-body">
           <div className="popover-content-wrapper active no-padding-top js-popover-tab">
-            <input
-              className="popover-input align-right"
-              value={value}
-              min={0}
-              onChange={this.handleChange}
-              type="text"
-            />
+            <form onSubmit={this.changePrice}>
+              <input
+                className="popover-input align-right"
+                value={value}
+                min={0}
+                onChange={this.handleChange}
+                type="text"
+              />
 
-            <ul className="popover-decrease-list" onClick={this.handleDecreasePrice}>
-              <li className="popover-decrease-item" data-value={10000}>-10 000</li>
-              <li className="popover-decrease-item" data-value={50000}>-50 000</li>
-              <li className="popover-decrease-item" data-value={100000}>-100 000</li>
-              <li className="popover-decrease-item" data-value={500000}>-500 000</li>
-            </ul>
+              <ul className="popover-decrease-list" onClick={this.handleDecreasePrice}>
+                <li className="popover-decrease-item" data-value={10000}>-10 000</li>
+                <li className="popover-decrease-item" data-value={50000}>-50 000</li>
+                <li className="popover-decrease-item" data-value={100000}>-100 000</li>
+                <li className="popover-decrease-item" data-value={500000}>-500 000</li>
+              </ul>
 
-            <ul className="popover-actions-list">
-              <li
-                className={`popover-actions-item ${isDisabled}`}
-                onClick={this.changePrice}
-                role="button"
-                tabIndex="0"
-              >
-                <Icon icon="check" width={20} height={15} />
-              </li>
-              <li className="popover-actions-item">
-                <Icon icon="close" width={15} height={15} />
-              </li>
-            </ul>
+              <div className="popover-actions-list">
+                <button type="submit" className={`popover-actions-item ${isDisabled}`}>
+                  <Icon icon="check" width={20} height={15} />
+                </button>
+                <div className="popover-actions-item" onClick={triggerPopover} role="button" tabIndex="0">
+                  <Icon icon="close" width={15} height={15} />
+                </div>
+              </div>
+            </form>
           </div>
 
           <div className="popover-content-wrapper js-popover-tab">
@@ -142,8 +142,9 @@ class PricePopover extends React.Component {
 PricePopover.propTypes = {
   id: PropTypes.string.isRequired,
   providePopover: PropTypes.func.isRequired,
+  refreshPrice: PropTypes.func.isRequired,
+  triggerPopover: PropTypes.func.isRequired,
   price: PropTypes.number,
-  refreshListingItem: PropTypes.func.isRequired,
 };
 
 PricePopover.defaultProps = {

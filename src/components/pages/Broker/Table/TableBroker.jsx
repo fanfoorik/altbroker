@@ -5,30 +5,51 @@ import IsActive from 'utils/IsActive';
 import DelegatePopover from 'components/popovers/DelegatePopover';
 import PopoverTriggerHOC from 'components/popovers/PopoverTriggerHOC';
 
-const TablePrice = (props) => {
-  const {
-    active,
-    broker,
-    triggerPopover,
-  } = props;
+class TablePrice extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      broker: props.broker,
+    };
+  }
 
-  return (
-    <div className="table-trigger-container">
-      <span
-        className="table-cell__broker"
-        role="button"
-        tabIndex="0"
-        onClick={triggerPopover}
-      >{broker}</span>
+  changeBroker = (newBroker) => {
+    this.setState({ broker: newBroker });
+  };
 
-      <IsActive active={active}>
-        <DelegatePopover triggerPopover={triggerPopover} />
-      </IsActive>
-    </div>
-  );
+  render() {
+    const {
+      id,
+      active,
+      triggerPopover,
+    } = this.props;
+
+    const { broker } = this.state;
+
+    return (
+      <div className="table-trigger-container">
+        <span
+          className="table-cell__broker"
+          role="button"
+          tabIndex="0"
+          onClick={triggerPopover}
+        >{broker}</span>
+
+        {
+          active &&
+          <DelegatePopover
+            id={id}
+            changeBroker={this.changeBroker}
+            triggerPopover={triggerPopover}
+          />
+        }
+      </div>
+    );
+  }
 };
 
 TablePrice.propTypes = {
+  id: PropTypes.string.isRequired,
   active: PropTypes.bool.isRequired,
   broker: PropTypes.string.isRequired,
   triggerPopover: PropTypes.func.isRequired,

@@ -46,9 +46,37 @@
     transition: 0.3s;
   }
 
+  &.top {
+    bottom: auto;
+    top: 48px;
+
+    &::before {
+      background: $c-grey-light;
+      bottom: auto;
+      box-shadow: 2px -3px 5px rgba($c-black, 0.05);
+      top: -7px;
+    }
+  }
+
   &_visible {
     opacity: 1;
     visibility: visible;
+  }
+
+  &_sm {
+    width: 175px;
+  }
+
+  &_md {
+    width: 200px;
+  }
+
+  &_lg {
+    width: 220px;
+  }
+
+  &_without-tabs.top::before {
+    background: $c-white;
   }
 }
 
@@ -71,40 +99,6 @@
     &::before {
       left: 78%;
     }
-  }
-}
-
-// Popover with top direction:
-.popover {
-  &.top {
-    bottom: auto;
-    top: 48px;
-
-    &::before {
-      background: $c-grey-light;
-      bottom: auto;
-      box-shadow: 2px -3px 5px rgba($c-black, 0.05);
-      top: -7px;
-    }
-  }
-
-  &_without-tabs.top::before {
-    background: $c-white;
-  }
-}
-
-// Popover sizes:
-.popover {
-  &_sm {
-    width: 175px;
-  }
-
-  &_md {
-    width: 200px;
-  }
-
-  &_lg {
-    width: 220px;
   }
 }
 
@@ -144,30 +138,28 @@
 }
 
 // Content with color legend:
-.popover-color-legend {
-  &-item {
-    align-items: center;
-    display: flex;
-    margin: 0 0 8px;
+.popover-color-legend-item {
+  align-items: center;
+  display: flex;
+  margin: 0 0 8px;
+}
+
+.popover-color-legend-date {
+  height: 20px;
+  margin: 0 12px 0 0;
+  width: 20px;
+
+  &_task {
+    flex-basis: 45%;
+    padding: 0;
   }
+}
 
-  &-date {
-    height: 20px;
-    margin: 0 12px 0 0;
-    width: 20px;
+.popover-color-legend-value {
+  color: $c-popover-text-active;
 
-    &_task {
-      flex-basis: 45%;
-      padding: 0;
-    }
-  }
-
-  &-value {
-    color: $c-popover-text-active;
-
-    &_task {
-      flex-basis: 55%;
-    }
+  &_task {
+    flex-basis: 55%;
   }
 }
 
@@ -238,130 +230,126 @@ input.popover-input {
 }
 
 // List of decrease numbers:
-.popover-decrease {
-  &-list {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 12px;
+.popover-decrease-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.popover-decrease-item {
+  color: $c-grey-middle;
+  cursor: pointer;
+  flex-basis: 50%;
+  margin-bottom: 6px;
+  transition: 0.3s;
+  text-align: right;
+  user-select: none;
+
+  &:nth-of-type(3),
+  &:nth-of-type(4) {
+    margin-bottom: 0;
   }
 
-  &-item {
-    color: $c-grey-middle;
-    cursor: pointer;
-    flex-basis: 50%;
-    margin-bottom: 6px;
-    transition: 0.3s;
-    text-align: right;
-    user-select: none;
-
-    &:nth-of-type(3),
-    &:nth-of-type(4) {
-      margin-bottom: 0;
-    }
-
-    &:hover {
-      color: $c-blue-main;
-    }
+  &:hover {
+    color: $c-blue-main;
   }
 }
 
 // Actions in popover footer:
-.popover-actions {
-  &-list {
-    border-top: 1px solid $c-popover-border;
-    display: flex;
-    justify-content: flex-end;
-    margin: 0 -#{$listing-offset} -8px;
-    padding: 8px $listing-offset 0;
+
+.popover-actions-list {
+  border-top: 1px solid $c-popover-border;
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 -16px -16px;
+  padding: 0 8px;
+}
+
+.popover-actions-item {
+  margin: 0 0 0 8px;
+  padding: 8px;
+  background: none;
+  border-width: 0;
+
+  .icon {
+    fill: $c-grey-dark;
   }
 
-  &-item {
-    margin: 0 0 0 $listing-offset;
+  &.disabled .icon {
+    cursor: default;
+    fill: $c-grey-middle;
+    opacity: 0.5;
+  }
 
-    .icon {
-      fill: $c-grey-dark;
-    }
+  &:not(.disabled) .icon:hover {
+    fill: $c-blue-main;
+  }
 
-    &.disabled .icon {
-      cursor: default;
-      fill: $c-grey-middle;
-      opacity: 0.5;
-    }
-
-    &:not(.disabled) .icon:hover {
-      fill: $c-blue-main;
-    }
-
-    &_share {
-      display: flex;
-      flex: 1;
-      padding: 0 0 0 5px;
-      margin-left: 0;
-    }
+  &_share {
+    display: flex;
+    flex: 1;
+    padding: 0 0 0 5px;
+    margin-left: 0;
   }
 }
 
 // Popover with task list:
-.popover-task {
-  &-item {
-    border-bottom: 1px solid $c-popover-border;
-    color: $c-popover-text-active;
-    cursor: pointer;
-    margin: 0 -#{$listing-offset};
-    padding: 11px;
-    transition: 0.3s;
-    text-align: center;
+.popover-task-item {
+  border-bottom: 1px solid $c-popover-border;
+  color: $c-popover-text-active;
+  cursor: pointer;
+  margin: 0 -#{$listing-offset};
+  padding: 11px;
+  transition: 0.3s;
+  text-align: center;
 
-    &:last-child {
-      border: 0;
+  &:last-child {
+    border: 0;
+  }
+
+  &:hover,
+  &.active,
+  &:active {
+    color: $c-blue-main;
+
+    &:not(.disabled) {
+      background-color: $c-blue-transparent;
     }
+  }
 
-    &:hover,
-    &.active,
-    &:active {
-      color: $c-blue-main;
-
-      &:not(.disabled) {
-        background-color: $c-blue-transparent;
-      }
-    }
-
-    &.disabled {
-      color: $c-grey-middle;
-      cursor: default;
-    }
+  &.disabled {
+    color: $c-grey-middle;
+    cursor: default;
   }
 }
 
 // Popover with deal list:
-.popover-deal {
-  &-item {
-    border-bottom: 1px solid $c-popover-border;
-    color: $c-listing-dark-grey;
-    cursor: pointer;
-    display: flex;
-    margin: 0 -#{$listing-offset};
-    padding: 11px 21px;
-    transition: 0.3s;
+.popover-deal-item {
+  border-bottom: 1px solid $c-popover-border;
+  color: $c-listing-dark-grey;
+  cursor: pointer;
+  display: flex;
+  margin: 0 -#{$listing-offset};
+  padding: 11px 21px;
+  transition: 0.3s;
 
-    &:last-child {
-      border: 0;
-    }
+  &:last-child {
+    border: 0;
+  }
 
-    &.active,
-    &:hover,
-    &:active {
-      color: $c-blue-main;
-      background-color: $c-blue-transparent;
-
-      .icon {
-        fill: $c-blue-main;
-      }
-    }
+  &.active,
+  &:hover,
+  &:active {
+    color: $c-blue-main;
+    background-color: $c-blue-transparent;
 
     .icon {
-      margin: 0 16px 0 0;
+      fill: $c-blue-main;
     }
+  }
+
+  .icon {
+    margin: 0 16px 0 0;
   }
 }
 
@@ -378,24 +366,24 @@ input.popover-input {
   font-size: 14px;
   padding: 0 12px;
   width: 100%;
+}
 
-  &-wrapper {
-    margin: 0 -#{$listing-offset};
-    position: relative;
+.popover-select-wrapper {
+  margin: 0 -#{$listing-offset};
+  position: relative;
 
-    &::before {
-      border-color: $c-grey-dark transparent transparent;
-      border-style: solid;
-      border-width: 6px 6px 0;
-      content: "";
-      height: 0;
-      margin-top: -1px;
-      pointer-events: none;
-      position: absolute;
-      right: 15px;
-      top: 50%;
-      width: 0;
-    }
+  &::before {
+    border-color: $c-grey-dark transparent transparent;
+    border-style: solid;
+    border-width: 6px 6px 0;
+    content: "";
+    height: 0;
+    margin-top: -1px;
+    pointer-events: none;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    width: 0;
   }
 }
 

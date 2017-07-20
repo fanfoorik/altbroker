@@ -9,50 +9,109 @@ import BrokerTableHeader from './BrokerTableHeader';
 
 import BusinessFilter from 'components/Filter/BusinessFilter';
 
-export default function Broker(props) {
-  const query = props.location.query;
-  const {
-    fetchListing,
-    listingItems,
-    listingNav,
-    refreshListingItem,
-    filterChange,
-    filterListing,
-    page,
-  } = props;
+import DetailPage from './DetailPage/DetailPage';
 
-  return (
-    <div>
-      <div className="container">
-        <div className="h1">Бизнесы</div>
-        <BusinessFilter
-          filterChange={filterChange}
-          filterListing={filterListing}
-          filter={page.FILTER}
-        />
+const statusColors = {
+  '': 'posted',
+  17519: 'draft',
+  18709: 'moderation',
+  18710: 'rejected',
+  18711: 'preparatory',
+  14115: 'sold',
+  14116: 'withdrawn',
+};
+
+function getStatusColor(value) {
+  return statusColors[value] || 'posted';
+}
+
+export default class Broker extends React.Component {
+
+  constructor() {
+    super();
+    this.state = {
+      detailPageSettings: {
+        active: false,
+          id: '',
+      },
+    };
+  }
+
+  openDetailPage = (id) => {
+    this.setState({
+      detailPageSettings: {
+        active: true,
+        id,
+      },
+    });
+  };
+
+  closeDetailPage = () => {
+    this.setState({
+      detailPageSettings: { active: false },
+    });
+  };
+
+  render() {
+    const query = this.props.location.query;
+    const {
+      fetchListing,
+      listingItems,
+      listingNav,
+      refreshListingItem,
+      filterChange,
+      filterListing,
+      page,
+    } = this.props;
+
+    const { detailPageSettings } = this.state;
+
+    const detailPageData = {
+      id: detailPageSettings.id,
+      closeDetailPage: this.closeDetailPage,
+      getStatusColor,
+    };
+
+    return (
+      <div>
+        <div className="container">
+          <div className="h1">Бизнесы</div>
+          <BusinessFilter
+            filterChange={filterChange}
+            filterListing={filterListing}
+            filter={page.FILTER}
+          />
+        </div>
+        <StickyContainer className="table container listing-wrapper">
+          <Sticky>
+            <BrokerTableHeader />
+          </Sticky>
+
+          <BrokerTable
+            fetchListing={fetchListing}
+            listingItems={listingItems}
+            query={query}
+            refreshListingItem={refreshListingItem}
+            openDetailPage={this.openDetailPage}
+            getStatusColor={getStatusColor}
+          />
+
+          <BrokerPaginator
+            fetchListing={fetchListing}
+            itemsCount={listingItems && listingItems.length}
+            listingNav={listingNav}
+          />
+
+          <BrokerActions />
+        </StickyContainer>
+
+        {
+          detailPageSettings.active &&
+          <DetailPage {...detailPageData} />
+        }
       </div>
-      <StickyContainer className="table container listing-wrapper">
-        <Sticky>
-          <BrokerTableHeader />
-        </Sticky>
-
-        <BrokerTable
-          fetchListing={fetchListing}
-          listingItems={listingItems}
-          query={query}
-          refreshListingItem={refreshListingItem}
-        />
-
-        <BrokerPaginator
-          fetchListing={fetchListing}
-          itemsCount={listingItems && listingItems.length}
-          listingNav={listingNav}
-        />
-
-        <BrokerActions />
-      </StickyContainer>
-    </div>
-  );
+    );
+  }
 }
 
 Broker.propTypes = {

@@ -5,7 +5,6 @@ import { formatNumber } from 'utils/formaters';
 import { hostUrl } from 'utils/urls';
 
 // Panels
-import DetailPage from './DetailPage/DetailPage';
 import TablePrice from './Table/TablePrice';
 import TableBroker from './Table/TableBroker';
 import TableDealer from './Table/TableDealer';
@@ -13,30 +12,12 @@ import TableComments from './Table/TableComments';
 import TableTask from './Table/TableTask';
 import TableOptions from './Table/TableOptions';
 
-const statusColors = {
-  '': 'posted',
-  17519: 'draft',
-  18709: 'moderation',
-  18710: 'rejected',
-  18711: 'preparatory',
-  14115: 'sold',
-  14116: 'withdrawn',
-};
-
-function getStatusColor(value) {
-  return statusColors[value] || 'posted';
-}
-
 export default class BrokerTable extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       listingItems: props.listingItems || [],
-      detailPageSettings: {
-        active: false,
-        id: '',
-      },
     };
 
     this.pageIndex = this.props.query.PAGE || 0;
@@ -51,21 +32,6 @@ export default class BrokerTable extends React.Component {
     this.setState({ listingItems: nextProps.listingItems });
   }
 
-  openDetailPage = (id) => {
-    this.setState({
-      detailPageSettings: {
-        active: true,
-        id,
-      },
-    });
-  };
-
-  closeDetailPage = () => {
-    this.setState({
-      detailPageSettings: { active: false },
-    });
-  };
-
   render() {
     function getImage(item) {
       return item.DETAIL_PICTURE_TEXT ?
@@ -73,13 +39,11 @@ export default class BrokerTable extends React.Component {
         'http://via.placeholder.com/200?text=A';
     }
 
-    const { refreshListingItem } = this.props;
-    const { detailPageSettings } = this.state;
-    const detailPageData = {
-      id: detailPageSettings.id,
-      closeDetailPage: this.closeDetailPage,
+    const {
+      refreshListingItem,
+      openDetailPage,
       getStatusColor,
-    };
+    } = this.props;
 
     return (
       <div>
@@ -98,6 +62,7 @@ export default class BrokerTable extends React.Component {
               PROPERTY_KLIENT_FIO_VALUE: dealer,
               SCORE: likes,
               SHOW_COUNTER: viewed,
+              commentsPopoverActive,
             } = item;
             const statusColor = getStatusColor(item.PROPERTY_STATUS_OBJ_ENUM_ID);
             const price = +item.PROPERTY_PRICE_BUSINESS_VALUE;
@@ -106,8 +71,8 @@ export default class BrokerTable extends React.Component {
             return (
               <div className="table-row" key={`table-item-${Math.floor(Date.now() * Math.random())}`}>
                 <div className="table-cell table-col__checkbox">
-                  <label className="checkbox" htmlFor={`checkbox-${item.ID}`}>
-                    <input id={`checkbox-${item.ID}`} type="checkbox" />
+                  <label className="checkbox" htmlFor={`checkbox-${id}`}>
+                    <input id={`checkbox-${id}`} type="checkbox" />
                     <div className="checkbox_indicator" />
                   </label>
                 </div>
@@ -117,10 +82,10 @@ export default class BrokerTable extends React.Component {
                 <div className="table-cell table-col__id">
                   <div
                     className="table-cell__id"
-                    onClick={() => this.openDetailPage(id)}
+                    onClick={() => openDetailPage(id)}
                     role="button"
                     tabIndex="0"
-                  >{item.ID}</div>
+                  >{id}</div>
                 </div>
                 <div className="table-cell table-col__img no-padding">
                   <div className="table-col__img">
@@ -139,12 +104,11 @@ export default class BrokerTable extends React.Component {
                   <TablePrice
                     id={id}
                     price={price}
-                    refreshListingItem={refreshListingItem}
                   />
                 </div>
                 <div className="table-cell table-col__profit align-right no-padding-left">{profit}</div>
                 <div className="table-cell table-col__broker no-padding-left">
-                  <TableBroker broker={broker} />
+                  <TableBroker id={id} broker={broker} />
                 </div>
                 <div className="table-cell table-col__dealer no-padding-left">
                   <TableDealer dealer={dealer} />
@@ -154,7 +118,12 @@ export default class BrokerTable extends React.Component {
                 <div className="table-cell table-col__watched align-right no-padding-right">{viewed || '-'}</div>
                 <div className="table-cell table-col__like align-right no-padding-right">{likes}</div>
                 <div className="table-cell table-col__comments align-center no-padding-right">
-                  <TableComments id={id} comments={comments} />
+                  <TableComments
+                    id={id}
+                    comments={comments}
+                    refreshListingItem={refreshListingItem}
+                    commentsPopoverActive={commentsPopoverActive}
+                  />
                 </div>
                 <div className="table-cell table-col__actions no-padding">
                   <div className="table-cell__actions">
@@ -162,7 +131,7 @@ export default class BrokerTable extends React.Component {
                       <TableTask />
                     </div>
                     <div className="table-cell__action-right">
-                      <TableOptions id={id} openDetailPage={this.openDetailPage} />
+                      <TableOptions id={id} openDetailPage={openDetailPage} />
                     </div>
                   </div>
                 </div>
@@ -171,16 +140,14 @@ export default class BrokerTable extends React.Component {
           })
           : <div className="table-cover">Ничего не найдено.</div>
         }
-        {
-          detailPageSettings.active &&
-          <DetailPage {...detailPageData} />
-        }
       </div>
     );
   }
 }
 
 BrokerTable.propTypes = {
+  openDetailPage: PropTypes.func.isRequired,
+  getStatusColor: PropTypes.func.isRequired,
   fetchListing: PropTypes.func.isRequired,
   listingItems: PropTypes.arrayOf(PropTypes.object),
   query: PropTypes.shape({

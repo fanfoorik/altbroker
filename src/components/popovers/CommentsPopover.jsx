@@ -5,7 +5,6 @@ import ajax from 'utils/ajax';
 
 import CommentsList from 'components/Comments/CommentsList';
 import CommentsForm from 'components/Comments/CommentsForm';
-import Icon from 'components/Icon';
 
 import PopoverBaseHOC from 'components/popovers/PopoverBaseHOC';
 import PopoverWithTabsHOC from 'components/popovers/PopoverWithTabsHOC';
@@ -33,15 +32,20 @@ class CommentsPopover extends React.Component {
         if (!data.ERRORS.length) {
           ths.setState({
             staffComments: data.ANSWER.COMMENTS.INNER_COM,
-            clientComments: data.ANSWER.COMMENTS.KLIENT_COM,
+            clientComments:  data.ANSWER.COMMENTS.KLIENT_COM,
           });
         }
       });
   };
 
   updateComments = (data) => {
-    this.setState({
-      staffComments: data.ANSWER.COMMENTS.INNER_COM,
+    this.setState((prevState) => {
+      const staffComments = data.ANSWER.COMMENTS.INNER_COM;
+      const commentsLength = (staffComments.length + prevState.clientComments.length).toString();
+      this.props.updateCommentsLength(commentsLength);
+      return {
+        staffComments,
+      };
     });
     this.scrollable.scrollTop = this.scrollable.scrollHeight;
   };
@@ -84,6 +88,7 @@ class CommentsPopover extends React.Component {
 CommentsPopover.propTypes = {
   id: PropTypes.string.isRequired,
   providePopover: PropTypes.func.isRequired,
+  updateCommentsLength: PropTypes.func.isRequired,
 };
 
 export default compose(PopoverBaseHOC, PopoverWithTabsHOC)(CommentsPopover);
