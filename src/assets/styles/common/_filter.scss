@@ -24,7 +24,7 @@
 
     &:hover,
     &.active {
-      z-index: 1;
+      z-index: 9;
     }
 
     &_hover {
@@ -91,6 +91,249 @@
   }
 }
 
+.form-header {
+  overflow: hidden;
+  background-color: $c-grey-light;
+  padding: 8px 12px 8px 15px;
+  font-size: 12px;
+
+  &__name {
+    float: left;
+
+    &_number {
+      display: inline-block;
+      border-radius: 100%;
+      width: 15px;
+      height: 15px;
+      color: $c-white;
+      font-size: 12px;
+      background-color: $c-grey-middle;
+      margin-left: 5px;
+      text-align: center;
+
+    }
+  }
+
+  &__subcategory {
+    float: right;
+    color: $c-grey-main;
+    cursor: pointer;
+
+  }
+}
+
+.form-dropdown {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 100%;
+  margin-top: 1px;
+  background: $bg-white;
+  box-shadow: 0 0 18px rgba($c-black, 0.2);
+
+  &_two {
+    width: 200%;
+    overflow: hidden;
+    background-color: $c-white;
+
+    .form-block {
+      float: left;
+      width: 50%;
+
+      &:first-child {
+        border-right: 1px solid $c-border-main;
+      }
+    }
+  }
+}
+
+.form-search {
+  border-bottom: 1px solid $c-border-main;
+  position: relative;
+  $this: &;
+
+  &__input.input {
+    border: 0;
+    height: 36px;
+    padding: 10px 60px 12px 16px;
+    font-size: 12px;
+  }
+
+  &__submit {
+    position: absolute;
+    right: 0;
+    top: 5px;
+    width: 44px;
+    height: 36px;
+    border-width: 0;
+    background: none;
+    cursor: pointer;
+
+    .form-search__icon {
+      cursor: pointer;
+      fill: $c-grey-middle;
+      stroke: $c-grey-middle;
+      transition: 0.3s;
+    }
+
+    &:hover .form-search__icon {
+      fill: $c-blue-main;
+      stroke: $c-blue-main;
+    }
+  }
+}
+
+.form-controls {
+  border-top: 1px solid $c-border-main;
+  color: $c-grey-middle;
+  padding: 2px 8px 2px 16px;
+  font-size: 12px;
+  overflow: hidden;
+  width: 100%;
+
+  &__reset {
+    float: left;
+    margin-top: 8px;
+    cursor: pointer;
+
+    &:hover {
+      cursor: default;
+      fill: $c-grey-middle;
+      opacity: 0.5;
+    }
+  }
+
+  &__actions {
+    float: right;
+
+    &_item {
+      margin: 0 0 0 8px;
+      padding: 8px;
+      background: none;
+      border-width: 0;
+      display: inline-block;
+
+      &.disabled .icon {
+        cursor: default;
+        fill: $c-grey-middle;
+        opacity: 0.5;
+      }
+    }
+  }
+
+  .icon__close {
+    cursor: pointer;
+
+    &:hover {
+      fill: $c-blue-main;
+    }
+  }
+}
+
+.form-block {
+  height: 260px;
+  overflow: auto;
+}
+
+
+.form-range {
+  width: 100%;
+  height: 205px;
+  overflow: auto;
+  $this: &;
+
+  .form-block {
+    height: auto;
+  }
+
+  &__list {
+    padding: 12px;
+
+    &_item {
+      color: $c-grey-middle;
+      cursor: pointer;
+      text-align: right;
+      margin-bottom: 5px;
+
+      &:hover {
+        color: $c-blue-main;
+      }
+
+      &:nth-of-type(n) {
+        margin-bottom: 5px;
+      }
+    }
+  }
+
+  input#{$this}__input {
+    border: 0;
+    border-radius: 0;
+    margin: 0;
+    height: 38px;
+    width: 100%;
+    font-size: 14px;
+    border-bottom: 1px solid $c-border-main;
+
+    &:hover, &:focus {
+      border-color: $c-blue-light;
+    }
+  }
+
+  &__zone {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: $c-grey-middle;
+  }
+}
+
+.form-recoupment {
+  width: 200%;
+  margin-left: -100%;
+}
+
+.form-profit {
+  width: 200%;
+}
+
+
+.form-checkboxes {
+  padding: 10px 12px;
+
+  &__hr {
+    height: 1px;
+    background-color: $c-grey-light;
+    border: 0;
+    margin: 10px 5px;
+  }
+
+  &__item {
+    margin-bottom: 4px;
+
+    .checkbox:hover {
+      color: $c-blue-main;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.checkboxes-categor {
+  background-color: $c-grey-light;
+  margin: -11px -12px 10px;
+  padding: 8px 12px;
+  border-bottom: 1px solid $c-border-main;
+  border-top: 1px solid $c-border-main;
+}
+
+.checkboxes-no label.checkbox {
+  display: initial;
+  width: 0;
+  margin-left: 5px;
+}
+
 .filter-controls {
   display: table;
   width: 100%;
@@ -141,10 +384,8 @@
         fill: $c-grey-main;
       }
 
-      &:hover {
-        .filter-reset-icon {
-          fill: $c-red-main
-        }
+      &:hover .filter-reset-icon {
+        fill: $c-red-main;
       }
     }
   }
@@ -208,14 +449,4 @@
   &:hover {
     color: $c-blue-main;
   }
-}
-
-.filter-tooltip {
-  position: absolute;
-  left: 0;
-  top: 100%;
-  width: 100%;
-  margin-top: 1px;
-  background: $bg-white;
-  box-shadow: 0 0 18px rgba($c-black, 0.2);
 }
