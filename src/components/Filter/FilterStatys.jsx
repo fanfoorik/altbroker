@@ -7,39 +7,48 @@ import FilterTooltipHOC from 'components/Filter/FilterTooltipHOC';
 class FilterCategory extends React.Component {
   render() {
     return (
-      <div className="form-dropdown">
+      <div className="form-dropdown form-statys">
         <div onSubmit={this.submitSearch}>
           <div className="form-block">
-            <div className="form-search">
-              <input
-                className="form-search__input input"
-                onChange={this.typeComment}
-                placeholder="Поиск"
-                type="text"
-              />
-              <button type="submit" className="form-search__submit">
-                <Icon
-                  className="search__icon-icon"
-                  icon="lens"
-                  width="15"
-                  height="15"
-                />
-              </button>
-            </div>
 
             <div className="form-checkboxs">
               <div className="form-checkboxs__item">
-                <label className="checkbox" htmlFor="checkbox-select-all"> Пекарский А.
+              <label className="checkbox" htmlFor="checkbox-select-all"> Черновик
+                <input type="checkbox" id="checkbox-select-all" />
+                <div className="checkbox_indicator" />
+              </label>
+            </div>
+              <div className="form-checkboxs__item">
+                <label className="checkbox" htmlFor="checkbox-select-all"> На модерации
                   <input type="checkbox" id="checkbox-select-all" />
                   <div className="checkbox_indicator" />
                 </label>
               </div>
               <div className="form-checkboxs__item">
-                <label className="checkbox" htmlFor="checkbox-select-all"> Пекарский А.
+                <label className="checkbox" htmlFor="checkbox-select-all"> Отклонен
                   <input type="checkbox" id="checkbox-select-all" />
                   <div className="checkbox_indicator" />
                 </label>
               </div>
+              <div className="form-checkboxs__item">
+                <label className="checkbox" htmlFor="checkbox-select-all"> Черновик
+                  <input type="checkbox" id="checkbox-select-all" />
+                  <div className="checkbox_indicator" />
+                </label>
+              </div>
+              <div className="form-checkboxs__item">
+                <label className="checkbox" htmlFor="checkbox-select-all"> На модерации
+                  <input type="checkbox" id="checkbox-select-all" />
+                  <div className="checkbox_indicator" />
+                </label>
+              </div>
+              <div className="form-checkboxs__item">
+                <label className="checkbox" htmlFor="checkbox-select-all"> Отклонен
+                  <input type="checkbox" id="checkbox-select-all" />
+                  <div className="checkbox_indicator" />
+                </label>
+              </div>
+
             </div>
           </div>
 

@@ -3,6 +3,12 @@ import React from 'react';
 
 import Icon from 'components/Icon';
 import FilterCategory from 'components/Filter/FilterCategory';
+import FilterCity from 'components/Filter/FilterCity';
+import FilterBrokers from 'components/Filter/FilterBrokers';
+import FilterStatys from 'components/Filter/FilterStatys';
+import FilterRange from 'components/Filter/FilterRange';
+import FilterRangeRecoupment from 'components/Filter/FilterRangeRecoupment';
+import FilterRangeProfit from 'components/Filter/FilterRangeProfit';
 
 export default class BusinessFilter extends React.Component {
 
@@ -36,29 +42,31 @@ export default class BusinessFilter extends React.Component {
                 <span className="filter-trigger__more">и еще 2</span>
                 <span className="filter-trigger__value">Пиццерии Фитнес-бары</span>
               </div>
-
-              {/*<FilterCategory />*/}
+              <FilterCategory />
             </div>
 
-            <div className="filter__cell filter__cell_hover">
+            <div className="filter__cell filter__cell_hover filter-trigger_binded">
               <div className="filter-trigger">
                 <span className="filter-trigger__label">Цена</span>
               </div>
+              <FilterRange />
             </div>
 
             <div className="filter__cell">
               <div className="filter__row clear">
 
-                <div className="filter__cell filter__cell_deeper filter__cell_hover">
+                <div className="filter__cell filter__cell_deeper filter__cell_hover ">
                   <div className="filter-trigger">
                     <span className="filter-trigger__label">Прибыль</span>
                   </div>
+                  <FilterRangeProfit />
                 </div>
 
                 <div className="filter__cell filter__cell_deeper filter__cell_hover">
                   <div className="filter-trigger">
                     <span className="filter-trigger__label">Окупаемость</span>
                   </div>
+                  {/*<FilterRangeRecoupment />*/}
                 </div>
 
               </div>
@@ -79,16 +87,18 @@ export default class BusinessFilter extends React.Component {
 
           <div className="filter__row clear">
 
-            <div className="filter__cell filter__cell_hover">
+            <div className="filter__cell filter__cell_hover active">
               <div className="filter-trigger">
                 <span className="filter-trigger__label">Брокер</span>
               </div>
+              <FilterBrokers />
             </div>
 
-            <div className="filter__cell filter__cell_hover">
+            <div className="filter__cell filter__cell_hover filter-trigger_binded">
               <div className="filter-trigger">
                 <span className="filter-trigger__label">Город / Район</span>
               </div>
+              <FilterCity />
             </div>
 
             <div className="filter__cell filter__cell_hover">
@@ -97,11 +107,13 @@ export default class BusinessFilter extends React.Component {
               </div>
             </div>
 
-            <div className="filter__cell filter__cell_hover">
+            <div className="filter__cell filter__cell_hover filter-trigger_binded">
               <div className="filter-trigger">
                 <span className="filter-trigger__label">Статус</span>
               </div>
+              {/*<FilterStat />*/}
             </div>
+
           </div>
 
           <div className="filter-footer clear">

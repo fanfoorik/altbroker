@@ -28,6 +28,12 @@ class FilterCategory extends React.Component {
             </div>
 
             <div className="form-checkboxs">
+              <div className="form-checkboxs__item-categor">
+                <label className="checkbox" htmlFor="checkbox-select-all"> Отдел продаж (СПб)
+                  <input type="checkbox" id="checkbox-select-all" />
+                  <div className="checkbox_indicator" />
+                </label>
+              </div>
               <div className="form-checkboxs__item">
                 <label className="checkbox" htmlFor="checkbox-select-all"> Пекарский А.
                   <input type="checkbox" id="checkbox-select-all" />
@@ -36,6 +42,38 @@ class FilterCategory extends React.Component {
               </div>
               <div className="form-checkboxs__item">
                 <label className="checkbox" htmlFor="checkbox-select-all"> Пекарский А.
+                  <input type="checkbox" id="checkbox-select-all" />
+                  <div className="checkbox_indicator" />
+                </label>
+              </div>
+              <div className="form-checkboxs__item">
+                <label className="checkbox" htmlFor="checkbox-select-all"> Соловьев И.
+                  <input type="checkbox" id="checkbox-select-all" />
+                  <div className="checkbox_indicator" />
+                </label>
+              </div>
+            </div>
+            <div className="form-checkboxs">
+              <div className="form-checkboxs__item-categor">
+                <label className="checkbox" htmlFor="checkbox-select-all"> Отдел продаж (СПб)
+                  <input type="checkbox" id="checkbox-select-all" />
+                  <div className="checkbox_indicator" />
+                </label>
+              </div>
+              <div className="form-checkboxs__item">
+                <label className="checkbox" htmlFor="checkbox-select-all"> Пекарский А.
+                  <input type="checkbox" id="checkbox-select-all" />
+                  <div className="checkbox_indicator" />
+                </label>
+              </div>
+              <div className="form-checkboxs__item">
+                <label className="checkbox" htmlFor="checkbox-select-all"> Пекарский А.
+                  <input type="checkbox" id="checkbox-select-all" />
+                  <div className="checkbox_indicator" />
+                </label>
+              </div>
+              <div className="form-checkboxs__item">
+                <label className="checkbox" htmlFor="checkbox-select-all"> Соловьев И.
                   <input type="checkbox" id="checkbox-select-all" />
                   <div className="checkbox_indicator" />
                 </label>
