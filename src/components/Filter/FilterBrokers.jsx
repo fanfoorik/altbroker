@@ -8,7 +8,6 @@ class FilterCategory extends React.Component {
   render() {
     return (
       <div className="form-dropdown">
-        <div onSubmit={this.submitSearch}>
           <div className="form-block">
             <div className="form-search">
               <input
@@ -19,7 +18,7 @@ class FilterCategory extends React.Component {
               />
               <button type="submit" className="form-search__submit">
                 <Icon
-                  className="search__icon-icon"
+                  className="form-search__icon"
                   icon="lens"
                   width="15"
                   height="15"
@@ -27,52 +26,52 @@ class FilterCategory extends React.Component {
               </button>
             </div>
 
-            <div className="form-checkboxs">
-              <div className="form-checkboxs__item-categor">
+            <div className="form-checkboxes">
+              <div className="form-checkboxes__item checkboxes-categor">
                 <label className="checkbox" htmlFor="checkbox-select-all"> Отдел продаж (СПб)
                   <input type="checkbox" id="checkbox-select-all" />
                   <div className="checkbox_indicator" />
                 </label>
               </div>
-              <div className="form-checkboxs__item">
+              <div className="form-checkboxes__item">
                 <label className="checkbox" htmlFor="checkbox-select-all"> Пекарский А.
                   <input type="checkbox" id="checkbox-select-all" />
                   <div className="checkbox_indicator" />
                 </label>
               </div>
-              <div className="form-checkboxs__item">
+              <div className="form-checkboxes__item">
                 <label className="checkbox" htmlFor="checkbox-select-all"> Пекарский А.
                   <input type="checkbox" id="checkbox-select-all" />
                   <div className="checkbox_indicator" />
                 </label>
               </div>
-              <div className="form-checkboxs__item">
+              <div className="form-checkboxes__item">
                 <label className="checkbox" htmlFor="checkbox-select-all"> Соловьев И.
                   <input type="checkbox" id="checkbox-select-all" />
                   <div className="checkbox_indicator" />
                 </label>
               </div>
             </div>
-            <div className="form-checkboxs">
-              <div className="form-checkboxs__item-categor">
+            <div className="form-checkboxes">
+              <div className="form-checkboxes__item checkboxes-categor">
                 <label className="checkbox" htmlFor="checkbox-select-all"> Отдел продаж (СПб)
                   <input type="checkbox" id="checkbox-select-all" />
                   <div className="checkbox_indicator" />
                 </label>
               </div>
-              <div className="form-checkboxs__item">
+              <div className="form-checkboxes__item">
                 <label className="checkbox" htmlFor="checkbox-select-all"> Пекарский А.
                   <input type="checkbox" id="checkbox-select-all" />
                   <div className="checkbox_indicator" />
                 </label>
               </div>
-              <div className="form-checkboxs__item">
+              <div className="form-checkboxes__item">
                 <label className="checkbox" htmlFor="checkbox-select-all"> Пекарский А.
                   <input type="checkbox" id="checkbox-select-all" />
                   <div className="checkbox_indicator" />
                 </label>
               </div>
-              <div className="form-checkboxs__item">
+              <div className="form-checkboxes__item">
                 <label className="checkbox" htmlFor="checkbox-select-all"> Соловьев И.
                   <input type="checkbox" id="checkbox-select-all" />
                   <div className="checkbox_indicator" />
@@ -103,7 +102,6 @@ class FilterCategory extends React.Component {
               </div>
             </div>
           </div>
-        </div>
       </div>
     );
   }

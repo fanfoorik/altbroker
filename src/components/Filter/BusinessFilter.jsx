@@ -42,10 +42,10 @@ export default class BusinessFilter extends React.Component {
                 <span className="filter-trigger__more">и еще 2</span>
                 <span className="filter-trigger__value">Пиццерии Фитнес-бары</span>
               </div>
-              <FilterCategory />
+              {/*<FilterCategory />*/}
             </div>
 
-            <div className="filter__cell filter__cell_hover filter-trigger_binded">
+            <div className="filter__cell filter__cell_hover filter-trigger_binded active">
               <div className="filter-trigger">
                 <span className="filter-trigger__label">Цена</span>
               </div>
@@ -98,7 +98,7 @@ export default class BusinessFilter extends React.Component {
               <div className="filter-trigger">
                 <span className="filter-trigger__label">Город / Район</span>
               </div>
-              <FilterCity />
+              {/*<FilterCity />*/}
             </div>
 
             <div className="filter__cell filter__cell_hover">
@@ -107,11 +107,11 @@ export default class BusinessFilter extends React.Component {
               </div>
             </div>
 
-            <div className="filter__cell filter__cell_hover filter-trigger_binded">
+            <div className="filter__cell filter__cell_hover filter-trigger_binded active">
               <div className="filter-trigger">
                 <span className="filter-trigger__label">Статус</span>
               </div>
-              {/*<FilterStat />*/}
+              {/*<FilterStatys />*/}
             </div>
 
           </div>
