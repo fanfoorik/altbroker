@@ -44,7 +44,7 @@ class TaskPopover extends React.Component {
   taskAction = (event) => {
     const action = event.target.dataset.action;
     const isActive = !event.target.classList.contains('disabled');
-    const { id, pageUrl, brokerEmail } = this.props;
+    const { id, pageUrl, brokerEmail, triggerPopover } = this.props;
     const ths = this;
 
     if (isActive) {
@@ -54,6 +54,7 @@ class TaskPopover extends React.Component {
         ACTION: action,
       })
         .then((data) => {
+          triggerPopover();
           ths.setState({
             tasklist: data.ANSWER.BUTTONS,
             taskHistory: data.ANSWER.HISTORY,
