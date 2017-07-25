@@ -41,7 +41,6 @@
   }
 
   .icon {
-    cursor: pointer;
     fill: $c-grey-middle;
     transition: 0.3s;
   }
@@ -259,37 +258,40 @@ input.popover-input {
 
 .popover-actions-list {
   border-top: 1px solid $c-popover-border;
-  display: flex;
-  justify-content: flex-end;
   margin: 0 -16px -16px;
   padding: 0 8px;
+  text-align: right;
 }
 
 .popover-actions-item {
+  display: inline-block;
   margin: 0 0 0 8px;
   padding: 8px;
   background: none;
   border-width: 0;
+  cursor: pointer;
 
   .icon {
     fill: $c-grey-dark;
   }
 
-  &.disabled .icon {
+  &.disabled {
     cursor: default;
-    fill: $c-grey-middle;
-    opacity: 0.5;
+
+    .icon {
+      cursor: default;
+      fill: $c-grey-middle;
+      opacity: 0.5;
+    }
   }
 
-  &:not(.disabled) .icon:hover {
+  &:not(.disabled):hover .icon {
     fill: $c-blue-main;
   }
 
   &_share {
-    display: flex;
-    flex: 1;
-    padding: 0 0 0 5px;
     margin-left: 0;
+    float: left;
   }
 }
 
@@ -323,33 +325,42 @@ input.popover-input {
   }
 }
 
+.popover-deal-list {
+  min-height: 80px;
+}
+
 // Popover with deal list:
 .popover-deal-item {
+  display: block;
   border-bottom: 1px solid $c-popover-border;
   color: $c-listing-dark-grey;
-  cursor: pointer;
-  display: flex;
   margin: 0 -#{$listing-offset};
-  padding: 11px 21px;
+  padding: 11px 21px 11px 38px;
   transition: 0.3s;
+  position: relative;
 
   &:last-child {
     border: 0;
   }
 
-  &.active,
-  &:hover,
-  &:active {
-    color: $c-blue-main;
-    background-color: $c-blue-transparent;
+  &_link {
+    cursor: pointer;
 
-    .icon {
-      fill: $c-blue-main;
+    &:hover {
+      color: $c-blue-main;
+      background-color: $c-blue-transparent;
+      text-decoration: none;
+
+      .icon {
+        fill: $c-blue-main;
+      }
     }
   }
 
   .icon {
-    margin: 0 16px 0 0;
+    position: absolute;
+    left: 16px;
+    top: 11px;
   }
 }
 

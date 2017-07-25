@@ -8,8 +8,11 @@ import PopoverTriggerHOC from 'components/popovers/PopoverTriggerHOC';
 
 const TableTask = (props) => {
   const {
+    id,
     active,
     triggerPopover,
+    pageUrl,
+    brokerEmail,
   } = props;
 
   return (
@@ -23,9 +26,11 @@ const TableTask = (props) => {
         tabIndex="0"
         onClick={triggerPopover}
       />
-      <IsActive active={active}>
-        <TaskPopover triggerPopover={triggerPopover} />
-      </IsActive>
+
+      {
+        active &&
+        <TaskPopover id={id} pageUrl={pageUrl} brokerEmail={brokerEmail} triggerPopover={triggerPopover} />
+      }
     </div>
   );
 };
@@ -33,6 +38,8 @@ const TableTask = (props) => {
 TableTask.propTypes = {
   active: PropTypes.bool.isRequired,
   triggerPopover: PropTypes.func.isRequired,
+  pageUrl: PropTypes.string.isRequired,
+  brokerEmail: PropTypes.string.isRequired,
 };
 
 export default PopoverTriggerHOC(TableTask);

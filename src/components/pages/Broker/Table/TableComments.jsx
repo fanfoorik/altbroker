@@ -13,10 +13,6 @@ class TableComments extends React.Component {
     };
   }
 
-  componentWillReceiveProps() {
-    console.log('componentWillReceiveProps');
-  }
-
   updateCommentsLength = (commentsLength) => {
     this.setState({ comments: commentsLength });
   };

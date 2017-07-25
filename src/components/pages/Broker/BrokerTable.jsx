@@ -62,6 +62,8 @@ export default class BrokerTable extends React.Component {
               PROPERTY_KLIENT_FIO_VALUE: dealer,
               SCORE: likes,
               SHOW_COUNTER: viewed,
+              DETAIL_PAGE_URL: pageUrl,
+              PROPERTY_BROKER_VALUE_EMAIL: brokerEmail,
               commentsPopoverActive,
             } = item;
             const statusColor = getStatusColor(item.PROPERTY_STATUS_OBJ_ENUM_ID);
@@ -101,17 +103,14 @@ export default class BrokerTable extends React.Component {
                 <div className="table-cell table-col__category">{category}</div>
                 <div className="table-cell table-col__location no-padding">{location}</div>
                 <div className="table-cell table-col__price align-right no-padding-left">
-                  <TablePrice
-                    id={id}
-                    price={price}
-                  />
+                  <TablePrice id={id} price={price} />
                 </div>
                 <div className="table-cell table-col__profit align-right no-padding-left">{profit}</div>
                 <div className="table-cell table-col__broker no-padding-left">
                   <TableBroker id={id} broker={broker} />
                 </div>
                 <div className="table-cell table-col__dealer no-padding-left">
-                  <TableDealer dealer={dealer} />
+                  <TableDealer id={id} dealer={dealer} />
                 </div>
                 <div className="table-cell table-col__created no-padding-left">{created}</div>
                 <div className="table-cell table-col__updated no-padding-left">{lastUpdate}</div>
@@ -128,7 +127,7 @@ export default class BrokerTable extends React.Component {
                 <div className="table-cell table-col__actions no-padding">
                   <div className="table-cell__actions">
                     <div className="table-cell__action-left">
-                      <TableTask />
+                      <TableTask id={id} pageUrl={pageUrl} brokerEmail={brokerEmail} />
                     </div>
                     <div className="table-cell__action-right">
                       <TableOptions id={id} openDetailPage={openDetailPage} />
