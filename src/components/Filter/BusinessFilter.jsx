@@ -59,7 +59,7 @@ export default class BusinessFilter extends React.Component {
                   <div className="filter-trigger">
                     <span className="filter-trigger__label">Прибыль</span>
                   </div>
-                  <FilterRangeProfit />
+                  {/*<FilterRangeProfit />*/}
                 </div>
 
                 <div className="filter__cell filter__cell_deeper filter__cell_hover">
