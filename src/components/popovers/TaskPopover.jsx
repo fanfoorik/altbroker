@@ -56,6 +56,7 @@ class TaskPopover extends React.Component {
         .then((data) => {
           ths.setState({
             tasklist: data.ANSWER.BUTTONS,
+            taskHistory: data.ANSWER.HISTORY,
           });
         });
     }
