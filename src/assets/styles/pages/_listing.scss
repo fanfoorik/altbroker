@@ -169,6 +169,8 @@
 
 // All table cells:
 .table-cell {
+  $this: &;
+
   &__span {
     display: inline-block;
     height: 47px;
@@ -196,13 +198,8 @@
     min-height: 40px;
     padding: 11px 0 0 16px;
 
-    svg {
-      opacity: 0;
-      transition: 0.3s;
-    }
-
-    .table-row:hover & svg {
-      opacity: 1;
+    .table-row:hover & #{$this}__list {
+      opacity: 0.6;
     }
   }
 
@@ -223,7 +220,7 @@
   &__list {
     cursor: pointer;
     fill: $c-black;
-    opacity: 0.6;
+    opacity: 0;
     transition: 0.3s;
   }
 
