@@ -72,11 +72,6 @@ export default class Broker extends React.Component {
       getStatusColor,
     };
 
-    const options = [
-      { value: 'one', label: 'One' },
-      { value: 'two', label: 'Two2' },
-    ];
-
     return (
       <div>
         <div className="container">

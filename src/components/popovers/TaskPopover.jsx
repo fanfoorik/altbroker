@@ -16,6 +16,7 @@ class TaskPopover extends React.Component {
         BUTT_edit: {},
         BUTT_del: {},
       },
+      taskHistory: [],
     };
   }
 
@@ -28,19 +29,38 @@ class TaskPopover extends React.Component {
     const ths = this;
 
     ajax.post(`broker/gb/${id}/gettasks/`, {
-      PROPERTY_BROKER_VALUE_TEXT: '',
       DETAIL_PAGE_URL: pageUrl,
       PROPERTY_BROKER_VALUE_EMAIL: brokerEmail,
       ACTION: 'status',
     })
       .then((data) => {
-        const history = data.ANSWER.HISTORY;
-        ths.setState({ tasklist: data.ANSWER.BUTTONS });
+        ths.setState({
+          tasklist: data.ANSWER.BUTTONS,
+          taskHistory: data.ANSWER.HISTORY,
+        });
       });
   };
 
   taskAction = (event) => {
-    console.log(event);
+    const action = event.target.dataset.action;
+    const isActive = !event.target.classList.contains('disabled');
+    const { id, pageUrl, brokerEmail, triggerPopover } = this.props;
+    const ths = this;
+
+    if (isActive) {
+      ajax.post(`broker/gb/${id}/gettasks/`, {
+        DETAIL_PAGE_URL: pageUrl,
+        PROPERTY_BROKER_VALUE_EMAIL: brokerEmail,
+        ACTION: action,
+      })
+        .then((data) => {
+          triggerPopover();
+          ths.setState({
+            tasklist: data.ANSWER.BUTTONS,
+            taskHistory: data.ANSWER.HISTORY,
+          });
+        });
+    }
   };
 
   render() {
@@ -51,6 +71,7 @@ class TaskPopover extends React.Component {
       BUTT_edit,
       BUTT_del,
     } = this.state.tasklist;
+    const { taskHistory } = this.state;
 
     return (
       <div className="popover popover_visible popover_lg popover_last" ref={node => providePopover(node)}>
@@ -72,60 +93,28 @@ class TaskPopover extends React.Component {
           <div className="popover-content-wrapper js-popover-tab">
             <div className="popover-history popover-history_task js-scrollable">
               <div>
-                <div className="popover-history__item">
-                  <span className="popover-history__date popover-history__date_task">30.04–</span>
-                  <span className="popover-history__value popover-history__value_task">
-                    <Icon icon="time" width={12} height={12} /> Понижение цены
-                  </span>
-                </div>
-                <div className="popover-history__item">
-                  <span className="popover-history__date popover-history__date_task">28.04-29.04</span>
-                  <span className="popover-history__value popover-history__value_task">
-                    <Icon icon="check" width={12} height={12} /> Изменение
-                  </span>
-                </div>
-                <div className="popover-history__item">
-                  <span className="popover-history__date popover-history__date_task">28.04-29.04</span>
-                  <span className="popover-history__value popover-history__value_task">
-                    <Icon icon="check" width={12} height={12} /> Понижение цены
-                  </span>
-                </div>
-                <div className="popover-history__item">
-                  <span className="popover-history__date popover-history__date_task">28.04-29.04</span>
-                  <span className="popover-history__value popover-history__value_task">
-                    <Icon icon="check" width={12} height={12} /> Понижение цены
-                  </span>
-                </div>
-                <div className="popover-history__item">
-                  <span className="popover-history__date popover-history__date_task">28.04-29.04</span>
-                  <span className="popover-history__value popover-history__value_task">
-                    <Icon icon="check" width={12} height={12} /> Понижение цены
-                  </span>
-                </div>
-                <div className="popover-history__item">
-                  <span className="popover-history__date popover-history__date_task">28.04-29.04</span>
-                  <span className="popover-history__value popover-history__value_task">
-                    <Icon icon="check" width={12} height={12} /> Понижение цены
-                  </span>
-                </div>
-                <div className="popover-history__item">
-                  <span className="popover-history__date popover-history__date_task">28.04-29.04</span>
-                  <span className="popover-history__value popover-history__value_task">
-                    <Icon icon="check" width={12} height={12} /> Понижение цены
-                  </span>
-                </div>
-                <div className="popover-history__item">
-                  <span className="popover-history__date popover-history__date_task">28.04-29.04</span>
-                  <span className="popover-history__value popover-history__value_task">
-                    <Icon icon="check" width={12} height={12} /> Понижение цены
-                  </span>
-                </div>
-                <div className="popover-history__item">
-                  <span className="popover-history__date popover-history__date_task">28.04-29.04</span>
-                  <span className="popover-history__value popover-history__value_task">
-                    <Icon icon="check" width={12} height={12} /> Понижение цены
-                  </span>
-                </div>
+                {
+                  !!taskHistory.length &&
+                  taskHistory.map((item) => {
+                    const {
+                      ID: taskHistoryId,
+                      CREATED_DATE: onDate,
+                      CLOSED_DATE: offDate,
+                      STATUS_TEXT: status,
+                      URL: url,
+                      PROCESS: process,
+                    } = item;
+
+                    return (
+                      <a href={url} key={`task-history-${taskHistoryId}`} target="_blank" className="popover-history__item" rel="noopener noreferrer">
+                        <span className="popover-history__date popover-history__date_task">{`${onDate}-${offDate}`}</span>
+                        <span className="popover-history__value popover-history__value_task">
+                          <Icon icon={process ? 'time' : 'check'} width={12} height={12} /> {status}
+                        </span>
+                      </a>
+                    );
+                  })
+                }
               </div>
             </div>
           </div>
