@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function PopoverTriggerHOC(TriggeredComponent) {
+export default function (TriggeredComponent) {
   return class extends React.Component {
     constructor() {
       super();
@@ -13,6 +13,7 @@ export default function PopoverTriggerHOC(TriggeredComponent) {
 
     render() {
       const { active } = this.state;
+
       return (
         <TriggeredComponent
           {...this.props}

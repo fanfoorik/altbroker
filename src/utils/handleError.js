@@ -7,7 +7,7 @@ export default (error) => {
     // that falls out of the range of 2xx
     const errors = error.response.data.ERRORS;
 
-    if (errors.length && (errors[0].CODE === 1300 || errors[0].CODE === 1301)) {
+    if (errors && errors.length && (errors[0].CODE === 1300 || errors[0].CODE === 1301)) {
       localStorage.removeItem('login');
       localStorage.removeItem('token');
       store.dispatch({ type: AUTH_USER, payload: false });

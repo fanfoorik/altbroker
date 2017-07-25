@@ -1,15 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
 import ajax from 'utils/ajax';
 
 import Icon from 'components/Icon';
 import PopoverBaseHOC from 'components/popovers/PopoverBaseHOC';
 
-class DelegatePopover extends React.Component {
+class DelegateDealerPopover extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { brokers: [] };
+    this.state = {
+      brokers: [],
+    };
   }
 
   componentDidMount() {
@@ -20,20 +21,17 @@ class DelegatePopover extends React.Component {
     event.preventDefault();
     const select = this.brokersSelect;
     if (select) {
-      ajax.post(`broker/gb/${this.props.id}/changebroker/`, {
-        BROKER_ID: select.value,
+      ajax.post(`broker/gb/${this.props.id}/share/`, {
+        USER_TO: select.value,
       })
-        .then(() => {
-          this.props.changeBroker(select.options[select.selectedIndex].text);
-          this.props.triggerPopover();
-        });
+        .then(() => this.props.triggerPopover());
     }
   };
 
   fetchBrokers = () => {
     const ths = this;
-    ajax.post(`broker/gb/${this.props.id}/changebroker/`, {
-      BROKER_ID: '',
+    ajax.post(`broker/gb/${this.props.id}/share/`, {
+      USER_TO: '',
     })
       .then((data) => {
         ths.setState({ brokers: data.ANSWER });
@@ -41,7 +39,7 @@ class DelegatePopover extends React.Component {
   };
 
   render() {
-    const { providePopover, triggerPopover } = this.props;
+    const { triggerPopover, providePopover } = this.props;
     const { brokers } = this.state;
 
     return (
@@ -88,11 +86,10 @@ class DelegatePopover extends React.Component {
   }
 }
 
-DelegatePopover.propTypes = {
+DelegateDealerPopover.propTypes = {
   id: PropTypes.string.isRequired,
-  changeBroker: PropTypes.func.isRequired,
-  providePopover: PropTypes.func.isRequired,
   triggerPopover: PropTypes.func.isRequired,
+  providePopover: PropTypes.func.isRequired,
 };
 
-export default PopoverBaseHOC(DelegatePopover);
+export default PopoverBaseHOC(DelegateDealerPopover);
