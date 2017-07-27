@@ -166,6 +166,7 @@
 .popover-history {
   height: 115px;
   overflow: auto;
+  $this: &;
 
   &_task {
     height: 119px;
@@ -174,6 +175,14 @@
   &__item {
     display: flex;
     margin: 0 0 10px;
+
+    &:hover {
+      text-decoration: none;
+
+      #{$this}__value {
+        color: $c-blue-main;
+      }
+    }
   }
 
   &__date {
@@ -186,7 +195,7 @@
       padding: 0;
       vertical-align: top;
       white-space: nowrap;
-      width: 60px;
+      width: 66px;
     }
   }
 
