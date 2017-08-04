@@ -7,7 +7,7 @@ import BrokerPaginator from './BrokerPaginator';
 import BrokerTable from './BrokerTable';
 import BrokerTableHeader from './BrokerTableHeader';
 
-import BusinessFilter from 'components/Filter/BusinessFilter';
+import GBFilter from 'components/Filter/GBFilter';
 
 import DetailPage from './DetailPage/DetailPage';
 
@@ -32,17 +32,41 @@ export default class Broker extends React.Component {
     this.state = {
       detailPageSettings: {
         active: false,
-          id: '',
+        id: '',
+      },
+      page: {
+        SORT_CODE: ['ID'],
+        SORT_METOD: ['DESC'],
+        PAGE: '1',
+        COUNT: '15',
+        FILTER: {
+          ID: '',
+          ID_NAME_TEL: '',
+          ACTIVE: 'Y',
+          SECTION_ID: [],
+          SECTION_ID_1: [],
+          SECTION_ID_2: [],
+          PROPERTY_STATUS_OBJ: '',
+          PROPERTY_BROKER: [],
+          PROPERTY_GEO_ID: [],
+          PROPERTY_RAYON2: [],
+          PROPERTY_METRO_NEW: [],
+          from_PROPERTY_PRICE_BUSINESS: '',
+          to_PROPERTY_PRICE_BUSINESS: '',
+          from_PROPERTY_CHIST_PRIB: '',
+          to_PROPERTY_CHIST_PRIB: '',
+          from_PROPERTY_OKUP: '',
+          to_PROPERTY_OKUP: '',
+        },
+        SHOW_SHARED: '',
+        DEBUG: '',
       },
     };
   }
 
   openDetailPage = (id) => {
     this.setState({
-      detailPageSettings: {
-        active: true,
-        id,
-      },
+      detailPageSettings: { active: true, id },
     });
   };
 
@@ -65,6 +89,7 @@ export default class Broker extends React.Component {
       page,
       filter,
     } = this.props;
+    // const { FILTER: filter, } = this.state.page;
 
     const { detailPageSettings } = this.state;
 
@@ -79,9 +104,11 @@ export default class Broker extends React.Component {
         <div className="container">
           <ol className="breadcrumb breadcrumb-main">
             <li className="breadcrumb__item">Бизнесы</li>
-            <li className="breadcrumb__item breadcrumb-active"><a className="breadcrumb__item_link" href="#">+ создать новый</a></li>
+            <li className="breadcrumb__item breadcrumb-active">
+              <a className="breadcrumb__item_link" href="#">+ создать новый</a>
+            </li>
           </ol>
-          <BusinessFilter
+          <GBFilter
             filterChange={filterChange}
             filterListing={filterListing}
             filter={filter}

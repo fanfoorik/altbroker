@@ -1,16 +1,16 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Broker from './Broker';
+import GB from './GB';
 
 import {
   fetchListing,
   refreshListingItem,
   filterChange,
   filterListing,
-} from 'actions/pages/brokerActions';
+} from 'actions/pages/GBActions';
 
-import { fetchGBfilter } from 'actions/filterActions';
+import { fetchGBfilter } from 'actions/GBFilterActions';
 
 function mapStateToProps(state) {
   return {
@@ -31,4 +31,4 @@ function mapDispatchToProps(dispatch) {
   }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Broker);
+export default connect(mapStateToProps, mapDispatchToProps)(GB);
