@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import { AUTH_USER } from 'constants/userTypes';
+import EditPage from 'components/pages/EditPage';
 import Admin from 'components/pages/Admin';
 import AppContainer from 'components/App/AppContainer';
 import AuthContainer from 'components/pages/Auth/AuthContainer';
@@ -69,6 +70,8 @@ ReactDOM.render(
         <Route path="admin" component={ProtectedRoute(Admin)}>
           <Route path=":page" />
         </Route>
+
+        <Route path="edit-page" component={ProtectedRoute(EditPage)} />
       </Route>
 
       <Route path="/altbroker3/login" component={AuthContainer} />

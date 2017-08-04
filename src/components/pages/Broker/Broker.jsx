@@ -72,10 +72,18 @@ export default class Broker extends React.Component {
       getStatusColor,
     };
 
+    const options = [
+      { value: 'one', label: 'One' },
+      { value: 'two', label: 'Two2' },
+    ];
+
     return (
       <div>
         <div className="container">
-          <div className="h1">Бизнесы</div>
+          <ol className="breadcrumb breadcrumb-main">
+            <li className="breadcrumb__item">Бизнесы</li>
+            <li className="breadcrumb__item breadcrumb-active"><a className="breadcrumb__item_link" href="#">+ создать новый</a></li>
+          </ol>
           <BusinessFilter
             filterChange={filterChange}
             filterListing={filterListing}

@@ -15,6 +15,10 @@
   margin: 0 auto;
   padding: 0 18px;
   width: 100%;
+
+  &__min {
+    max-width: 825px;
+  }
 }
 
 .page-cover {
