@@ -1,56 +1,56 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Icon from 'components/Icon';
+import { filterItems } from 'utils/filterUtils';
+import preventOverScroll from 'utils/preventOverScroll';
+import FormSearch from 'components/ui/FormSearch';
 import Checkpoint from 'components/ui/Checkpoint';
 
-function CityList(props) {
-  const {
-    subCategories,
-  } = props;
+function SubCategoryList(props) {
+  const { items, changeFilterItem, handleSearch } = props;
+  const { selectedSubCategories } = props.selectedItems;
+  const { searchSubCategory } = props.searchValue;
 
   return (
     <div className="form-column">
 
       <div className="form-header">
-        <div className="form-header__name">Подкатегории</div>
+        <div className="form-header__name">
+          Подкатегории
+          {!!selectedSubCategories.length &&
+            <span className="form-header__name_number">{selectedSubCategories.length}</span>
+          }
+        </div>
       </div>
 
-      <div className="form-search">
-        <input
-          className="form-search__input input"
-          placeholder="Поиск"
-          type="text"
-        />
-        <button type="submit" className="form-search__submit">
-          <Icon
-            className="form-search__icon"
-            icon="lens"
-            width="15"
-            height="15"
-          />
-        </button>
-      </div>
+      <FormSearch value={searchSubCategory} autoFocus onChange={event => handleSearch('SECTION_ID_2', event.target.value)} />
 
-      <div className="form-block">
-
+      <div className="form-block" ref={node => preventOverScroll(node)}>
         <div className="form-checkboxes">
           {
-            subCategories.map((item) => {
-              const {
-                ID: id,
-                NAME: name,
-              } = item;
+            items.map((item) => {
+              const { ID: id, NAME: name, subcateg } = item;
+              const filteredItems = filterItems(searchSubCategory, subcateg);
 
               return (
-                <Checkpoint
-                  key={`brokers-${id}`}
-                  id={id}
-                  // onChange={selectCity}
-                  // checked={selectedCity.indexOf(id) !== -1}
-                  className="form-checkboxes__item"
-                  label={name}
-                />
+                <div key={`subcateg-group-${id}`}>
+                  {!!filteredItems.length &&
+                    <div className="form-checkboxes__item form-checkboxes__item_group">{name}</div>
+                  }
+                  {
+                    filteredItems.map(el => (
+                      <Checkpoint
+                        key={`subcateg-${el.ID}`}
+                        id={el.ID}
+                        onChange={changeFilterItem}
+                        checked={el.checked}
+                        className="form-checkboxes__item"
+                        label={el.name}
+                        name="SECTION_ID_2"
+                      />
+                    ))
+                  }
+                </div>
               );
             })
           }
@@ -60,10 +60,16 @@ function CityList(props) {
   );
 }
 
-CityList.propTypes = {
-  subCategories: PropTypes.arrayOf(PropTypes.object).isRequired,
-  // selectedCity: PropTypes.arrayOf(PropTypes.string).isRequired,
-  // selectCity: PropTypes.func.isRequired,
+SubCategoryList.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  selectedItems: PropTypes.shape({
+    selectedSubCategories: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
+  searchValue: PropTypes.shape({
+    searchSubCategory: PropTypes.string,
+  }).isRequired,
+  changeFilterItem: PropTypes.func.isRequired,
+  handleSearch: PropTypes.func.isRequired,
 };
 
-export default CityList;
+export default SubCategoryList;

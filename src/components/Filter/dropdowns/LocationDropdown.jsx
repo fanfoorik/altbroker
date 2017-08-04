@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import preventOverScroll from 'utils/preventOverScroll';
 import DropdownHOC from 'components/HOC/DropdownHOC';
 import FormSearch from 'components/ui/FormSearch';
 import FormControls from 'components/ui/FormControls';
@@ -27,15 +28,11 @@ function LocationDropdown(props) {
 
         <div className="form-header">
           <div className="form-header__name">Город</div>
-          <div className="form-header__subcategory">
-            Район <Icon className="icon" icon="arrow-right" width={9} height={9} />
-          </div>
         </div>
 
         <FormSearch autoFocus value={searchCity} onChange={event => handleSearch('PROPERTY_GEO_ID', event.target.value)} />
 
-        <div className="form-block">
-
+        <div className="form-block" ref={node => preventOverScroll(node)}>
           <div className="form-checkboxes">
             {
               cities.all.map((item) => {
@@ -56,7 +53,6 @@ function LocationDropdown(props) {
               })
             }
           </div>
-
         </div>
       </div>
 
@@ -75,7 +71,7 @@ function LocationDropdown(props) {
 
           <FormSearch autoFocus value={searchRegions} onChange={event => handleSearch('PROPERTY_RAYON2', event.target.value)} />
 
-          <div className="form-block">
+          <div className="form-block" ref={node => preventOverScroll(node)}>
             <div className="form-checkboxes">
               {
                 regions.all.map((item) => {

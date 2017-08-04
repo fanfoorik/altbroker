@@ -1,76 +1,105 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import { parseCheckObjects } from 'utils/filterUtils';
+
 import DropdownTriggerHOC from 'components/HOC/DropdownTriggerHOC';
 import CategoryDropdown from './dropdowns/CategoryDropdown';
 
-function Category(props) {
-  const {
-    isActive,
-    triggerDropdown,
-    items,
-    selectedItems,
-    changeFilterItem,
-    handleSearch,
-    searchValue,
-    resetSection,
-  } = props;
+class Category extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      categories: {
+        all: [],
+        checked: [],
+      },
+    };
+  }
 
-  const { categories, subCategories } = items;
-  const { selectedCategories, selectedSubCategories } = selectedItems;
-  const { searchCategory, searchSubCategory } = searchValue;
+  componentWillReceiveProps(nextProps) {
+    const { categories: propsCategories } = nextProps.items;
+    const { all: stateCategories } = this.state.categories;
 
-  return (
-    <div className="filter__cell filter__cell_hover active">
-      <div
-        className={`filter-trigger ${selectedCategories.length ? 'filter-trigger_binded' : ''}`}
-        onClick={triggerDropdown}
-        role="button"
-        tabIndex="0"
-      >
-        <span className="filter-trigger__label">Категория</span>
+    this.prepareCategory(
+      nextProps.isActive ? stateCategories : propsCategories,
+      !nextProps.isActive, nextProps);
+  }
+
+  closeCategoryDropdown = () => {
+    this.props.handleSearch('SECTION_ID_1', '');
+    this.props.handleSearch('SECTION_ID_2', '');
+  };
+
+  prepareCategory = (items, raise, nextProps) => {
+    const { subCategories } = this.props.items;
+    const { selectedCategories, selectedSubCategories } = nextProps.selectedItems;
+    const categs = parseCheckObjects(items, selectedCategories, raise);
+
+    categs.checked.forEach((obj) => {
+      const item = obj;
+      const { ID: id } = item;
+      const subcategs = subCategories.filter((el) => {
+        const { IBLOCK_SECTION_ID: categId } = el;
+        return id === categId;
+      });
+      item.subcateg = parseCheckObjects(subcategs, selectedSubCategories, false).all;
+    });
+
+    this.setState({ categories: categs });
+  };
+
+  render() {
+    const { isActive, triggerDropdown } = this.props;
+    const { categories } = this.state;
+
+    return (
+      <div className="filter__cell filter__cell_hover active">
+        <div
+          className={`filter-trigger ${categories.checked.length ? 'filter-trigger_binded' : ''}`}
+          onClick={triggerDropdown}
+          role="button"
+          tabIndex="0"
+        >
+          <span className="filter-trigger__label">Категория</span>
+          {
+            categories.checked.length > 1 &&
+            <span className="filter-trigger__more">и еще {categories.checked.length - 1}</span>
+          }
+          {
+            !!categories.checked.length &&
+            <span className="filter-trigger__value">
+              {
+                categories.checked[0].NAME
+              }
+            </span>
+          }
+        </div>
         {
-          selectedCategories.length > 1 &&
-          <span className="filter-trigger__more">и еще {selectedCategories.length - 1}</span>
-        }
-        {
-          !!selectedCategories.length &&
-          <span className="filter-trigger__value">
-            {
-              categories.map((item) => {
-                const {
-                  ID: id,
-                  NAME: name,
-                } = item;
-
-                if (id === selectedCategories[0]) return name;
-                return false;
-              })
-            }
-          </span>
+          isActive &&
+          <CategoryDropdown
+            {...this.props}
+            items={categories}
+            onClose={this.closeCategoryDropdown}
+          />
         }
       </div>
-      {
-        isActive &&
-        <CategoryDropdown
-          categories={categories}
-          subCategories={subCategories}
-          selectedCategories={selectedCategories}
-          selectCategory={selectCategory}
-          triggerDropdown={triggerDropdown}
-        />
-      }
-    </div>
-  );
+    );
+  }
 }
 
 Category.propTypes = {
   isActive: PropTypes.bool.isRequired,
   triggerDropdown: PropTypes.func.isRequired,
-  // categories: PropTypes.arrayOf(PropTypes.object).isRequired,
-  // subCategories: PropTypes.arrayOf(PropTypes.object).isRequired,
-  // selectedCategories: PropTypes.arrayOf(PropTypes.string).isRequired,
-  // selectCategory: PropTypes.func.isRequired,
+  handleSearch: PropTypes.func.isRequired,
+  items: PropTypes.shape({
+    categories: PropTypes.arrayOf(PropTypes.object).isRequired,
+    subCategories: PropTypes.arrayOf(PropTypes.object).isRequired,
+  }).isRequired,
+  selectedItems: PropTypes.shape({
+    selectedCategories: PropTypes.arrayOf(PropTypes.string),
+    selectedSubCategories: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
 };
 
 export default DropdownTriggerHOC(Category);
