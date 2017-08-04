@@ -5,20 +5,20 @@ import React from 'react';
 export default function Btn(props) {
   console.log(props);
   return (
-    <div className="checkbox-switcher">
+    <div className="switcher">
       <span onClick={props.handleTrue}
-            className={`checkbox-switcher__on checkbox-switcher-check ${props.checked ? '' : 'disabled' }`}>Да</span>
-        <label className="checkbox-switcher__label">
+            className={`switcher__on switcher-check ${props.checked ? '' : 'disabled' }`}>Да</span>
+        <label className="switcher__label">
           <input
             onChange={props.onChange}
-            className="checkbox-switcher__input"
+            className="switcher__input"
             type="checkbox"
             checked={props.checked}
           />
-          <span className="checkbox-switcher__box"></span>
+          <span className="switcher__box"></span>
         </label>
       <span onClick={props.handleFalse}
-            className={`checkbox-switcher__off checkbox-switcher-check ${props.checked ? 'disabled' : ''}`}>Нет</span>
+            className={`switcher__off switcher-check ${props.checked ? 'disabled' : ''}`}>Нет</span>
     </div>
   );
 }

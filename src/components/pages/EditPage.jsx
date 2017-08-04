@@ -66,11 +66,11 @@ export default class editPage extends React.Component {
 
             <div className="edit-page__container">
               <div className="page-panel" data-anchor="basic">
-                <div className="page-panel__title">
-                  <span className="page-panel__title_heading">Основное</span>
+                <div className="page-panel-title">
+                  <span className="page-panel-title__heading">Основное</span>
                   <span className="block-right">
-                    <span className="page-panel__title_status quantity-status"></span>
-                    <span className="page-panel__title_quantity">7/7</span>
+                    <span className="page-panel-title__status quantity-status"></span>
+                    <span className="page-panel-title__quantity">7/7</span>
                   </span>
                 </div>
                 <form className="edit-form">
@@ -155,11 +155,11 @@ export default class editPage extends React.Component {
               </div>
 
               <div className="page-panel">
-                <div className="page-panel__title">
-                  <span className="page-panel__title_heading">Галерея</span>
+                <div className="page-panel-title">
+                  <span className="page-panel-title__heading">Галерея</span>
                   <span className="block-right">
-                    <span className="page-panel__title_status quantity-status"></span>
-                    <span className="page-panel__title_quantity">7/7</span>
+                    <span className="page-panel-title__status quantity-status"></span>
+                    <span className="page-panel-title__quantity">7/7</span>
                   </span>
                 </div>
                 <div className="edit-form">
@@ -168,11 +168,11 @@ export default class editPage extends React.Component {
               </div>
 
               <div className="page-panel">
-                <div className="page-panel__title">
-                  <span className="page-panel__title_heading">Продавец</span>
+                <div className="page-panel-title">
+                  <span className="page-panel-title__heading">Продавец</span>
                   <span className="block-right">
-                    <span className="page-panel__title_status quantity-status"></span>
-                    <span className="page-panel__title_quantity">7/7</span>
+                    <span className="page-panel-title__status quantity-status"></span>
+                    <span className="page-panel-title__quantity">7/7</span>
                   </span>
                 </div>
                 <form className="edit-form">
@@ -236,11 +236,11 @@ export default class editPage extends React.Component {
               </div>
 
               <div className="page-panel">
-                <div className="page-panel__title">
-                  <span className="page-panel__title_heading">Финансы</span>
+                <div className="page-panel-title">
+                  <span className="page-panel-title__heading">Финансы</span>
                   <span className="block-right">
-                    <span className="page-panel__title_status quantity-status"></span>
-                    <span className="page-panel__title_quantity">7/7</span>
+                    <span className="page-panel-title__status quantity-status"></span>
+                    <span className="page-panel-title__quantity">7/7</span>
                   </span>
                 </div>
                 <form className="edit-form">
@@ -302,11 +302,11 @@ export default class editPage extends React.Component {
               </div>
 
               <div className="page-panel">
-                <div className="page-panel__title">
-                  <span className="page-panel__title_heading">Штат</span>
+                <div className="page-panel-title">
+                  <span className="page-panel-title__heading">Штат</span>
                   <span className="block-right">
-                    <span className="page-panel__title_status quantity-status"></span>
-                    <span className="page-panel__title_quantity">7/7</span>
+                    <span className="page-panel-title__status quantity-status"></span>
+                    <span className="page-panel-title__quantity">7/7</span>
                   </span>
                 </div>
                 <form className="edit-form">
@@ -343,11 +343,11 @@ export default class editPage extends React.Component {
               </div>
 
               <div className="page-panel">
-                <div className="page-panel__title">
-                  <span className="page-panel__title_heading">Помещение</span>
+                <div className="page-panel-title">
+                  <span className="page-panel-title__heading">Помещение</span>
                   <span className="block-right">
-                    <span className="page-panel__title_status quantity-status"></span>
-                    <span className="page-panel__title_quantity">7/7</span>
+                    <span className="page-panel-title__status quantity-status"></span>
+                    <span className="page-panel-title__quantity">7/7</span>
                   </span>
                 </div>
                 <form className="edit-form">
@@ -410,11 +410,11 @@ export default class editPage extends React.Component {
               </div>
 
               <div className="page-panel">
-                <div className="page-panel__title">
-                  <span className="page-panel__title_heading">Активы</span>
+                <div className="page-panel-title">
+                  <span className="page-panel-title__heading">Активы</span>
                   <span className="block-right">
-                    <span className="page-panel__title_status quantity-status"></span>
-                    <span className="page-panel__title_quantity">7/7</span>
+                    <span className="page-panel-title__status quantity-status"></span>
+                    <span className="page-panel-title__quantity">7/7</span>
                   </span>
                 </div>
                 <form className="edit-form">
