@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import preventOverScroll from 'utils/preventOverScroll';
 import DropdownHOC from 'components/HOC/DropdownHOC';
 import FormSearch from 'components/ui/FormSearch';
 import Checkpoint from 'components/ui/Checkpoint';
@@ -21,7 +22,7 @@ function BrokersDropdown(props) {
 
       <FormSearch value={searchValue} autoFocus onChange={event => handleSearch('PROPERTY_BROKER', event.target.value)} />
 
-      <div className="form-block">
+      <div className="form-block" ref={node => preventOverScroll(node)}>
         <div className="form-checkboxes">
           {
             items.map((item) => {

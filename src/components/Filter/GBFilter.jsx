@@ -9,9 +9,9 @@ import City from './City';
 import Brokers from './Brokers';
 import Subway from './Subway';
 import Price from './Price';
-import FilterStatys from 'components/Filter/FilterStatys';
-import FilterRangeRecoupment from 'components/Filter/FilterRangeRecoupment';
-import FilterRangeProfit from 'components/Filter/FilterRangeProfit';
+import Income from './Income';
+import Recoupment from './Recoupment';
+import Status from 'components/Filter/Status';
 
 export default class GbFilter extends React.Component {
   constructor(props) {
@@ -25,6 +25,8 @@ export default class GbFilter extends React.Component {
         ALL_CATEGORY_GB_1: '',
         ALL_CATEGORY_GB_2: '',
         PROPERTY_METRO_NEW: '',
+        SECTION_ID_1: '',
+        SECTION_ID_2: '',
       },
     };
   }
@@ -44,6 +46,32 @@ export default class GbFilter extends React.Component {
     const property = this.state.filterState[name];
 
     switch (name) {
+      case 'SECTION_ID_1':
+        const selectedSubcategs = this.state.filterState.SECTION_ID_2;
+
+        if (target.checked) {
+          property.push(id);
+        } else {
+          const { ALL_CATEGORY_GB_2: subCategs } = this.props.filter;
+          property.splice(property.indexOf(id), 1);
+
+          subCategs.forEach((item) => {
+            const { IBLOCK_SECTION_ID: categoryId, ID: subCategoryId } = item;
+            if (id === categoryId) {
+              const selectedSubCategIndex = selectedSubcategs.indexOf(subCategoryId);
+              if (selectedSubCategIndex !== -1) {
+                selectedSubcategs.splice(selectedSubCategIndex, 1);
+              }
+            }
+          });
+        }
+
+        this.setState(() => {
+          this.state.filterState.SECTION_ID_1 = property;
+          this.state.filterState.SECTION_ID_2 = selectedSubcategs;
+        });
+        break;
+
       case 'PROPERTY_GEO_ID':
         if (id !== property[0]) {
           this.setState(() => {
@@ -53,6 +81,10 @@ export default class GbFilter extends React.Component {
             this.state.filterState.PROPERTY_METRO_NEW = [];
           });
         }
+        break;
+
+      case 'PROPERTY_STATUS_OBJ':
+        this.setState(() => { this.state.filterState.PROPERTY_STATUS_OBJ = id; });
         break;
 
       default:
@@ -68,115 +100,52 @@ export default class GbFilter extends React.Component {
     }
   };
 
-  selectBroker = (event) => {
-    const id = event.target.id;
-    const brokers = this.state.filterState.PROPERTY_BROKER;
-
-    if (event.target.checked) {
-      brokers.push(id);
-    } else {
-      brokers.splice(brokers.indexOf(id), 1);
-    }
-
-    this.setState(() => {
-      this.state.filterState.PROPERTY_BROKER = brokers;
-    });
-  };
-
   resetSection = (event) => {
     const name = event.target.dataset.name;
 
-    switch (name) {
-      case 'SOMETHING':
-        console.log('SOMETHING');
-        break;
-      case 'PROPERTY_GEO_ID':
-        this.setState(() => {
-          this.state.filterState.PROPERTY_GEO_ID = [];
-          this.state.filterState.PROPERTY_RAYON2 = [];
-          this.state.search.PROPERTY_GEO_ID = '';
-          this.state.search.PROPERTY_RAYON2 = '';
-        });
-        break;
-      default:
-        this.setState(() => {
-          this.state.filterState[name] = [];
-          this.state.search[name] = '';
-        });
-    }
-  };
-
-  // selectCity = (event) => {
-  //   const id = event.target.id;
-  //   const city = this.state.filterState.PROPERTY_GEO_ID;
-  //
-  //   if (id !== city[0]) {
-  //     this.setState(() => {
-  //       this.state.filterState.PROPERTY_GEO_ID = [id];
-  //       this.state.filterState.PROPERTY_RAYON2 = [];
-  //       this.state.filterState.PROPERTY_METRO_NEW = [];
-  //     });
-  //   }
-  // };
-
-  selectRegion = (event) => {
-    const id = event.target.id;
-    const regions = this.state.filterState.PROPERTY_RAYON2;
-
-    if (event.target.checked) {
-      regions.push(id);
-    } else {
-      regions.splice(regions.indexOf(id), 1);
+    if (name === 'SECTION_ID') {
+      this.setState(() => {
+        this.state.filterState.SECTION_ID_1 = [];
+        this.state.filterState.SECTION_ID_2 = [];
+        this.state.search.SECTION_ID_1 = '';
+        this.state.search.SECTION_ID_2 = '';
+      });
+      return true;
     }
 
-    this.setState(() => {
-      this.state.filterState.PROPERTY_RAYON2 = regions;
+    if (name === 'PROPERTY_GEO_ID') {
+      return this.setState(() => {
+        this.state.filterState.PROPERTY_GEO_ID = [];
+        this.state.filterState.PROPERTY_RAYON2 = [];
+        this.state.search.PROPERTY_GEO_ID = '';
+        this.state.search.PROPERTY_RAYON2 = '';
+      });
+    }
+
+    if (name === 'PROPERTY_STATUS_OBJ') {
+      return this.setState(() => {
+        this.state.filterState.PROPERTY_STATUS_OBJ = '';
+      });
+    }
+
+    if (['PROPERTY_PRICE_BUSINESS', 'PROPERTY_CHIST_PRIB', 'PROPERTY_OKUP'].some(item => item === name)) {
+      return this.setState(() => {
+        this.state.filterState[`from_${name}`] = '';
+        this.state.filterState[`to_${name}`] = '';
+        return this.state.filterState;
+      });
+    }
+
+    return this.setState(() => {
+      this.state.filterState[name] = [];
+      this.state.search[name] = '';
     });
   };
 
-  selectSubway = (event) => {
-    const id = event.target.id;
-    const subways = this.state.filterState.PROPERTY_METRO_NEW;
-
-    if (event.target.checked) {
-      subways.push(id);
-    } else {
-      subways.splice(subways.indexOf(id), 1);
-    }
-
+  changeFromTo = (event) => {
+    const { dataset, value, name } = event.target;
     this.setState(() => {
-      this.state.filterState.PROPERTY_METRO_NEW = subways;
-    });
-  };
-
-  selectCategory = (event) => {
-    const id = event.target.id;
-    const category = this.state.filterState.SECTION_ID_1;
-
-    if (event.target.checked) {
-      category.push(id);
-    } else {
-      category.splice(category.indexOf(id), 1);
-    }
-
-    this.setState(() => {
-      this.state.filterState.SECTION_ID_1 = category;
-    });
-  };
-
-  editFromToRange = (event) => {
-    const { dataset, value } = event.target;
-    this.setState(() => {
-      this.state.filterState[`${dataset.range}_PROPERTY_PRICE_BUSINESS`] = value;
-    });
-  };
-
-  filterSubmit = (event) => {
-    event.preventDefault();
-    this.setState(() => {
-      this.state.filterState.PAGE = 1;
-      browserHistory.push(`${indexUrl}broker/gb/`);
-      this.props.updateGBOptions(this.state.filterState);
+      this.state.filterState[dataset.name || name] = dataset.value || value;
     });
   };
 
@@ -189,6 +158,42 @@ export default class GbFilter extends React.Component {
     });
   };
 
+  filterSubmit = (event) => {
+    event.preventDefault();
+    this.setState(() => {
+      browserHistory.push(`${indexUrl}broker/gb/`);
+      this.props.updateGBOptions({ PAGE: 1, ...this.state.filterState });
+    });
+  };
+
+  resetForm = () => {
+    this.setState(() => {
+      const filterState = {
+        ID: '',
+        ID_NAME_TEL: '',
+        ACTIVE: 'Y',
+        SECTION_ID: [],
+        SECTION_ID_1: [],
+        SECTION_ID_2: [],
+        PROPERTY_STATUS_OBJ: '',
+        PROPERTY_BROKER: [],
+        PROPERTY_GEO_ID: [],
+        PROPERTY_RAYON2: [],
+        PROPERTY_METRO_NEW: [],
+        from_PROPERTY_PRICE_BUSINESS: '',
+        to_PROPERTY_PRICE_BUSINESS: '',
+        from_PROPERTY_CHIST_PRIB: '',
+        to_PROPERTY_CHIST_PRIB: '',
+        from_PROPERTY_OKUP: '',
+        to_PROPERTY_OKUP: '',
+      };
+
+      browserHistory.push(`${indexUrl}broker/gb/`);
+      this.props.updateGBOptions({ PAGE: 1, FILTER: filterState });
+      return { filterState };
+    });
+  };
+
   render() {
     const {
       ALL_BROKER: brokers,
@@ -197,6 +202,7 @@ export default class GbFilter extends React.Component {
       ALL_METRO: subways,
       ALL_CATEGORY_GB_1: categories,
       ALL_CATEGORY_GB_2: subCategories,
+      ALL_STATUS_OBJ: status,
     } = this.props.filter;
 
     const {
@@ -209,15 +215,23 @@ export default class GbFilter extends React.Component {
       SECTION_ID_2: selectedSubCategories,
       from_PROPERTY_PRICE_BUSINESS: fromPrice,
       to_PROPERTY_PRICE_BUSINESS: toPrice,
+      from_PROPERTY_CHIST_PRIB: fromIncome,
+      to_PROPERTY_CHIST_PRIB: toIncome,
+      from_PROPERTY_OKUP: fromRecoupment,
+      to_PROPERTY_OKUP: toRecoupment,
+      PROPERTY_STATUS_OBJ: selectedStatus,
     } = this.state.filterState;
 
     const {
       PROPERTY_BROKER: searchBrokers,
+      PROPERTY_METRO_NEW: searchSubway,
       PROPERTY_GEO_ID: searchCity,
       PROPERTY_RAYON2: searchRegions,
-      ALL_CATEGORY_GB_1: searchCategory,
-      ALL_CATEGORY_GB_2: searchSubCategory,
+      SECTION_ID_1: searchCategory,
+      SECTION_ID_2: searchSubCategory,
     } = this.state.search;
+
+    const priceRangeControls = [500000, 1000000, 2000000, 3000000, 5000000];
 
     return (
       <div className="filter filter_business">
@@ -236,42 +250,56 @@ export default class GbFilter extends React.Component {
               resetSection={this.resetSection}
             />
 
-            <Price fromPrice={fromPrice} toPrice={toPrice} editFromToRange={this.editFromToRange} />
+            <Price
+              label="Цена"
+              name="PROPERTY_PRICE_BUSINESS"
+              from={fromPrice}
+              to={toPrice}
+              onChange={this.changeFromTo}
+              rangeControls={priceRangeControls}
+              resetSection={this.resetSection}
+            />
 
-            <div className="filter__cell">
+            <div className="filter__cell active">
               <div className="filter__row clear">
 
-                <div className="filter__cell filter__cell_deeper filter__cell_hover ">
-                  <div className="filter-trigger">
-                    <span className="filter-trigger__label">Прибыль</span>
-                  </div>
-                  {/*<FilterRangeProfit />*/}
-                </div>
+                <Income
+                  label="Прибыль"
+                  name="PROPERTY_CHIST_PRIB"
+                  from={fromIncome}
+                  to={toIncome}
+                  onChange={this.changeFromTo}
+                  resetSection={this.resetSection}
+                />
 
-                <div className="filter__cell filter__cell_deeper filter__cell_hover">
-                  <div className="filter-trigger">
-                    <span className="filter-trigger__label">Окупаемость</span>
-                  </div>
-                  {/*<FilterRangeRecoupment />*/}
-                </div>
+                <Recoupment
+                  label="Окупаемость"
+                  name="PROPERTY_OKUP"
+                  from={fromRecoupment}
+                  to={toRecoupment}
+                  onChange={this.changeFromTo}
+                  resetSection={this.resetSection}
+                />
 
               </div>
             </div>
 
             <div className="filter__cell">
               <div className="filter-controls">
-                <span className="filter-controls__item filter-controls__item_trigger active">
-                  Скрыть <Icon icon="arrow-right" width={8} height={8} />
-                </span>
-                <button className="filter-controls__item filter-controls__item_submit">Фильтровать</button>
-                <span className="filter-controls__item filter-controls__item_reset">
-                  <Icon icon="close" width={9} height={9} className="filter-reset-icon" />
-                </span>
+                <span className="filter-controls__item filter-controls__item_trigger active" />
+                <button className="filter-controls__item filter-controls__item_submit">Искать</button>
+                <span
+                  className="filter-controls__item filter-controls__item_reset"
+                  onClick={this.resetForm}
+                  role="button"
+                  tabIndex="0"
+                >Сбросить</span>
               </div>
             </div>
           </div>
 
           <div className="filter__row clear">
+
             <Brokers
               items={brokers}
               selectedItems={selectedBrokers}
@@ -291,18 +319,20 @@ export default class GbFilter extends React.Component {
             />
 
             <Subway
-              subways={subways}
-              selectedSubways={selectedSubways}
-              selectSubway={this.selectSubway}
-              selectedCity={selectedCity}
+              items={subways}
+              selectedItems={{ selectedCity, selectedSubways }}
+              changeFilterItem={this.changeFilterItem}
+              handleSearch={this.handleSearch}
+              searchValue={searchSubway}
+              resetSection={this.resetSection}
             />
 
-            <div className="filter__cell filter__cell_hover filter-trigger_binded active">
-              <div className="filter-trigger">
-                <span className="filter-trigger__label">Статус</span>
-              </div>
-              {/*<FilterStatys />*/}
-            </div>
+            <Status
+              items={status}
+              selectedItems={selectedStatus}
+              changeFilterItem={this.changeFilterItem}
+              resetSection={this.resetSection}
+            />
 
           </div>
 
@@ -326,12 +356,6 @@ export default class GbFilter extends React.Component {
                 </span>
               </span>
 
-              <span className="filter-stored-item">
-                <span className="filter-stored-item__title">Дерьмо для души</span>
-                <span className="filter-stored-item__remove">
-                  <Icon icon="close" width={9} height={9} className="filter-stored-item__remove-icon" />
-                </span>
-              </span>
             </div>
           </div>
 

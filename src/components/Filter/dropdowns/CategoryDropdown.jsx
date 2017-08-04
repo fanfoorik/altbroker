@@ -1,69 +1,39 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Icon from 'components/Icon';
 import DropdownHOC from 'components/HOC/DropdownHOC';
 import CategoryList from './CategoryList';
 import SubCategoryList from './SubCategoryList';
+import FormControls from 'components/ui/FormControls';
 
 function CategoryDropdown(props) {
-  const {
-    categories,
-    selectedCategories,
-    selectCategory,
-    subCategories,
-    // selectedCity,
-    // selectCity,
-    // regions,
-    // selectedRegions,
-    // selectRegion,
-  } = props;
-
-  {/*<div className={`form-dropdown ${selectedCity.length ? 'form-dropdown_two' : ''}`}>*/}
+  const { items, resetSection, triggerDropdown } = props;
+  const withSubcategory = items.checked.filter(item => !!item.subcateg.length);
 
   return (
 
-    <div className="form-dropdown form-dropdown_two">
+    <div className={`form-dropdown ${withSubcategory.length ? 'form-dropdown_two' : ''}`}>
 
-      <CategoryList
-        categories={categories}
-        selectedCategories={selectedCategories}
-        selectCategory={selectCategory}
-      />
+      <CategoryList {...props} items={items.all} />
 
-      <SubCategoryList subCategories={subCategories} />
+      {
+        !!withSubcategory.length &&
+        <SubCategoryList {...props} items={items.checked} />
+      }
 
-      <div className="form-controls">
-        <span className="form-controls__reset">Сбросить</span>
-        <div className="form-controls__actions">
-          <button type="submit" className={'form-controls__actions_item disabled'}>
-            <Icon
-              icon="check"
-              width={20}
-              height={15}
-            />
-          </button>
-          <div className="form-controls__actions_item" role="button" tabIndex="0">
-            <Icon
-              className="icon__close"
-              icon="close"
-              width={15}
-              height={15}
-            />
-          </div>
-        </div>
-      </div>
+      <FormControls onReset={resetSection} onClose={triggerDropdown} name="SECTION_ID" />
+
     </div>
   );
 }
 
 CategoryDropdown.propTypes = {
-  categories: PropTypes.arrayOf(PropTypes.object).isRequired,
-  subCategories: PropTypes.arrayOf(PropTypes.object).isRequired,
-  selectedCategories: PropTypes.arrayOf(PropTypes.string).isRequired,
-  selectCategory: PropTypes.func.isRequired,
-  // selectedRegions: PropTypes.arrayOf(PropTypes.string).isRequired,
-  // selectRegion: PropTypes.func.isRequired,
+  items: PropTypes.shape({
+    all: PropTypes.arrayOf(PropTypes.object).isRequired,
+    checked: PropTypes.arrayOf(PropTypes.object).isRequired,
+  }).isRequired,
+  resetSection: PropTypes.func.isRequired,
+  triggerDropdown: PropTypes.func.isRequired,
 };
 
 export default DropdownHOC(CategoryDropdown);
