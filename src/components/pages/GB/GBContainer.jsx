@@ -6,7 +6,6 @@ import GB from './GB';
 import {
   fetchListing,
   refreshListingItem,
-  filterChange,
   filterListing,
 } from 'actions/pages/GBActions';
 
@@ -25,7 +24,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     fetchListing,
     refreshListingItem,
-    filterChange,
     filterListing,
     fetchGBfilter,
   }, dispatch);

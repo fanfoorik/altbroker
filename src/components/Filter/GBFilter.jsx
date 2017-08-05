@@ -283,7 +283,7 @@ export default class BusinessFilter extends React.Component {
 
 BusinessFilter.propTypes = {
   filterListing: PropTypes.func.isRequired,
-  filterChange: PropTypes.func.isRequired,
+  updateFilterState: PropTypes.func.isRequired,
   fetchGBfilter: PropTypes.func.isRequired,
   filter: PropTypes.oneOfType([
     PropTypes.object,

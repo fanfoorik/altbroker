@@ -16,13 +16,6 @@ export const fetchListing = (page, count) => (dispatch) => {
     });
 };
 
-export const filterChange = data => (dispatch) => {
-  dispatch({
-    type: CHANGE_FILTER,
-    payload: data,
-  });
-};
-
 export const filterListing = filterData => (dispatch) => {
   ajax.post('broker/gb/', filterData)
     .then((data) => {
