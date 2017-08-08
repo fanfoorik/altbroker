@@ -7,22 +7,22 @@ import { indexUrl } from 'utils/urls.js';
 
 const itemsPerPage = [15, 25, 50];
 
-export default function BrokerPaginator(props) {
+export default function GBPaginator(props) {
   let NextLink;
-  const { itemsCount, listingNav } = props;
-  const objectsCount = listingNav.COUNT_OBJ || 0;
+  const { itemsCount, pagination, updateGBOptions } = props;
+  const objectsCount = pagination.COUNT_OBJ || 0;
   let PrevLink;
   let currPageIndex = 0;
 
   /**
-   * Updates url & fetches new items.
+   * Updates url & updates page options.
    * @param {number} index - page index
    * @param {number } count - items per page
    * @param {string} url - url with query params
    */
   function fetchItems(index, count, url) {
     browserHistory.push(`${indexUrl}broker/gb/${url}`);
-    props.fetchListing(index, count);
+    updateGBOptions({ PAGE: index, COUNT: count });
   }
 
   /**
@@ -52,23 +52,23 @@ export default function BrokerPaginator(props) {
     NAV_HREF: navHrefs,
     NEXT_GAGE: nextPage,
     PREV_GAGE: prevPage,
-  } = listingNav;
+  } = pagination;
 
   if (navHrefs) {
     currPageIndex = currPage.ID;
     NextLink = nextPage ?
-      (
-        <li className="paginator__list-item paginator__next">
-          <span
-            className="paginator__list-link"
-            onClick={() => fetchItems(nextPage.ID, countPerPage, nextPage.URL)}
-            role="button"
-            tabIndex="0"
-          >&gt;</span>
-        </li>
-      ) :
-        <li className="paginator__list-item paginator__next disabled">&gt;</li>
-    ;
+    (
+      <li className="paginator__list-item paginator__next">
+        <span
+          className="paginator__list-link"
+          onClick={() => fetchItems(nextPage.ID, countPerPage, nextPage.URL)}
+          role="button"
+          tabIndex="0"
+        >&gt;</span>
+      </li>
+    )
+    :
+      <li className="paginator__list-item paginator__next disabled">&gt;</li>;
 
     PrevLink = prevPage ?
       (
@@ -136,18 +136,18 @@ export default function BrokerPaginator(props) {
   );
 }
 
-BrokerPaginator.propTypes = {
-  fetchListing: PropTypes.func.isRequired,
+GBPaginator.propTypes = {
+  updateGBOptions: PropTypes.func.isRequired,
   itemsCount: PropTypes.number,
-  listingNav: PropTypes.oneOfType([
+  pagination: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.object,
   ]),
 };
 
-BrokerPaginator.defaultProps = {
+GBPaginator.defaultProps = {
   itemsCount: 0,
-  listingNav: PropTypes.shape({
+  pagination: PropTypes.shape({
     COUNT_OBJ: 0,
   }),
 };

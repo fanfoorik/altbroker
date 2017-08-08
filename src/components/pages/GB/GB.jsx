@@ -3,7 +3,7 @@ import React from 'react';
 import { StickyContainer, Sticky } from 'react-sticky';
 
 import BrokerActions from './BrokerActions';
-import BrokerPaginator from './BrokerPaginator';
+import GBPaginator from './GBPaginator';
 import BrokerTable from './BrokerTable';
 import BrokerTableHeader from './BrokerTableHeader';
 
@@ -34,39 +34,8 @@ export default class GB extends React.Component {
         active: false,
         id: '',
       },
-      page: {
-        SORT_CODE: ['ID'],
-        SORT_METOD: ['DESC'],
-        PAGE: '1',
-        COUNT: '15',
-        FILTER: {
-          ID: '',
-          ID_NAME_TEL: '',
-          ACTIVE: 'Y',
-          SECTION_ID: [],
-          SECTION_ID_1: [],
-          SECTION_ID_2: [],
-          PROPERTY_STATUS_OBJ: '',
-          PROPERTY_BROKER: [],
-          PROPERTY_GEO_ID: [],
-          PROPERTY_RAYON2: [],
-          PROPERTY_METRO_NEW: [],
-          from_PROPERTY_PRICE_BUSINESS: '',
-          to_PROPERTY_PRICE_BUSINESS: '',
-          from_PROPERTY_CHIST_PRIB: '',
-          to_PROPERTY_CHIST_PRIB: '',
-          from_PROPERTY_OKUP: '',
-          to_PROPERTY_OKUP: '',
-        },
-        SHOW_SHARED: '',
-        DEBUG: '',
-      },
     };
   }
-
-  updateFilterState = (property, data) => {
-    console.log('property', 'data');
-  };
 
   openDetailPage = (id) => {
     this.setState({
@@ -83,17 +52,16 @@ export default class GB extends React.Component {
   render() {
     const query = this.props.location.query;
     const {
-      fetchListing,
-      listingItems,
-      listingNav,
-      refreshListingItem,
-      filterListing,
+      fetchGBListing,
+      updateGBOptions,
       fetchGBfilter,
       filter,
+      listing,
+      pagination,
+      options,
     } = this.props;
-
+    const { FILTER: filterState } = options;
     const { detailPageSettings } = this.state;
-    const { filterState } = this.state;
 
     const detailPageData = {
       id: detailPageSettings.id,
@@ -112,10 +80,10 @@ export default class GB extends React.Component {
           </ol>
 
           <GBFilter
-            updateFilterState={this.updateFilterState}
-            filterListing={filterListing}
+            updateGBOptions={updateGBOptions}
             filter={filter}
             fetchGBfilter={fetchGBfilter}
+            filterState={filterState}
           />
 
         </div>
@@ -125,18 +93,18 @@ export default class GB extends React.Component {
           </Sticky>
 
           <BrokerTable
-            fetchListing={fetchListing}
-            listingItems={listingItems}
+            fetchGBListing={fetchGBListing}
+            listing={listing}
             query={query}
-            refreshListingItem={refreshListingItem}
             openDetailPage={this.openDetailPage}
             getStatusColor={getStatusColor}
+            updateGBOptions={updateGBOptions}
           />
 
-          <BrokerPaginator
-            fetchListing={fetchListing}
-            itemsCount={listingItems && listingItems.length}
-            listingNav={listingNav}
+          <GBPaginator
+            updateGBOptions={updateGBOptions}
+            itemsCount={listing && listing.length}
+            pagination={pagination}
           />
 
           <BrokerActions />
@@ -152,9 +120,9 @@ export default class GB extends React.Component {
 }
 
 GB.propTypes = {
-  fetchListing: PropTypes.func.isRequired,
-  filterListing: PropTypes.func.isRequired,
-  listingItems: PropTypes.arrayOf(PropTypes.object),
+  fetchGBListing: PropTypes.func.isRequired,
+  updateGBOptions: PropTypes.func.isRequired,
+  listing: PropTypes.arrayOf(PropTypes.object),
   filter: PropTypes.shape({
     ALL_BROKER: PropTypes.arrayOf(PropTypes.object),
     ALL_STATUS_OBJ: PropTypes.arrayOf(PropTypes.object),
@@ -164,8 +132,23 @@ GB.propTypes = {
     ALL_CATEGORY_GB_1: PropTypes.arrayOf(PropTypes.object),
     ALL_CATEGORY_GB_2: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
+  options: PropTypes.shape({
+    SORT_CODE: PropTypes.arrayOf(PropTypes.string).isRequired,
+    SORT_METOD: PropTypes.arrayOf(PropTypes.string).isRequired,
+    PAGE: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    COUNT: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    FILTER: PropTypes.object.isRequired,
+    SHOW_SHARED: PropTypes.string.isRequired,
+    DEBUG: PropTypes.string.isRequired,
+  }).isRequired,
   fetchGBfilter: PropTypes.func.isRequired,
-  listingNav: PropTypes.shape({
+  pagination: PropTypes.shape({
     COUNT_OBJ: PropTypes.number,
     CUR_GAGE: PropTypes.oneOfType([
       PropTypes.string,
@@ -181,10 +164,9 @@ GB.propTypes = {
       PropTypes.object,
     ]),
   }),
-  refreshListingItem: PropTypes.func.isRequired,
 };
 
 GB.defaultProps = {
-  listingItems: [],
-  listingNav: {},
+  listing: [],
+  pagination: {},
 };

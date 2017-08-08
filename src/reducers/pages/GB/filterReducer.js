@@ -1,4 +1,4 @@
-import { GET_GB_FILTER } from 'constants/filterTypes';
+import { SET_GB_FILTER } from 'constants/GBTypes';
 
 const initialState = {
   ALL_BROKER: [],
@@ -12,7 +12,7 @@ const initialState = {
 
 export default function (state = initialState, { type, payload }) {
   switch (type) {
-    case GET_GB_FILTER:
+    case SET_GB_FILTER:
       return {
         ...state,
         ...payload,

@@ -4,6 +4,8 @@ import React from 'react';
 import { formatNumber } from 'utils/formaters';
 import { hostUrl } from 'utils/urls';
 
+import Checkpoint from 'components/ui/Checkpoint';
+
 // Panels
 import TablePrice from './Table/TablePrice';
 import TableBroker from './Table/TableBroker';
@@ -17,19 +19,22 @@ export default class BrokerTable extends React.Component {
     super(props);
 
     this.state = {
-      listingItems: props.listingItems || [],
+      listing: props.listing || [],
     };
-
-    this.pageIndex = this.props.query.PAGE || 0;
-    this.itemsCount = this.props.query.COUNT || 15;
   }
 
   componentDidMount() {
-    this.props.fetchListing(this.pageIndex, this.itemsCount);
+    const query = this.props.query;
+
+    if (query.PAGE && query.COUNT) {
+      this.props.updateGBOptions({ PAGE: query.PAGE, COUNT: query.COUNT });
+    } else {
+      this.props.fetchGBListing(this.pageIndex, this.itemsCount);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ listingItems: nextProps.listingItems });
+    this.setState({ listing: nextProps.listing });
   }
 
   render() {
@@ -40,7 +45,6 @@ export default class BrokerTable extends React.Component {
     }
 
     const {
-      refreshListingItem,
       openDetailPage,
       getStatusColor,
     } = this.props;
@@ -48,8 +52,8 @@ export default class BrokerTable extends React.Component {
     return (
       <div>
         {
-          this.state.listingItems.length ?
-          this.state.listingItems.map((item) => {
+          this.state.listing.length ?
+          this.state.listing.map((item) => {
             const {
               ID: id,
               COMMENT: comments,
@@ -73,10 +77,7 @@ export default class BrokerTable extends React.Component {
             return (
               <div className="table-row" key={`table-item-${Math.floor(Date.now() * Math.random())}`}>
                 <div className="table-cell table-col__checkbox">
-                  <label className="checkbox" htmlFor={`checkbox-${id}`}>
-                    <input id={`checkbox-${id}`} type="checkbox" />
-                    <div className="checkbox_indicator" />
-                  </label>
+                  <Checkpoint id={id} />
                 </div>
                 <div className="table-cell table-col__color no-padding">
                   <span className={`table-status table-status_${statusColor}`} />
@@ -120,7 +121,6 @@ export default class BrokerTable extends React.Component {
                   <TableComments
                     id={id}
                     comments={comments}
-                    refreshListingItem={refreshListingItem}
                     commentsPopoverActive={commentsPopoverActive}
                   />
                 </div>
@@ -147,17 +147,17 @@ export default class BrokerTable extends React.Component {
 BrokerTable.propTypes = {
   openDetailPage: PropTypes.func.isRequired,
   getStatusColor: PropTypes.func.isRequired,
-  fetchListing: PropTypes.func.isRequired,
-  listingItems: PropTypes.arrayOf(PropTypes.object),
+  fetchGBListing: PropTypes.func.isRequired,
+  updateGBOptions: PropTypes.func.isRequired,
+  listing: PropTypes.arrayOf(PropTypes.object),
   query: PropTypes.shape({
     COUNT: PropTypes.string,
     PAGE: PropTypes.string,
   }),
-  refreshListingItem: PropTypes.func.isRequired,
 };
 
 BrokerTable.defaultProps = {
-  listingItems: [],
+  listing: [],
   query: PropTypes.shape({
     COUNT: 15,
     PAGE: 0,

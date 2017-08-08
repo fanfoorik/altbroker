@@ -4,27 +4,24 @@ import { connect } from 'react-redux';
 import GB from './GB';
 
 import {
-  fetchListing,
-  refreshListingItem,
-  filterListing,
+  fetchGBListing,
+  updateGBOptions,
+  fetchGBfilter,
 } from 'actions/pages/GBActions';
-
-import { fetchGBfilter } from 'actions/GBFilterActions';
 
 function mapStateToProps(state) {
   return {
-    listingItems: state.listing.listingItems,
-    listingNav: state.listing.nav,
-    page: state.listing.page,
-    filter: state.filter.gb,
+    filter: state.GB.filter,
+    listing: state.GB.listing.listingItems,
+    pagination: state.GB.listing.listingNav,
+    options: state.GB.options,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    fetchListing,
-    refreshListingItem,
-    filterListing,
+    fetchGBListing,
+    updateGBOptions,
     fetchGBfilter,
   }, dispatch);
 }

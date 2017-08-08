@@ -1,2 +1,0 @@
-export const REFRESH_LISTING_ITEM = 'REFRESH_LISTING_ITEM';
-export const SET_LISTING = 'SET_LISTING';

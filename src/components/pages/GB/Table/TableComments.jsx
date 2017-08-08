@@ -22,7 +22,6 @@ class TableComments extends React.Component {
       id,
       active,
       triggerPopover,
-      refreshListingItem,
       commentsPopoverActive,
     } = this.props;
 
@@ -57,7 +56,6 @@ TableComments.propTypes = {
   id: PropTypes.string.isRequired,
   comments: PropTypes.string.isRequired,
   triggerPopover: PropTypes.func.isRequired,
-  refreshListingItem: PropTypes.func.isRequired,
 };
 
 // export default TableComments;

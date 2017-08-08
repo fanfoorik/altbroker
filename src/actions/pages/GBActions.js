@@ -1,34 +1,39 @@
 import ajax from 'utils/ajax';
 import {
-  SET_LISTING,
-  REFRESH_LISTING_ITEM,
-  CHANGE_FILTER,
-  SET_FILTER,
-} from 'constants/listingTypes';
+  SET_GB_LISTING,
+  SET_GB_FILTER,
+  UPDATE_GB_OPTIONS,
+} from 'constants//GBTypes';
 
-export const fetchListing = (page, count) => (dispatch) => {
-  ajax.post('broker/gb/', { PAGE: page, COUNT: count })
+function listingAjax(dispatch, getState) {
+  ajax.post('broker/gb/', getState().GB.options)
     .then((data) => {
       dispatch({
-        type: SET_LISTING,
+        type: SET_GB_LISTING,
         payload: data.ANSWER,
       });
     });
+}
+
+export const fetchGBListing = () => (dispatch, getState) => {
+  listingAjax(dispatch, getState);
 };
 
-export const filterListing = filterData => (dispatch) => {
-  ajax.post('broker/gb/', filterData)
-    .then((data) => {
-      dispatch({
-        type: SET_LISTING,
-        payload: data.ANSWER,
-      });
-    });
-};
-
-export const refreshListingItem = item => (dispatch) => {
+export const updateGBOptions = options => (dispatch, getState) => {
   dispatch({
-    type: REFRESH_LISTING_ITEM,
-    payload: item,
+    type: UPDATE_GB_OPTIONS,
+    payload: options,
   });
+
+  listingAjax(dispatch, getState);
+};
+
+export const fetchGBfilter = () => (dispatch) => {
+  ajax.post('broker/gb/getfilter/')
+    .then((data) => {
+      dispatch({
+        type: SET_GB_FILTER,
+        payload: data.ANSWER,
+      });
+    });
 };
