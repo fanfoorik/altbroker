@@ -202,13 +202,11 @@
 
   &__reset {
     float: left;
-    margin-top: 8px;
+    padding: 8px 0;
     cursor: pointer;
 
     &:hover {
-      cursor: default;
-      fill: $c-grey-middle;
-      opacity: 0.5;
+      color: $c-blue-main;
     }
   }
 

@@ -18,12 +18,22 @@ export default class GbFilter extends React.Component {
     super(props);
     this.state = {
       filterState: props.filterState,
+      search: {
+        PROPERTY_BROKER: '',
+        PROPERTY_GEO_ID: '',
+        PROPERTY_RAYON2: '',
+        PROPERTY_METRO_NEW: '',
+      },
     };
   }
 
   componentDidMount() {
     this.props.fetchGBfilter();
   }
+
+  handleSearch = (name, value) => {
+    this.setState(() => { this.state.search[name] = value; });
+  };
 
   selectBroker = (event) => {
     const id = event.target.id;
@@ -38,6 +48,20 @@ export default class GbFilter extends React.Component {
     this.setState(() => {
       this.state.filterState.PROPERTY_BROKER = brokers;
     });
+  };
+
+  resetSection = (event) => {
+    const name = event.target.dataset.name;
+    switch (name) {
+      case 'SOMETHING':
+        console.log('SOMETHING');
+        break;
+      default:
+        this.setState(() => {
+          this.state.filterState[name] = [];
+          this.state.search[name] = '';
+        });
+    }
   };
 
   selectCity = (event) => {
@@ -144,6 +168,10 @@ export default class GbFilter extends React.Component {
       to_PROPERTY_PRICE_BUSINESS: toPrice,
     } = this.state.filterState;
 
+    const {
+      PROPERTY_BROKER: searchBrokers,
+    } = this.state.search;
+
     return (
       <div className="filter filter_business">
         <form onSubmit={this.filterSubmit}>
@@ -199,6 +227,9 @@ export default class GbFilter extends React.Component {
               brokers={brokers}
               selectedBrokers={selectedBrokers}
               selectBroker={this.selectBroker}
+              handleSearch={this.handleSearch}
+              searchValue={searchBrokers}
+              resetSection={this.resetSection}
             />
 
             <City
