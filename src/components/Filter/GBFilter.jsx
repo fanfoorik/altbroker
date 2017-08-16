@@ -22,6 +22,8 @@ export default class GbFilter extends React.Component {
         PROPERTY_BROKER: '',
         PROPERTY_GEO_ID: '',
         PROPERTY_RAYON2: '',
+        ALL_CATEGORY_GB_1: '',
+        ALL_CATEGORY_GB_2: '',
         PROPERTY_METRO_NEW: '',
       },
     };
@@ -33,6 +35,37 @@ export default class GbFilter extends React.Component {
 
   handleSearch = (name, value) => {
     this.setState(() => { this.state.search[name] = value; });
+  };
+
+  changeFilterItem = (event) => {
+    const target = event.target;
+    const id = target.id;
+    const name = target.name;
+    const property = this.state.filterState[name];
+
+    switch (name) {
+      case 'PROPERTY_GEO_ID':
+        if (id !== property[0]) {
+          this.setState(() => {
+            this.state.filterState[name] = [id];
+            this.state.filterState.PROPERTY_RAYON2 = [];
+            this.state.search.PROPERTY_RAYON2 = '';
+            this.state.filterState.PROPERTY_METRO_NEW = [];
+          });
+        }
+        break;
+
+      default:
+        if (target.checked) {
+          property.push(id);
+        } else {
+          property.splice(property.indexOf(id), 1);
+        }
+
+        this.setState(() => {
+          this.state.filterState[name] = property;
+        });
+    }
   };
 
   selectBroker = (event) => {
@@ -52,9 +85,18 @@ export default class GbFilter extends React.Component {
 
   resetSection = (event) => {
     const name = event.target.dataset.name;
+
     switch (name) {
       case 'SOMETHING':
         console.log('SOMETHING');
+        break;
+      case 'PROPERTY_GEO_ID':
+        this.setState(() => {
+          this.state.filterState.PROPERTY_GEO_ID = [];
+          this.state.filterState.PROPERTY_RAYON2 = [];
+          this.state.search.PROPERTY_GEO_ID = '';
+          this.state.search.PROPERTY_RAYON2 = '';
+        });
         break;
       default:
         this.setState(() => {
@@ -64,18 +106,18 @@ export default class GbFilter extends React.Component {
     }
   };
 
-  selectCity = (event) => {
-    const id = event.target.id;
-    const city = this.state.filterState.PROPERTY_GEO_ID;
-
-    if (id !== city[0]) {
-      this.setState(() => {
-        this.state.filterState.PROPERTY_GEO_ID = [id];
-        this.state.filterState.PROPERTY_RAYON2 = [];
-        this.state.filterState.PROPERTY_METRO_NEW = [];
-      });
-    }
-  };
+  // selectCity = (event) => {
+  //   const id = event.target.id;
+  //   const city = this.state.filterState.PROPERTY_GEO_ID;
+  //
+  //   if (id !== city[0]) {
+  //     this.setState(() => {
+  //       this.state.filterState.PROPERTY_GEO_ID = [id];
+  //       this.state.filterState.PROPERTY_RAYON2 = [];
+  //       this.state.filterState.PROPERTY_METRO_NEW = [];
+  //     });
+  //   }
+  // };
 
   selectRegion = (event) => {
     const id = event.target.id;
@@ -164,12 +206,17 @@ export default class GbFilter extends React.Component {
       PROPERTY_RAYON2: selectedRegions,
       PROPERTY_METRO_NEW: selectedSubways,
       SECTION_ID_1: selectedCategories,
+      SECTION_ID_2: selectedSubCategories,
       from_PROPERTY_PRICE_BUSINESS: fromPrice,
       to_PROPERTY_PRICE_BUSINESS: toPrice,
     } = this.state.filterState;
 
     const {
       PROPERTY_BROKER: searchBrokers,
+      PROPERTY_GEO_ID: searchCity,
+      PROPERTY_RAYON2: searchRegions,
+      ALL_CATEGORY_GB_1: searchCategory,
+      ALL_CATEGORY_GB_2: searchSubCategory,
     } = this.state.search;
 
     return (
@@ -181,10 +228,12 @@ export default class GbFilter extends React.Component {
             </div>
 
             <Category
-              categories={categories}
-              subCategories={subCategories}
-              selectCategory={this.selectCategory}
-              selectedCategories={selectedCategories}
+              items={{ categories, subCategories }}
+              selectedItems={{ selectedCategories, selectedSubCategories }}
+              changeFilterItem={this.changeFilterItem}
+              handleSearch={this.handleSearch}
+              searchValue={{ searchCategory, searchSubCategory }}
+              resetSection={this.resetSection}
             />
 
             <Price fromPrice={fromPrice} toPrice={toPrice} editFromToRange={this.editFromToRange} />
@@ -224,21 +273,21 @@ export default class GbFilter extends React.Component {
 
           <div className="filter__row clear">
             <Brokers
-              brokers={brokers}
-              selectedBrokers={selectedBrokers}
-              selectBroker={this.selectBroker}
+              items={brokers}
+              selectedItems={selectedBrokers}
+              changeFilterItem={this.changeFilterItem}
               handleSearch={this.handleSearch}
               searchValue={searchBrokers}
               resetSection={this.resetSection}
             />
 
             <City
-              cities={cities}
-              selectedCity={selectedCity}
-              selectCity={this.selectCity}
-              regions={regions}
-              selectedRegions={selectedRegions}
-              selectRegion={this.selectRegion}
+              items={{ cities, regions }}
+              selectedItems={{ selectedCity, selectedRegions }}
+              changeFilterItem={this.changeFilterItem}
+              handleSearch={this.handleSearch}
+              searchValue={{ searchCity, searchRegions }}
+              resetSection={this.resetSection}
             />
 
             <Subway

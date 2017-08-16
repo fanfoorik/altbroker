@@ -1,75 +1,131 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import { parseCheckObjects, filterItems } from 'utils/filterUtils';
+
 import DropdownTriggerHOC from 'components/HOC/DropdownTriggerHOC';
-import CityDropdown from './dropdowns/CityDropdown';
+import LocationDropdown from './dropdowns/LocationDropdown';
 
-function City(props) {
-  const {
-    isActive,
-    triggerDropdown,
-    cities,
-    selectedCity,
-    selectCity,
-    regions,
-    selectedRegions,
-    selectRegion,
-  } = props;
+class City extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cities: {
+        checked: [],
+        all: [],
+      },
+      regions: {
+        checked: [],
+        all: [],
+      },
+    };
+  }
 
-  return (
-    <div className="filter__cell filter__cell_hover">
-      <div
-        className={`filter-trigger ${selectedCity.length ? 'filter-trigger_binded' : ''}`}
-        onClick={triggerDropdown}
-        role="button"
-        tabIndex="0"
-      >
-        <span className="filter-trigger__label">Город / Район</span>
+  componentWillReceiveProps(nextProps) {
+    const { isActive, items, selectedItems } = nextProps;
+    const { all: stateCities } = this.state.cities;
+    const { all: stateRegions } = this.state.regions;
+    const { selectedCity, selectedRegions } = selectedItems;
+    const { searchCity, searchRegions } = this.props.searchValue;
+
+    const { handleSearch } = this.props;
+
+    const cityRegions = items.regions.filter((item) => {
+      const { PROPERTY_CITY_VALUE: cityId } = item;
+      return cityId && cityId === selectedCity[0];
+    });
+
+    if (isActive) {
+      this.setState({
+        cities: parseCheckObjects(stateCities, selectedCity, false),
+        regions: parseCheckObjects(cityRegions, selectedRegions, false),
+      });
+    } else {
+      this.setState({
+        cities: parseCheckObjects(items.cities, selectedCity, true),
+        regions: parseCheckObjects(cityRegions, selectedRegions, true),
+      });
+
+      if (searchCity) {
+        handleSearch('PROPERTY_GEO_ID', '');
+      }
+      if (searchRegions) {
+        handleSearch('PROPERTY_RAYON2', '');
+      }
+    }
+  }
+
+  render() {
+    const {
+      isActive,
+      triggerDropdown,
+      changeFilterItem,
+      handleSearch,
+      resetSection,
+    } = this.props;
+
+    const { searchCity, searchRegions } = this.props.searchValue;
+    const { cities, regions } = this.state;
+
+    const filteredCities = filterItems(searchCity, cities.all);
+    const filteredRegions = filterItems(searchRegions, regions.all);
+
+    return (
+      <div className="filter__cell filter__cell_hover">
+        <div
+          className={`filter-trigger ${cities.checked.length ? 'filter-trigger_binded' : ''}`}
+          onClick={triggerDropdown}
+          role="button"
+          tabIndex="0"
+        >
+          <span className="filter-trigger__label">Город / Район</span>
+          {
+            !!regions.checked.length &&
+            <span className="filter-trigger__more">Районы: {regions.checked.length}</span>
+          }
+          {
+            !!cities.checked.length &&
+            <span className="filter-trigger__value">
+              { cities.checked[0].name }
+            </span>
+          }
+        </div>
         {
-          !!selectedRegions.length &&
-          <span className="filter-trigger__more">Районы: {selectedRegions.length}</span>
-        }
-        {
-          !!selectedCity.length &&
-          <span className="filter-trigger__value">
-            {
-              cities.map((item) => {
-                const {
-                  ID: id,
-                  NAME: name,
-                  SHOT_NAME: shortName,
-                } = item;
-
-                if (id === selectedCity[0]) return shortName || name || 'Безымянный';
-                return false;
-              })
-            }
-          </span>
+          isActive &&
+          <LocationDropdown
+            items={{
+              cities: { checked: cities.checked, all: filteredCities },
+              regions: { checked: regions.checked, all: filteredRegions },
+            }}
+            selectedItems={{ selectedCity: cities.checked, selectedRegions: regions.checked }}
+            changeFilterItem={changeFilterItem}
+            searchValue={{ searchCity, searchRegions }}
+            handleSearch={handleSearch}
+            resetSection={resetSection}
+            triggerDropdown={triggerDropdown}
+          />
         }
       </div>
-      {
-        isActive &&
-        <CityDropdown
-          triggerDropdown={triggerDropdown}
-          cities={cities}
-          selectedCity={selectedCity}
-          selectCity={selectCity}
-          regions={regions}
-          selectedRegions={selectedRegions}
-          selectRegion={selectRegion}
-        />
-      }
-    </div>
-  );
+    );
+  }
 }
 
 City.propTypes = {
-  cities: PropTypes.arrayOf(PropTypes.object).isRequired,
-  selectedCity: PropTypes.arrayOf(PropTypes.string).isRequired,
-  selectCity: PropTypes.func.isRequired,
-  regions: PropTypes.arrayOf(PropTypes.object).isRequired,
-  selectedRegions: PropTypes.arrayOf(PropTypes.string).isRequired,
-  selectRegion: PropTypes.func.isRequired,
+  items: PropTypes.shape({
+    cities: PropTypes.arrayOf(PropTypes.object),
+    regions: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
+  selectedItems: PropTypes.shape({
+    selectedCity: PropTypes.arrayOf(PropTypes.string),
+    selectedRegions: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
+  searchValue: PropTypes.shape({
+    searchCity: PropTypes.string,
+    searchRegions: PropTypes.string,
+  }).isRequired,
+  changeFilterItem: PropTypes.func.isRequired,
+  handleSearch: PropTypes.func.isRequired,
+  resetSection: PropTypes.func.isRequired,
   isActive: PropTypes.bool.isRequired,
   triggerDropdown: PropTypes.func.isRequired,
 };

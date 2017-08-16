@@ -9,7 +9,7 @@ import FormControls from 'components/ui/FormControls';
 function BrokersDropdown(props) {
   const {
     items,
-    selectItem,
+    changeFilterItem,
     searchValue,
     handleSearch,
     resetSection,
@@ -19,7 +19,7 @@ function BrokersDropdown(props) {
   return (
     <div className="form-dropdown">
 
-      <FormSearch value={searchValue} onChange={event => handleSearch('PROPERTY_BROKER', event.target.value)} />
+      <FormSearch value={searchValue} autoFocus onChange={event => handleSearch('PROPERTY_BROKER', event.target.value)} />
 
       <div className="form-block">
         <div className="form-checkboxes">
@@ -31,7 +31,8 @@ function BrokersDropdown(props) {
                 <Checkpoint
                   key={`brokers-${id}`}
                   id={id}
-                  onChange={selectItem}
+                  name="PROPERTY_BROKER"
+                  onChange={changeFilterItem}
                   className="form-checkboxes__item"
                   checked={checked}
                   label={name}
@@ -49,7 +50,7 @@ function BrokersDropdown(props) {
 
 BrokersDropdown.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
-  selectItem: PropTypes.func.isRequired,
+  changeFilterItem: PropTypes.func.isRequired,
   searchValue: PropTypes.string.isRequired,
   handleSearch: PropTypes.func.isRequired,
   resetSection: PropTypes.func.isRequired,

@@ -10,7 +10,7 @@ class Brokers extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      brokers: {
+      items: {
         checked: [],
         all: [],
       },
@@ -18,14 +18,14 @@ class Brokers extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { isActive, brokers, selectedBrokers } = nextProps;
-    const { all: stateBrokers } = this.state.brokers;
+    const { isActive, items, selectedItems } = nextProps;
+    const { all: stateItems } = this.state.items;
     const { handleSearch } = this.props;
 
     if (isActive) {
-      this.setState({ brokers: parseCheckObjects(stateBrokers, selectedBrokers, false) });
+      this.setState({ items: parseCheckObjects(stateItems, selectedItems, false) });
     } else {
-      this.setState({ brokers: parseCheckObjects(brokers, selectedBrokers, true) });
+      this.setState({ items: parseCheckObjects(items, selectedItems, true) });
       if (nextProps.searchValue) {
         handleSearch('PROPERTY_BROKER', '');
       }
@@ -36,32 +36,32 @@ class Brokers extends React.Component {
     const {
       isActive,
       triggerDropdown,
-      selectBroker,
+      changeFilterItem,
       resetSection,
       searchValue,
       handleSearch,
     } = this.props;
 
-    const { brokers } = this.state;
-    const filteredItems = filterItems(searchValue, brokers.all);
+    const { items } = this.state;
+    const filteredItems = filterItems(searchValue, items.all);
 
     return (
       <div className="filter__cell filter__cell_hover">
         <div
-          className={`filter-trigger ${brokers.checked.length ? 'filter-trigger_binded' : ''}`}
+          className={`filter-trigger ${items.checked.length ? 'filter-trigger_binded' : ''}`}
           onClick={triggerDropdown}
           role="button"
           tabIndex="0"
         >
           <span className="filter-trigger__label">Брокер</span>
           {
-            brokers.checked.length > 1 &&
-            <span className="filter-trigger__more">и еще {brokers.checked.length - 1}</span>
+            items.checked.length > 1 &&
+            <span className="filter-trigger__more">и еще {items.checked.length - 1}</span>
           }
           {
-            !!brokers.checked.length &&
+            !!items.checked.length &&
             <span className="filter-trigger__value">
-              { brokers.checked[0].SHOT_NAME || brokers.checked[0].NAME || 'Нет имени/названия' }
+              { items.checked[0].SHOT_NAME || items.checked[0].NAME || 'Нет имени/названия' }
             </span>
           }
         </div>
@@ -70,7 +70,7 @@ class Brokers extends React.Component {
           isActive &&
           <BrokersDropdown
             items={filteredItems}
-            selectItem={selectBroker}
+            changeFilterItem={changeFilterItem}
             searchValue={searchValue}
             handleSearch={handleSearch}
             resetSection={resetSection}
@@ -83,9 +83,9 @@ class Brokers extends React.Component {
 }
 
 Brokers.propTypes = {
-  brokers: PropTypes.arrayOf(PropTypes.object).isRequired,
-  selectedBrokers: PropTypes.arrayOf(PropTypes.string).isRequired,
-  selectBroker: PropTypes.func.isRequired,
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  selectedItems: PropTypes.arrayOf(PropTypes.string).isRequired,
+  changeFilterItem: PropTypes.func.isRequired,
   searchValue: PropTypes.string.isRequired,
   handleSearch: PropTypes.func.isRequired,
   resetSection: PropTypes.func.isRequired,
