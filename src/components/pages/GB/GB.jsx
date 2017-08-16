@@ -3,11 +3,11 @@ import React from 'react';
 import { StickyContainer, Sticky } from 'react-sticky';
 
 import BrokerActions from './BrokerActions';
-import BrokerPaginator from './BrokerPaginator';
+import GBPaginator from './GBPaginator';
 import BrokerTable from './BrokerTable';
 import BrokerTableHeader from './BrokerTableHeader';
 
-import BusinessFilter from 'components/Filter/BusinessFilter';
+import GBFilter from 'components/Filter/GBFilter';
 
 import DetailPage from './DetailPage/DetailPage';
 
@@ -25,24 +25,21 @@ function getStatusColor(value) {
   return statusColors[value] || 'posted';
 }
 
-export default class Broker extends React.Component {
+export default class GB extends React.Component {
 
   constructor() {
     super();
     this.state = {
       detailPageSettings: {
         active: false,
-          id: '',
+        id: '',
       },
     };
   }
 
   openDetailPage = (id) => {
     this.setState({
-      detailPageSettings: {
-        active: true,
-        id,
-      },
+      detailPageSettings: { active: true, id },
     });
   };
 
@@ -55,17 +52,15 @@ export default class Broker extends React.Component {
   render() {
     const query = this.props.location.query;
     const {
-      fetchListing,
-      listingItems,
-      listingNav,
-      refreshListingItem,
-      filterChange,
-      filterListing,
+      fetchGBListing,
+      updateGBOptions,
       fetchGBfilter,
-      page,
       filter,
+      listing,
+      pagination,
+      options,
     } = this.props;
-
+    const { FILTER: filterState } = options;
     const { detailPageSettings } = this.state;
 
     const detailPageData = {
@@ -79,14 +74,18 @@ export default class Broker extends React.Component {
         <div className="container">
           <ol className="breadcrumb breadcrumb-main">
             <li className="breadcrumb__item">Бизнесы</li>
-            <li className="breadcrumb__item breadcrumb-active"><a className="breadcrumb__item_link" href="#">+ создать новый</a></li>
+            <li className="breadcrumb__item breadcrumb-active">
+              <a className="breadcrumb__item_link" href="#">+ создать новый</a>
+            </li>
           </ol>
-          <BusinessFilter
-            filterChange={filterChange}
-            filterListing={filterListing}
+
+          <GBFilter
+            updateGBOptions={updateGBOptions}
             filter={filter}
             fetchGBfilter={fetchGBfilter}
+            filterState={filterState}
           />
+
         </div>
         <StickyContainer className="table container listing-wrapper">
           <Sticky>
@@ -94,18 +93,18 @@ export default class Broker extends React.Component {
           </Sticky>
 
           <BrokerTable
-            fetchListing={fetchListing}
-            listingItems={listingItems}
+            fetchGBListing={fetchGBListing}
+            listing={listing}
             query={query}
-            refreshListingItem={refreshListingItem}
             openDetailPage={this.openDetailPage}
             getStatusColor={getStatusColor}
+            updateGBOptions={updateGBOptions}
           />
 
-          <BrokerPaginator
-            fetchListing={fetchListing}
-            itemsCount={listingItems && listingItems.length}
-            listingNav={listingNav}
+          <GBPaginator
+            updateGBOptions={updateGBOptions}
+            itemsCount={listing && listing.length}
+            pagination={pagination}
           />
 
           <BrokerActions />
@@ -120,31 +119,36 @@ export default class Broker extends React.Component {
   }
 }
 
-Broker.propTypes = {
-  fetchListing: PropTypes.func.isRequired,
-  filterListing: PropTypes.func.isRequired,
-  filterChange: PropTypes.func.isRequired,
-  listingItems: PropTypes.arrayOf(PropTypes.object),
-  fetchGBfilter: PropTypes.func.isRequired,
+GB.propTypes = {
+  fetchGBListing: PropTypes.func.isRequired,
+  updateGBOptions: PropTypes.func.isRequired,
+  listing: PropTypes.arrayOf(PropTypes.object),
   filter: PropTypes.shape({
-    ALL_BROKER: PropTypes.array.isRequired,
-    ALL_STATUS_OBJ: PropTypes.array.isRequired,
-    ALL_CITY: PropTypes.array.isRequired,
-    ALL_RAYONS: PropTypes.array.isRequired,
-    ALL_METRO: PropTypes.array.isRequired,
-    ALL_CATEGORY_GB_1: PropTypes.array.isRequired,
-    ALL_CATEGORY_GB_2: PropTypes.array.isRequired,
+    ALL_BROKER: PropTypes.arrayOf(PropTypes.object),
+    ALL_STATUS_OBJ: PropTypes.arrayOf(PropTypes.object),
+    ALL_CITY: PropTypes.arrayOf(PropTypes.object),
+    ALL_RAYONS: PropTypes.arrayOf(PropTypes.object),
+    ALL_METRO: PropTypes.arrayOf(PropTypes.object),
+    ALL_CATEGORY_GB_1: PropTypes.arrayOf(PropTypes.object),
+    ALL_CATEGORY_GB_2: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
-  page: PropTypes.shape({
-    SORT_CODE: PropTypes.array,
-    SORT_METOD: PropTypes.array,
-    PAGE: PropTypes.string,
-    COUNT: PropTypes.string,
-    FILTER: PropTypes.object,
-    SHOW_SHARED: PropTypes.string,
-    DEBUG: PropTypes.string,
+  options: PropTypes.shape({
+    SORT_CODE: PropTypes.arrayOf(PropTypes.string).isRequired,
+    SORT_METOD: PropTypes.arrayOf(PropTypes.string).isRequired,
+    PAGE: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    COUNT: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    FILTER: PropTypes.object.isRequired,
+    SHOW_SHARED: PropTypes.string.isRequired,
+    DEBUG: PropTypes.string.isRequired,
   }).isRequired,
-  listingNav: PropTypes.shape({
+  fetchGBfilter: PropTypes.func.isRequired,
+  pagination: PropTypes.shape({
     COUNT_OBJ: PropTypes.number,
     CUR_GAGE: PropTypes.oneOfType([
       PropTypes.string,
@@ -160,10 +164,9 @@ Broker.propTypes = {
       PropTypes.object,
     ]),
   }),
-  refreshListingItem: PropTypes.func.isRequired,
 };
 
-Broker.defaultProps = {
-  listingItems: [],
-  listingNav: {},
+GB.defaultProps = {
+  listing: [],
+  pagination: {},
 };

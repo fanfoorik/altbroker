@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { browserHistory } from 'react-router';
+import { indexUrl } from 'utils/urls.js';
 
 import Icon from 'components/Icon';
 import Category from './Category';
@@ -11,36 +13,18 @@ import FilterStatys from 'components/Filter/FilterStatys';
 import FilterRangeRecoupment from 'components/Filter/FilterRangeRecoupment';
 import FilterRangeProfit from 'components/Filter/FilterRangeProfit';
 
-export default class BusinessFilter extends React.Component {
-  constructor() {
-    super();
+export default class GbFilter extends React.Component {
+  constructor(props) {
+    super(props);
     this.state = {
-      page: {
-        SORT_CODE: ['ID'],
-        SORT_METOD: ['DESC'],
-        PAGE: '1',
-        COUNT: '15',
-        FILTER: {
-          ID: '',
-          ID_NAME_TEL: '',
-          ACTIVE: 'Y',
-          SECTION_ID: [],
-          SECTION_ID_1: [],
-          SECTION_ID_2: [],
-          PROPERTY_STATUS_OBJ: '',
-          PROPERTY_BROKER: [],
-          PROPERTY_GEO_ID: [],
-          PROPERTY_RAYON2: [],
-          PROPERTY_METRO_NEW: [],
-          from_PROPERTY_PRICE_BUSINESS: '',
-          to_PROPERTY_PRICE_BUSINESS: '',
-          from_PROPERTY_CHIST_PRIB: '',
-          to_PROPERTY_CHIST_PRIB: '',
-          from_PROPERTY_OKUP: '',
-          to_PROPERTY_OKUP: '',
-        },
-        SHOW_SHARED: '',
-        DEBUG: '',
+      filterState: props.filterState,
+      search: {
+        PROPERTY_BROKER: '',
+        PROPERTY_GEO_ID: '',
+        PROPERTY_RAYON2: '',
+        ALL_CATEGORY_GB_1: '',
+        ALL_CATEGORY_GB_2: '',
+        PROPERTY_METRO_NEW: '',
       },
     };
   }
@@ -49,9 +33,44 @@ export default class BusinessFilter extends React.Component {
     this.props.fetchGBfilter();
   }
 
+  handleSearch = (name, value) => {
+    this.setState(() => { this.state.search[name] = value; });
+  };
+
+  changeFilterItem = (event) => {
+    const target = event.target;
+    const id = target.id;
+    const name = target.name;
+    const property = this.state.filterState[name];
+
+    switch (name) {
+      case 'PROPERTY_GEO_ID':
+        if (id !== property[0]) {
+          this.setState(() => {
+            this.state.filterState[name] = [id];
+            this.state.filterState.PROPERTY_RAYON2 = [];
+            this.state.search.PROPERTY_RAYON2 = '';
+            this.state.filterState.PROPERTY_METRO_NEW = [];
+          });
+        }
+        break;
+
+      default:
+        if (target.checked) {
+          property.push(id);
+        } else {
+          property.splice(property.indexOf(id), 1);
+        }
+
+        this.setState(() => {
+          this.state.filterState[name] = property;
+        });
+    }
+  };
+
   selectBroker = (event) => {
     const id = event.target.id;
-    const brokers = this.state.page.FILTER.PROPERTY_BROKER;
+    const brokers = this.state.filterState.PROPERTY_BROKER;
 
     if (event.target.checked) {
       brokers.push(id);
@@ -60,26 +79,49 @@ export default class BusinessFilter extends React.Component {
     }
 
     this.setState(() => {
-      this.state.page.FILTER.PROPERTY_BROKER = brokers;
+      this.state.filterState.PROPERTY_BROKER = brokers;
     });
   };
 
-  selectCity = (event) => {
-    const id = event.target.id;
-    const city = this.state.page.FILTER.PROPERTY_GEO_ID;
+  resetSection = (event) => {
+    const name = event.target.dataset.name;
 
-    if (id !== city[0]) {
-      this.setState(() => {
-        this.state.page.FILTER.PROPERTY_GEO_ID = [id];
-        this.state.page.FILTER.PROPERTY_RAYON2 = [];
-        this.state.page.FILTER.PROPERTY_METRO_NEW = [];
-      });
+    switch (name) {
+      case 'SOMETHING':
+        console.log('SOMETHING');
+        break;
+      case 'PROPERTY_GEO_ID':
+        this.setState(() => {
+          this.state.filterState.PROPERTY_GEO_ID = [];
+          this.state.filterState.PROPERTY_RAYON2 = [];
+          this.state.search.PROPERTY_GEO_ID = '';
+          this.state.search.PROPERTY_RAYON2 = '';
+        });
+        break;
+      default:
+        this.setState(() => {
+          this.state.filterState[name] = [];
+          this.state.search[name] = '';
+        });
     }
   };
 
+  // selectCity = (event) => {
+  //   const id = event.target.id;
+  //   const city = this.state.filterState.PROPERTY_GEO_ID;
+  //
+  //   if (id !== city[0]) {
+  //     this.setState(() => {
+  //       this.state.filterState.PROPERTY_GEO_ID = [id];
+  //       this.state.filterState.PROPERTY_RAYON2 = [];
+  //       this.state.filterState.PROPERTY_METRO_NEW = [];
+  //     });
+  //   }
+  // };
+
   selectRegion = (event) => {
     const id = event.target.id;
-    const regions = this.state.page.FILTER.PROPERTY_RAYON2;
+    const regions = this.state.filterState.PROPERTY_RAYON2;
 
     if (event.target.checked) {
       regions.push(id);
@@ -88,13 +130,13 @@ export default class BusinessFilter extends React.Component {
     }
 
     this.setState(() => {
-      this.state.page.FILTER.PROPERTY_RAYON2 = regions;
+      this.state.filterState.PROPERTY_RAYON2 = regions;
     });
   };
 
   selectSubway = (event) => {
     const id = event.target.id;
-    const subways = this.state.page.FILTER.PROPERTY_METRO_NEW;
+    const subways = this.state.filterState.PROPERTY_METRO_NEW;
 
     if (event.target.checked) {
       subways.push(id);
@@ -103,13 +145,13 @@ export default class BusinessFilter extends React.Component {
     }
 
     this.setState(() => {
-      this.state.page.FILTER.PROPERTY_METRO_NEW = subways;
+      this.state.filterState.PROPERTY_METRO_NEW = subways;
     });
   };
 
   selectCategory = (event) => {
     const id = event.target.id;
-    const category = this.state.page.FILTER.SECTION_ID_1;
+    const category = this.state.filterState.SECTION_ID_1;
 
     if (event.target.checked) {
       category.push(id);
@@ -118,20 +160,24 @@ export default class BusinessFilter extends React.Component {
     }
 
     this.setState(() => {
-      this.state.page.FILTER.SECTION_ID_1 = category;
+      this.state.filterState.SECTION_ID_1 = category;
     });
   };
 
   editFromToRange = (event) => {
     const { dataset, value } = event.target;
     this.setState(() => {
-      this.state.page.FILTER[`${dataset.range}_PROPERTY_PRICE_BUSINESS`] = value;
+      this.state.filterState[`${dataset.range}_PROPERTY_PRICE_BUSINESS`] = value;
     });
   };
 
   filterSubmit = (event) => {
     event.preventDefault();
-    this.props.filterListing(this.state.page);
+    this.setState(() => {
+      this.state.filterState.PAGE = 1;
+      browserHistory.push(`${indexUrl}broker/gb/`);
+      this.props.updateGBOptions(this.state.filterState);
+    });
   };
 
   idNameTelChange = (event) => {
@@ -139,7 +185,7 @@ export default class BusinessFilter extends React.Component {
     const val = event.target.value;
 
     this.setState(() => {
-      this.state.page.FILTER[key] = val;
+      this.state.filterState[key] = val;
     });
   };
 
@@ -160,9 +206,18 @@ export default class BusinessFilter extends React.Component {
       PROPERTY_RAYON2: selectedRegions,
       PROPERTY_METRO_NEW: selectedSubways,
       SECTION_ID_1: selectedCategories,
+      SECTION_ID_2: selectedSubCategories,
       from_PROPERTY_PRICE_BUSINESS: fromPrice,
       to_PROPERTY_PRICE_BUSINESS: toPrice,
-    } = this.state.page.FILTER;
+    } = this.state.filterState;
+
+    const {
+      PROPERTY_BROKER: searchBrokers,
+      PROPERTY_GEO_ID: searchCity,
+      PROPERTY_RAYON2: searchRegions,
+      ALL_CATEGORY_GB_1: searchCategory,
+      ALL_CATEGORY_GB_2: searchSubCategory,
+    } = this.state.search;
 
     return (
       <div className="filter filter_business">
@@ -173,10 +228,12 @@ export default class BusinessFilter extends React.Component {
             </div>
 
             <Category
-              categories={categories}
-              subCategories={subCategories}
-              selectCategory={this.selectCategory}
-              selectedCategories={selectedCategories}
+              items={{ categories, subCategories }}
+              selectedItems={{ selectedCategories, selectedSubCategories }}
+              changeFilterItem={this.changeFilterItem}
+              handleSearch={this.handleSearch}
+              searchValue={{ searchCategory, searchSubCategory }}
+              resetSection={this.resetSection}
             />
 
             <Price fromPrice={fromPrice} toPrice={toPrice} editFromToRange={this.editFromToRange} />
@@ -216,18 +273,21 @@ export default class BusinessFilter extends React.Component {
 
           <div className="filter__row clear">
             <Brokers
-              brokers={brokers}
-              selectedBrokers={selectedBrokers}
-              selectBroker={this.selectBroker}
+              items={brokers}
+              selectedItems={selectedBrokers}
+              changeFilterItem={this.changeFilterItem}
+              handleSearch={this.handleSearch}
+              searchValue={searchBrokers}
+              resetSection={this.resetSection}
             />
 
             <City
-              cities={cities}
-              selectedCity={selectedCity}
-              selectCity={this.selectCity}
-              regions={regions}
-              selectedRegions={selectedRegions}
-              selectRegion={this.selectRegion}
+              items={{ cities, regions }}
+              selectedItems={{ selectedCity, selectedRegions }}
+              changeFilterItem={this.changeFilterItem}
+              handleSearch={this.handleSearch}
+              searchValue={{ searchCity, searchRegions }}
+              resetSection={this.resetSection}
             />
 
             <Subway
@@ -281,11 +341,27 @@ export default class BusinessFilter extends React.Component {
   }
 }
 
-BusinessFilter.propTypes = {
-  filterListing: PropTypes.func.isRequired,
-  filterChange: PropTypes.func.isRequired,
+GbFilter.propTypes = {
+  updateGBOptions: PropTypes.func.isRequired,
   fetchGBfilter: PropTypes.func.isRequired,
   filter: PropTypes.oneOfType([
     PropTypes.object,
   ]).isRequired,
+  filterState: PropTypes.shape({
+    ID: PropTypes.string.isRequired,
+    ID_NAME_TEL: PropTypes.string.isRequired,
+    ACTIVE: PropTypes.string.isRequired,
+    SECTION_ID: PropTypes.arrayOf(PropTypes.string).isRequired,
+    PROPERTY_STATUS_OBJ: PropTypes.string.isRequired,
+    PROPERTY_BROKER: PropTypes.arrayOf(PropTypes.string).isRequired,
+    PROPERTY_GEO_ID: PropTypes.arrayOf(PropTypes.string).isRequired,
+    PROPERTY_RAYON2: PropTypes.arrayOf(PropTypes.string).isRequired,
+    PROPERTY_METRO_NEW: PropTypes.arrayOf(PropTypes.string).isRequired,
+    from_PROPERTY_PRICE_BUSINESS: PropTypes.string.isRequired,
+    to_PROPERTY_PRICE_BUSINESS: PropTypes.string.isRequired,
+    from_PROPERTY_CHIST_PRIB: PropTypes.string.isRequired,
+    to_PROPERTY_CHIST_PRIB: PropTypes.string.isRequired,
+    from_PROPERTY_OKUP: PropTypes.string.isRequired,
+    to_PROPERTY_OKUP: PropTypes.string.isRequired,
+  }).isRequired,
 };

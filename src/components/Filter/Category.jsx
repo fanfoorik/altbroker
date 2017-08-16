@@ -8,11 +8,17 @@ function Category(props) {
   const {
     isActive,
     triggerDropdown,
-    categories,
-    subCategories,
-    selectedCategories,
-    selectCategory,
+    items,
+    selectedItems,
+    changeFilterItem,
+    handleSearch,
+    searchValue,
+    resetSection,
   } = props;
+
+  const { categories, subCategories } = items;
+  const { selectedCategories, selectedSubCategories } = selectedItems;
+  const { searchCategory, searchSubCategory } = searchValue;
 
   return (
     <div className="filter__cell filter__cell_hover active">
@@ -61,10 +67,10 @@ function Category(props) {
 Category.propTypes = {
   isActive: PropTypes.bool.isRequired,
   triggerDropdown: PropTypes.func.isRequired,
-  categories: PropTypes.arrayOf(PropTypes.object).isRequired,
-  subCategories: PropTypes.arrayOf(PropTypes.object).isRequired,
-  selectedCategories: PropTypes.arrayOf(PropTypes.string).isRequired,
-  selectCategory: PropTypes.func.isRequired,
+  // categories: PropTypes.arrayOf(PropTypes.object).isRequired,
+  // subCategories: PropTypes.arrayOf(PropTypes.object).isRequired,
+  // selectedCategories: PropTypes.arrayOf(PropTypes.string).isRequired,
+  // selectCategory: PropTypes.func.isRequired,
 };
 
 export default DropdownTriggerHOC(Category);

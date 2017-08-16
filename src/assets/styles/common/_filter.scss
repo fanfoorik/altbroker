@@ -138,16 +138,19 @@
   box-shadow: 0 0 18px rgba($c-black, 0.2);
 
   &_two {
-    width: 200%;
+    width: calc(200% + 2px);
     overflow: hidden;
     background-color: $c-white;
 
     .form-column {
       float: left;
       width: 50%;
+      border-left: 1px solid $c-border-main;
 
       &:first-child {
         border-right: 1px solid $c-border-main;
+        margin-right: -1px;
+        border-left: 0;
       }
     }
   }
@@ -202,13 +205,11 @@
 
   &__reset {
     float: left;
-    margin-top: 8px;
+    padding: 8px 0;
     cursor: pointer;
 
     &:hover {
-      cursor: default;
-      fill: $c-grey-middle;
-      opacity: 0.5;
+      color: $c-blue-main;
     }
   }
 

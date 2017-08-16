@@ -1,39 +1,41 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Icon from 'components/Icon';
 import DropdownHOC from 'components/HOC/DropdownHOC';
+import FormSearch from 'components/ui/FormSearch';
 import Checkpoint from 'components/ui/Checkpoint';
+import FormControls from 'components/ui/FormControls';
 
 function BrokersDropdown(props) {
-  const { brokers, selectedBrokers, selectBroker } = props;
+  const {
+    items,
+    changeFilterItem,
+    searchValue,
+    handleSearch,
+    resetSection,
+    triggerDropdown,
+  } = props;
 
   return (
     <div className="form-dropdown">
-      <div className="form-search">
-        <input className="form-search__input input" placeholder="Поиск" type="text" />
-        <button type="submit" className="form-search__submit">
-          <Icon className="form-search__icon" icon="lens" width="15" height="15" />
-        </button>
-      </div>
+
+      <FormSearch value={searchValue} autoFocus onChange={event => handleSearch('PROPERTY_BROKER', event.target.value)} />
+
       <div className="form-block">
         <div className="form-checkboxes">
           {
-            brokers.map((item) => {
-              const {
-                ID: id,
-                NAME: name,
-                SHOT_NAME: shortName,
-              } = item;
+            items.map((item) => {
+              const { ID: id, name, checked } = item;
 
               return (
                 <Checkpoint
                   key={`brokers-${id}`}
                   id={id}
-                  onChange={selectBroker}
+                  name="PROPERTY_BROKER"
+                  onChange={changeFilterItem}
                   className="form-checkboxes__item"
-                  checked={selectedBrokers.indexOf(id) !== -1}
-                  label={shortName || name || 'Безымянный'}
+                  checked={checked}
+                  label={name}
                 />
               );
             })
@@ -41,34 +43,18 @@ function BrokersDropdown(props) {
         </div>
       </div>
 
-      <div className="form-controls">
-        <span className="form-controls__reset">Сбросить</span>
-        <div className="form-controls__actions">
-          <button type="submit" className={'form-controls__actions_item disabled'}>
-            <Icon
-              icon="check"
-              width={20}
-              height={15}
-            />
-          </button>
-          <div className="form-controls__actions_item" role="button" tabIndex="0">
-            <Icon
-              className="icon__close"
-              icon="close"
-              width={15}
-              height={15}
-            />
-          </div>
-        </div>
-      </div>
+      <FormControls onReset={resetSection} onClose={triggerDropdown} name="PROPERTY_BROKER" />
     </div>
   );
 }
 
 BrokersDropdown.propTypes = {
-  brokers: PropTypes.arrayOf(PropTypes.object).isRequired,
-  selectedBrokers: PropTypes.arrayOf(PropTypes.string).isRequired,
-  selectBroker: PropTypes.func.isRequired,
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  changeFilterItem: PropTypes.func.isRequired,
+  searchValue: PropTypes.string.isRequired,
+  handleSearch: PropTypes.func.isRequired,
+  resetSection: PropTypes.func.isRequired,
+  triggerDropdown: PropTypes.func.isRequired,
 };
 
 export default DropdownHOC(BrokersDropdown);

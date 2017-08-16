@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import htmlParser from 'html-react-parser';
 
 export default function Checkpoint(props) {
   const { label, className, id } = props;
@@ -10,7 +9,7 @@ export default function Checkpoint(props) {
     <label className={['checkbox', className].join(' ')} htmlFor={label && checkboxId} >
       <input type="checkbox" {...props} className="checkbox-elem" id={checkboxId} />
       <div className="checkbox__indicator" />
-      {label && <span className="checkbox__label">{htmlParser(label)}</span>}
+      {label && <span className="checkbox__label">{label}</span>}
     </label>
   );
 }

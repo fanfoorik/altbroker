@@ -1,68 +1,96 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import { parseCheckObjects, filterItems } from 'utils/filterUtils';
+
 import DropdownTriggerHOC from 'components/HOC/DropdownTriggerHOC';
 import BrokersDropdown from 'components/Filter/dropdowns/BrokersDropdown';
 
-function Brokers(props) {
-  const {
-    isActive,
-    triggerDropdown,
-    brokers,
-    selectedBrokers,
-    selectBroker,
-  } = props;
+class Brokers extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: {
+        checked: [],
+        all: [],
+      },
+    };
+  }
 
-  return (
-    <div className="filter__cell filter__cell_hover">
-      <div
-        className={`filter-trigger ${selectedBrokers.length ? 'filter-trigger_binded' : ''}`}
-        onClick={triggerDropdown}
-        role="button"
-        tabIndex="0"
-      >
-        <span className="filter-trigger__label">Брокер</span>
-        {
-          selectedBrokers.length > 1 &&
-          <span className="filter-trigger__more">и еще {selectedBrokers.length - 1}</span>
-        }
-        {
-          !!selectedBrokers.length &&
-          <span className="filter-trigger__value">
-            {
-              brokers.map((item) => {
-                const {
-                  ID: id,
-                  NAME: name,
-                  SHOT_NAME: shortName,
-                } = item;
+  componentWillReceiveProps(nextProps) {
+    const { isActive, items, selectedItems } = nextProps;
+    const { all: stateItems } = this.state.items;
+    const { handleSearch } = this.props;
 
-                if (id === selectedBrokers[0]) return shortName || name || 'Безымянный';
-                return false;
-              })
-            }
-          </span>
+    if (isActive) {
+      this.setState({ items: parseCheckObjects(stateItems, selectedItems, false) });
+    } else {
+      this.setState({ items: parseCheckObjects(items, selectedItems, true) });
+      if (nextProps.searchValue) {
+        handleSearch('PROPERTY_BROKER', '');
+      }
+    }
+  }
+
+  render() {
+    const {
+      isActive,
+      triggerDropdown,
+      changeFilterItem,
+      resetSection,
+      searchValue,
+      handleSearch,
+    } = this.props;
+
+    const { items } = this.state;
+    const filteredItems = filterItems(searchValue, items.all);
+
+    return (
+      <div className="filter__cell filter__cell_hover">
+        <div
+          className={`filter-trigger ${items.checked.length ? 'filter-trigger_binded' : ''}`}
+          onClick={triggerDropdown}
+          role="button"
+          tabIndex="0"
+        >
+          <span className="filter-trigger__label">Брокер</span>
+          {
+            items.checked.length > 1 &&
+            <span className="filter-trigger__more">и еще {items.checked.length - 1}</span>
+          }
+          {
+            !!items.checked.length &&
+            <span className="filter-trigger__value">
+              { items.checked[0].SHOT_NAME || items.checked[0].NAME || 'Нет имени/названия' }
+            </span>
+          }
+        </div>
+
+        {
+          isActive &&
+          <BrokersDropdown
+            items={filteredItems}
+            changeFilterItem={changeFilterItem}
+            searchValue={searchValue}
+            handleSearch={handleSearch}
+            resetSection={resetSection}
+            triggerDropdown={triggerDropdown}
+          />
         }
       </div>
-      {
-        isActive &&
-        <BrokersDropdown
-          brokers={brokers}
-          selectBroker={selectBroker}
-          selectedBrokers={selectedBrokers}
-          triggerDropdown={triggerDropdown}
-        />
-      }
-    </div>
-  );
+    );
+  }
 }
 
 Brokers.propTypes = {
-  brokers: PropTypes.arrayOf(PropTypes.object).isRequired,
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  selectedItems: PropTypes.arrayOf(PropTypes.string).isRequired,
+  changeFilterItem: PropTypes.func.isRequired,
+  searchValue: PropTypes.string.isRequired,
+  handleSearch: PropTypes.func.isRequired,
+  resetSection: PropTypes.func.isRequired,
   isActive: PropTypes.bool.isRequired,
   triggerDropdown: PropTypes.func.isRequired,
-  selectedBrokers: PropTypes.arrayOf(PropTypes.string).isRequired,
-  selectBroker: PropTypes.func.isRequired,
 };
 
 export default DropdownTriggerHOC(Brokers);

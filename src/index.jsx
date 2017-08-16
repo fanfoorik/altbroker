@@ -8,8 +8,8 @@ import EditPage from 'components/pages/EditPage';
 import Admin from 'components/pages/Admin';
 import AppContainer from 'components/App/AppContainer';
 import AuthContainer from 'components/pages/Auth/AuthContainer';
-import BrokerContainer from 'components/pages/Broker/BrokerContainer';
-import BrokerNavItems from 'components/pages/Broker/BrokerNavItems';
+import GBContainer from 'components/pages/GB/GBContainer';
+import GBNavItems from 'components/pages/GB/GBNavItems';
 import Deal from 'components/pages/Deal';
 import Evolution from 'components/pages/Evolution';
 import FAQ from 'components/pages/FAQ/FAQ';
@@ -51,8 +51,8 @@ ReactDOM.render(
         </Route>
 
         <Route path="broker">
-          <Route path="gb" component={ProtectedRoute(BrokerContainer)} />
-          <Route path=":page" component={ProtectedRoute(BrokerNavItems)} />
+          <Route path="gb" component={ProtectedRoute(GBContainer)} />
+          <Route path=":page" component={ProtectedRoute(GBNavItems)} />
         </Route>
 
         <Route path="deal" component={ProtectedRoute(Deal)}>
