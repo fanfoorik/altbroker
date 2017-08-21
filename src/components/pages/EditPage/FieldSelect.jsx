@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import Select from 'react-select';
 
 const FieldSelect = ({
@@ -10,12 +10,15 @@ const FieldSelect = ({
   multi,
   title,
   size,
-  link
+  link,
 }) => {
   const onChangeHandler = (fieldName) => {
     return (SelectData) => {
       onChangeState({
-        [fieldName]: SelectData.length === undefined ? SelectData.value : SelectData,
+        [fieldName]: SelectData !== null &&
+        SelectData.length === undefined ?
+          SelectData.value :
+          SelectData,
       });
     };
   };
@@ -55,6 +58,20 @@ const FieldSelect = ({
       </div>
     </div>
   );
+};
+
+FieldSelect.propTypes = {
+  field: PropTypes.string,
+  options: PropTypes.array,
+  multi: PropTypes.bool,
+  size: PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]),
+  title: PropTypes.string,
+  onChangeState: PropTypes.func,
+  link: PropTypes.string,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array,
+  ]),
 };
 
 export default FieldSelect;

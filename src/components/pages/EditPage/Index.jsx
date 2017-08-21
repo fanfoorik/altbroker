@@ -3,6 +3,7 @@ import React from 'react';
 import Header from './Header';
 import LeftPanel from './LeftPanel';
 import Basic from './Basic';
+import Finance from './Finance';
 import { fetchData, fetchLib, sendData } from 'api/editPage';
 
 class EditPage extends React.Component {
@@ -54,6 +55,7 @@ class EditPage extends React.Component {
                 onChangeState={this.onChangeStateBasicHandler}
                 onSubmit={this.onSubmitBasicHandler}
               />
+              <Finance />
             </div>
           </div>
         </div>
