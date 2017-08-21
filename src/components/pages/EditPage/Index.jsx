@@ -3,7 +3,7 @@ import React from 'react';
 import Header from './Header';
 import LeftPanel from './LeftPanel';
 import Basic from './Basic';
-import { fetchData, fetchLib } from 'api/editPage';
+import { fetchData, fetchLib, sendData } from 'api/editPage';
 
 class EditPage extends React.Component {
   constructor(props) {
@@ -16,6 +16,7 @@ class EditPage extends React.Component {
     };
 
     this.onChangeStateBasicHandler = this.onChangeStateBasicHandler.bind(this);
+    this.onSubmitBasicHandler = this.onSubmitBasicHandler.bind(this);
   }
 
   componentDidMount() {
@@ -24,11 +25,18 @@ class EditPage extends React.Component {
   }
 
   onChangeStateBasicHandler(state) {
-    const newState = Object.assign(this.state, {
+    const newSelectState = {
       selectValues: Object.assign(this.state.selectValues, state),
-    });
+    };
+
+    const newState = Object.assign(this.state, newSelectState);
 
     this.setState(newState);
+  }
+
+  onSubmitBasicHandler(e) {
+    e.preventDefault();
+    sendData(this);
   }
 
   render() {
@@ -44,6 +52,7 @@ class EditPage extends React.Component {
                 lib={this.state.lib}
                 selectValues={this.state.selectValues}
                 onChangeState={this.onChangeStateBasicHandler}
+                onSubmit={this.onSubmitBasicHandler}
               />
             </div>
           </div>
