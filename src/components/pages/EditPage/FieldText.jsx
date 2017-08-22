@@ -9,6 +9,8 @@ const FieldText = ({
   field,
   required
 }) => {
+  let inputEl;
+
   const onChangeHandler = (fieldName) => {
     return (e) => {
       onChangeState({
@@ -18,14 +20,23 @@ const FieldText = ({
   };
 
   const onBlurHandler = (e) => {
-    if (required) {
-      console.log(value);
+    if (required && e.target.value === '') {
+      onChangeState(
+        [{
+          field,
+          text: 'Поле обязательно для заполнения!',
+        }]
+      , 'error');
+      inputEl.classList.add('error');
+    } else {
+      onChangeState([], 'error');
+      inputEl.classList.remove('error');
     }
   };
 
   return (
     <div className={`col-lg-${size}`}>
-      <div className="edit-form__item">
+      <div ref={input => { inputEl = input; }} className="edit-form__item">
         <lable className="edit-form__item-label">
           {title}
           {required ? <span style={({ color: 'red' })}>*</span> : ''}

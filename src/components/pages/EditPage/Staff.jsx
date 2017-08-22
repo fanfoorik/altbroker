@@ -9,9 +9,10 @@ const Staff = ({
   selectValues,
   lib,
   onSubmit,
+  error
 }) => {
   return (
-    <Section title="Штат" onSubmit={onSubmit}>
+    <Section title="Штат" error={error} onSubmit={onSubmit}>
       <div className="row">
         <div className="row">
           <FieldText

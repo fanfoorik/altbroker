@@ -8,9 +8,10 @@ const Finance = ({
   selectValues,
   lib,
   onSubmit,
+  error
 }) => {
   return (
-    <Section title="Финансы" onSubmit={onSubmit}>
+    <Section title="Финансы" error={error} onSubmit={onSubmit}>
       <div className="row">
         <FieldText
           title="Стоимость"

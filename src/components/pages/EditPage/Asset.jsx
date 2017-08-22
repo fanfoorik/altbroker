@@ -10,9 +10,10 @@ const Asset = ({
   selectValues,
   lib,
   onSubmit,
+  error,
 }) => {
   return (
-    <Section title="Активы" onSubmit={onSubmit}>
+    <Section title="Активы" error={error} onSubmit={onSubmit}>
       <div className="row">
         <div className="row">
           <FieldSelect

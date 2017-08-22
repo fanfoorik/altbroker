@@ -17,6 +17,7 @@ class EditPage extends React.Component {
     this.state = {
       selectValues: {},
       lib: {},
+      error: [],
     };
 
     this.onChangeStateBasicHandler = this.onChangeStateBasicHandler.bind(this);
@@ -28,19 +29,19 @@ class EditPage extends React.Component {
     fetchLib(this);
   }
 
-  onChangeStateBasicHandler(state) {
+  onChangeStateBasicHandler(state, key = 'selectValues') {
     const newSelectState = {
-      selectValues: Object.assign(this.state.selectValues, state),
+      [key]: Object.assign(this.state[key], state),
     };
-
     const newState = Object.assign(this.state, newSelectState);
-
     this.setState(newState);
   }
 
   onSubmitBasicHandler(e) {
     e.preventDefault();
-    sendData(this);
+    this.state.error.length === 0 ?
+      sendData(this) :
+      null;
   }
 
   render() {
@@ -57,6 +58,7 @@ class EditPage extends React.Component {
                 selectValues={this.state.selectValues}
                 onChangeState={this.onChangeStateBasicHandler}
                 onSubmit={this.onSubmitBasicHandler}
+                error={this.state.error}
               />
               <Salary
                 data={this.state.data}
@@ -64,6 +66,7 @@ class EditPage extends React.Component {
                 selectValues={this.state.selectValues}
                 onChangeState={this.onChangeStateBasicHandler}
                 onSubmit={this.onSubmitBasicHandler}
+                error={this.state.error}
               />
               <Finance
                 data={this.state.data}
@@ -71,6 +74,7 @@ class EditPage extends React.Component {
                 selectValues={this.state.selectValues}
                 onChangeState={this.onChangeStateBasicHandler}
                 onSubmit={this.onSubmitBasicHandler}
+                error={this.state.error}
               />
               <Staff
                 data={this.state.data}
@@ -78,6 +82,7 @@ class EditPage extends React.Component {
                 selectValues={this.state.selectValues}
                 onChangeState={this.onChangeStateBasicHandler}
                 onSubmit={this.onSubmitBasicHandler}
+                error={this.state.error}
               />
               <Building
                 data={this.state.data}
@@ -85,6 +90,7 @@ class EditPage extends React.Component {
                 selectValues={this.state.selectValues}
                 onChangeState={this.onChangeStateBasicHandler}
                 onSubmit={this.onSubmitBasicHandler}
+                error={this.state.error}
               />
               <Asset
                 data={this.state.data}
@@ -92,6 +98,7 @@ class EditPage extends React.Component {
                 selectValues={this.state.selectValues}
                 onChangeState={this.onChangeStateBasicHandler}
                 onSubmit={this.onSubmitBasicHandler}
+                error={this.state.error}
               />
             </div>
           </div>

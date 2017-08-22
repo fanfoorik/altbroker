@@ -13,6 +13,7 @@ const FieldSelect = ({
   link,
   required,
 }) => {
+  let selectEl;
   const onChangeHandler = (fieldName) => {
     return (SelectData) => {
       onChangeState({
@@ -24,12 +25,20 @@ const FieldSelect = ({
     };
   };
 
+  const onBlurHandler = () => {
+    if (required && value.length === 0) {
+      selectEl.classList.add('error');
+    } else {
+      selectEl.classList.remove('error');
+    }
+  };
+
   return (
     <div className={`col-lg-${size}`}>
-      <div className="edit-form__item">
+      <div ref={select => selectEl = select} className="edit-form__item">
         <lable className="edit-form__item-label">
           {title}
-          {required ? <span style={({color: 'red'})}>*</span> : ''}
+          {required ? <span style={({ color: 'red' })}>*</span> : ''}
         </lable>
         {
           field === 'metro' ?
@@ -52,6 +61,7 @@ const FieldSelect = ({
               options={options}
               disabled={!options}
               onChange={onChangeHandler(field)}
+              onBlur={onBlurHandler}
             />
         }
       </div>

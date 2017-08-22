@@ -7,20 +7,24 @@ import FieldTextArea from './FieldTextArea';
 import Section from './Section';
 
 const Basic = ({
- onChangeState,
- selectValues,
- lib,
- onSubmit
+  onChangeState,
+  selectValues,
+  lib,
+  onSubmit,
+  error,
 }) => {
   return (
-    <Section title="Основное" onSubmit={onSubmit}>
-      <FieldText
-        value={selectValues.NAME}
-        onChangeState={onChangeState}
-        title="Название"
-        field="NAME"
-        required
-      />
+    <Section title="Основное" error={error} onSubmit={onSubmit}>
+      <div className="row">
+        <FieldText
+          value={selectValues.NAME}
+          onChangeState={onChangeState}
+          title="Название"
+          field="NAME"
+          required
+          size={12}
+        />
+      </div>
 
       <div className="row">
         <FieldSelect

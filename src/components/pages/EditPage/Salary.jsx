@@ -8,9 +8,10 @@ const Salary = ({
   selectValues,
   lib,
   onSubmit,
+  error,
 }) => {
   return (
-    <Section title="Продавец" onSubmit={onSubmit}>
+    <Section title="Продавец" error={error} onSubmit={onSubmit}>
       <div className="row">
         <div className="row">
           <FieldText

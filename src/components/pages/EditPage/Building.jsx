@@ -10,9 +10,10 @@ const Building = ({
   selectValues,
   lib,
   onSubmit,
+  error,
 }) => {
   return (
-    <Section title="Помещение" onSubmit={onSubmit}>
+    <Section title="Помещение" error={error} onSubmit={onSubmit}>
       <div className="row">
         <div className="row">
           <FieldSelect

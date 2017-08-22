@@ -4,6 +4,7 @@ const Section = ({
   children,
   title,
   onSubmit,
+  error,
 }) => {
   return (
     <div className="page-panel" data-anchor="basic">
@@ -16,7 +17,7 @@ const Section = ({
       </div>
       <form className="edit-form" onSubmit={onSubmit}>
         {children}
-        <button className="btn" type="submit">Сохранить</button>
+        <button disabled={error.length !== 0} className="btn" type="submit">Сохранить</button>
       </form>
     </div>
   );

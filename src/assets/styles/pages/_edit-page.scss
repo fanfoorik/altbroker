@@ -13,6 +13,18 @@
   }
 }
 
+.edit-form__item.error {
+  .edit-form__item-label {
+    color: red;
+  }
+
+  input[type="text"],
+  .Select-control,
+  textarea {
+    border-color: red;
+  }
+}
+
 .switcher {
   position: relative;
   width: 90px;
