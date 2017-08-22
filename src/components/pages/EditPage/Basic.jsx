@@ -3,6 +3,7 @@ import 'react-select/dist/react-select.css';
 
 import FieldSelect from './FieldSelect';
 import FieldText from './FieldText';
+import FieldTextArea from './FieldTextArea';
 import Section from './Section';
 
 const Basic = ({
@@ -14,59 +15,73 @@ const Basic = ({
   return (
     <Section title="Основное" onSubmit={onSubmit}>
       <FieldText
-        value={selectValues.name}
+        value={selectValues.NAME}
         onChangeState={onChangeState}
         title="Название"
+        field="NAME"
+        required
       />
 
       <div className="row">
         <FieldSelect
-          value={selectValues.city}
+          value={selectValues.PROPERTY_GEO_ID}
           options={lib.cities}
           onChangeState={onChangeState}
-          field="city"
+          field="PROPERTY_GEO_ID"
           title="Местоположение"
           size={6}
+          required
         />
 
-        <FieldSelect
-          value={selectValues.metro}
-          options={lib.metro}
-          onChangeState={onChangeState}
-          field="metro"
-          title="Метро"
-          size={6}
-          link={selectValues.city}
-        />
+        {/*<FieldSelect*/}
+          {/*value={selectValues.PROPERTY_METRO_NEW}*/}
+          {/*options={lib.metro}*/}
+          {/*onChangeState={onChangeState}*/}
+          {/*field="PROPERTY_METRO_NEW"*/}
+          {/*title="Метро"*/}
+          {/*size={6}*/}
+          {/*link={selectValues.PROPERTY_GEO_ID}*/}
+        {/*/>*/}
       </div>
 
       <div className="row">
         <FieldSelect
           multi
-          value={selectValues.section}
+          value={selectValues.SECTION_ID}
           options={lib.categories}
           onChangeState={onChangeState}
-          field="section"
+          field="SECTION_ID"
           title="Категории"
+          size={12}
+          required
+        />
+      </div>
+
+      <div className="row">
+        <FieldTextArea
+          value={selectValues.PROPERTY_DOP_INFO}
+          onChangeState={onChangeState}
+          title="Описание"
+          field="PROPERTY_DOP_INFO"
           size={12}
         />
       </div>
 
       <div className="row">
         <FieldSelect
-          value={selectValues.source}
+          value={selectValues.PROPERTY_SOURCE}
           options={lib.sources}
           onChangeState={onChangeState}
-          field="source"
+          field="PROPERTY_SOURCE"
           title="Источник"
           size={6}
         />
 
         <FieldSelect
-          value={selectValues.reason}
+          value={selectValues.PROPERTY_REASON_FOR_SALE}
           options={lib.reasons}
           onChangeState={onChangeState}
-          field="reason"
+          field="PROPERTY_REASON_FOR_SALE"
           title="Причина продажи"
           size={6}
         />
@@ -75,16 +90,14 @@ const Basic = ({
       <div className="row">
         <FieldSelect
           multi
-          value={selectValues.advantages}
+          value={selectValues.PROPERTY_DOP_ICON}
           options={lib.advantages}
           onChangeState={onChangeState}
-          field="advantages"
+          field="PROPERTY_DOP_ICON"
           title="Преимущества"
           size={12}
         />
       </div>
-
-      <button className="btn" type="submit">Сохранить</button>
     </Section>
   );
 };

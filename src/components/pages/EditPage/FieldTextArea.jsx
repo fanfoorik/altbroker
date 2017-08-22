@@ -17,25 +17,18 @@ const FieldText = ({
     };
   };
 
-  const onBlurHandler = (e) => {
-    if (required) {
-      console.log(value);
-    }
-  };
-
   return (
     <div className={`col-lg-${size}`}>
       <div className="edit-form__item">
         <lable className="edit-form__item-label">
           {title}
-          {required ? <span style={({ color: 'red' })}>*</span> : ''}
+          {required ? <span style={({color: 'red'})}>*</span> : ''}
         </lable>
-        <input
+        <textarea
           className="edit-form__item-input"
           value={value}
           type="text"
           onChange={onChangeHandler(field)}
-          onBlur={onBlurHandler}
         />
       </div>
     </div>

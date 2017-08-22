@@ -4,6 +4,10 @@ import Header from './Header';
 import LeftPanel from './LeftPanel';
 import Basic from './Basic';
 import Finance from './Finance';
+import Salary from './Salary';
+import Staff from './Staff';
+import Building from './Building';
+import Asset from './Asset';
 import { fetchData, fetchLib, sendData } from 'api/editPage';
 
 class EditPage extends React.Component {
@@ -13,7 +17,6 @@ class EditPage extends React.Component {
     this.state = {
       selectValues: {},
       lib: {},
-      data: {},
     };
 
     this.onChangeStateBasicHandler = this.onChangeStateBasicHandler.bind(this);
@@ -55,7 +58,41 @@ class EditPage extends React.Component {
                 onChangeState={this.onChangeStateBasicHandler}
                 onSubmit={this.onSubmitBasicHandler}
               />
-              <Finance />
+              <Salary
+                data={this.state.data}
+                lib={this.state.lib}
+                selectValues={this.state.selectValues}
+                onChangeState={this.onChangeStateBasicHandler}
+                onSubmit={this.onSubmitBasicHandler}
+              />
+              <Finance
+                data={this.state.data}
+                lib={this.state.lib}
+                selectValues={this.state.selectValues}
+                onChangeState={this.onChangeStateBasicHandler}
+                onSubmit={this.onSubmitBasicHandler}
+              />
+              <Staff
+                data={this.state.data}
+                lib={this.state.lib}
+                selectValues={this.state.selectValues}
+                onChangeState={this.onChangeStateBasicHandler}
+                onSubmit={this.onSubmitBasicHandler}
+              />
+              <Building
+                data={this.state.data}
+                lib={this.state.lib}
+                selectValues={this.state.selectValues}
+                onChangeState={this.onChangeStateBasicHandler}
+                onSubmit={this.onSubmitBasicHandler}
+              />
+              <Asset
+                data={this.state.data}
+                lib={this.state.lib}
+                selectValues={this.state.selectValues}
+                onChangeState={this.onChangeStateBasicHandler}
+                onSubmit={this.onSubmitBasicHandler}
+              />
             </div>
           </div>
         </div>

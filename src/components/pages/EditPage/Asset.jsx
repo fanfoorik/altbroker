@@ -1,64 +1,73 @@
-<div className="page-panel">
-                <div className="page-panel-title">
-                  <span className="page-panel-title__heading">Активы</span>
-                  <span className="block-right">
-                    <span className="page-panel-title__status quantity-status"></span>
-                    <span className="page-panel-title__quantity">7/7</span>
-                  </span>
-                </div>
-                <form className="edit-form">
-                  <div className="row">
-                    <div className="col-lg-4">
-                      <div className="edit-form__item">
-                        <lable className="edit-form__item-label">Правовая форма</lable>
-                        <input
-                          className="edit-form__item-input"
-                          value='Lorem Ipsum'
-                          min={0}
-                          type="text"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-lg-4">
-                      <div className="edit-form__item">
-                        <lable className="edit-form__item-label">Доля</lable>
-                        <input
-                          className="edit-form__item-input"
-                          value='Lorem Ipsum'
-                          min={0}
-                          type="text"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-lg-4">
-                      <div className="edit-form__item">
-                        <lable className="edit-form__item-label">Возраст бизнеса</lable>
-                        <input
-                          className="edit-form__item-input"
-                          value='Lorem Ipsum'
-                          min={0}
-                          type="text"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="edit-form__item">
-                    <lable className="edit-form__item-label">Доп. информация по бизнесу (аренда, площадь помещений)
-                    </lable>
-                    <textarea name="" cols="10" rows="5"></textarea>
-                  </div>
-                  <div className="edit-form__item">
-                    <lable className="edit-form__item-label">Средства производства</lable>
-                    <textarea name="" cols="10" rows="5"></textarea>
-                  </div>
-                  <div className="edit-form__item">
-                    <lable className="edit-form__item-label">Нематериальные активы</lable>
-                    <textarea name="" cols="10" rows="5"></textarea>
-                  </div>
-                  <div className="edit-form__item">
-                    <lable className="edit-form__item-label">Документы, лицензии</lable>
-                    <textarea name="" cols="10" rows="5"></textarea>
-                  </div>
-                  <button className="btn" type="submit">Сохранить</button>
-                </form>
-              </div>
+import React from 'react';
+
+import FieldText from './FieldText';
+import FieldSelect from './FieldSelect';
+import FieldTextArea from './FieldTextArea';
+import Section from './Section';
+
+const Asset = ({
+  onChangeState,
+  selectValues,
+  lib,
+  onSubmit,
+}) => {
+  return (
+    <Section title="Активы" onSubmit={onSubmit}>
+      <div className="row">
+        <div className="row">
+          <FieldSelect
+            title="Правовая форма"
+            onChangeState={onChangeState}
+            size={4}
+          />
+          <FieldText
+            value={selectValues.PROPERTY_DOLYA}
+            field="PROPERTY_DOLYA"
+            onChangeState={onChangeState}
+            title="Доля"
+            size={4}
+          />
+          <FieldText
+            value={selectValues.PROPERTY_VOZR_BUSINESS}
+            field="PROPERTY_VOZR_BUSINESS"
+            onChangeState={onChangeState}
+            title="Возраст бизнеса"
+            size={4}
+          />
+        </div>
+        <div className="row">
+          <FieldTextArea
+            value={selectValues.PROPERTY_DOP_BUSINESS_INFO}
+            field="PROPERTY_DOP_BUSINESS_INFO"
+            onChangeState={onChangeState}
+            title="Доп. информация по бизнесу (аренда, площадь помещений)"
+            size={12}
+          />
+          <FieldTextArea
+            value={selectValues.PROPERTY_SRV_PRZ}
+            field="PROPERTY_SRV_PRZ"
+            title="Средства производства"
+            onChangeState={onChangeState}
+            size={12}
+          />
+          <FieldTextArea
+            value={selectValues.PROPERTY_NEM_ACT}
+            field="PROPERTY_NEM_ACT"
+            title="Не материальные активы"
+            onChangeState={onChangeState}
+            size={12}
+          />
+          <FieldTextArea
+            value={selectValues.PROPERTY_DOC_LIC}
+            field="PROPERTY_DOC_LIC"
+            title="Документы лицензии"
+            onChangeState={onChangeState}
+            size={12}
+          />
+        </div>
+      </div>
+    </Section>
+  );
+};
+
+export default Asset;

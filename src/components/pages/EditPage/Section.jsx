@@ -16,6 +16,7 @@ const Section = ({
       </div>
       <form className="edit-form" onSubmit={onSubmit}>
         {children}
+        <button className="btn" type="submit">Сохранить</button>
       </form>
     </div>
   );
