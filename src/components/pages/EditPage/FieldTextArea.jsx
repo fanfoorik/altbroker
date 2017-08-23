@@ -9,7 +9,7 @@ const FieldText = ({
   onChangeState,
   size,
   field,
-  required
+  required,
 }) => {
   const onChangeHandler = (fieldName) => {
     return (e) => {
@@ -41,8 +41,12 @@ FieldText.propTypes = {
   title: PropTypes.string,
   value: PropTypes.string,
   onChangeState: PropTypes.func,
-  size: PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]),
+  size: PropTypes.oneOf([
+    1, 2, 3, 4, 5, 6,
+    7, 8, 9, 10, 11, 12,
+  ]),
   field: PropTypes.string,
+  required: PropTypes.bool,
 };
 
 export default FieldText;

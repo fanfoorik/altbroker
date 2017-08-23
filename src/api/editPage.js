@@ -32,6 +32,14 @@ export const fetchLib = (context) => {
             label: advantage.VALUE,
             value: advantage.ID,
           })),
+          opf: answer.PROPERTY_OPF.map(opf => ({
+            label: opf.VALUE,
+            value: opf.ID,
+          })),
+          landlord: answer.PROPERTY_LANDLORD.map(landlord => ({
+            label: landlord.VALUE,
+            value: landlord.ID,
+          })),
         },
       });
     });

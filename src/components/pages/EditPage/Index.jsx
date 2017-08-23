@@ -39,9 +39,36 @@ class EditPage extends React.Component {
 
   onSubmitBasicHandler(e) {
     e.preventDefault();
-    this.state.error.length === 0 ?
-      sendData(this) :
-      null;
+    sendData(this);
+  }
+
+  get sections() {
+    return [
+      {
+        title: 'Основное',
+        component: Basic,
+      },
+      {
+        title: 'Финансы',
+        component: Finance,
+      },
+      {
+        title: 'Штат',
+        component: Staff,
+      },
+      {
+        title: 'Помещение',
+        component: Building,
+      },
+      {
+        title: 'Активы',
+        component: Asset,
+      },
+      {
+        title: 'Продавец',
+        component: Salary,
+      },
+    ];
   }
 
   render() {
@@ -50,56 +77,23 @@ class EditPage extends React.Component {
         <div className="container container__min position-rel">
           <Header />
           <div className="edit-page">
-            <LeftPanel />
+            <LeftPanel sections={this.sections} />
             <div className="edit-page__container">
-              <Basic
-                data={this.state.data}
-                lib={this.state.lib}
-                selectValues={this.state.selectValues}
-                onChangeState={this.onChangeStateBasicHandler}
-                onSubmit={this.onSubmitBasicHandler}
-                error={this.state.error}
-              />
-              <Salary
-                data={this.state.data}
-                lib={this.state.lib}
-                selectValues={this.state.selectValues}
-                onChangeState={this.onChangeStateBasicHandler}
-                onSubmit={this.onSubmitBasicHandler}
-                error={this.state.error}
-              />
-              <Finance
-                data={this.state.data}
-                lib={this.state.lib}
-                selectValues={this.state.selectValues}
-                onChangeState={this.onChangeStateBasicHandler}
-                onSubmit={this.onSubmitBasicHandler}
-                error={this.state.error}
-              />
-              <Staff
-                data={this.state.data}
-                lib={this.state.lib}
-                selectValues={this.state.selectValues}
-                onChangeState={this.onChangeStateBasicHandler}
-                onSubmit={this.onSubmitBasicHandler}
-                error={this.state.error}
-              />
-              <Building
-                data={this.state.data}
-                lib={this.state.lib}
-                selectValues={this.state.selectValues}
-                onChangeState={this.onChangeStateBasicHandler}
-                onSubmit={this.onSubmitBasicHandler}
-                error={this.state.error}
-              />
-              <Asset
-                data={this.state.data}
-                lib={this.state.lib}
-                selectValues={this.state.selectValues}
-                onChangeState={this.onChangeStateBasicHandler}
-                onSubmit={this.onSubmitBasicHandler}
-                error={this.state.error}
-              />
+              {
+                this.sections.map((section) => {
+                  const Component = section.component;
+
+                  return (
+                    <Component
+                      lib={this.state.lib}
+                      selectValues={this.state.selectValues}
+                      onChangeState={this.onChangeStateBasicHandler}
+                      onSubmit={this.onSubmitBasicHandler}
+                      error={this.state.error}
+                    />
+                  );
+                })
+              }
             </div>
           </div>
         </div>

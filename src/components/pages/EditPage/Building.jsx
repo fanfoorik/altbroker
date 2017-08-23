@@ -11,6 +11,7 @@ const Building = ({
   selectValues,
   onSubmit,
   error,
+  lib
 }) => {
   return (
     <Section title="Помещение" error={error} onSubmit={onSubmit}>
@@ -24,6 +25,9 @@ const Building = ({
       <div className="row">
         <FieldSelect
           title="Информация об арендателе"
+          options={lib.landlord}
+          value={selectValues.PROPERTY_LANDLORD}
+          field="PROPERTY_LANDLORD"
           size={6}
           onChangeState={onChangeState}
         />

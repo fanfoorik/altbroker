@@ -1,6 +1,8 @@
 import React from 'react';
 
-export default () => {
+const LeftPanel = ({
+  sections,
+}) => {
   return (
     <div className="page-aside">
       <div className="page-aside__quality">
@@ -17,40 +19,19 @@ export default () => {
           </div>
         </div>
       </div>
-      <a href="" className="page-aside__item">
-        <span className="page-aside__item_text">Основное</span>
-        <span className="page-aside__item_status quantity-status"></span>
-        <span className="page-aside__item_quantity">7/7</span>
-      </a>
-      <a href="" className="page-aside__item">
-        <span className="page-aside__item_text">Галерея</span>
-        <span className="page-aside__item_quantity">7/7</span>
-      </a>
-      <a href="" className="page-aside__item">
-        <span className="page-aside__item_text">Финансы</span>
-        <span className="page-aside__item_status quantity-status"></span>
-        <span className="page-aside__item_quantity">10/7</span>
-      </a>
-      <a href="" className="page-aside__item">
-        <span className="page-aside__item_text">Штат</span>
-        <span className="page-aside__item_quantity">7/7</span>
-      </a>
-      <a href="" className="page-aside__item">
-        <span className="page-aside__item_text">Помещение</span>
-        <span className="page-aside__item_quantity">7/7</span>
-      </a>
-      <a href="" className="page-aside__item">
-        <span className="page-aside__item_text">Активы</span>
-        <span className="page-aside__item_quantity">7/7</span>
-      </a>
-      <a href="" className="page-aside__item">
-        <span className="page-aside__item_text">Продавец</span>
-        <span className="page-aside__item_quantity">7/7</span>
-      </a>
-      <div className="page-aside__buttons">
-        <button className="btn btn-primary" type="submit">Сохранить</button>
-        <button className="btn" type="submit">В черновик</button>
-      </div>
+      {
+        sections.map((section) => {
+          return (
+            <a href="" className="page-aside__item">
+              <span className="page-aside__item_text">{section.title}</span>
+              <span className="page-aside__item_status quantity-status" />
+              <span className="page-aside__item_quantity">7/7</span>
+            </a>
+          );
+        })
+      }
     </div>
-  )
-}
+  );
+};
+
+export default LeftPanel;

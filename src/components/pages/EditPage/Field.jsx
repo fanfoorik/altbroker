@@ -35,7 +35,7 @@ const Field = ({
     };
   };
 
-  const element = React.Children.map(children, element =>
+  const element = React.Children.map(children, (element) =>
     React.cloneElement(element, {
       onBlur: onBlurHandler(element.props.value),
     }),
@@ -43,7 +43,7 @@ const Field = ({
 
   return (
     <div className={`col-lg-${size}`}>
-      <div className="edit-form__item" ref={fieldElement => parentElement = fieldElement}>
+      <div className="edit-form__item" ref={(fieldElement) => parentElement = fieldElement}>
         <lable className="edit-form__item-label">
           {title}
           {required ? <span style={({ color: 'red' })}>*</span> : ''}
