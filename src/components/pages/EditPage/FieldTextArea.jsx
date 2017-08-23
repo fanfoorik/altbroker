@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Field from './Field';
+
 const FieldText = ({
   title,
   value,
@@ -18,20 +20,20 @@ const FieldText = ({
   };
 
   return (
-    <div className={`col-lg-${size}`}>
-      <div className="edit-form__item">
-        <lable className="edit-form__item-label">
-          {title}
-          {required ? <span style={({color: 'red'})}>*</span> : ''}
-        </lable>
-        <textarea
-          className="edit-form__item-input"
-          value={value}
-          type="text"
-          onChange={onChangeHandler(field)}
-        />
-      </div>
-    </div>
+    <Field
+      title={title}
+      required={required}
+      size={size}
+      onChangeState={onChangeState}
+      field={field}
+    >
+      <textarea
+        className="edit-form__item-input"
+        value={value}
+        type="text"
+        onChange={onChangeHandler(field)}
+      />
+    </Field>
   );
 };
 

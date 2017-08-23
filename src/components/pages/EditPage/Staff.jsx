@@ -7,9 +7,8 @@ import Section from './Section';
 const Staff = ({
   onChangeState,
   selectValues,
-  lib,
   onSubmit,
-  error
+  error,
 }) => {
   return (
     <Section title="Штат" error={error} onSubmit={onSubmit}>
@@ -19,11 +18,15 @@ const Staff = ({
             title="Количество работников"
             size={6}
             onChangeState={onChangeState}
+            field="PROPERTY_KOLVO_SOTR"
+            value={selectValues.PROPERTY_KOLVO_SOTR}
           />
           <FieldText
             title="Фонд З/П"
             size={6}
             onChangeState={onChangeState}
+            field="PROPERTY_FOND_ZP"
+            value={selectValues.PROPERTY_FOND_ZP}
           />
         </div>
         <div className="row">
@@ -31,6 +34,8 @@ const Staff = ({
             title="Описание"
             size={12}
             onChangeState={onChangeState}
+            field="PROPERTY_STATE_INFORMATION"
+            value={selectValues.PROPERTY_STATE_INFORMATION}
           />
         </div>
       </div>

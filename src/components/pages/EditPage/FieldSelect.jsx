@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 
+import Field from './Field';
+
 const FieldSelect = ({
   value,
   field,
@@ -13,7 +15,6 @@ const FieldSelect = ({
   link,
   required,
 }) => {
-  let selectEl;
   const onChangeHandler = (fieldName) => {
     return (SelectData) => {
       onChangeState({
@@ -25,47 +26,38 @@ const FieldSelect = ({
     };
   };
 
-  const onBlurHandler = () => {
-    if (required && value.length === 0) {
-      selectEl.classList.add('error');
-    } else {
-      selectEl.classList.remove('error');
-    }
-  };
-
   return (
-    <div className={`col-lg-${size}`}>
-      <div ref={select => selectEl = select} className="edit-form__item">
-        <lable className="edit-form__item-label">
-          {title}
-          {required ? <span style={({ color: 'red' })}>*</span> : ''}
-        </lable>
-        {
-          field === 'metro' ?
-            <Select
-              value={value}
-              disabled={!options}
-              options={
-                options ?
-                options
-                  .filter(metro => metro.PROPERTY_CITY_VALUE === link)
-                  .map(metro => ({ value: metro.ID, label: metro.NAME })) :
-                []
-              }
-              onChange={onChangeHandler(field)}
-            /> :
+    <Field
+      title={title}
+      required={required}
+      size={size}
+      onChangeState={onChangeState}
+      field={field}
+    >
+      {
+        field === 'metro' ?
+          <Select
+            value={value}
+            disabled={!options}
+            options={
+              options ?
+              options
+                .filter(metro => metro.PROPERTY_CITY_VALUE === link)
+                .map(metro => ({ value: metro.ID, label: metro.NAME })) :
+              []
+            }
+            onChange={onChangeHandler(field)}
+          /> :
 
-            <Select
-              multi={multi}
-              value={value}
-              options={options}
-              disabled={!options}
-              onChange={onChangeHandler(field)}
-              onBlur={onBlurHandler}
-            />
-        }
-      </div>
-    </div>
+          <Select
+            multi={multi}
+            value={value}
+            options={options}
+            disabled={!options}
+            onChange={onChangeHandler(field)}
+          />
+      }
+    </Field>
   );
 };
 

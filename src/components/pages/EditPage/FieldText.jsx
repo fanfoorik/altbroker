@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Field from './Field';
+
 const FieldText = ({
   title,
   value,
   onChangeState,
   size,
   field,
-  required
+  required,
 }) => {
-  let inputEl;
-
   const onChangeHandler = (fieldName) => {
     return (e) => {
       onChangeState({
@@ -19,37 +19,21 @@ const FieldText = ({
     };
   };
 
-  const onBlurHandler = (e) => {
-    if (required && e.target.value === '') {
-      onChangeState(
-        [{
-          field,
-          text: 'Поле обязательно для заполнения!',
-        }]
-      , 'error');
-      inputEl.classList.add('error');
-    } else {
-      onChangeState([], 'error');
-      inputEl.classList.remove('error');
-    }
-  };
-
   return (
-    <div className={`col-lg-${size}`}>
-      <div ref={input => { inputEl = input; }} className="edit-form__item">
-        <lable className="edit-form__item-label">
-          {title}
-          {required ? <span style={({ color: 'red' })}>*</span> : ''}
-        </lable>
-        <input
-          className="edit-form__item-input"
-          value={value}
-          type="text"
-          onChange={onChangeHandler(field)}
-          onBlur={onBlurHandler}
-        />
-      </div>
-    </div>
+    <Field
+      title={title}
+      required={required}
+      size={size}
+      onChangeState={onChangeState}
+      field={field}
+    >
+      <input
+        className="edit-form__item-input"
+        value={value}
+        type="text"
+        onChange={onChangeHandler(field)}
+      />
+    </Field>
   );
 };
 
