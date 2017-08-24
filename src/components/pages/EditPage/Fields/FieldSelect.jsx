@@ -4,41 +4,37 @@ import Select from 'react-select';
 
 import Field from './Field';
 
-const FieldSelect = ({
-  value,
-  field,
-  options,
-  onChangeState,
-  multi,
-  title,
-  size,
-  link,
-  required,
-}) => {
-  const onChangeHandler = (fieldName) => {
-    return (SelectData) => {
-      onChangeState({
-        [fieldName]: SelectData !== null &&
-        SelectData.length === undefined ?
-          SelectData.value :
-          SelectData.map(data => data.value),
-      });
-    };
+const FieldSelect = (props) => {
+  const {
+    value,
+    field,
+    options,
+    onChangeState,
+    multi,
+    title,
+    size,
+    link,
+    required,
+    disabled,
+    toggleDisabledSubmit,
+  } = props;
+
+  const onChangeHandler = (SelectData) => {
+    onChangeState({
+      [field]: SelectData !== null &&
+      SelectData.length === undefined ?
+        SelectData.value :
+        SelectData.map(data => data.value),
+    });
   };
 
   return (
-    <Field
-      title={title}
-      required={required}
-      size={size}
-      onChangeState={onChangeState}
-      field={field}
-    >
+    <Field {...props}>
       {
         field === 'metro' ?
           <Select
             value={value}
-            disabled={!options}
+            disabled={!options || disabled}
             options={
               options ?
               options
@@ -46,15 +42,15 @@ const FieldSelect = ({
                 .map(metro => ({ value: metro.ID, label: metro.NAME })) :
               []
             }
-            onChange={onChangeHandler(field)}
+            onChange={onChangeHandler}
           /> :
 
           <Select
             multi={multi}
             value={value}
             options={options}
-            disabled={!options}
-            onChange={onChangeHandler(field)}
+            disabled={!options || disabled}
+            onChange={onChangeHandler}
           />
       }
     </Field>

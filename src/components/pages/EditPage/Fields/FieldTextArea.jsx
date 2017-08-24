@@ -3,35 +3,29 @@ import PropTypes from 'prop-types';
 
 import Field from './Field';
 
-const FieldText = ({
-  title,
-  value,
-  onChangeState,
-  size,
-  field,
-  required,
-}) => {
-  const onChangeHandler = (fieldName) => {
-    return (e) => {
-      onChangeState({
-        [fieldName]: e.target.value,
-      });
-    };
+const FieldText = (props) => {
+  const {
+    title,
+    value,
+    onChangeState,
+    size,
+    field,
+    required,
+    validRules,
+  } = props;
+  const onChangeHandler = (e) => {
+    onChangeState({
+      [field]: e.target.value,
+    });
   };
 
   return (
-    <Field
-      title={title}
-      required={required}
-      size={size}
-      onChangeState={onChangeState}
-      field={field}
-    >
+    <Field {...props}>
       <textarea
         className="edit-form__item-input"
         value={value}
         type="text"
-        onChange={onChangeHandler(field)}
+        onChange={onChangeHandler}
       />
     </Field>
   );
@@ -47,6 +41,7 @@ FieldText.propTypes = {
   ]),
   field: PropTypes.string,
   required: PropTypes.bool,
+  validRules: PropTypes.func,
 };
 
 export default FieldText;

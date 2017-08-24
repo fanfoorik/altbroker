@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
+import 'react-notifications/lib/notifications.css';
+import { NotificationContainer } from 'react-notifications';
 
 import NavigationContainer from './Navigation/NavigationContainer';
 import NotificationsContainer from './NavNotifications/NavNotificationsContainer';
@@ -29,6 +31,7 @@ export default function Header() {
           <SearchWrapper />
         </div>
       </div>
+      <NotificationContainer />
     </header>
   );
 }

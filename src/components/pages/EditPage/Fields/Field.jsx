@@ -8,29 +8,23 @@ const Field = ({
   error,
   onChangeState,
   field,
+  validRules,
+  toggleDisabledSubmit,
 }) => {
   let parentElement;
   const onBlurHandler = (value) => {
     return () => {
       const errorElement = parentElement.getElementsByClassName('edit-form__error-text')[0];
       const textErrorRequired = 'Поле обязательно для заполнения!';
-      const error = 'error';
 
       if (required && value.length === 0) {
-        onChangeState(
-          [{
-            field,
-            text: textErrorRequired,
-          }]
-        , error);
-
-        parentElement.classList.add(error);
+        parentElement.classList.add('error');
         errorElement.innerText = textErrorRequired;
+        toggleDisabledSubmit();
       } else {
-        onChangeState([], error);
-
-        parentElement.classList.remove(error);
+        parentElement.classList.remove('error');
         errorElement.innerText = '';
+        toggleDisabledSubmit();
       }
     };
   };

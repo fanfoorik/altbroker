@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FieldText from './FieldText';
+import { FieldText } from '../Fields';
 import Section from './Section';
 
 const Salary = ({
@@ -8,9 +8,16 @@ const Salary = ({
   selectValues,
   onSubmit,
   error,
+  disabledSubmit
 }) => {
   return (
-    <Section title="Продавец" error={error} onSubmit={onSubmit}>
+    <Section
+      selectValues={selectValues}
+      title="Продавец"
+      error={error}
+      onSubmit={onSubmit}
+      disabledSubmit={disabledSubmit}
+    >
       <div className="row">
         <FieldText
           value={selectValues.PROPERTY_KLIENT_FIO}
@@ -19,6 +26,7 @@ const Salary = ({
           size={6}
           onChangeState={onChangeState}
           required
+          error={error}
         />
         <FieldText
           value={selectValues.PROPERTY_KLIENT_TLF}
@@ -27,6 +35,7 @@ const Salary = ({
           size={6}
           onChangeState={onChangeState}
           required
+          error={error}
         />
       </div>
       <div className="row">
@@ -36,6 +45,7 @@ const Salary = ({
           title="Почта"
           size={6}
           onChangeState={onChangeState}
+          error={error}
         />
         <FieldText
           value={selectValues.PROPERTY_KLIENT_SAIT}
@@ -43,6 +53,7 @@ const Salary = ({
           title="Сайт"
           size={6}
           onChangeState={onChangeState}
+          error={error}
         />
       </div>
       <div className="row">
@@ -52,6 +63,7 @@ const Salary = ({
           title="Адрес"
           size={12}
           onChangeState={onChangeState}
+          error={error}
         />
       </div>
     </Section>

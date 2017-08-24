@@ -1,9 +1,11 @@
 import React from 'react';
 import 'react-select/dist/react-select.css';
 
-import FieldSelect from './FieldSelect';
-import FieldText from './FieldText';
-import FieldTextArea from './FieldTextArea';
+import {
+  FieldSelect,
+  FieldText,
+  FieldTextArea,
+} from '../Fields';
 import Section from './Section';
 
 const Basic = ({
@@ -12,9 +14,16 @@ const Basic = ({
   lib,
   onSubmit,
   error,
+  disabledSubmit,
 }) => {
   return (
-    <Section title="Основное" error={error} onSubmit={onSubmit}>
+    <Section
+      selectValues={selectValues}
+      title="Основное"
+      error={error}
+      onSubmit={onSubmit}
+      disabledSubmit={disabledSubmit}
+    >
       <div className="row">
         <FieldText
           value={selectValues.NAME}
@@ -23,6 +32,7 @@ const Basic = ({
           field="NAME"
           required
           size={12}
+          error={error}
         />
       </div>
 
@@ -35,6 +45,7 @@ const Basic = ({
           title="Местоположение"
           size={6}
           required
+          error={error}
         />
 
         {/*<FieldSelect*/}
@@ -58,6 +69,7 @@ const Basic = ({
           title="Категории"
           size={12}
           required
+          error={error}
         />
       </div>
 
@@ -68,6 +80,7 @@ const Basic = ({
           title="Описание"
           field="PROPERTY_DOP_INFO"
           size={12}
+          error={error}
         />
       </div>
 
@@ -79,6 +92,7 @@ const Basic = ({
           field="PROPERTY_SOURCE"
           title="Источник"
           size={6}
+          error={error}
         />
 
         <FieldSelect
@@ -88,6 +102,7 @@ const Basic = ({
           field="PROPERTY_REASON_FOR_SALE"
           title="Причина продажи"
           size={6}
+          error={error}
         />
       </div>
 
@@ -100,6 +115,7 @@ const Basic = ({
           field="PROPERTY_DOP_ICON"
           title="Преимущества"
           size={12}
+          error={error}
         />
       </div>
     </Section>

@@ -20,7 +20,7 @@ const LeftPanel = ({
         </div>
       </div>
       {
-        sections.map((section) => {
+        sections.map((section, index) => {
           return (
             <a href="" className="page-aside__item">
               <span className="page-aside__item_text">{section.title}</span>

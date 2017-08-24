@@ -2,26 +2,39 @@ import React from 'react';
 
 import Header from './Header';
 import LeftPanel from './LeftPanel';
-import Basic from './Basic';
-import Finance from './Finance';
-import Salary from './Salary';
-import Staff from './Staff';
-import Building from './Building';
-import Asset from './Asset';
-import { fetchData, fetchLib, sendData } from 'api/editPage';
+import {
+  Basic,
+  Finance,
+  Salary,
+  Staff,
+  Building,
+  Asset,
+} from './Sections';
+
+import {
+  fetchData,
+  fetchLib,
+  sendData,
+} from 'api/editPage';
 
 class EditPage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectValues: {},
+      selectValues: {
+        Basic: {},
+        Finance: {},
+        Staff: {},
+        Building: {},
+        Asset: {},
+        Salary: {},
+      },
       lib: {},
-      error: [],
     };
 
-    this.onChangeStateBasicHandler = this.onChangeStateBasicHandler.bind(this);
-    this.onSubmitBasicHandler = this.onSubmitBasicHandler.bind(this);
+    this.onChangeStateHandler = this.onChangeStateHandler.bind(this);
+    this.onSubmitHandler = this.onSubmitHandler.bind(this);
   }
 
   componentDidMount() {
@@ -29,47 +42,69 @@ class EditPage extends React.Component {
     fetchLib(this);
   }
 
-  onChangeStateBasicHandler(state, key = 'selectValues') {
-    const newSelectState = {
-      [key]: Object.assign(this.state[key], state),
+  onChangeStateHandler(section) {
+    return (state, type = 'selectValues') => {
+      if (state.PROPERTY_SOBSTVEN !== undefined && state.PROPERTY_SOBSTVEN) {
+        state.PROPERTY_LANDLORD = null;
+      }
+
+      const newStateSection = {
+        [section]: Object.assign(this.state[type][section], state),
+      };
+
+      const newSelectState = {
+        [type]: Object.assign(this.state[type], newStateSection),
+      };
+
+      const newState = Object.assign(this.state, newSelectState);
+
+      this.setState(newState);
     };
-    const newState = Object.assign(this.state, newSelectState);
-    this.setState(newState);
   }
 
-  onSubmitBasicHandler(e) {
-    e.preventDefault();
-    sendData(this);
+
+  onSubmitHandler(section) {
+    return (e) => {
+      e.preventDefault();
+      sendData(this, section);
+    };
   }
 
-  get sections() {
-    return [
-      {
-        title: 'Основное',
-        component: Basic,
-      },
-      {
-        title: 'Финансы',
-        component: Finance,
-      },
-      {
-        title: 'Штат',
-        component: Staff,
-      },
-      {
-        title: 'Помещение',
-        component: Building,
-      },
-      {
-        title: 'Активы',
-        component: Asset,
-      },
-      {
-        title: 'Продавец',
-        component: Salary,
-      },
-    ];
-  }
+  componentSections = {
+    Basic,
+    Finance,
+    Staff,
+    Building,
+    Asset,
+    Salary,
+  };
+
+  sections = [
+    {
+      title: 'Основное',
+      component: 'Basic',
+    },
+    {
+      title: 'Финансы',
+      component: 'Finance',
+    },
+    {
+      title: 'Штат',
+      component: 'Staff',
+    },
+    {
+      title: 'Помещение',
+      component: 'Building',
+    },
+    {
+      title: 'Активы',
+      component: 'Asset',
+    },
+    {
+      title: 'Продавец',
+      component: 'Salary',
+    },
+  ];
 
   render() {
     return (
@@ -80,16 +115,14 @@ class EditPage extends React.Component {
             <LeftPanel sections={this.sections} />
             <div className="edit-page__container">
               {
-                this.sections.map((section) => {
-                  const Component = section.component;
-
+                this.sections.map((section, index) => {
+                  const Component = this.componentSections[section.component];
                   return (
                     <Component
                       lib={this.state.lib}
-                      selectValues={this.state.selectValues}
-                      onChangeState={this.onChangeStateBasicHandler}
-                      onSubmit={this.onSubmitBasicHandler}
-                      error={this.state.error}
+                      selectValues={this.state.selectValues[section.component]}
+                      onChangeState={this.onChangeStateHandler(section.component)}
+                      onSubmit={this.onSubmitHandler(section.component)}
                     />
                   );
                 })
