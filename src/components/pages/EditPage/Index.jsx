@@ -117,9 +117,11 @@ class EditPage extends React.Component {
               {
                 this.sections.map((section, index) => {
                   const Component = this.componentSections[section.component];
+
                   return (
                     <Component
                       lib={this.state.lib}
+                      key={index}
                       selectValues={this.state.selectValues[section.component]}
                       onChangeState={this.onChangeStateHandler(section.component)}
                       onSubmit={this.onSubmitHandler(section.component)}

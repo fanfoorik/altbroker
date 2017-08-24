@@ -11,12 +11,8 @@ const FieldSelect = (props) => {
     options,
     onChangeState,
     multi,
-    title,
-    size,
     link,
-    required,
     disabled,
-    toggleDisabledSubmit,
   } = props;
 
   const onChangeHandler = (SelectData) => {
@@ -31,7 +27,7 @@ const FieldSelect = (props) => {
   return (
     <Field {...props}>
       {
-        field === 'metro' ?
+        field === 'PROPERTY_METRO_NEW' ?
           <Select
             value={value}
             disabled={!options || disabled}
@@ -73,6 +69,7 @@ FieldSelect.propTypes = {
     PropTypes.array,
   ]),
   required: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 export default FieldSelect;

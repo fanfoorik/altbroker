@@ -1,30 +1,26 @@
 import React from 'react';
 
+import Section from './Section';
+import FormRow from '../FormRow';
 import {
   FieldText,
   FieldSelect,
   FieldTextArea,
 } from '../Fields';
 
-import Section from './Section';
-
 const Asset = ({
   onChangeState,
   selectValues,
   onSubmit,
-  error,
   lib,
-  disabledSubmit,
 }) => {
   return (
     <Section
       selectValues={selectValues}
       title="Активы"
-      error={error}
       onSubmit={onSubmit}
-      disabledSubmit={disabledSubmit}
     >
-      <div className="row">
+      <FormRow>
         <FieldSelect
           title="Правовая форма"
           onChangeState={onChangeState}
@@ -32,7 +28,6 @@ const Asset = ({
           value={selectValues.PROPERTY_OPF}
           field="PROPERTY_OPF"
           size={4}
-          error={error}
         />
         <FieldText
           value={selectValues.PROPERTY_DOLYA}
@@ -40,7 +35,6 @@ const Asset = ({
           onChangeState={onChangeState}
           title="Доля"
           size={4}
-          error={error}
         />
         <FieldText
           value={selectValues.PROPERTY_VOZR_BUSINESS}
@@ -48,17 +42,15 @@ const Asset = ({
           onChangeState={onChangeState}
           title="Возраст бизнеса"
           size={4}
-          error={error}
         />
-      </div>
-      <div className="row">
+      </FormRow>
+      <FormRow className="row">
         <FieldTextArea
           value={selectValues.PROPERTY_DOP_BUSINESS_INFO}
           field="PROPERTY_DOP_BUSINESS_INFO"
           onChangeState={onChangeState}
           title="Доп. информация по бизнесу (аренда, площадь помещений)"
           size={12}
-          error={error}
         />
         <FieldTextArea
           value={selectValues.PROPERTY_SRV_PRZ}
@@ -66,7 +58,6 @@ const Asset = ({
           title="Средства производства"
           onChangeState={onChangeState}
           size={12}
-          error={error}
         />
         <FieldTextArea
           value={selectValues.PROPERTY_NEM_ACT}
@@ -74,7 +65,6 @@ const Asset = ({
           title="Не материальные активы"
           onChangeState={onChangeState}
           size={12}
-          error={error}
         />
         <FieldTextArea
           value={selectValues.PROPERTY_DOC_LIC}
@@ -82,9 +72,8 @@ const Asset = ({
           title="Документы лицензии"
           onChangeState={onChangeState}
           size={12}
-          error={error}
         />
-      </div>
+      </FormRow>
     </Section>
   );
 };

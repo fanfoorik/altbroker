@@ -2,23 +2,20 @@ import React from 'react';
 
 import { FieldText } from '../Fields';
 import Section from './Section';
+import FormRow from '../FormRow';
 
 const Salary = ({
   onChangeState,
   selectValues,
   onSubmit,
-  error,
-  disabledSubmit
 }) => {
   return (
     <Section
       selectValues={selectValues}
       title="Продавец"
-      error={error}
       onSubmit={onSubmit}
-      disabledSubmit={disabledSubmit}
     >
-      <div className="row">
+      <FormRow>
         <FieldText
           value={selectValues.PROPERTY_KLIENT_FIO}
           field="PROPERTY_KLIENT_FIO"
@@ -26,7 +23,6 @@ const Salary = ({
           size={6}
           onChangeState={onChangeState}
           required
-          error={error}
         />
         <FieldText
           value={selectValues.PROPERTY_KLIENT_TLF}
@@ -35,17 +31,15 @@ const Salary = ({
           size={6}
           onChangeState={onChangeState}
           required
-          error={error}
         />
-      </div>
-      <div className="row">
+      </FormRow>
+      <FormRow>
         <FieldText
           value={selectValues.PROPERTY_KLIENT_EMAIL}
           field="PROPERTY_KLIENT_EMAIL"
           title="Почта"
           size={6}
           onChangeState={onChangeState}
-          error={error}
         />
         <FieldText
           value={selectValues.PROPERTY_KLIENT_SAIT}
@@ -53,19 +47,17 @@ const Salary = ({
           title="Сайт"
           size={6}
           onChangeState={onChangeState}
-          error={error}
         />
-      </div>
-      <div className="row">
+      </FormRow>
+      <FormRow>
         <FieldText
           value={selectValues.PROPERTY_KLIENT_MESTO}
           field="PROPERTY_KLIENT_MESTO"
           title="Адрес"
           size={12}
           onChangeState={onChangeState}
-          error={error}
         />
-      </div>
+      </FormRow>
     </Section>
   );
 };

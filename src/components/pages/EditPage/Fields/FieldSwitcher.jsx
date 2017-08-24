@@ -5,10 +5,8 @@ import Field from './Field';
 
 const FieldSwitcher = (props) => {
   const {
-    title,
     value,
     onChangeState,
-    size,
     field,
   } = props;
 

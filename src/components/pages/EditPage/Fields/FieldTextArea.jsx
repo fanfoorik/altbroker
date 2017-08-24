@@ -5,13 +5,9 @@ import Field from './Field';
 
 const FieldText = (props) => {
   const {
-    title,
     value,
     onChangeState,
-    size,
     field,
-    required,
-    validRules,
   } = props;
   const onChangeHandler = (e) => {
     onChangeState({

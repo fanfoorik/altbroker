@@ -5,10 +5,6 @@ const Field = ({
   title,
   required,
   size,
-  error,
-  onChangeState,
-  field,
-  validRules,
   toggleDisabledSubmit,
 }) => {
   let parentElement;
@@ -20,11 +16,11 @@ const Field = ({
       if (required && value.length === 0) {
         parentElement.classList.add('error');
         errorElement.innerText = textErrorRequired;
-        toggleDisabledSubmit();
+        toggleDisabledSubmit(true);
       } else {
         parentElement.classList.remove('error');
         errorElement.innerText = '';
-        toggleDisabledSubmit();
+        toggleDisabledSubmit(false);
       }
     };
   };

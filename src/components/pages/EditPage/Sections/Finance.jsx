@@ -2,23 +2,20 @@ import React from 'react';
 
 import { FieldText } from '../Fields';
 import Section from './Section';
+import FormRow from '../FormRow';
 
 const Finance = ({
   onChangeState,
   selectValues,
   onSubmit,
-  error,
-  disabledSubmit
 }) => {
   return (
     <Section
       selectValues={selectValues}
       title="Финансы"
-      error={error}
       onSubmit={onSubmit}
-      disabledSubmit={disabledSubmit}
     >
-      <div className="row">
+      <FormRow>
         <FieldText
           title="Стоимость"
           size={4}
@@ -59,7 +56,7 @@ const Finance = ({
           value={selectValues.PROPERTY_SREDMES_RASH}
           type="number"
         />
-      </div>
+      </FormRow>
     </Section>
   );
 };

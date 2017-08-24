@@ -11,16 +11,20 @@ class Form extends React.Component {
     this.toggleDisabledSubmit = this.toggleDisabledSubmit.bind(this);
   }
 
-  toggleDisabledSubmit() {
+  toggleDisabledSubmit(value) {
     this.setState({
-      disabledSubmit: !this.state.disabledSubmit,
+      disabledSubmit: value,
     });
   }
 
   render() {
     return (
       <form className="edit-form" onSubmit={this.props.onSubmit}>
-        {this.props.children}
+        {React.Children.map(this.props.children, (child) => {
+          return React.cloneElement(child, {
+            toggleDisabledSubmit: this.toggleDisabledSubmit,
+          });
+        })}
         <button disabled={this.state.disabledSubmit} className="btn" type="submit">Сохранить</button>
       </form>
     );
