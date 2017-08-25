@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 
 import Field from './Field';
 
-const FieldText = (props) => {
+const FieldTextArea = (props) => {
   const {
     value,
     onChangeState,
     field,
   } = props;
+
   const onChangeHandler = (e) => {
     onChangeState({
       [field]: e.target.value,
@@ -27,17 +28,16 @@ const FieldText = (props) => {
   );
 };
 
-FieldText.propTypes = {
-  title: PropTypes.string,
+FieldTextArea.propTypes = {
   value: PropTypes.string,
-  onChangeState: PropTypes.func,
-  size: PropTypes.oneOf([
-    1, 2, 3, 4, 5, 6,
-    7, 8, 9, 10, 11, 12,
-  ]),
+  onChangeState: PropTypes.func.isRequired,
+
   field: PropTypes.string,
-  required: PropTypes.bool,
-  validRules: PropTypes.func,
 };
 
-export default FieldText;
+FieldTextArea.defaultProps = {
+  field: '',
+  value: '',
+};
+
+export default FieldTextArea;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Form from '../Form';
 
@@ -6,7 +7,6 @@ const Section = ({
   children,
   title,
   onSubmit,
-  error,
   selectValues,
 }) => {
   let countFilledField = 0;
@@ -32,7 +32,8 @@ const Section = ({
               ''
           }
           <span className="page-panel-title__quantity">
-            {countFilledField}/{allCountField}</span>
+            {countFilledField}/{allCountField}
+          </span>
         </span>
       </div>
       <Form onSubmit={onSubmit}>
@@ -40,6 +41,19 @@ const Section = ({
       </Form>
     </div>
   );
+};
+
+Section.propTypes = {
+  children: PropTypes.node.isRequired,
+  title: PropTypes.string,
+  onSubmit: PropTypes.func,
+  selectValues: PropTypes.object.isRequired,
+};
+
+Section.defaultProps = {
+  title: '',
+  onSubmit: () => {},
+  selectValues: {},
 };
 
 export default Section;

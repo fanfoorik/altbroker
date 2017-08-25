@@ -5,9 +5,9 @@ import Section from './Section';
 import FormRow from '../FormRow';
 
 const Salary = ({
-  onChangeState,
   selectValues,
   onSubmit,
+  ...props
 }) => {
   return (
     <Section
@@ -21,16 +21,16 @@ const Salary = ({
           field="PROPERTY_KLIENT_FIO"
           title="Имя"
           size={6}
-          onChangeState={onChangeState}
           required
+          {...props}
         />
         <FieldText
           value={selectValues.PROPERTY_KLIENT_TLF}
           field="PROPERTY_KLIENT_TLF"
           title="Телефон"
           size={6}
-          onChangeState={onChangeState}
           required
+          {...props}
         />
       </FormRow>
       <FormRow>
@@ -39,14 +39,14 @@ const Salary = ({
           field="PROPERTY_KLIENT_EMAIL"
           title="Почта"
           size={6}
-          onChangeState={onChangeState}
+          {...props}
         />
         <FieldText
           value={selectValues.PROPERTY_KLIENT_SAIT}
           field="PROPERTY_KLIENT_SAIT"
           title="Сайт"
           size={6}
-          onChangeState={onChangeState}
+          {...props}
         />
       </FormRow>
       <FormRow>
@@ -54,8 +54,7 @@ const Salary = ({
           value={selectValues.PROPERTY_KLIENT_MESTO}
           field="PROPERTY_KLIENT_MESTO"
           title="Адрес"
-          size={12}
-          onChangeState={onChangeState}
+          {...props}
         />
       </FormRow>
     </Section>

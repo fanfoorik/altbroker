@@ -1,11 +1,18 @@
 import React from 'react';
 
-const FormRow = (props) => {
+const FormRow = ({
+  children,
+  addError,
+  deleteError,
+  toggleDisabledSubmit,
+}) => {
   return (
     <div className="row">
-      {React.Children.map(props.children, (child) => {
+      {React.Children.map(children, (child) => {
         return React.cloneElement(child, {
-          toggleDisabledSubmit: props.toggleDisabledSubmit,
+          toggleDisabledSubmit,
+          addError,
+          deleteError,
         });
       })}
     </div>

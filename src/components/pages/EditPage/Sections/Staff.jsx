@@ -8,9 +8,9 @@ import {
 } from '../Fields';
 
 const Staff = ({
-  onChangeState,
   selectValues,
   onSubmit,
+  ...props
 }) => {
   return (
     <Section
@@ -22,27 +22,26 @@ const Staff = ({
         <FieldText
           title="Количество работников"
           size={6}
-          onChangeState={onChangeState}
           field="PROPERTY_KOLVO_SOTR"
           value={selectValues.PROPERTY_KOLVO_SOTR}
           type="number"
+          {...props}
         />
         <FieldText
           title="Фонд З/П"
           size={6}
-          onChangeState={onChangeState}
           field="PROPERTY_FOND_ZP"
           value={selectValues.PROPERTY_FOND_ZP}
           type="number"
+          {...props}
         />
       </FormRow>
       <FormRow>
         <FieldTextArea
           title="Описание"
-          size={12}
-          onChangeState={onChangeState}
           field="PROPERTY_STATE_INFORMATION"
           value={selectValues.PROPERTY_STATE_INFORMATION}
+          {...props}
         />
       </FormRow>
     </Section>

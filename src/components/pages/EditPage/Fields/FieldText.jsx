@@ -30,18 +30,17 @@ const FieldText = (props) => {
 };
 
 FieldText.propTypes = {
-  title: PropTypes.string,
   value: PropTypes.string,
-  onChangeState: PropTypes.func,
-  size: PropTypes.oneOf([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]),
+  onChangeState: PropTypes.func.isRequired,
+
   field: PropTypes.string,
-  validRules: PropTypes.func,
   type: PropTypes.string,
-  required: PropTypes.bool,
 };
 
 FieldText.defaultProps = {
   type: 'text',
+  field: '',
+  value: '',
 };
 
 export default FieldText;

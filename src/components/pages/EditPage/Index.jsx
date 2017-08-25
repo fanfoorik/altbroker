@@ -1,4 +1,5 @@
 import React from 'react';
+import shortId from 'shortid';
 
 import Header from './Header';
 import LeftPanel from './LeftPanel';
@@ -112,7 +113,7 @@ class EditPage extends React.Component {
         <div className="container container__min position-rel">
           <Header />
           <div className="edit-page">
-            <LeftPanel sections={this.sections} />
+            <LeftPanel sections={this.sections} selectValues={this.state.selectValues} />
             <div className="edit-page__container">
               {
                 this.sections.map((section, index) => {

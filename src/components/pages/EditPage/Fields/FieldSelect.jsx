@@ -13,63 +13,74 @@ const FieldSelect = (props) => {
     multi,
     link,
     disabled,
+    maxCountCurrentValues,
   } = props;
 
-  const onChangeHandler = (SelectData) => {
-    onChangeState({
-      [field]: SelectData !== null &&
-      SelectData.length === undefined ?
-        SelectData.value :
-        SelectData.map(data => data.value),
-    });
+  const onChangeHandler = (selectData) => {
+    let selectOption = selectData;
+
+    if (multi && maxCountCurrentValues) {
+      selectOption = selectOption.slice(0, maxCountCurrentValues);
+    }
+
+    if (selectOption === null) {
+      onChangeState({ [field]: selectOption });
+    } else {
+      onChangeState({
+        [field]: selectOption.length === undefined ?
+        selectOption.value :
+        selectOption.map(data => data.value),
+      });
+    }
   };
+
+  let optionsRes;
+  if (field === 'PROPERTY_METRO_NEW') { // @TODO убрать костыль
+    optionsRes = options ?
+    options
+      .filter(metro => metro.PROPERTY_CITY_VALUE === link)
+      .map(metro => ({ value: metro.ID, label: metro.NAME })) :
+    [];
+  } else {
+    optionsRes = options;
+  }
 
   return (
     <Field {...props}>
-      {
-        field === 'PROPERTY_METRO_NEW' ?
-          <Select
-            value={value}
-            disabled={!options || disabled}
-            options={
-              options ?
-              options
-                .filter(metro => metro.PROPERTY_CITY_VALUE === link)
-                .map(metro => ({ value: metro.ID, label: metro.NAME })) :
-              []
-            }
-            onChange={onChangeHandler}
-          /> :
-
-          <Select
-            multi={multi}
-            value={value}
-            options={options}
-            disabled={!options || disabled}
-            onChange={onChangeHandler}
-          />
-      }
+      <Select
+        multi={multi}
+        value={value}
+        options={optionsRes}
+        disabled={!optionsRes || disabled || optionsRes.length === 0}
+        onChange={onChangeHandler}
+      />
     </Field>
   );
 };
 
 FieldSelect.propTypes = {
-  field: PropTypes.string,
-  options: PropTypes.array,
-  multi: PropTypes.bool,
-  size: PropTypes.oneOf([
-    1, 2, 3, 4, 5, 6,
-    7, 8, 9, 10, 11, 12,
-  ]),
-  title: PropTypes.string,
-  onChangeState: PropTypes.func,
-  link: PropTypes.string,
+  onChangeState: PropTypes.func.isRequired,
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.array,
   ]),
-  required: PropTypes.bool,
+
+  link: PropTypes.string,
+  field: PropTypes.string,
+  options: PropTypes.array,
+  multi: PropTypes.bool,
   disabled: PropTypes.bool,
+  maxCountCurrentValues: PropTypes.number,
+};
+
+FieldSelect.defaultProps = {
+  field: '',
+  disabled: false,
+  maxCountCurrentValues: 0,
+  link: '',
+  multi: false,
+  options: [],
+  value: '',
 };
 
 export default FieldSelect;

@@ -10,10 +10,10 @@ import {
 } from '../Fields';
 
 const Building = ({
-  onChangeState,
   selectValues,
   onSubmit,
   lib,
+  ...props
 }) => {
   return (
     <Section
@@ -24,10 +24,9 @@ const Building = ({
       <FormRow>
         <FieldSwitcher
           title="В собственности"
-          size={12}
           value={selectValues.PROPERTY_SOBSTVEN}
           field="PROPERTY_SOBSTVEN"
-          onChangeState={onChangeState}
+          {...props}
         />
       </FormRow>
       <FormRow>
@@ -38,15 +37,15 @@ const Building = ({
           field="PROPERTY_LANDLORD"
           disabled={selectValues.PROPERTY_SOBSTVEN}
           size={6}
-          onChangeState={onChangeState}
+          {...props}
         />
         <FieldText
           value={selectValues.PROPERTY_S_POM}
           field="PROPERTY_S_POM"
           title="Площадь помещений"
           size={6}
-          onChangeState={onChangeState}
           type="number"
+          {...props}
         />
       </FormRow>
       <FormRow>
@@ -55,16 +54,16 @@ const Building = ({
           field="PROPERTY_RENT_PRICE"
           title="Стоимость аренды в месяц"
           size={6}
-          onChangeState={onChangeState}
           type="number"
+          {...props}
         />
         <FieldText
           value={selectValues.PROPERTY_S_UCH}
           field="PROPERTY_S_UCH"
           title="Площадь участка (сотки)"
           size={6}
-          onChangeState={onChangeState}
           type="number"
+          {...props}
         />
       </FormRow>
       <FormRow>
@@ -72,8 +71,7 @@ const Building = ({
           value={selectValues.PROPERTY_ADDITIONAL_INFORMATION}
           field="PROPERTY_ADDITIONAL_INFORMATION"
           title="Описание"
-          size={12}
-          onChangeState={onChangeState}
+          {...props}
         />
       </FormRow>
     </Section>

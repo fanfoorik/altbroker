@@ -1,11 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Field = ({
   children,
   title,
   required,
   size,
-  toggleDisabledSubmit,
+  addError,
+  deleteError,
+  field,
 }) => {
   let parentElement;
   const onBlurHandler = (value) => {
@@ -13,14 +16,14 @@ const Field = ({
       const errorElement = parentElement.getElementsByClassName('edit-form__error-text')[0];
       const textErrorRequired = 'Поле обязательно для заполнения!';
 
-      if (required && value.length === 0) {
+      if (required && (value === null || value.length === 0)) {
         parentElement.classList.add('error');
         errorElement.innerText = textErrorRequired;
-        toggleDisabledSubmit(true);
+        addError(field, textErrorRequired);
       } else {
         parentElement.classList.remove('error');
         errorElement.innerText = '';
-        toggleDisabledSubmit(false);
+        deleteError(field, textErrorRequired);
       }
     };
   };
@@ -43,6 +46,28 @@ const Field = ({
       </div>
     </div>
   );
+};
+
+Field.propTypes = {
+  field: PropTypes.string,
+  title: PropTypes.string,
+  required: PropTypes.bool,
+  size: PropTypes.oneOf([
+    1, 2, 3, 4, 5, 6,
+    7, 8, 9, 10, 11, 12,
+  ]),
+  addError: PropTypes.func,
+  deleteError: PropTypes.func,
+  children: PropTypes.element.isRequired,
+};
+
+Field.defaultProps = {
+  title: '',
+  field: '',
+  required: false,
+  size: 12,
+  addError: () => {},
+  deleteError: () => {},
 };
 
 export default Field;

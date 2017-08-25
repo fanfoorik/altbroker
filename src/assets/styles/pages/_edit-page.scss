@@ -318,12 +318,16 @@
   }
 
   input#{$this}__item-input, textarea {
-    border: 2px solid $c-border-main;
+    border: 1px solid $c-border-main;
 
     &:hover,
     &:focus {
       border-color: $c-blue-light;
     }
+  }
+
+  input#{$this}__item-input {
+    height: 36px;
   }
 
   &__btn {

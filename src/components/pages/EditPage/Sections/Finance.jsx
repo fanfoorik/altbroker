@@ -1,14 +1,20 @@
 import React from 'react';
 
-import { FieldText } from '../Fields';
+import {
+  FieldText,
+  FieldDiv,
+} from '../Fields';
 import Section from './Section';
 import FormRow from '../FormRow';
 
 const Finance = ({
-  onChangeState,
   selectValues,
   onSubmit,
+  ...props
 }) => {
+  const payback = Math.ceil(
+              parseInt(selectValues.PROPERTY_PRICE_BUSINESS, 10) /
+              parseInt(selectValues.PROPERTY_CHIST_PRIB, 10));
   return (
     <Section
       selectValues={selectValues}
@@ -19,42 +25,43 @@ const Finance = ({
         <FieldText
           title="Стоимость"
           size={4}
-          onChangeState={onChangeState}
           field="PROPERTY_PRICE_BUSINESS"
           value={selectValues.PROPERTY_PRICE_BUSINESS}
           type="number"
+          {...props}
         />
         <FieldText
           title="Чистая прибыль"
           size={4}
-          onChangeState={onChangeState}
           field="PROPERTY_CHIST_PRIB"
           value={selectValues.PROPERTY_CHIST_PRIB}
           type="number"
+          {...props}
         />
-        <FieldText
+        <FieldDiv
           title="Окупаемость"
           size={4}
-          onChangeState={onChangeState}
-          field="PROPERTY_OKUP"
-          value={selectValues.PROPERTY_OKUP}
-          type="number"
+          value={isNaN(payback) || payback === Infinity ?
+            'Укажите стоимость и прибыль' :
+            `${payback} мес.`
+          }
+          {...props}
         />
         <FieldText
           title="Оборот"
           size={6}
-          onChangeState={onChangeState}
           field="PROPERTY_SREDMES_OBOR"
           value={selectValues.PROPERTY_SREDMES_OBOR}
           type="number"
+          {...props}
         />
         <FieldText
           title="Расходы"
           size={6}
-          onChangeState={onChangeState}
           field="PROPERTY_SREDMES_RASH"
           value={selectValues.PROPERTY_SREDMES_RASH}
           type="number"
+          {...props}
         />
       </FormRow>
     </Section>
