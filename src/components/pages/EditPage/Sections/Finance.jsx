@@ -27,7 +27,7 @@ const Finance = ({
           size={4}
           field="PROPERTY_PRICE_BUSINESS"
           value={selectValues.PROPERTY_PRICE_BUSINESS}
-          type="number"
+          typeText="money"
           {...props}
         />
         <FieldText
@@ -35,7 +35,7 @@ const Finance = ({
           size={4}
           field="PROPERTY_CHIST_PRIB"
           value={selectValues.PROPERTY_CHIST_PRIB}
-          type="number"
+          typeText="money"
           {...props}
         />
         <FieldDiv
@@ -52,7 +52,7 @@ const Finance = ({
           size={6}
           field="PROPERTY_SREDMES_OBOR"
           value={selectValues.PROPERTY_SREDMES_OBOR}
-          type="number"
+          typeText="money"
           {...props}
         />
         <FieldText
@@ -60,7 +60,7 @@ const Finance = ({
           size={6}
           field="PROPERTY_SREDMES_RASH"
           value={selectValues.PROPERTY_SREDMES_RASH}
-          type="number"
+          typeText="money"
           {...props}
         />
       </FormRow>

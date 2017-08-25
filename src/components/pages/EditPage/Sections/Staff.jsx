@@ -24,7 +24,7 @@ const Staff = ({
           size={6}
           field="PROPERTY_KOLVO_SOTR"
           value={selectValues.PROPERTY_KOLVO_SOTR}
-          type="number"
+          typeText="number"
           {...props}
         />
         <FieldText
@@ -32,7 +32,7 @@ const Staff = ({
           size={6}
           field="PROPERTY_FOND_ZP"
           value={selectValues.PROPERTY_FOND_ZP}
-          type="number"
+          typeText="number"
           {...props}
         />
       </FormRow>

@@ -28,6 +28,7 @@ const Salary = ({
           value={selectValues.PROPERTY_KLIENT_TLF}
           field="PROPERTY_KLIENT_TLF"
           title="Телефон"
+          typeText="phone"
           size={6}
           required
           {...props}

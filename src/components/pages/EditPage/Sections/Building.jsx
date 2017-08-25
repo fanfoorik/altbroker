@@ -44,7 +44,7 @@ const Building = ({
           field="PROPERTY_S_POM"
           title="Площадь помещений"
           size={6}
-          type="number"
+          typeText="number"
           {...props}
         />
       </FormRow>
@@ -54,7 +54,7 @@ const Building = ({
           field="PROPERTY_RENT_PRICE"
           title="Стоимость аренды в месяц"
           size={6}
-          type="number"
+          typeText="number"
           {...props}
         />
         <FieldText
@@ -62,7 +62,7 @@ const Building = ({
           field="PROPERTY_S_UCH"
           title="Площадь участка (сотки)"
           size={6}
-          type="number"
+          typeText="number"
           {...props}
         />
       </FormRow>
