@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import IsActive from 'utils/IsActive';
 
-import { Editor, EditorState, RichUtils, convertToRaw } from 'draft-js';
+import { Editor, EditorState, RichUtils, convertToRaw, convertFromHTML, ContentState } from 'draft-js';
 import Draft from 'draft-js/dist/Draft.css';
 
 import htmlParser from 'html-react-parser';
@@ -11,9 +10,19 @@ class AboutText extends React.Component {
 
   constructor(props) {
     super(props);
+
+    const sampleMarkup = 'ertyuiop <br />' +
+    '<h1>H1 title <b>heading</b></h1>' +
+    '<p>Paragraph example.</p>';
+
+    const blocksFromHTML = convertFromHTML(sampleMarkup);
+    const state = ContentState.createFromBlockArray(blocksFromHTML.contentBlocks);
+
     this.state = {
       trigger: false,
-      editorState: EditorState.createEmpty(),
+      editorState: EditorState.createWithContent(
+        state,
+      ),
     };
   }
 
@@ -23,31 +32,29 @@ class AboutText extends React.Component {
     }
   }
 
-  triggerDescription = () => {
-    this.setState({ trigger: !this.state.trigger });
-  };
-
   onChange = (editorState) => {
     this.setState({ editorState });
-    this.logState();
+    this.logState(editorState);
   };
-
-  logState = () => {
-    const content = this.state.editorState.getCurrentContent();
-    console.log(convertToRaw(content));
-  };
-
-  // handleKeyCommand = (command) => {
-  //   const newState = RichUtils.handleKeyCommand(this.state.editorState, command);
-  //   if (newState) {
-  //     this.onChange(newState);
-  //     return 'handled';
-  //   }
-  //   return 'not-handled';
-  // };
 
   onBoldClick = () => {
     this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'));
+  };
+
+  onItalicClick = () => {
+    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'ITALIC'));
+  };
+
+  logState = (editorState) => {
+    const content = editorState.getCurrentContent();
+    console.log(convertToRaw(content));
+    // console.log(content);
+    // const content = this.state.editorState.toJS();
+    // console.log(content);
+  };
+
+  triggerDescription = () => {
+    this.setState({ trigger: !this.state.trigger });
   };
 
   render() {
@@ -56,39 +63,45 @@ class AboutText extends React.Component {
     return (
       <div className="profile-details__text">
 
-        <div>
-          { !this.state.trigger && htmlText.length > 8 ? htmlText.slice(0, 8) : htmlText }
-        </div>
-
         <br />
         <br />
         <br />
 
         <div className="editor">
           <div className="editor__controls">
-            <button className="mb-12" onClick={this.onBoldClick}>bold</button>
+            <button className="mb-12" onClick={this.onBoldClick}>b</button>
+            <button className="mb-12" onClick={this.onItalicClick}><i>i</i></button>
           </div>
 
           <Editor
             editorState={this.state.editorState}
             onChange={this.onChange}
             placeholder="Enter some text..."
+            value="rrrrrrrrrr"
           />
         </div>
 
         <br />
         <br />
+        <br />
+        <br />
+        <br />
+        <br />
 
-        <IsActive active={htmlText.length > 8}>
-          <span
-            role="button"
-            tabIndex="0"
-            className="profile-details__text-trigger"
-            onClick={this.triggerDescription}
-          >
+        <div>
+          { !this.state.trigger && htmlText.length > 8 ? htmlText.slice(0, 8) : htmlText }
+        </div>
+
+        {htmlText.length > 8 &&
+        <span
+          role="button"
+          tabIndex="0"
+          className="profile-details__text-trigger"
+          onClick={this.triggerDescription}
+        >
             { !this.state.trigger ? 'Показать полностью' : 'Cвернуть' }
           </span>
-        </IsActive>
+        }
       </div>
     );
   }
