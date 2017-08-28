@@ -3,11 +3,14 @@ import React from 'react';
 import Icon from 'components/Icon';
 
 function FormControls(props) {
-  const { onClose, onReset, name } = props;
+  const { onClose, onReset, name, left } = props;
 
   return (
     <div className="form-controls">
-      <span className="form-controls__reset" onClick={onReset} role="button" tabIndex="0" data-name={name}>Сбросить</span>
+      <div className="form-controls__left">
+        { left }
+      </div>
+
       <div className="form-controls__actions">
         <div className="form-controls__actions_item" onClick={onClose} role="button" tabIndex="0">
           <Icon className="icon__close" icon="close" width={15} height={15} />

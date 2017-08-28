@@ -1,0 +1,20 @@
+@import "../utils/variables";
+
+.page-404 {
+  text-align: center;
+
+  &__code {
+    font-family: $f-gothapro;
+    font-size: 300px;
+    color: $c-blue-main;
+    line-height: 220px;
+    margin-bottom: 60px;
+  }
+
+  &__slogan {
+    font-family: $f-gothapro;
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 48px;
+  }
+}

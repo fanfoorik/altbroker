@@ -1,9 +1,9 @@
 import * as types from 'constants/headerTypes';
 
-export default function (state = [], action) {
-  switch (action.type) {
+export default function (state = {}, { type, payload }) {
+  switch (type) {
     case types.SET_NAVIGATION:
-      return action.payload;
+      return payload;
 
     default:
       return state;

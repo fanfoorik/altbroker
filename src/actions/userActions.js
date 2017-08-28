@@ -1,9 +1,5 @@
 import ajax from 'utils/ajax';
-import { AUTH_USER, TRIGGER_USER } from 'constants/userTypes';
-
-export function triggerUser() {
-  return { type: TRIGGER_USER };
-}
+import { AUTH_USER } from 'constants/userTypes';
 
 export const logoutUser = () => (dispatch) => {
   ajax.post('user/logout/',

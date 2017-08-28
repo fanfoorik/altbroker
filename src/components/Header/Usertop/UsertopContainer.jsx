@@ -2,7 +2,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import Usertop from './Usertop';
-import { logoutUser, triggerUser as triggerUserAction } from 'actions/userActions';
+import { logoutUser } from 'actions/userActions';
+import DropdownTriggerHOC from 'components/HOC/DropdownTriggerHOC';
 
 function mapStateToProps(state) {
   return {
@@ -11,7 +12,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ triggerUser: triggerUserAction, logoutUser }, dispatch);
+  return bindActionCreators({ logoutUser }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Usertop);
+export default connect(mapStateToProps, mapDispatchToProps)(DropdownTriggerHOC(Usertop));

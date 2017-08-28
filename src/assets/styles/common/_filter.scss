@@ -1,29 +1,35 @@
 @import "../utils/variables";
 
-
 .filter {
   border-radius: 3px;
   background: $bg-white;
-  border: 1px solid $bd-main;
+  box-shadow: 0 -1px 0 0 $bd-main inset, -1px 0 0 0 $bd-main inset;
+  border-top: 1px solid $bd-main;
+  border-left: 1px solid $bd-main;
   position: relative;
   z-index: 11;
+  $this: &;
 
   &__row {
     clear: both;
     margin-right: -1px;
+    box-shadow: 0 -1px 0 0 $bd-main inset;
+
+    #{$this}__row {
+      margin-right: -1px;
+    }
   }
 
   &__cell {
     float: left;
-    width: calc(20% - 1px);
-    height: 40px;
-    outline: 1px solid $bd-main;
-    margin-bottom: 1px;
-    margin-right: 1px;
-    background: $bg-white;
+    width: calc(20% + 1px);
+    height: 42px;
+    border: 1px solid $bd-main;
     position: relative;
     z-index: 0;
     transition-duration: 0.2s;
+    margin: -1px 0 0 -1px;
+    background: $bg-white;
 
     &:hover,
     &.active {
@@ -37,7 +43,7 @@
     }
 
     &_deeper {
-      width: calc(50% - 1px);
+      width: calc(50% + 1px);
 
       .form-dropdown {
         width: 200%;
@@ -108,36 +114,29 @@
   background-color: $c-grey-light;
   padding: 8px 12px 8px 15px;
   font-size: 12px;
+  min-height: 32px;
 
   &__name {
-    float: left;
-
     &_number {
       display: inline-block;
       border-radius: 100%;
-      width: 15px;
-      height: 15px;
+      width: 16px;
+      height: 16px;
       color: $c-white;
-      font-size: 12px;
+      font-size: 11px;
       background-color: $c-grey-middle;
       margin-left: 5px;
       text-align: center;
-
+      line-height: 16px;
     }
   }
-
-  //&__subcategory {
-  //  float: right;
-  //  color: $c-grey-main;
-  //  cursor: pointer;
-  //}
 }
 
 .form-dropdown {
   position: absolute;
   left: 0;
   top: 100%;
-  width: 100%;
+  min-width: calc(100% + 1px);
   margin-top: 1px;
   background: $bg-white;
   box-shadow: 0 0 18px rgba($c-black, 0.2);
@@ -320,6 +319,15 @@
 
 .form-checkboxes {
   padding: 8px 12px;
+  $this: &;
+
+  &__group {
+    padding-bottom: 8px;
+
+    &:first-child {
+      margin-top: -9px;
+    }
+  }
 
   &__hr {
     height: 1px;
@@ -343,7 +351,7 @@
 
     &_group {
       background-color: $c-grey-light;
-      margin: 8px 0;
+      margin: 0px -12px 8px -12px;
       padding: 8px 12px;
       border-bottom: 1px solid $c-border-main;
       border-top: 1px solid $c-border-main;
@@ -373,7 +381,7 @@
     }
 
     &_trigger {
-      padding-top: 8px;
+      padding-top: 0;
       white-space: nowrap;
       width: 46px;
       vertical-align: middle;
@@ -385,14 +393,14 @@
         border-bottom: 2px solid $bd-grey-dark;
         border-right: 2px solid $bd-grey-dark;
         content: "";
-        transform: rotate(-135deg);
+        transform: rotate(45deg);
       }
 
       &.active {
-        padding-top: 0;
+        padding-top: 8px;
 
         &::before {
-          transform: rotate(45deg);
+          transform: rotate(-135deg);
         }
       }
     }

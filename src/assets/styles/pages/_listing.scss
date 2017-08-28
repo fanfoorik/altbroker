@@ -40,6 +40,7 @@
   height: $table-row-height;
   display: flex;
   transition: color 0.3s;
+  width: 100%;
 
   &:hover {
     color: $c-tr-hovered;
@@ -59,7 +60,8 @@
 
 .table-th-wrapper {
   background: $c-grey-light;
-  border-width: 2px;
+  border: 1px solid $bd-main;
+  height: 46px;
 }
 
 .table-heading,
@@ -194,7 +196,6 @@
   }
 
   &__action-left {
-    cursor: pointer;
     min-height: 40px;
     padding: 11px 0 0 16px;
 
@@ -204,7 +205,6 @@
   }
 
   &__action-right {
-    cursor: pointer;
     min-height: 40px;
     padding: 10px;
   }
@@ -293,45 +293,6 @@
   }
 }
 
-.table-actions {
-  color: $c-table-muted-text;
-  display: flex;
-  font-size: 12px;
-  padding: 0 11px;
-
-  &__checkbox {
-    flex: 1;
-  }
-
-  &__items {
-    display: flex;
-    line-height: 1.6;
-    flex: 7;
-  }
-
-  &__item {
-    margin: 0 24px 0 0;
-    position: relative;
-
-    &.active {
-      cursor: pointer;
-    }
-
-    .popover {
-      bottom: 30px;
-    }
-  }
-
-  &__title {
-    color: $c-table-active-item;
-    margin: 0 24px 0 0;
-  }
-
-  &__list {
-    display: flex;
-  }
-}
-
 // Table tooltip:
 .table-tooltip {
   position: relative;
@@ -372,8 +333,37 @@
 }
 
 .table-cover {
-  padding: 60px 0;
+  height: 300px;
   text-align: center;
   background: $bg-white;
   border-bottom: 1px solid $bd-main;
+  position: relative;
+
+  &__not-found {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 300px;
+    margin: -8px 0 0 -150px;
+  }
+}
+
+.sort-trigger {
+  cursor: pointer;
+  position: relative;
+  padding-right: 9px;
+
+  &:hover {
+    color: $c-blue-main;
+  }
+
+  &__pointer {
+    position: absolute;
+    right: 0;
+    color: $c-blue-main;
+  }
+}
+
+.table-trigger-container {
+  cursor: pointer;
 }

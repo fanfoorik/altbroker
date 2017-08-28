@@ -1,8 +1,6 @@
 import { SET_USER } from 'constants/headerTypes';
-import { TRIGGER_USER } from 'constants/userTypes';
 
 const initialState = {
-  active: false,
   data: {
     id: '',
     name: '',
@@ -36,12 +34,6 @@ export default function (state = initialState, action) {
           image: payload.PERSONAL_PHOTO_TEXT,
           userpic: payload.PERSONAL_PHOTO_TEXT_86x86,
         },
-      };
-
-    case TRIGGER_USER:
-      return {
-        ...state,
-        active: !state.active,
       };
 
     default:

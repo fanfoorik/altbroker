@@ -1,24 +1,6 @@
 import * as types from 'constants/headerTypes';
 import ajax from 'utils/ajax';
 
-function parseNav(menu) {
-  const nav = [];
-  // TODO: To fix linting errors.
-  for (const el in menu) {
-    const origSubnav = menu[el].CHILDREN;
-    menu[el].subnav = [];
-
-    for (const childEl in origSubnav) {
-      menu[el].subnav.push(origSubnav[childEl]);
-    }
-
-    delete menu[el].CHILDREN;
-    nav.push(menu[el]);
-  }
-
-  return nav;
-}
-
 const fetchInit = () => (dispatch) => {
   ajax.get('init/')
     .then((data) => {
@@ -41,7 +23,7 @@ const fetchInit = () => (dispatch) => {
 
       dispatch({
         type: types.SET_NAVIGATION,
-        payload: parseNav(menu),
+        payload: menu,
       });
 
       dispatch({

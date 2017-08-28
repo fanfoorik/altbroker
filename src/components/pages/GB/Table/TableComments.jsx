@@ -29,16 +29,17 @@ class TableComments extends React.Component {
 
     return (
       <div className="table-trigger-container">
+
         <span
           className="table-cell__comments"
           role="button"
           tabIndex="0"
           onClick={triggerPopover}
         >
-          {comments}
+          {(comments > 0 && comments) || <span style={{ fontSize: 14 }}>+</span>}
         </span>
-        {
-          active &&
+
+        {active &&
           <CommentsPopover
             id={id}
             triggerPopover={triggerPopover}
@@ -58,5 +59,4 @@ TableComments.propTypes = {
   triggerPopover: PropTypes.func.isRequired,
 };
 
-// export default TableComments;
 export default PopoverTriggerHOC(TableComments);
