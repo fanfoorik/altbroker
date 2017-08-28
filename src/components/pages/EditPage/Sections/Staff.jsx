@@ -32,7 +32,7 @@ const Staff = ({
           size={6}
           field="PROPERTY_FOND_ZP"
           value={selectValues.PROPERTY_FOND_ZP}
-          typeText="number"
+          typeText="money"
           {...props}
         />
       </FormRow>

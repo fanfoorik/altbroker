@@ -5,6 +5,7 @@ const FormRow = ({
   addError,
   deleteError,
   toggleDisabledSubmit,
+  errors,
 }) => {
   return (
     <div className="row">
@@ -13,6 +14,7 @@ const FormRow = ({
           toggleDisabledSubmit,
           addError,
           deleteError,
+          errors,
         });
       })}
     </div>

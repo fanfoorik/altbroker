@@ -10,41 +10,67 @@ const FieldText = (props) => {
     value,
     onChangeState,
     field,
-    type,
     typeText,
   } = props;
 
   const onChangeHandler = (e) => {
-    console.log(e.target.rawValue);
+    const target = e.target;
     onChangeState({
-      [field]: e.target.value,
+      [field]: (target.rawValue !== undefined) ? target.rawValue : target.value,
     });
   };
 
-  let options = {};
+  const inputProps = {
+    className: 'edit-form__item-input',
+    value,
+    onChange: onChangeHandler,
+  };
+
+  let Input = (
+    <input
+      {...inputProps}
+      type="text"
+    />
+  );
+
   switch (typeText) {
     case 'phone':
-      options = {
-        phone: true,
-        phoneRegionCode: 'RU',
-      };
+      Input = (
+        <Cleave
+          {...inputProps}
+          options={{
+            phone: true,
+            phoneRegionCode: 'RU',
+          }}
+        />
+      );
 
       break;
     case 'number': {
-      options = {
-        delimiter: ' ',
-        numeral: true,
-      };
+      Input = (
+        <Cleave
+          {...inputProps}
+          options={{
+            delimiter: ' ',
+            numeral: true,
+          }}
+        />
+      );
 
       break;
     }
 
     case 'money': {
-      options = {
-        delimiter: ' ',
-        numeral: true,
-        prefix: '\u20BD ', // значок рубля
-      };
+      Input = (
+        <Cleave
+          {...inputProps}
+          options={{
+            delimiter: ' ',
+            numeral: true,
+            // prefix: '\u20BD ', // значок рубля
+          }}
+        />
+      );
 
       break;
     }
@@ -55,12 +81,7 @@ const FieldText = (props) => {
 
   return (
     <Field {...props}>
-      <Cleave
-        className="edit-form__item-input"
-        value={value}
-        onChange={onChangeHandler}
-        options={options}
-      />
+      {Input}
     </Field>
   );
 };
@@ -70,11 +91,9 @@ FieldText.propTypes = {
   onChangeState: PropTypes.func.isRequired,
 
   field: PropTypes.string,
-  type: PropTypes.string,
 };
 
 FieldText.defaultProps = {
-  type: 'text',
   field: '',
   value: '',
 };

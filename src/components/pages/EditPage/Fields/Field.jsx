@@ -9,40 +9,36 @@ const Field = ({
   addError,
   deleteError,
   field,
+  errors,
 }) => {
-  let parentElement;
-  const onBlurHandler = (value) => {
-    return () => {
-      const errorElement = parentElement.getElementsByClassName('edit-form__error-text')[0];
-      const textErrorRequired = 'Поле обязательно для заполнения!';
+  const onBlurHandler = (e) => {
+    const textErrorRequired = 'Поле обязательно для заполнения!';
+    const eventValue = e.target.rawValue || e.target.value;
 
-      if (required && (value === null || value.length === 0)) {
-        parentElement.classList.add('error');
-        errorElement.innerText = textErrorRequired;
-        addError(field, textErrorRequired);
-      } else {
-        parentElement.classList.remove('error');
-        errorElement.innerText = '';
-        deleteError(field, textErrorRequired);
-      }
-    };
+    if (required && (eventValue === null || eventValue.length === 0)) {
+      addError(field, textErrorRequired);
+    } else {
+      deleteError(field, textErrorRequired);
+    }
   };
 
-  const element = React.Children.map(children, (element) =>
-    React.cloneElement(element, {
-      onBlur: onBlurHandler(element.props.value),
+  const element = React.Children.map(children, elem =>
+    React.cloneElement(elem, {
+      onBlur: onBlurHandler,
     }),
   );
 
   return (
     <div className={`col-lg-${size}`}>
-      <div className="edit-form__item" ref={(fieldElement) => parentElement = fieldElement}>
+      <div className="edit-form__item">
         <lable className="edit-form__item-label">
           {title}
           {required ? <span style={({ color: 'red' })}>*</span> : ''}
         </lable>
         {element}
-        <span className="edit-form__error-text" />
+        <span className="edit-form__error-text" >
+          {errors[field]}
+        </span>
       </div>
     </div>
   );
@@ -59,6 +55,10 @@ Field.propTypes = {
   addError: PropTypes.func,
   deleteError: PropTypes.func,
   children: PropTypes.element.isRequired,
+  errors: PropTypes.shape({
+    field: PropTypes.string,
+    type: PropTypes.string,
+  }),
 };
 
 Field.defaultProps = {
@@ -68,6 +68,7 @@ Field.defaultProps = {
   size: 12,
   addError: () => {},
   deleteError: () => {},
+  errors: {},
 };
 
 export default Field;

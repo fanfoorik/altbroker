@@ -35,7 +35,7 @@ const FieldSelect = (props) => {
   };
 
   let optionsRes;
-  if (field === 'PROPERTY_METRO_NEW') { // @TODO убрать костыль
+  if (field === 'PROPERTY_METRO_NEW') {
     optionsRes = options ?
     options
       .filter(metro => metro.PROPERTY_CITY_VALUE === link)

@@ -1,5 +1,4 @@
 import React from 'react';
-import shortId from 'shortid';
 
 import Header from './Header';
 import LeftPanel from './LeftPanel';

@@ -54,7 +54,7 @@ const Building = ({
           field="PROPERTY_RENT_PRICE"
           title="Стоимость аренды в месяц"
           size={6}
-          typeText="number"
+          typeText="money"
           {...props}
         />
         <FieldText

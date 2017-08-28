@@ -2,7 +2,7 @@ import React from 'react';
 
 const LeftPanel = ({
   sections,
-  selectValues
+  selectValues,
 }) => {
   let sumAllField = 0;
   let sumAllFilledField = 0;
