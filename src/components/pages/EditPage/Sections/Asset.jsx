@@ -75,4 +75,16 @@ const Asset = ({
   );
 };
 
+Asset.propTypes = {
+  selectValues: PropTypes.object,
+  onSubmit: PropTypes.func,
+  lib: PropTypes.object,
+};
+
+Asset.defaultProps = {
+  selectValues: {},
+  onSubmit: () => {},
+  lib: {},
+};
+
 export default Asset;

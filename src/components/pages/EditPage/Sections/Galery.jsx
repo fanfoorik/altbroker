@@ -11,8 +11,8 @@ export default () => {
         </span>
       </div>
       <div className="edit-form">
-        galler
+        gallery
       </div>
     </div>
-  )
-}
+  );
+};

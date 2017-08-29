@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { FieldText } from '../Fields';
 import Section from './Section';
@@ -60,6 +61,16 @@ const Salary = ({
       </FormRow>
     </Section>
   );
+};
+
+Salary.propTypes = {
+  selectValues: PropTypes.object,
+  onSubmit: PropTypes.func,
+};
+
+Salary.defaultProps = {
+  selectValues: {},
+  onSubmit: () => {},
 };
 
 export default Salary;

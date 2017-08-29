@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const LeftPanel = ({
   sections,
@@ -8,10 +9,11 @@ const LeftPanel = ({
   let sumAllFilledField = 0;
 
   sections.map((section) => {
+    const sectionData = Object.keys(selectValues[section.component]);
 
-    sumAllField += Object.keys(selectValues[section.component]).length;
+    sumAllField += sectionData.length;
 
-    Object.keys(selectValues[section.component]).map((key) => {
+    sectionData.map((key) => {
       const value = selectValues[section.component][key];
 
       if (value !== undefined &&
@@ -22,10 +24,13 @@ const LeftPanel = ({
     });
   });
 
-  const percentFilledField = Math.floor(
+  const percentFilledField = Math.ceil(
     (100 * sumAllFilledField) /
     (sumAllField !== 0 ? sumAllField : 1),
   );
+
+  const R = 65;
+  const circleProgress = 2 * Math.PI * R * (1 - (percentFilledField / 100));
 
   return (
     <div className="page-aside">
@@ -36,8 +41,15 @@ const LeftPanel = ({
         <div className="page-aside__quality_diagrams">
           <div className="circle">
             <svg width="50" height="50" viewBox="0 0 150 160">
-              <circle transform="rotate(-90)" r="65" cx="-80" cy="80" />
-              <circle transform="rotate(-90)" r="65" cx="-80" cy="80" />
+              <circle transform="rotate(-90)" r={R} cx="-80" cy="80" />
+              <circle
+                transform="rotate(-90)"
+                r={R}
+                cx="-80"
+                cy="80"
+                strokeDasharray={2 * Math.PI * R}
+                strokeDashoffset={circleProgress}
+              />
             </svg>
             <span className="circle__number">{percentFilledField}</span>
           </div>
@@ -76,6 +88,16 @@ const LeftPanel = ({
       }
     </div>
   );
+};
+
+LeftPanel.propTypes = {
+  selectValues: PropTypes.object,
+  sections: PropTypes.array,
+};
+
+LeftPanel.defaultProps = {
+  selectValues: {},
+  sections: [],
 };
 
 export default LeftPanel;

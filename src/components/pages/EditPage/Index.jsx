@@ -12,9 +12,9 @@ import {
 } from './Sections';
 
 import {
-  fetchData,
+  fetchDataForEditPage,
   fetchLib,
-  sendData,
+  sendDataFromEditPage,
 } from 'api/editPage';
 
 class EditPage extends React.Component {
@@ -38,14 +38,29 @@ class EditPage extends React.Component {
   }
 
   componentDidMount() {
-    fetchData(this);
+    fetchDataForEditPage(this);
     fetchLib(this);
   }
 
   onChangeStateHandler(section) {
     return (state, type = 'selectValues') => {
-      if (state.PROPERTY_SOBSTVEN !== undefined && state.PROPERTY_SOBSTVEN) {
+
+      if (state.PROPERTY_GEO_ID) {
+        state.PROPERTY_METRO_NEW = null;
+      }
+
+      if (state.PROPERTY_SOBSTVEN) {
         state.PROPERTY_LANDLORD = null;
+      }
+
+      if (state.SECTION_ID_1) {
+        const section2 = this.state.selectValues[section].SECTION_ID_2.filter(childSection => {
+          return state.SECTION_ID_1.filter(parentSection => {
+            return parentSection.ID === childSection.parentSectionId;
+          }).length !== 0;
+        });
+
+        state.SECTION_ID_2 = section2;
       }
 
       const newStateSection = {
@@ -66,7 +81,7 @@ class EditPage extends React.Component {
   onSubmitHandler(section) {
     return (e) => {
       e.preventDefault();
-      sendData(this, section);
+      sendDataFromEditPage(this, section);
     };
   }
 

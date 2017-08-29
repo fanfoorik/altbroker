@@ -11,27 +11,39 @@ const Field = ({
   field,
   errors,
 }) => {
-  const onBlurHandler = (e) => {
-    const textErrorRequired = 'Поле обязательно для заполнения!';
-    const eventValue = e.target.rawValue || e.target.value;
+  const onBlurHandler = (value) => {
+    return (e) => {
+      const textErrorRequired = 'Поле обязательно для заполнения!';
 
-    if (required && (eventValue === null || eventValue.length === 0)) {
-      addError(field, textErrorRequired);
-    } else {
-      deleteError(field, textErrorRequired);
-    }
+      if (required &&
+        (value === null || value.length === 0) &&
+        !e.target.rawValue
+      ) {
+        addError(field, textErrorRequired);
+      } else {
+        deleteError(field, textErrorRequired);
+      }
+    };
   };
 
   const element = React.Children.map(children, elem =>
     React.cloneElement(elem, {
-      onBlur: onBlurHandler,
+      onBlur: onBlurHandler(elem.props.value),
     }),
   );
+
+  const toolTip = required ? {
+    'data-placement': 'top',
+    title: 'Поле обязательно для заполнения',
+  } : {};
 
   return (
     <div className={`col-lg-${size}`}>
       <div className="edit-form__item">
-        <lable className="edit-form__item-label">
+        <lable
+          className="edit-form__item-label"
+          {...toolTip}
+        >
           {title}
           {required ? <span style={({ color: 'red' })}>*</span> : ''}
         </lable>

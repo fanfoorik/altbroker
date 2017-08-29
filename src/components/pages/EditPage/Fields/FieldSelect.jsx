@@ -34,13 +34,21 @@ const FieldSelect = (props) => {
     }
   };
 
-  let optionsRes;
-  if (field === 'PROPERTY_METRO_NEW') {
-    optionsRes = options ?
-    options
-      .filter(metro => metro.PROPERTY_CITY_VALUE === link)
-      .map(metro => ({ value: metro.ID, label: metro.NAME })) :
-    [];
+  let optionsRes = [];
+  if (field === 'PROPERTY_METRO_NEW' && options) {
+    optionsRes = options
+    .filter(metro => metro.PROPERTY_CITY_VALUE === link)
+    .map(metro => ({ value: metro.ID, label: metro.NAME }));
+  } else if (field === 'SECTION_ID_2' && options) {
+    optionsRes = options
+    .filter(section =>
+      !link ? true : link.filter(parentSection =>
+        section.IBLOCK_SECTION_ID === parentSection).length !== 0)
+    .map(section => ({
+      value: section.ID,
+      label: section.NAME,
+      parentSectionId: section.IBLOCK_SECTION_ID,
+    }));
   } else {
     optionsRes = options;
   }
@@ -65,7 +73,7 @@ FieldSelect.propTypes = {
     PropTypes.array,
   ]),
 
-  link: PropTypes.string,
+  link: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   field: PropTypes.string,
   options: PropTypes.array,
   multi: PropTypes.bool,

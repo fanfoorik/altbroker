@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import {
   FieldText,
@@ -66,6 +67,16 @@ const Finance = ({
       </FormRow>
     </Section>
   );
+};
+
+Finance.propTypes = {
+  selectValues: PropTypes.object,
+  onSubmit: PropTypes.func,
+};
+
+Finance.defaultProps = {
+  selectValues: {},
+  onSubmit: () => {},
 };
 
 export default Finance;

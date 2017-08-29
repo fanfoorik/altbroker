@@ -1,7 +1,7 @@
 import ajax from 'utils/ajax';
 import { NotificationManager } from 'react-notifications';
 
-export const fetchData = (context) => {
+export const fetchDataForEditPage = (context) => {
   ajax.post(`broker/gb/${context.props.params.id}/edit/`)
   .then((data) => {
     const fields = data.ANSWER.FIELDS;
@@ -13,7 +13,8 @@ export const fetchData = (context) => {
           NAME: fields.NAME,
           PROPERTY_GEO_ID: fields.PROPERTY_GEO_ID,
           PROPERTY_METRO_NEW: fields.PROPERTY_METRO_NEW,
-          SECTION_ID: fields.SECTION_ID,
+          SECTION_ID_1: fields.SECTION_ID_1,
+          SECTION_ID_2: fields.SECTION_ID_2,
           PROPERTY_DOP_INFO: fields.PROPERTY_DOP_INFO,
           PROPERTY_SOURCE: fields.PROPERTY_SOURCE,
           PROPERTY_REASON_FOR_SALE: fields.PROPERTY_REASON_FOR_SALE,
@@ -75,6 +76,7 @@ export const fetchLib = (context) => {
             label: category.NAME,
             value: category.ID,
           })),
+          categories2: answer.ALL_CATEGORY_GB_2,
           sources: answer.PROPERTY_SOURCE.map(source => ({
             value: source.ID,
             label: source.VALUE,
@@ -100,14 +102,30 @@ export const fetchLib = (context) => {
     });
 };
 
-export const sendData = (context, section) => {
+export const sendDataFromEditPage = (context, section) => {
   const newState = Object.assign(context.state.data, context.state.selectValues[section]);
 
   newState.PROPERTY_SOBSTVEN = newState.PROPERTY_SOBSTVEN ? 'Y' : 'N';
 
+  const keysNewState = Object.keys(newState);
+  const sumAllField = keysNewState.length;
+
+  let sumFilledField = 0;
+  keysNewState.map(key => {
+    const value = newState[key];
+    if (value !== undefined &&
+        value !== null &&
+        value.length !== 0) {
+      sumFilledField += 1;
+    }
+  });
+
   ajax.post(`broker/gb/${context.props.params.id}/edit/`, Object.assign(newState, {
     ACTION: 'EDIT',
     BUTT_PRESS: 'SAVE',
+    SECTION_ID: [...newState.SECTION_ID_1, ...newState.SECTION_ID_2],
+    QUALITY_FORM_FILL: Math.ceil(100 * sumFilledField) /
+    (sumAllField !== 0 ? sumAllField : 1),
   })).then((result) => {
     if (result.ANSWER.SUCCESS) {
       NotificationManager.success('ДАННЫЕ ОБНОВЛЕНЫ', 'OK');

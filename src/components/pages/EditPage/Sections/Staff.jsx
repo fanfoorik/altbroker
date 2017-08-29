@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Section from './Section';
 import FormRow from '../FormRow';
@@ -46,6 +47,16 @@ const Staff = ({
       </FormRow>
     </Section>
   );
+};
+
+Staff.propTypes = {
+  selectValues: PropTypes.object,
+  onSubmit: PropTypes.func,
+};
+
+Staff.defaultProps = {
+  selectValues: {},
+  onSubmit: () => {},
 };
 
 export default Staff;

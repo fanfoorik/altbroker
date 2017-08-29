@@ -89,13 +89,14 @@ const FieldText = (props) => {
 FieldText.propTypes = {
   value: PropTypes.string,
   onChangeState: PropTypes.func.isRequired,
-
+  typeText: PropTypes.string,
   field: PropTypes.string,
 };
 
 FieldText.defaultProps = {
   field: '',
   value: '',
+  typeText: ''
 };
 
 export default FieldText;

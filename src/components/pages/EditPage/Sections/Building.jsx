@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Section from './Section';
 import FormRow from '../FormRow';
@@ -76,6 +77,18 @@ const Building = ({
       </FormRow>
     </Section>
   );
+};
+
+Building.propTypes = {
+  selectValues: PropTypes.object,
+  lib: PropTypes.object,
+  onSubmit: PropTypes.func,
+};
+
+Building.defaultProps = {
+  selectValues: {},
+  onSubmit: () => {},
+  lib: {},
 };
 
 export default Building;

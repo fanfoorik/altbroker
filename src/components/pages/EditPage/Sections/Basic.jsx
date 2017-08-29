@@ -1,5 +1,6 @@
 import React from 'react';
 import 'react-select/dist/react-select.css';
+import PropTypes from 'prop-types';
 
 import Section from './Section';
 import FormRow from '../FormRow';
@@ -57,11 +58,23 @@ const Basic = ({
       <FormRow>
         <FieldSelect
           multi
-          value={selectValues.SECTION_ID}
+          value={selectValues.SECTION_ID_1}
           options={lib.categories}
-          field="SECTION_ID"
+          field="SECTION_ID_1"
           title="Категории"
           required
+          {...props}
+        />
+      </FormRow>
+
+      <FormRow>
+        <FieldSelect
+          multi
+          value={selectValues.SECTION_ID_2}
+          options={lib.categories2}
+          field="SECTION_ID_2"
+          title="Подкатегории"
+          link={selectValues.SECTION_ID_1}
           {...props}
         />
       </FormRow>
@@ -108,6 +121,18 @@ const Basic = ({
       </FormRow>
     </Section>
   );
+};
+
+Basic.propTypes = {
+  selectValues: PropTypes.object,
+  lib: PropTypes.object,
+  onSubmit: PropTypes.func,
+};
+
+Basic.defaultProps = {
+  selectValues: {},
+  onSubmit: () => {},
+  lib: {},
 };
 
 export default Basic;
