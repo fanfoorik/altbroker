@@ -16,12 +16,16 @@ export default class BlockTypeBtn extends React.Component {
 
   render() {
     const { content, type } = this.props;
-    const className = (this.getType() === type) ? 'active' : '';
 
     return (
-      <button className={className} onClick={this.handleToggle}>
+      <span
+        className={`editor-control ${this.getType() === type ? 'active' : ''}`}
+        onClick={this.handleToggle}
+        role="button"
+        tabIndex="0"
+      >
         {content || type}
-      </button>
+      </span>
     );
   }
 };

@@ -10,12 +10,16 @@ export default class InlineTypeBtn extends React.Component {
 
   render() {
     const { content, type } = this.props;
-    const className = this.getType() ? 'active' : '';
 
     return (
-      <button className={className} onClick={this.handleToggle}>
+      <span
+        className={`editor-control ${this.getType() ? 'active' : ''}`}
+        onClick={this.handleToggle}
+        role="button"
+        tabIndex="0"
+      >
         {content || type}
-      </button>
+      </span>
     );
   }
 }

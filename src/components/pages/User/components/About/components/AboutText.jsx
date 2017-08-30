@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import htmlParser from 'html-react-parser';
-import BaseEditorContainer from 'components/Editor/BaseEditorContainer';
+import BaseEditor from 'components/Editor/BaseEditor';
 
 class AboutText extends React.Component {
 
@@ -23,6 +23,10 @@ class AboutText extends React.Component {
     this.setState({ trigger: !this.state.trigger });
   };
 
+  getHtml = (html) => {
+    // console.log(html);
+  };
+
   render() {
     const htmlText = htmlParser(this.props.data);
 
@@ -33,9 +37,7 @@ class AboutText extends React.Component {
           { !this.state.trigger && htmlText.length > 8 ? htmlText.slice(0, 8) : htmlText }
         </div>
 
-        <BaseEditorContainer />
-
-        <div>log editor html</div>
+        <BaseEditor html={this.props.data} getHtml={this.getHtml} />
 
         {htmlText.length > 8 &&
         <span
