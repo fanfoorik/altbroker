@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export default function Btn(props) {
-  console.log(props);
   return (
     <div className="switcher">
       <span onClick={props.handleTrue}

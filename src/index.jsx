@@ -51,7 +51,10 @@ ReactDOM.render(
         </Route>
 
         <Route path="broker">
-          <Route path="gb" component={ProtectedRoute(GBContainer)} />
+          <Route path="gb">
+            <IndexRoute component={ProtectedRoute(GBContainer)} />
+            <Route path=":id/edit" component={ProtectedRoute(EditPage)} />
+          </Route>
           <Route path=":page" component={ProtectedRoute(GBNavItems)} />
         </Route>
 
@@ -70,8 +73,6 @@ ReactDOM.render(
         <Route path="admin" component={ProtectedRoute(Admin)}>
           <Route path=":page" />
         </Route>
-
-        <Route path="edit-page" component={ProtectedRoute(EditPage)} />
       </Route>
 
       <Route path="/altbroker3/login" component={AuthContainer} />

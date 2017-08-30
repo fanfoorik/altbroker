@@ -13,6 +13,34 @@
   }
 }
 
+.edit-form__item.error {
+  &-label {
+    color: red;
+  }
+
+  input[type="text"],
+  .Select-control,
+  textarea {
+    border-color: red;
+  }
+}
+
+.edit-form__item-label.required {
+  &:after {
+    content: '';
+    display: inline-block;
+    background: $c-blue-main;
+    width: 4px;
+    height: 4px;
+    border-radius: 4px;
+    margin: 0 0 2px 5px;
+  }
+}
+
+.edit-form__error-text {
+  color: red;
+}
+
 .switcher {
   position: relative;
   width: 90px;
@@ -166,7 +194,6 @@
       fill: rgba(0,0,0,0);
       stroke: $c-grey-middle;
       stroke-width: 9;
-      stroke-dasharray: 480px 480px;
     }
 
     circle:nth-child(2n) {
@@ -302,12 +329,16 @@
   }
 
   input#{$this}__item-input, textarea {
-    border: 2px solid $c-border-main;
+    border: 1px solid $c-border-main;
 
     &:hover,
     &:focus {
       border-color: $c-blue-light;
     }
+  }
+
+  input#{$this}__item-input {
+    height: 36px;
   }
 
   &__btn {
