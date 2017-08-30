@@ -41,11 +41,10 @@ const Field = ({
     <div className={`col-lg-${size}`}>
       <div className="edit-form__item">
         <lable
-          className="edit-form__item-label"
+          className={`edit-form__item-label ${required ? 'required' : ''}`}
           {...toolTip}
         >
           {title}
-          {required ? <span style={({ color: 'red' })}>*</span> : ''}
         </lable>
         {element}
         <span className="edit-form__error-text" >

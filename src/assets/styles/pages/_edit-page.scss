@@ -14,7 +14,7 @@
 }
 
 .edit-form__item.error {
-  .edit-form__item-label {
+  &-label {
     color: red;
   }
 
@@ -22,6 +22,18 @@
   .Select-control,
   textarea {
     border-color: red;
+  }
+}
+
+.edit-form__item-label.required {
+  &:after {
+    content: '';
+    display: inline-block;
+    background: $c-blue-main;
+    width: 4px;
+    height: 4px;
+    border-radius: 4px;
+    margin: 0 0 2px 5px;
   }
 }
 

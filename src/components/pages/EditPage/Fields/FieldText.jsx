@@ -96,7 +96,7 @@ FieldText.propTypes = {
 FieldText.defaultProps = {
   field: '',
   value: '',
-  typeText: ''
+  typeText: '',
 };
 
 export default FieldText;
