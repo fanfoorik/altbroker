@@ -3,6 +3,7 @@ import React from 'react';
 
 import DropdownHOC from 'components/HOC/DropdownHOC';
 import FormControls from 'components/ui/FormControls';
+import { formatNumber } from 'utils/formaters';
 
 function RangeDropdown(props) {
   const {
@@ -10,9 +11,10 @@ function RangeDropdown(props) {
     onChange,
     from,
     to,
-    rangeControls,
     resetSection,
     triggerDropdown,
+    rangeFrom,
+    rangeTo,
   } = props;
 
   return (
@@ -27,33 +29,20 @@ function RangeDropdown(props) {
           name={`from_${name}`}
         />
 
-        <ul className="form-range__list" onClick={onChange}>
-          <li
-            className="form-range__list_item"
-            data-value={500000}
-            data-name={`from_${name}`}
-          >500 000</li>
-          <li
-            className="form-range__list_item"
-            data-value={1000000}
-            data-name={`from_${name}`}
-          >1 000 000</li>
-          <li
-            className="form-range__list_item"
-            data-value={2000000}
-            data-name={`from_${name}`}
-          >2 000 000</li>
-          <li
-            className="form-range__list_item"
-            data-value={3000000}
-            data-name={`from_${name}`}
-          >3 000 000</li>
-          <li
-            className="form-range__list_item"
-            data-value={5000000}
-            data-name={`from_${name}`}
-          >5 000 000</li>
-        </ul>
+        <div className="form-range__list" onClick={onChange}>
+          {
+            rangeFrom.map((item, ind) => {
+              return (
+                <div
+                  key={`recoup-from-${ind}`}
+                  className="form-range__list_item"
+                  data-value={item}
+                  data-name={`from_${name}`}
+                >{formatNumber(parseInt(item, 10), '')}</div>
+              );
+            })
+          }
+        </div>
       </div>
 
       <div className="form-block">
@@ -67,33 +56,20 @@ function RangeDropdown(props) {
           name={`to_${name}`}
         />
 
-        <ul className="form-range__list" onClick={onChange}>
-          <li
-            className="form-range__list_item"
-            data-value={500000}
-            data-name={`to_${name}`}
-          >500 000</li>
-          <li
-            className="form-range__list_item"
-            data-value={1000000}
-            data-name={`to_${name}`}
-          >1 000 000</li>
-          <li
-            className="form-range__list_item"
-            data-value={2000000}
-            data-name={`to_${name}`}
-          >2 000 000</li>
-          <li
-            className="form-range__list_item"
-            data-value={3000000}
-            data-name={`to_${name}`}
-          >3 000 000</li>
-          <li
-            className="form-range__list_item"
-            data-value={5000000}
-            data-name={`to_${name}`}
-          >5 000 000</li>
-        </ul>
+        <div className="form-range__list" onClick={onChange}>
+          {
+            rangeTo.map((item, ind) => {
+              return (
+                <div
+                  key={`recoup-to-${ind}`}
+                  className="form-range__list_item"
+                  data-value={item}
+                  data-name={`to_${name}`}
+                >{formatNumber(parseInt(item, 10), '')}</div>
+              );
+            })
+          }
+        </div>
       </div>
 
       <FormControls onReset={resetSection} onClose={triggerDropdown} name={name} />
@@ -102,10 +78,6 @@ function RangeDropdown(props) {
   );
 }
 
-RangeDropdown.defaultProps = {
-  rangeControls: [],
-};
-
 RangeDropdown.propTypes = {
   name: PropTypes.string.isRequired,
   from: PropTypes.string.isRequired,
@@ -113,7 +85,6 @@ RangeDropdown.propTypes = {
   onChange: PropTypes.func.isRequired,
   triggerDropdown: PropTypes.func.isRequired,
   resetSection: PropTypes.func.isRequired,
-  rangeControls: PropTypes.arrayOf(PropTypes.number),
 };
 
 export default DropdownHOC(RangeDropdown);

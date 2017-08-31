@@ -320,6 +320,15 @@
 
 .form-checkboxes {
   padding: 8px 12px;
+  $this: &;
+
+  &__group {
+    padding-bottom: 8px;
+
+    &:first-child {
+      margin-top: -9px;
+    }
+  }
 
   &__hr {
     height: 1px;
@@ -343,7 +352,7 @@
 
     &_group {
       background-color: $c-grey-light;
-      margin: 8px 0;
+      margin: 0px -12px 8px -12px;
       padding: 8px 12px;
       border-bottom: 1px solid $c-border-main;
       border-top: 1px solid $c-border-main;
@@ -373,7 +382,7 @@
     }
 
     &_trigger {
-      padding-top: 8px;
+      padding-top: 0;
       white-space: nowrap;
       width: 46px;
       vertical-align: middle;
@@ -385,14 +394,14 @@
         border-bottom: 2px solid $bd-grey-dark;
         border-right: 2px solid $bd-grey-dark;
         content: "";
-        transform: rotate(-135deg);
+        transform: rotate(45deg);
       }
 
       &.active {
-        padding-top: 0;
+        padding-top: 8px;
 
         &::before {
-          transform: rotate(45deg);
+          transform: rotate(-135deg);
         }
       }
     }

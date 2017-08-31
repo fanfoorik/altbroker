@@ -28,6 +28,7 @@ export default class GbFilter extends React.Component {
         SECTION_ID_1: '',
         SECTION_ID_2: '',
       },
+      extendedFilter: false,
     };
   }
 
@@ -194,6 +195,10 @@ export default class GbFilter extends React.Component {
     });
   };
 
+  triggerFilterExtend = () => {
+    this.setState({ extendedFilter: !this.state.extendedFilter });
+  };
+
   render() {
     const {
       ALL_BROKER: brokers,
@@ -231,11 +236,12 @@ export default class GbFilter extends React.Component {
       SECTION_ID_2: searchSubCategory,
     } = this.state.search;
 
-    const priceRangeControls = [500000, 1000000, 2000000, 3000000, 5000000];
+    const { extendedFilter } = this.state;
 
     return (
       <div className="filter filter_business">
         <form onSubmit={this.filterSubmit}>
+
           <div className="filter__row clear">
             <div className="filter__cell filter__cell_hover">
               <input value={idNameTel} onChange={this.idNameTelChange} name="ID_NAME_TEL" className="input filter__input" type="text" placeholder="ID / Название объекта / Телефон" />
@@ -256,7 +262,6 @@ export default class GbFilter extends React.Component {
               from={fromPrice}
               to={toPrice}
               onChange={this.changeFromTo}
-              rangeControls={priceRangeControls}
               resetSection={this.resetSection}
             />
 
@@ -283,10 +288,14 @@ export default class GbFilter extends React.Component {
 
               </div>
             </div>
-
             <div className="filter__cell">
               <div className="filter-controls">
-                <span className="filter-controls__item filter-controls__item_trigger active" />
+                <span
+                  onClick={this.triggerFilterExtend}
+                  className={`filter-controls__item filter-controls__item_trigger ${extendedFilter ? 'active' : ''}`}
+                  role="button"
+                  tabIndex="0"
+                />
                 <button className="filter-controls__item filter-controls__item_submit">Искать</button>
                 <span
                   className="filter-controls__item filter-controls__item_reset"

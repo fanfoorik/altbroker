@@ -54,7 +54,7 @@ class Category extends React.Component {
     const { categories } = this.state;
 
     return (
-      <div className="filter__cell filter__cell_hover active">
+      <div className="filter__cell filter__cell_hover filter__cell_category active">
         <div
           className={`filter-trigger ${categories.checked.length ? 'filter-trigger_binded' : ''}`}
           onClick={triggerDropdown}
