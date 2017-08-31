@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Avatar from 'components/Avatar';
-import { hostUrl } from 'utils/urls';
 import AboutText from './components/AboutText';
-import IsActive from 'utils/IsActive';
 
 const AboutStatic = (props) => {
   const { avatar, name, lastName, city, history, birthday } = props.user;
@@ -25,28 +23,32 @@ const AboutStatic = (props) => {
 
         <div className="profile-details row">
 
-          <IsActive active={!!birthday}>
+          {!!birthday &&
             <div className="col-lg-4">
               <div className="profile-details__section">
                 <div className="profile__label">Год рождения</div>
                 <div className="profile-details__detail">{birthday}</div>
               </div>
             </div>
-          </IsActive>
+          }
 
-          <div className="col-lg-8">
-            <div className="profile-details__section">
-              <div className="profile__label">Проживает в городе</div>
-              <div className="profile-details__detail">{city}</div>
+          {!!city &&
+            <div className="col-lg-8">
+              <div className="profile-details__section">
+                <div className="profile__label">Проживает в городе</div>
+                <div className="profile-details__detail">{city}</div>
+              </div>
             </div>
-          </div>
+          }
 
-          <div className="col-lg-12">
-            <div className="profile-details__section mb-0">
-              <div className="profile__label">История успеха</div>
-              <AboutText data={history} />
+          {!!history &&
+            <div className="col-lg-12">
+              <div className="profile-details__section mb-0">
+                <div className="profile__label">История успеха</div>
+                <AboutText data={history} />
+              </div>
             </div>
-          </div>
+          }
 
         </div>
       </div>

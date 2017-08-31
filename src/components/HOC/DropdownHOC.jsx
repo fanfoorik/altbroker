@@ -5,13 +5,25 @@ import preventOverScroll from 'utils/preventOverScroll';
 
 export default function FilterDropdownHOC(Dropdown) {
   return class FilterDropdown extends React.Component {
+    static defaultProps = {
+      onOpen() { return false; },
+      onClose() { return false; },
+    };
+
+    static propTypes = {
+      onOpen: PropTypes.func,
+      onClose: PropTypes.func,
+    };
+
     componentDidMount() {
+      if (this.props.onOpen) this.props.onOpen();
       document.addEventListener('click', this.onOuterClick);
       document.addEventListener('keyup', this.onOuterClick);
       window.addEventListener('scroll', this.onOuterClick);
     }
 
     componentWillUnmount() {
+      if (this.props.onClose) this.props.onClose();
       document.removeEventListener('click', this.onOuterClick);
       document.removeEventListener('keyup', this.onOuterClick);
       window.removeEventListener('scroll', this.onOuterClick);

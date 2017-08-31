@@ -1,42 +1,38 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-
-import preventOverScroll from 'utils/preventOverScroll';
 import DropdownHOC from 'components/HOC/DropdownHOC';
-
-import FormSearch from 'components/ui/FormSearch';
-import FormControls from 'components/ui/FormControls';
 import Checkpoint from 'components/ui/Checkpoint';
+import FormControls from 'components/ui/FormControls';
 
-function SubwayDropdown(props) {
+function StatusDropdown(props) {
   const {
     items,
+    selectedItems,
     changeFilterItem,
     resetSection,
-    handleSearch,
-    searchValue,
-    triggerDropdown
+    triggerDropdown,
   } = props;
 
   return (
     <div className="form-dropdown">
-      <FormSearch autoFocus value={searchValue} onChange={event => handleSearch('PROPERTY_METRO_NEW', event.target.value)} />
 
-      <div className="form-block" ref={node => preventOverScroll(node)}>
+      <div className="form-block">
         <div className="form-checkboxes">
           {
             items.map((item) => {
-              const { ID: id, name, checked } = item;
+              const { ID: id, VALUE: name, checked } = item;
+
               return (
                 <Checkpoint
-                  key={`brokers-${id}`}
+                  key={`status-${id}`}
                   id={id}
+                  name="PROPERTY_STATUS_OBJ"
                   onChange={changeFilterItem}
                   className="form-checkboxes__item"
+                  type="radio"
                   checked={checked}
                   label={name}
-                  name="PROPERTY_METRO_NEW"
                 />
               );
             })
@@ -44,19 +40,17 @@ function SubwayDropdown(props) {
         </div>
       </div>
 
-      <FormControls onReset={resetSection} onClose={triggerDropdown} name="PROPERTY_METRO_NEW" />
-
+      <FormControls onReset={resetSection} onClose={triggerDropdown} name="PROPERTY_STATUS_OBJ" />
     </div>
   );
 }
 
-SubwayDropdown.propTypes = {
+StatusDropdown.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  selectedItems: PropTypes.string.isRequired,
   changeFilterItem: PropTypes.func.isRequired,
-  handleSearch: PropTypes.func.isRequired,
-  searchValue: PropTypes.string.isRequired,
   resetSection: PropTypes.func.isRequired,
   triggerDropdown: PropTypes.func.isRequired,
 };
 
-export default DropdownHOC(SubwayDropdown);
+export default DropdownHOC(StatusDropdown);

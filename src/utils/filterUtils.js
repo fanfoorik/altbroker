@@ -16,8 +16,8 @@ export function parseCheckObjects(objects, checked, raise) {
   };
 }
 
-export function filterItems(search, object) {
-  return object.filter((obj) => {
+export function filterItems(search, objects) {
+  return objects.filter((obj) => {
     const item = obj;
     const string = item.SHOT_NAME || item.NAME || 'Нет имени/названия';
     const regexVal = search.replace(/\W/g, '\\$&');
