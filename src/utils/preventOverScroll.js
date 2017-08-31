@@ -1,11 +1,11 @@
 function preventOverScroll(event) {
   const { currentTarget } = event;
   const delta = -event.deltaY;
+  const scrollIndex = currentTarget.scrollHeight - currentTarget.clientHeight;
   // Over scroll up
-  const scrollUp = delta > 0 && currentTarget.scrollTop <= 0;
+  const scrollUp = delta > 0 && currentTarget.scrollTop <= 0 && scrollIndex;
   // Over scroll down
-  const scrollUDown = delta < 0 &&
-    currentTarget.scrollTop >= currentTarget.scrollHeight - currentTarget.clientHeight;
+  const scrollUDown = delta < 0 && scrollIndex && currentTarget.scrollTop >= scrollIndex;
 
   if (scrollUp || scrollUDown) {
     event.preventDefault();

@@ -38,6 +38,10 @@
 
     &_deeper {
       width: calc(50% - 1px);
+
+      .form-dropdown {
+        width: 200%;
+      }
     }
   }
 
@@ -87,6 +91,8 @@
     color: $c-blue-main;
     font-size: 12px;
     overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   &__more {
@@ -120,12 +126,11 @@
     }
   }
 
-  &__subcategory {
-    float: right;
-    color: $c-grey-main;
-    cursor: pointer;
-
-  }
+  //&__subcategory {
+  //  float: right;
+  //  color: $c-grey-main;
+  //  cursor: pointer;
+  //}
 }
 
 .form-dropdown {
@@ -354,7 +359,7 @@
 
 .filter-controls {
   display: table;
-  width: 100%;
+  width: calc(100% + 1px);
 
   &__item {
     height: 40px;
@@ -363,24 +368,32 @@
     text-align: center;
     cursor: pointer;
 
-    &_trigger {
-      padding: 0 16px;
-      white-space: nowrap;
+    &:hover {
+      background: $bg-blue-grey;
+    }
 
-      .icon {
-        margin-left: 3px;
-        transform: rotate(90deg);
-        fill: $c-blue-main;
+    &_trigger {
+      padding-top: 8px;
+      white-space: nowrap;
+      width: 46px;
+      vertical-align: middle;
+
+      &::before {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-bottom: 2px solid $bd-grey-dark;
+        border-right: 2px solid $bd-grey-dark;
+        content: "";
+        transform: rotate(-135deg);
       }
 
       &.active {
-        .icon {
-          transform: rotate(-90deg);
-        }
-      }
+        padding-top: 0;
 
-      &:hover {
-        background: $bg-blue-grey;
+        &::before {
+          transform: rotate(45deg);
+        }
       }
     }
 
@@ -389,6 +402,7 @@
       background: $bg-grey-light;
       border-width: 0;
       padding: 0 16px;
+      width: 110px;
 
       &:hover {
         background: $bg-blue-grey;
@@ -396,7 +410,10 @@
     }
 
     &_reset {
-      width: 40px;
+      text-align: center;
+      width: 110px;
+      outline: 1px solid $bd-blue;
+      position: relative;
 
       .filter-reset-icon {
         fill: $c-grey-main;

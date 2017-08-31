@@ -1,11 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import IsActive from 'utils/IsActive';
-
-import { Editor, EditorState, RichUtils, convertToRaw } from 'draft-js';
-import Draft from 'draft-js/dist/Draft.css';
 
 import htmlParser from 'html-react-parser';
+import BaseEditor from 'components/Editor/BaseEditor';
 
 class AboutText extends React.Component {
 
@@ -13,7 +10,6 @@ class AboutText extends React.Component {
     super(props);
     this.state = {
       trigger: false,
-      editorState: EditorState.createEmpty(),
     };
   }
 
@@ -27,27 +23,8 @@ class AboutText extends React.Component {
     this.setState({ trigger: !this.state.trigger });
   };
 
-  onChange = (editorState) => {
-    this.setState({ editorState });
-    this.logState();
-  };
-
-  logState = () => {
-    const content = this.state.editorState.getCurrentContent();
-    console.log(convertToRaw(content));
-  };
-
-  // handleKeyCommand = (command) => {
-  //   const newState = RichUtils.handleKeyCommand(this.state.editorState, command);
-  //   if (newState) {
-  //     this.onChange(newState);
-  //     return 'handled';
-  //   }
-  //   return 'not-handled';
-  // };
-
-  onBoldClick = () => {
-    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'));
+  getHtml = (html) => {
+    // console.log(html);
   };
 
   render() {
@@ -60,35 +37,18 @@ class AboutText extends React.Component {
           { !this.state.trigger && htmlText.length > 8 ? htmlText.slice(0, 8) : htmlText }
         </div>
 
-        <br />
-        <br />
-        <br />
+        <BaseEditor html={this.props.data} getHtml={this.getHtml} />
 
-        <div className="editor">
-          <div className="editor__controls">
-            <button className="mb-12" onClick={this.onBoldClick}>bold</button>
-          </div>
-
-          <Editor
-            editorState={this.state.editorState}
-            onChange={this.onChange}
-            placeholder="Enter some text..."
-          />
-        </div>
-
-        <br />
-        <br />
-
-        <IsActive active={htmlText.length > 8}>
-          <span
-            role="button"
-            tabIndex="0"
-            className="profile-details__text-trigger"
-            onClick={this.triggerDescription}
-          >
+        {htmlText.length > 8 &&
+        <span
+          role="button"
+          tabIndex="0"
+          className="profile-details__text-trigger"
+          onClick={this.triggerDescription}
+        >
             { !this.state.trigger ? 'Показать полностью' : 'Cвернуть' }
           </span>
-        </IsActive>
+        }
       </div>
     );
   }
