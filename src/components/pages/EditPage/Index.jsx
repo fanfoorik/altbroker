@@ -9,6 +9,7 @@ import {
   Staff,
   Building,
   Asset,
+  Gallery,
 } from './Sections';
 
 import {
@@ -29,6 +30,7 @@ class EditPage extends React.Component {
         Building: {},
         Asset: {},
         Salary: {},
+        Gallery: {},
       },
       lib: {},
     };
@@ -92,6 +94,7 @@ class EditPage extends React.Component {
     Building,
     Asset,
     Salary,
+    Gallery,
   };
 
   sections = [
@@ -118,6 +121,10 @@ class EditPage extends React.Component {
     {
       title: 'Продавец',
       component: 'Salary',
+    },
+    {
+      title: 'Галерея',
+      component: 'Gallery',
     },
   ];
 

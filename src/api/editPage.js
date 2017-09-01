@@ -56,6 +56,9 @@ export const fetchDataForEditPage = (context) => {
           PROPERTY_KLIENT_SAIT: fields.PROPERTY_KLIENT_SAIT,
           PROPERTY_KLIENT_MESTO: fields.PROPERTY_KLIENT_MESTO,
         },
+        Gallery: {
+          PROPERTY_PHOTO: fields.PROPERTY_PHOTO,
+        },
       },
     });
   });
