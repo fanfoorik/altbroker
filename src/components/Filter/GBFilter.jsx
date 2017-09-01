@@ -13,6 +13,11 @@ import Income from './Income';
 import Recoupment from './Recoupment';
 import Status from 'components/Filter/Status';
 
+
+import Filter from './Filter';
+import Cell from './Cell';
+
+
 export default class GbFilter extends React.Component {
   constructor(props) {
     super(props);
@@ -239,136 +244,145 @@ export default class GbFilter extends React.Component {
     const { extendedFilter } = this.state;
 
     return (
-      <div className="filter filter_business">
-        <form onSubmit={this.filterSubmit}>
+      <div>
 
-          <div className="filter__row clear">
-            <div className="filter__cell filter__cell_hover">
-              <input value={idNameTel} onChange={this.idNameTelChange} name="ID_NAME_TEL" className="input filter__input" type="text" placeholder="ID / Название объекта / Телефон" />
+        <Filter>
+          { extendedFilter.toString() }
+          <Cell bool={extendedFilter.toString()} />
+        </Filter>
+        <br />
+
+        <div className="filter filter_business">
+          <form onSubmit={this.filterSubmit}>
+
+            <div className="filter__row clear">
+              <div className="filter__cell filter__cell_hover">
+                <input value={idNameTel} onChange={this.idNameTelChange} name="ID_NAME_TEL" className="input filter__input" type="text" placeholder="ID / Название объекта / Телефон" />
+              </div>
+
+              <Category
+                items={{ categories, subCategories }}
+                selectedItems={{ selectedCategories, selectedSubCategories }}
+                changeFilterItem={this.changeFilterItem}
+                handleSearch={this.handleSearch}
+                searchValue={{ searchCategory, searchSubCategory }}
+                resetSection={this.resetSection}
+              />
+
+              <Price
+                label="Цена"
+                name="PROPERTY_PRICE_BUSINESS"
+                from={fromPrice}
+                to={toPrice}
+                onChange={this.changeFromTo}
+                resetSection={this.resetSection}
+              />
+
+              <div className="filter__cell active">
+                <div className="filter__row clear">
+
+                  <Income
+                    label="Прибыль"
+                    name="PROPERTY_CHIST_PRIB"
+                    from={fromIncome}
+                    to={toIncome}
+                    onChange={this.changeFromTo}
+                    resetSection={this.resetSection}
+                  />
+
+                  <Recoupment
+                    label="Окупаемость"
+                    name="PROPERTY_OKUP"
+                    from={fromRecoupment}
+                    to={toRecoupment}
+                    onChange={this.changeFromTo}
+                    resetSection={this.resetSection}
+                  />
+
+                </div>
+              </div>
+              <div className="filter__cell">
+                <div className="filter-controls">
+                  <span
+                    onClick={this.triggerFilterExtend}
+                    className={`filter-controls__item filter-controls__item_trigger ${extendedFilter ? 'active' : ''}`}
+                    role="button"
+                    tabIndex="0"
+                  />
+                  <button className="filter-controls__item filter-controls__item_submit">Искать</button>
+                  <span
+                    className="filter-controls__item filter-controls__item_reset"
+                    onClick={this.resetForm}
+                    role="button"
+                    tabIndex="0"
+                  >Сбросить</span>
+                </div>
+              </div>
             </div>
 
-            <Category
-              items={{ categories, subCategories }}
-              selectedItems={{ selectedCategories, selectedSubCategories }}
-              changeFilterItem={this.changeFilterItem}
-              handleSearch={this.handleSearch}
-              searchValue={{ searchCategory, searchSubCategory }}
-              resetSection={this.resetSection}
-            />
+            <div className="filter__row clear">
 
-            <Price
-              label="Цена"
-              name="PROPERTY_PRICE_BUSINESS"
-              from={fromPrice}
-              to={toPrice}
-              onChange={this.changeFromTo}
-              resetSection={this.resetSection}
-            />
+              <Brokers
+                items={brokers}
+                selectedItems={selectedBrokers}
+                changeFilterItem={this.changeFilterItem}
+                handleSearch={this.handleSearch}
+                searchValue={searchBrokers}
+                resetSection={this.resetSection}
+              />
 
-            <div className="filter__cell active">
-              <div className="filter__row clear">
+              <City
+                items={{ cities, regions }}
+                selectedItems={{ selectedCity, selectedRegions }}
+                changeFilterItem={this.changeFilterItem}
+                handleSearch={this.handleSearch}
+                searchValue={{ searchCity, searchRegions }}
+                resetSection={this.resetSection}
+              />
 
-                <Income
-                  label="Прибыль"
-                  name="PROPERTY_CHIST_PRIB"
-                  from={fromIncome}
-                  to={toIncome}
-                  onChange={this.changeFromTo}
-                  resetSection={this.resetSection}
-                />
+              <Subway
+                items={subways}
+                selectedItems={{ selectedCity, selectedSubways }}
+                changeFilterItem={this.changeFilterItem}
+                handleSearch={this.handleSearch}
+                searchValue={searchSubway}
+                resetSection={this.resetSection}
+              />
 
-                <Recoupment
-                  label="Окупаемость"
-                  name="PROPERTY_OKUP"
-                  from={fromRecoupment}
-                  to={toRecoupment}
-                  onChange={this.changeFromTo}
-                  resetSection={this.resetSection}
-                />
+              <Status
+                items={status}
+                selectedItems={selectedStatus}
+                changeFilterItem={this.changeFilterItem}
+                resetSection={this.resetSection}
+              />
+
+            </div>
+
+            <div className="filter-footer clear">
+              <span className="filter-stored-save">Сохраните фильтр</span>
+
+              <div className="filter-stored">
+                <span className="filter-stored-label">Мои фильтры:</span>
+
+                <span className="filter-stored-item">
+                  <span className="filter-stored-item__title">Кафетерии для Марата</span>
+                  <span className="filter-stored-item__remove">
+                    <Icon icon="close" width={9} height={9} className="filter-stored-item__remove-icon" />
+                  </span>
+                </span>
+
+                <span className="filter-stored-item">
+                  <span className="filter-stored-item__title">Автомойки Москва</span>
+                  <span className="filter-stored-item__remove">
+                    <Icon icon="close" width={9} height={9} className="filter-stored-item__remove-icon" />
+                  </span>
+                </span>
 
               </div>
             </div>
-            <div className="filter__cell">
-              <div className="filter-controls">
-                <span
-                  onClick={this.triggerFilterExtend}
-                  className={`filter-controls__item filter-controls__item_trigger ${extendedFilter ? 'active' : ''}`}
-                  role="button"
-                  tabIndex="0"
-                />
-                <button className="filter-controls__item filter-controls__item_submit">Искать</button>
-                <span
-                  className="filter-controls__item filter-controls__item_reset"
-                  onClick={this.resetForm}
-                  role="button"
-                  tabIndex="0"
-                >Сбросить</span>
-              </div>
-            </div>
-          </div>
 
-          <div className="filter__row clear">
-
-            <Brokers
-              items={brokers}
-              selectedItems={selectedBrokers}
-              changeFilterItem={this.changeFilterItem}
-              handleSearch={this.handleSearch}
-              searchValue={searchBrokers}
-              resetSection={this.resetSection}
-            />
-
-            <City
-              items={{ cities, regions }}
-              selectedItems={{ selectedCity, selectedRegions }}
-              changeFilterItem={this.changeFilterItem}
-              handleSearch={this.handleSearch}
-              searchValue={{ searchCity, searchRegions }}
-              resetSection={this.resetSection}
-            />
-
-            <Subway
-              items={subways}
-              selectedItems={{ selectedCity, selectedSubways }}
-              changeFilterItem={this.changeFilterItem}
-              handleSearch={this.handleSearch}
-              searchValue={searchSubway}
-              resetSection={this.resetSection}
-            />
-
-            <Status
-              items={status}
-              selectedItems={selectedStatus}
-              changeFilterItem={this.changeFilterItem}
-              resetSection={this.resetSection}
-            />
-
-          </div>
-
-          <div className="filter-footer clear">
-            <span className="filter-stored-save">Сохраните фильтр</span>
-
-            <div className="filter-stored">
-              <span className="filter-stored-label">Мои фильтры:</span>
-
-              <span className="filter-stored-item">
-                <span className="filter-stored-item__title">Кафетерии для Марата</span>
-                <span className="filter-stored-item__remove">
-                  <Icon icon="close" width={9} height={9} className="filter-stored-item__remove-icon" />
-                </span>
-              </span>
-
-              <span className="filter-stored-item">
-                <span className="filter-stored-item__title">Автомойки Москва</span>
-                <span className="filter-stored-item__remove">
-                  <Icon icon="close" width={9} height={9} className="filter-stored-item__remove-icon" />
-                </span>
-              </span>
-
-            </div>
-          </div>
-
-        </form>
+          </form>
+        </div>
       </div>
     );
   }
