@@ -2,11 +2,10 @@ import React from 'react';
 import Dropzone from 'react-fine-uploader/dropzone';
 import FineUploaderTraditional from 'fine-uploader-wrappers';
 import Thumbnail from 'react-fine-uploader/thumbnail';
-import Status from 'react-fine-uploader/status'
-
 import 'react-fine-uploader/gallery/gallery.css';
 import Pica from 'pica/dist/pica';
 import update from 'react/lib/update';
+
 import Container from './Container';
 import Photo from './Photo';
 
@@ -32,25 +31,10 @@ class Gallery extends React.Component {
   constructor() {
     super();
 
-    this.movePhoto = this.movePhoto.bind(this);
     this.state = {
       submittedFiles: [],
       privateFiles: [],
     };
-  }
-
-  movePhoto(dragIndex, hoverIndex) {
-    const { submittedFiles } = this.state;
-    const dragCard = submittedFiles[dragIndex];
-
-    this.setState(update(this.state, {
-      submittedFiles: {
-        $splice: [
-          [dragIndex, 1],
-          [hoverIndex, 0, dragCard],
-        ],
-      },
-    }));
   }
 
   componentDidMount() {
@@ -64,7 +48,21 @@ class Gallery extends React.Component {
     });
   }
 
-  customResizer(resizeInfo) {
+  movePhoto = (dragIndex, hoverIndex) => {
+    const { submittedFiles } = this.state;
+    const dragCard = submittedFiles[dragIndex];
+
+    this.setState(update(this.state, {
+      submittedFiles: {
+        $splice: [
+          [dragIndex, 1],
+          [hoverIndex, 0, dragCard],
+        ],
+      },
+    }));
+  };
+
+  customResizer = (resizeInfo) => {
     return new Promise((resolve) => {
       resizeInfo.targetCanvas.height = 100;
 
@@ -72,7 +70,7 @@ class Gallery extends React.Component {
         .resize(resizeInfo.sourceCanvas, resizeInfo.targetCanvas)
         .then(data => resolve(data));
     });
-  }
+  };
 
   render() {
     return (

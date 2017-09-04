@@ -4,7 +4,6 @@ import { DragSource, DropTarget } from 'react-dnd';
 
 const cardSource = {
   beginDrag(props) {
-    console.log(props);
     return {
       id: props.id,
       index: props.index,

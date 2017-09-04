@@ -34,9 +34,6 @@ class EditPage extends React.Component {
       },
       lib: {},
     };
-
-    this.onChangeStateHandler = this.onChangeStateHandler.bind(this);
-    this.onSubmitHandler = this.onSubmitHandler.bind(this);
   }
 
   componentDidMount() {
@@ -44,7 +41,7 @@ class EditPage extends React.Component {
     fetchLib(this);
   }
 
-  onChangeStateHandler(section) {
+  onChangeStateHandler = (section) => {
     return (state, type = 'selectValues') => {
 
       if (state.PROPERTY_GEO_ID) {
@@ -65,27 +62,19 @@ class EditPage extends React.Component {
         state.SECTION_ID_2 = section2;
       }
 
-      const newStateSection = {
-        [section]: Object.assign(this.state[type][section], state),
-      };
+      this.state[type][section] = Object.assign(this.state[type][section], state);
 
-      const newSelectState = {
-        [type]: Object.assign(this.state[type], newStateSection),
-      };
-
-      const newState = Object.assign(this.state, newSelectState);
-
-      this.setState(newState);
+      this.setState(this.state);
     };
-  }
+  };
 
 
-  onSubmitHandler(section) {
+  onSubmitHandler = (section) => {
     return (e) => {
       e.preventDefault();
       sendDataFromEditPage(this, section);
     };
-  }
+  };
 
   componentSections = {
     Basic,

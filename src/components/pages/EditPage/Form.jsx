@@ -8,30 +8,22 @@ class Form extends React.Component {
       disabledSubmit: false,
       errors: {},
     };
-
-    this.toggleDisabledSubmit = this.toggleDisabledSubmit.bind(this);
-    this.addError = this.addError.bind(this);
-    this.deleteError = this.deleteError.bind(this);
   }
 
-  toggleDisabledSubmit(value) {
-    this.setState({
-      disabledSubmit: value,
-    });
-  }
+  toggleDisabledSubmit = (value) => {
+    this.state.disabledSubmit = value;
+    this.setState(this.state);
+  };
 
-  addError(field, type) {
-    this.setState({
-      errors: Object.assign(this.state.errors, { [field]: type }),
-    });
-  }
+  addError = (field, type) => {
+    this.state.errors = Object.assign(this.state.errors, { [field]: type });
+    this.setState(this.state);
+  };
 
-  deleteError(field) {
+  deleteError = (field) => {
     delete this.state.errors[field];
-    this.setState({
-      errors: this.state.errors,
-    });
-  }
+    this.setState(this.state);
+  };
 
   render() {
     return (
@@ -45,8 +37,10 @@ class Form extends React.Component {
           });
         })}
         <button
-          disabled={this.state.disabledSubmit ||
-          Object.keys(this.state.errors).length !== 0}
+          disabled={
+            this.state.disabledSubmit ||
+            !!Object.keys(this.state.errors).length
+          }
           className="btn"
           type="submit"
         >
