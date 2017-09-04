@@ -3,26 +3,28 @@
 .filter {
   border-radius: 3px;
   background: $bg-white;
-  box-shadow: 0 0 0 1px $bd-main;
+  box-shadow: 0 -1px 0 0 $bd-main inset, -1px 0 0 0 $bd-main inset;
+  border-top: 1px solid $bd-main;
+  border-left: 1px solid $bd-main;
   position: relative;
   z-index: 11;
 
   &__row {
     clear: both;
     margin-right: -1px;
+    box-shadow: 0 -1px 0 0 $bd-main inset;
   }
 
   &__cell {
     float: left;
-    width: calc(20% - 1px);
-    height: 40px;
-    outline: 1px solid $bd-main;
-    margin-bottom: 1px;
-    margin-right: 1px;
-    background: $bg-white;
+    width: calc(20% + 1px);
+    height: 42px;
+    border: 1px solid $bd-main;
     position: relative;
     z-index: 0;
     transition-duration: 0.2s;
+    margin: -1px 0 0 -1px;
+    background: $bg-white;
 
     &:hover,
     &.active {
@@ -36,7 +38,7 @@
     }
 
     &_deeper {
-      width: calc(50% - 1px);
+      width: 50%;
 
       .form-dropdown {
         width: 200%;

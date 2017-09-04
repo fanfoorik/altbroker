@@ -14,8 +14,10 @@ import Recoupment from './Recoupment';
 import Status from 'components/Filter/Status';
 
 
+import CategoryContainer from './CategoryContainer';
+
+
 import Filter from './Filter';
-import Cell from './Cell';
 
 
 export default class GbFilter extends React.Component {
@@ -247,9 +249,29 @@ export default class GbFilter extends React.Component {
       <div>
 
         <Filter>
-          { extendedFilter.toString() }
-          <Cell bool={extendedFilter.toString()} />
+          <Filter.Row>
+            <Filter.Cell className="filter__cell_hover">
+              <input value={idNameTel} onChange={this.idNameTelChange} name="ID_NAME_TEL" className="input filter__input" type="text" placeholder="ID / Название объекта / Телефон" />
+            </Filter.Cell>
+            <Filter.Cell className="filter__cell_hover active">
+              <CategoryContainer
+                items={{ categories, subCategories }}
+                selectedItems={{ selectedCategories, selectedSubCategories }}
+                changeFilterItem={this.changeFilterItem}
+                handleSearch={this.handleSearch}
+                searchValue={{ searchCategory, searchSubCategory }}
+                resetSection={this.resetSection}
+              />
+            </Filter.Cell>
+            <Filter.Cell />
+            <Filter.Cell />
+            <Filter.Cell />
+          </Filter.Row>
         </Filter>
+        <br />
+        <br />
+        <br />
+        <br />
         <br />
 
         <div className="filter filter_business">
