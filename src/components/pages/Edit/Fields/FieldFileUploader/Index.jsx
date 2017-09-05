@@ -106,7 +106,7 @@ class FieldFileUploader extends React.Component {
                           id={photo}
                           uploader={this.uploader}
                         /> :
-                        <img src={'http://alterainvest.ru' + photo.SRC} alt="Фото объекта" />
+                        <img src={'http://alterainvest.ru' + photo.SRC} height={100} alt="Фото объекта" />
                     }
                   </Photo>
                 );

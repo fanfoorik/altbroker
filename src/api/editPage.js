@@ -57,35 +57,8 @@ export const fetchDataForEditPage = (context) => {
           PROPERTY_KLIENT_MESTO: fields.PROPERTY_KLIENT_MESTO,
         },
         Gallery: {
-          PROPERTY_IMGS: [
-            {
-              "ID" : "643209",
-              "SRC" : "/upload/iblock/196/196ee6cfabd43390c6be7c928bc81fff.jpg"
-            },
-            {
-              "ID" : "643210",
-              "SRC" : "/upload/iblock/92e/92ef76a9e8fea1c6c2fcbced4b86318a.jpg"
-            },
-            {
-              "ID" : "",
-              "SRC" : "/upload/iblock/92e/92ef76a9e8fea1c6c2fcbced4b86318a.jpg"
-            },
-          ],
-
-          PROPERTY_HIDE_IMGS: [
-            {
-              "ID" : "643209",
-              "SRC" : "/upload/iblock/196/196ee6cfabd43390c6be7c928bc81fff.jpg"
-            },
-            {
-              "ID" : "643210",
-              "SRC" : "/upload/iblock/92e/92ef76a9e8fea1c6c2fcbced4b86318a.jpg"
-            },
-            {
-              "ID" : "",
-              "SRC" : "/upload/iblock/92e/92ef76a9e8fea1c6c2fcbced4b86318a.jpg"
-            },
-          ],
+          PROPERTY_IMGS: fields.PROPERTY_IMGS_FULL,
+          PROPERTY_HIDE_IMGS: fields.PROPERTY_HIDE_IMGS_FULL,
         },
       },
     });
@@ -166,12 +139,12 @@ export const sendDataFromEditPage = (context, section) => {
   delete newState.PROPERTY_IMGS_PRE;
   delete newState.PROPERTY_HIDE_IMGS_PRE;
   delete newState.PROPERTY_IMGS_FULL;
+  delete newState.PROPERTY_HIDE_IMGS_FULL;
 
   ajax.post(`broker/gb/${context.props.params.id}/edit/`, newState).then((result) => {
     if (result.ANSWER.SUCCESS) {
       NotificationManager.success('ДАННЫЕ ОБНОВЛЕНЫ', 'OK');
     } else {
-      console.log(result.ANSWER);
       NotificationManager.error('Извините на сервере произошла ошибка!', 'ОШИБКА');
     }
   });
