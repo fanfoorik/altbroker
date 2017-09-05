@@ -1,14 +1,31 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import Row from './Row';
+import Cell from './Cell';
+import Trigger from './Trigger';
 
-export default class Filter extends React.Component {
-  render() {
-    return (
-      <div className="filter filter_business clear">
-        <form>
-          {this.props.children}
-        </form>
-      </div>
-    );
-  }
+function Filter(props) {
+  return (
+    <div className="filter clear">
+      <form onSubmit={props.onSubmit}>
+        {props.children}
+      </form>
+    </div>
+  );
 }
+
+Filter.defaultProps = {
+  onSubmit: null,
+  children: null,
+};
+
+Filter.propTypes = {
+  onSubmit: PropTypes.func,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
+};
+
+Filter.Cell = Cell;
+Filter.Row = Row;
+Filter.Trigger = Trigger;
+
+export default Filter;

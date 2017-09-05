@@ -7,7 +7,7 @@ import FormSearch from 'components/ui/FormSearch';
 import Checkpoint from 'components/ui/Checkpoint';
 
 function SubCategoryList(props) {
-  const { items, changeFilterItem, handleSearch } = props;
+  const { items, changeFilterItem, handleSearch, selectCheckGroup } = props;
   const { selectedSubCategories } = props.selectedItems;
   const { searchSubCategory } = props.searchValue;
 
@@ -32,11 +32,17 @@ function SubCategoryList(props) {
               const { ID: id, NAME: name, subcateg } = item;
               const filteredItems = filterItems(searchSubCategory, subcateg);
 
-              return (
+              return !!filteredItems.length && (
                 <div className="form-checkboxes__group" key={`subcateg-group-${id}`}>
-                  {!!filteredItems.length &&
-                    <div className="form-checkboxes__item form-checkboxes__item_group">{name}</div>
-                  }
+                  <div
+                    className="form-checkboxes-heading form-checkboxes-heading_clickable"
+                    onClick={() => selectCheckGroup(filteredItems, 'SECTION_ID_2')}
+                    role="button"
+                    tabIndex="0"
+                  >
+                    <span className="form-checkboxes-heading__label">Все</span>
+                    {name}
+                  </div>
                   {
                     filteredItems.map(el => (
                       <Checkpoint
@@ -70,6 +76,7 @@ SubCategoryList.propTypes = {
   }).isRequired,
   changeFilterItem: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
+  selectCheckGroup: PropTypes.func.isRequired,
 };
 
 export default SubCategoryList;

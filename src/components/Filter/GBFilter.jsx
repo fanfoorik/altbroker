@@ -13,6 +13,11 @@ import Income from './Income';
 import Recoupment from './Recoupment';
 import Status from 'components/Filter/Status';
 
+import Filter from './Filter';
+import CategoryContainer from './CategoryContainer';
+import BrokersContainer from './BrokersContainer';
+
+
 export default class GbFilter extends React.Component {
   constructor(props) {
     super(props);
@@ -206,6 +211,22 @@ export default class GbFilter extends React.Component {
     this.setState({ extendedFilter: !this.state.extendedFilter });
   };
 
+  /**
+   * Select all checkboxes from group.
+   * @param {array} data - The array of checkbox objects.
+   * @param {string} option - The key of option. ex: SECTION_ID_1.
+   */
+  selectCheckGroup = (data, option) => {
+    const optionState = this.state.filterState[option];
+    const allItems = data.filter(item => optionState.indexOf(item.ID) === -1)
+      .map(item => item.ID);
+    if (allItems.length && optionState) {
+      this.setState(() => {
+        this.state.filterState[option] = this.state.filterState[option].concat(allItems);
+      });
+    }
+  };
+
   render() {
     const {
       ALL_BROKER: brokers,
@@ -247,6 +268,55 @@ export default class GbFilter extends React.Component {
 
     return (
       <div>
+
+        <Filter>
+          <Filter.Row>
+
+            <Filter.Cell className="filter__cell_hover">
+              <input value={idNameTel} onChange={this.idNameTelChange} name="ID_NAME_TEL" className="input filter__input" type="text" placeholder="ID / Название объекта / Телефон" />
+            </Filter.Cell>
+
+            <Filter.Cell className="filter__cell_hover active">
+              <CategoryContainer
+                items={{ categories, subCategories }}
+                selectedItems={{ selectedCategories, selectedSubCategories }}
+                changeFilterItem={this.changeFilterItem}
+                handleSearch={this.handleSearch}
+                searchValue={{ searchCategory, searchSubCategory }}
+                resetSection={this.resetSection}
+              />
+            </Filter.Cell>
+
+            <Filter.Cell />
+            <Filter.Cell />
+            <Filter.Cell />
+          </Filter.Row>
+
+          <Filter.Row>
+            <Filter.Cell className="filter__cell_hover">
+              <BrokersContainer
+                items={brokers}
+                selectedItems={selectedBrokers}
+                changeFilterItem={this.changeFilterItem}
+                handleSearch={this.handleSearch}
+                searchValue={searchBrokers}
+                resetSection={this.resetSection}
+                submitOnDropdownClose={this.submitOnDropdownClose}
+              />
+            </Filter.Cell>
+          </Filter.Row>
+        </Filter>
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
         <div className="filter filter_business">
           <form onSubmit={this.filterSubmit}>
 
@@ -263,6 +333,7 @@ export default class GbFilter extends React.Component {
                 searchValue={{ searchCategory, searchSubCategory }}
                 resetSection={this.resetSection}
                 submitOnDropdownClose={this.submitOnDropdownClose}
+                selectCheckGroup={this.selectCheckGroup}
               />
 
               <Price
