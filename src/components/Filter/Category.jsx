@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import { parseCheckObjects } from 'utils/filterUtils';
-
 import DropdownTriggerHOC from 'components/HOC/DropdownTriggerHOC';
 import CategoryDropdown from './dropdowns/CategoryDropdown';
 
@@ -26,9 +25,10 @@ class Category extends React.Component {
       !nextProps.isActive, nextProps);
   }
 
-  closeCategoryDropdown = () => {
+  handleDropdownClose = () => {
     this.props.handleSearch('SECTION_ID_1', '');
     this.props.handleSearch('SECTION_ID_2', '');
+    this.props.submitOnDropdownClose();
   };
 
   prepareCategory = (items, raise, nextProps) => {
@@ -80,7 +80,7 @@ class Category extends React.Component {
           <CategoryDropdown
             {...this.props}
             items={categories}
-            onClose={this.closeCategoryDropdown}
+            onClose={this.handleDropdownClose}
           />
         }
       </div>
@@ -89,8 +89,6 @@ class Category extends React.Component {
 }
 
 Category.propTypes = {
-  isActive: PropTypes.bool.isRequired,
-  triggerDropdown: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
   items: PropTypes.shape({
     categories: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -100,6 +98,9 @@ Category.propTypes = {
     selectedCategories: PropTypes.arrayOf(PropTypes.string),
     selectedSubCategories: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
+  submitOnDropdownClose: PropTypes.func.isRequired,
+  isActive: PropTypes.bool.isRequired,
+  triggerDropdown: PropTypes.func.isRequired,
 };
 
 export default DropdownTriggerHOC(Category);

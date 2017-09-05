@@ -22,6 +22,10 @@ class Status extends React.Component {
     this.setState({ items: parseCheckObjects(items, [selectedItems], false) });
   }
 
+  handleDropdownClose = () => {
+    this.props.submitOnDropdownClose();
+  };
+
   render() {
     const {
       isActive,
@@ -53,7 +57,7 @@ class Status extends React.Component {
         </div>
         {
           isActive &&
-          <StatusDropdown {...data} />
+          <StatusDropdown {...data} onClose={this.handleDropdownClose} />
         }
       </div>
     );
@@ -63,6 +67,7 @@ class Status extends React.Component {
 Status.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectedItems: PropTypes.string.isRequired,
+  submitOnDropdownClose: PropTypes.func.isRequired,
   isActive: PropTypes.bool.isRequired,
   triggerDropdown: PropTypes.func.isRequired,
 };

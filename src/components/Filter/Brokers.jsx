@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import { parseCheckObjects, filterItems } from 'utils/filterUtils';
-
 import DropdownTriggerHOC from 'components/HOC/DropdownTriggerHOC';
 import BrokersDropdown from 'components/Filter/dropdowns/BrokersDropdown';
 
@@ -20,17 +19,18 @@ class Brokers extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { isActive, items, selectedItems } = nextProps;
     const { all: stateItems } = this.state.items;
-    const { handleSearch } = this.props;
 
     if (isActive) {
       this.setState({ items: parseCheckObjects(stateItems, selectedItems, false) });
     } else {
       this.setState({ items: parseCheckObjects(items, selectedItems, true) });
-      if (nextProps.searchValue) {
-        handleSearch('PROPERTY_BROKER', '');
-      }
     }
   }
+
+  handleDropdownClose = () => {
+    if (this.props.searchValue) this.props.handleSearch('PROPERTY_BROKER', '');
+    this.props.submitOnDropdownClose();
+  };
 
   render() {
     const {
@@ -75,6 +75,7 @@ class Brokers extends React.Component {
             handleSearch={handleSearch}
             resetSection={resetSection}
             triggerDropdown={triggerDropdown}
+            onClose={this.handleDropdownClose}
           />
         }
       </div>
@@ -89,6 +90,7 @@ Brokers.propTypes = {
   searchValue: PropTypes.string.isRequired,
   handleSearch: PropTypes.func.isRequired,
   resetSection: PropTypes.func.isRequired,
+  submitOnDropdownClose: PropTypes.func.isRequired,
   isActive: PropTypes.bool.isRequired,
   triggerDropdown: PropTypes.func.isRequired,
 };

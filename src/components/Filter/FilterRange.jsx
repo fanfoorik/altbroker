@@ -15,6 +15,7 @@ function FilterRange(props) {
     resetSection,
     isActive,
     triggerDropdown,
+    submitOnDropdownClose,
   } = props;
 
   const formatedFrom = formatNumber(parseInt(from, 10), '');
@@ -48,6 +49,7 @@ function FilterRange(props) {
           resetSection={resetSection}
           triggerDropdown={triggerDropdown}
           {...props}
+          onClose={submitOnDropdownClose}
         />
       }
     </div>
@@ -60,6 +62,7 @@ FilterRange.propTypes = {
   from: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  submitOnDropdownClose: PropTypes.func.isRequired,
   isActive: PropTypes.bool.isRequired,
   triggerDropdown: PropTypes.func.isRequired,
 };

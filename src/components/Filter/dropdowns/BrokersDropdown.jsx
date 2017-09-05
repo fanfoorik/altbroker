@@ -44,7 +44,20 @@ function BrokersDropdown(props) {
         </div>
       </div>
 
-      <FormControls onReset={resetSection} onClose={triggerDropdown} name="PROPERTY_BROKER" />
+      <FormControls
+        // onReset={resetSection}
+        onClose={triggerDropdown}
+        left={[
+          <span
+            className="form-controls__reset"
+            onClick={resetSection}
+            role="button"
+            tabIndex="0"
+            data-name="PROPERTY_BROKER"
+          >Сбросить</span>,
+        ]}
+        name="PROPERTY_BROKER"
+      />
     </div>
   );
 }

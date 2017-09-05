@@ -13,11 +13,6 @@ import Income from './Income';
 import Recoupment from './Recoupment';
 import Status from 'components/Filter/Status';
 
-
-import Filter from './Filter';
-import Cell from './Cell';
-
-
 export default class GbFilter extends React.Component {
   constructor(props) {
     super(props);
@@ -172,6 +167,13 @@ export default class GbFilter extends React.Component {
     });
   };
 
+  submitOnDropdownClose = () => {
+    this.setState(() => {
+      browserHistory.push(`${indexUrl}broker/gb/`);
+      this.props.updateGBOptions(this.state.filterState);
+    });
+  };
+
   resetForm = () => {
     this.setState(() => {
       const filterState = {
@@ -245,13 +247,6 @@ export default class GbFilter extends React.Component {
 
     return (
       <div>
-
-        <Filter>
-          { extendedFilter.toString() }
-          <Cell bool={extendedFilter.toString()} />
-        </Filter>
-        <br />
-
         <div className="filter filter_business">
           <form onSubmit={this.filterSubmit}>
 
@@ -267,6 +262,7 @@ export default class GbFilter extends React.Component {
                 handleSearch={this.handleSearch}
                 searchValue={{ searchCategory, searchSubCategory }}
                 resetSection={this.resetSection}
+                submitOnDropdownClose={this.submitOnDropdownClose}
               />
 
               <Price
@@ -276,6 +272,7 @@ export default class GbFilter extends React.Component {
                 to={toPrice}
                 onChange={this.changeFromTo}
                 resetSection={this.resetSection}
+                submitOnDropdownClose={this.submitOnDropdownClose}
               />
 
               <div className="filter__cell active">
@@ -288,6 +285,7 @@ export default class GbFilter extends React.Component {
                     to={toIncome}
                     onChange={this.changeFromTo}
                     resetSection={this.resetSection}
+                    submitOnDropdownClose={this.submitOnDropdownClose}
                   />
 
                   <Recoupment
@@ -297,6 +295,7 @@ export default class GbFilter extends React.Component {
                     to={toRecoupment}
                     onChange={this.changeFromTo}
                     resetSection={this.resetSection}
+                    submitOnDropdownClose={this.submitOnDropdownClose}
                   />
 
                 </div>
@@ -329,6 +328,7 @@ export default class GbFilter extends React.Component {
                 handleSearch={this.handleSearch}
                 searchValue={searchBrokers}
                 resetSection={this.resetSection}
+                submitOnDropdownClose={this.submitOnDropdownClose}
               />
 
               <City
@@ -338,6 +338,7 @@ export default class GbFilter extends React.Component {
                 handleSearch={this.handleSearch}
                 searchValue={{ searchCity, searchRegions }}
                 resetSection={this.resetSection}
+                submitOnDropdownClose={this.submitOnDropdownClose}
               />
 
               <Subway
@@ -347,6 +348,7 @@ export default class GbFilter extends React.Component {
                 handleSearch={this.handleSearch}
                 searchValue={searchSubway}
                 resetSection={this.resetSection}
+                submitOnDropdownClose={this.submitOnDropdownClose}
               />
 
               <Status
@@ -354,6 +356,7 @@ export default class GbFilter extends React.Component {
                 selectedItems={selectedStatus}
                 changeFilterItem={this.changeFilterItem}
                 resetSection={this.resetSection}
+                submitOnDropdownClose={this.submitOnDropdownClose}
               />
 
             </div>
