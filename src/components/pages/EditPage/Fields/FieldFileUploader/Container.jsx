@@ -7,8 +7,6 @@ const Container = ({
 }) => {
   return (
     <div className="gallery">
-      Публичные фотографии
-      <span> Отображаются на Альтере</span>
       <div className="gallery--photos-list">
         {children}
       </div>

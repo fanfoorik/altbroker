@@ -43,7 +43,6 @@ class EditPage extends React.Component {
 
   onChangeStateHandler = (section) => {
     return (state, type = 'selectValues') => {
-
       if (state.PROPERTY_GEO_ID) {
         state.PROPERTY_METRO_NEW = null;
       }

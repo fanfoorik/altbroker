@@ -1,32 +1,36 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Field from './Field';
+import BaseEditor from 'components/Editor/BaseEditor';
 
-const FieldTextArea = (props) => {
-  const {
-    value,
-    onChangeState,
-    field,
-  } = props;
+class FieldTextArea extends Component {
+  constructor(props) {
+    super(props);
 
-  const onChangeHandler = (e) => {
-    onChangeState({
-      [field]: e.target.value,
+    this.state = {
+      html: props.value,
+    };
+  }
+
+  onChangeHandler = (html) => {
+    this.props.onChangeState({
+      [this.props.field]: html,
     });
+
+    this.setState({ html });
   };
 
-  return (
-    <Field {...props}>
-      <textarea
-        className="edit-form__item-input"
-        value={value}
-        type="text"
-        onChange={onChangeHandler}
-      />
-    </Field>
-  );
-};
+  render() {
+    return (
+      <Field {...this.props}>
+        <BaseEditor
+          html={this.props.value}
+        />
+      </Field>
+    );
+  }
+}
 
 FieldTextArea.propTypes = {
   value: PropTypes.string,

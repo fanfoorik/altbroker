@@ -57,7 +57,35 @@ export const fetchDataForEditPage = (context) => {
           PROPERTY_KLIENT_MESTO: fields.PROPERTY_KLIENT_MESTO,
         },
         Gallery: {
-          PROPERTY_PHOTO: fields.PROPERTY_PHOTO,
+          PROPERTY_IMGS: [
+            {
+              "ID" : "643209",
+              "SRC" : "/upload/iblock/196/196ee6cfabd43390c6be7c928bc81fff.jpg"
+            },
+            {
+              "ID" : "643210",
+              "SRC" : "/upload/iblock/92e/92ef76a9e8fea1c6c2fcbced4b86318a.jpg"
+            },
+            {
+              "ID" : "",
+              "SRC" : "/upload/iblock/92e/92ef76a9e8fea1c6c2fcbced4b86318a.jpg"
+            },
+          ],
+
+          PROPERTY_HIDE_IMGS: [
+            {
+              "ID" : "643209",
+              "SRC" : "/upload/iblock/196/196ee6cfabd43390c6be7c928bc81fff.jpg"
+            },
+            {
+              "ID" : "643210",
+              "SRC" : "/upload/iblock/92e/92ef76a9e8fea1c6c2fcbced4b86318a.jpg"
+            },
+            {
+              "ID" : "",
+              "SRC" : "/upload/iblock/92e/92ef76a9e8fea1c6c2fcbced4b86318a.jpg"
+            },
+          ],
         },
       },
     });
@@ -106,7 +134,7 @@ export const fetchLib = (context) => {
 };
 
 export const sendDataFromEditPage = (context, section) => {
-  const newState = Object.assign(context.state.data, context.state.selectValues[section]);
+  let newState = Object.assign(context.state.data, context.state.selectValues[section]);
 
   newState.PROPERTY_SOBSTVEN = newState.PROPERTY_SOBSTVEN ? 'Y' : 'N';
 
@@ -123,16 +151,27 @@ export const sendDataFromEditPage = (context, section) => {
     }
   });
 
-  ajax.post(`broker/gb/${context.props.params.id}/edit/`, Object.assign(newState, {
+  newState = Object.assign(newState, {
     ACTION: 'EDIT',
     BUTT_PRESS: 'SAVE',
+    PROPERTY_IMGS: newState.PROPERTY_IMGS_PRE ? newState.PROPERTY_IMGS_PRE : newState.PROPERTY_IMGS,
+    PROPERTY_HIDE_IMGS: newState.PROPERTY_HIDE_IMGS_PRE ?
+      newState.PROPERTY_HIDE_IMGS_PRE :
+      newState.PROPERTY_HIDE_IMGS,
     SECTION_ID: [...newState.SECTION_ID_1, ...newState.SECTION_ID_2],
     QUALITY_FORM_FILL: Math.ceil(100 * sumFilledField) /
     (sumAllField !== 0 ? sumAllField : 1),
-  })).then((result) => {
+  });
+
+  delete newState.PROPERTY_IMGS_PRE;
+  delete newState.PROPERTY_HIDE_IMGS_PRE;
+  delete newState.PROPERTY_IMGS_FULL;
+
+  ajax.post(`broker/gb/${context.props.params.id}/edit/`, newState).then((result) => {
     if (result.ANSWER.SUCCESS) {
       NotificationManager.success('ДАННЫЕ ОБНОВЛЕНЫ', 'OK');
     } else {
+      console.log(result.ANSWER);
       NotificationManager.error('Извините на сервере произошла ошибка!', 'ОШИБКА');
     }
   });
