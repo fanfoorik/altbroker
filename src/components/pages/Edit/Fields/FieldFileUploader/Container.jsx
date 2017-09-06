@@ -7,7 +7,7 @@ const Container = ({
 }) => {
   return (
     <div className="gallery">
-      <div className="gallery--photos-list">
+      <div className="gallery__photos-list">
         {children}
       </div>
     </div>

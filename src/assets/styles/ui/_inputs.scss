@@ -203,23 +203,25 @@ textarea,
   border-radius: 3px;
 }
 
-.gallery--photos-list {
-  width: 100%;
-  min-width: 100px;
-  text-align: left;
-  margin-top: 8px;
-}
+.gallery {
+  &__photos-list {
+    width: 100%;
+    min-width: 100px;
+    text-align: left;
+    margin-top: 8px;
 
-.gallery--photo {
-  display: inline-block;
-  padding-bottom: 5px;
-  padding-right: 8px;
-}
+    &__empty-block {
+      text-align: center;
+      line-height: 100px;
+      height: 100px;
+    }
 
-.gallery--photos-list--empty-block {
-  text-align: center;
-  line-height: 100px;
-  height: 100px;
+    &__photo {
+      display: inline-block;
+      padding-bottom: 5px;
+      padding-right: 8px;
+    }
+  }
 }
 
 

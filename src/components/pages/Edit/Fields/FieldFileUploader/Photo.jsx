@@ -42,7 +42,7 @@ const Photo = (props) => {
   const { children, connectDragSource, connectDropTarget } = props;
 
   return connectDragSource(connectDropTarget(
-    <div className="gallery--photo">
+    <div className="gallery__photos-list__photo">
       {children}
     </div>,
 ));

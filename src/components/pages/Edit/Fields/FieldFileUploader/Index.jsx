@@ -10,6 +10,10 @@ import PropTypes from 'prop-types';
 import Container from './Container';
 import Photo from './Photo';
 import Field from '../Field';
+import {
+  hostUrl,
+  apiUrl,
+} from 'utils/urls';
 
 class FieldFileUploader extends React.Component {
   constructor(props) {
@@ -30,9 +34,11 @@ class FieldFileUploader extends React.Component {
     });
 
     this.uploader.on('complete', (event, id, name, responseJSON) => {
-      const urlUploadFile = JSON.parse(responseJSON.response).url;
+      this.state.completeFiles.push({
+        ID: '',
+        SRC: JSON.parse(responseJSON.response).url,
+      });
 
-      this.state.completeFiles.push({ ID: '', SRC: urlUploadFile });
       this.props.onChangeState({
         [this.props.field]: this.state.completeFiles,
       });
@@ -50,10 +56,10 @@ class FieldFileUploader extends React.Component {
     options: {
       deleteFile: {
         enabled: true,
-        endpoint: 'http://alterainvest.ru/api/v2/altbroker3/tools/picture/add/',
+        endpoint: `${hostUrl + apiUrl}tools/picture/add/`,
       },
       request: {
-        endpoint: 'http://alterainvest.ru/api/v2/altbroker3/tools/picture/add/',
+        endpoint: `${hostUrl + apiUrl}tools/picture/add/`,
         customHeaders: { login: localStorage.getItem('login'), token: localStorage.getItem('token') },
       },
     },
@@ -73,15 +79,15 @@ class FieldFileUploader extends React.Component {
     }));
   };
 
-  customResizer = (resizeInfo) => {
-    return new Promise((resolve) => {
+  customResizer = resizeInfo => (
+    new Promise(resolve => {
       resizeInfo.targetCanvas.height = 100;
 
       new Pica()
         .resize(resizeInfo.sourceCanvas, resizeInfo.targetCanvas)
         .then(data => resolve(data));
-    });
-  };
+    })
+  );
 
   render() {
     return (
@@ -89,9 +95,8 @@ class FieldFileUploader extends React.Component {
         <div>
           <Container>
             {
-              !!this.state.submittedFiles.length ?
-                this.state.submittedFiles.map((photo, id) => {
-                return (
+              this.state.submittedFiles.length ?
+                this.state.submittedFiles.map((photo, id) => (
                   <Photo
                     key={id}
                     index={id}
@@ -100,22 +105,26 @@ class FieldFileUploader extends React.Component {
                     movePhoto={this.movePhoto}
                   >
                     {
-                      !photo.SRC ?
+                      photo.SRC ?
+                        <img
+                          src={hostUrl + photo.SRC}
+                          height={100}
+                          alt="Фото объекта"
+                        /> :
                         <Thumbnail
                           customResizer={!this.uploader.qq.ios() && this.customResizer}
                           id={photo}
                           uploader={this.uploader}
-                        /> :
-                        <img src={'http://alterainvest.ru' + photo.SRC} height={100} alt="Фото объекта" />
+                        />
                     }
                   </Photo>
-                );
-              }) :
-              <div className="gallery--photos-list--empty-block">
+                )) :
+              <div className="gallery__photos-list__empty-block">
                 Загрузите фотографии объекта
               </div>
             }
           </Container>
+
           <Dropzone multiple uploader={this.uploader} >
             Перетащите сюда файлы для добавления
           </Dropzone>

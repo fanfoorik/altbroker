@@ -42,7 +42,7 @@ class EditPage extends React.Component {
   }
 
   onChangeStateHandler = (section) => {
-    return (state, type = 'selectValues') => {
+    return (state) => {
       if (state.PROPERTY_GEO_ID) {
         state.PROPERTY_METRO_NEW = null;
       }
@@ -52,16 +52,15 @@ class EditPage extends React.Component {
       }
 
       if (state.SECTION_ID_1) {
-        const section2 = this.state.selectValues[section].SECTION_ID_2.filter(childSection => {
-          return state.SECTION_ID_1.filter(parentSection => {
-            return parentSection.ID === childSection.parentSectionId;
-          }).length !== 0;
-        });
-
-        state.SECTION_ID_2 = section2;
+        state.SECTION_ID_2 = this.state.selectValues[section].SECTION_ID_2
+          .filter(childSection => (
+            !!state.SECTION_ID_1
+              .filter(parentSection => parentSection.ID === childSection.parentSectionId)
+              .length
+          ));
       }
 
-      this.state[type][section] = Object.assign(this.state[type][section], state);
+      this.state.selectValues[section] = { ...this.state.selectValues[section], ...state };
 
       this.setState(this.state);
     };
