@@ -14,6 +14,7 @@ export const fetchDataForEditPage = (context) => {
           PROPERTY_GEO_ID: fields.PROPERTY_GEO_ID,
           PROPERTY_METRO_NEW: fields.PROPERTY_METRO_NEW,
           SECTION_ID_1: fields.SECTION_ID_1,
+          PROPERTY_RAYON2: fields.PROPERTY_RAYON2,
           SECTION_ID_2: fields.SECTION_ID_2,
           PROPERTY_DOP_INFO: fields.PROPERTY_DOP_INFO,
           PROPERTY_SOURCE: fields.PROPERTY_SOURCE,
@@ -55,6 +56,10 @@ export const fetchDataForEditPage = (context) => {
           PROPERTY_KLIENT_EMAIL: fields.PROPERTY_KLIENT_EMAIL,
           PROPERTY_KLIENT_SAIT: fields.PROPERTY_KLIENT_SAIT,
           PROPERTY_KLIENT_MESTO: fields.PROPERTY_KLIENT_MESTO,
+        },
+        Gallery: {
+          PROPERTY_IMGS: fields.PROPERTY_IMGS_FULL,
+          PROPERTY_HIDE_IMGS: fields.PROPERTY_HIDE_IMGS_FULL,
         },
       },
     });
@@ -103,7 +108,10 @@ export const fetchLib = (context) => {
 };
 
 export const sendDataFromEditPage = (context, section) => {
-  const newState = Object.assign(context.state.data, context.state.selectValues[section]);
+  let newState = {
+    ...context.state.data,
+    ...context.state.selectValues[section],
+  };
 
   newState.PROPERTY_SOBSTVEN = newState.PROPERTY_SOBSTVEN ? 'Y' : 'N';
 
@@ -120,13 +128,21 @@ export const sendDataFromEditPage = (context, section) => {
     }
   });
 
-  ajax.post(`broker/gb/${context.props.params.id}/edit/`, Object.assign(newState, {
+  newState = Object.assign(newState, {
     ACTION: 'EDIT',
     BUTT_PRESS: 'SAVE',
+    PROPERTY_IMGS: newState.PROPERTY_IMGS_PRE || newState.PROPERTY_IMGS,
+    PROPERTY_HIDE_IMGS: newState.PROPERTY_HIDE_IMGS_PRE || newState.PROPERTY_HIDE_IMGS,
     SECTION_ID: [...newState.SECTION_ID_1, ...newState.SECTION_ID_2],
-    QUALITY_FORM_FILL: Math.ceil(100 * sumFilledField) /
-    (sumAllField !== 0 ? sumAllField : 1),
-  })).then((result) => {
+    QUALITY_FORM_FILL: Math.ceil(100 * sumFilledField) / (sumAllField || 1),
+  });
+
+  delete newState.PROPERTY_IMGS_PRE;
+  delete newState.PROPERTY_HIDE_IMGS_PRE;
+  delete newState.PROPERTY_IMGS_FULL;
+  delete newState.PROPERTY_HIDE_IMGS_FULL;
+
+  ajax.post(`broker/gb/${context.props.params.id}/edit/`, newState).then((result) => {
     if (result.ANSWER.SUCCESS) {
       NotificationManager.success('ДАННЫЕ ОБНОВЛЕНЫ', 'OK');
     } else {

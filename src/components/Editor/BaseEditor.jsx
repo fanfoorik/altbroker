@@ -15,7 +15,6 @@ export default class BaseEditorContainer extends React.Component {
       trigger: false,
       editorState: EditorState.createWithContent(this.exportHtml(props.html)),
     };
-    this.props.getHtml(props.html);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -70,7 +69,7 @@ export default class BaseEditorContainer extends React.Component {
             <BlockStyleBtn
               editorState={editorState}
               content={<Icon icon="header-one" width="12" height="11" />}
-              type="header-one"
+              type="header-three"
               onToggle={this.toggleBlockType}
             />
             <InlineStyleBtn

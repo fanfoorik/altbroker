@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import { AUTH_USER } from 'constants/userTypes';
-import EditPage from 'components/pages/EditPage';
+import Edit from 'components/pages/Edit';
 import Admin from 'components/pages/Admin';
 import AppContainer from 'components/App/AppContainer';
 import AuthContainer from 'components/pages/Auth/AuthContainer';
@@ -53,7 +53,8 @@ ReactDOM.render(
         <Route path="broker">
           <Route path="gb">
             <IndexRoute component={ProtectedRoute(GBContainer)} />
-            <Route path=":id/edit" component={ProtectedRoute(EditPage)} />
+            <Route path=":id/edit" component={ProtectedRoute(Edit)} />
+            <Route path="add" component={ProtectedRoute(Edit)} />
           </Route>
           <Route path=":page" component={ProtectedRoute(GBNavItems)} />
         </Route>
