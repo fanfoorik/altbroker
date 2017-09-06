@@ -1,22 +1,14 @@
 import * as types from 'constants/headerTypes';
 import ajax from 'utils/ajax';
 
-function parseNav(menu) {
-  const nav = [];
-  // TODO: To fix linting errors.
-  for (const el in menu) {
-    const origSubnav = menu[el].CHILDREN;
-    menu[el].subnav = [];
-
-    for (const childEl in origSubnav) {
-      menu[el].subnav.push(origSubnav[childEl]);
-    }
-
-    delete menu[el].CHILDREN;
-    nav.push(menu[el]);
-  }
-
-  return nav;
+function parseMenu(menu) {
+  return Object.keys(menu).map((item) => {
+    const subnav = menu[item].CHILDREN;
+    return {
+      ...menu[item],
+      subnav: Object.keys(subnav).map(sublink => subnav[sublink]),
+    };
+  });
 }
 
 const fetchInit = () => (dispatch) => {
@@ -41,7 +33,7 @@ const fetchInit = () => (dispatch) => {
 
       dispatch({
         type: types.SET_NAVIGATION,
-        payload: parseNav(menu),
+        payload: parseMenu(menu),
       });
 
       dispatch({

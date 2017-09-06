@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { StickyContainer, Sticky } from 'react-sticky';
 
-import BrokerActions from './BrokerActions';
 import GBPaginator from './GBPaginator';
 import BrokerTable from './BrokerTable';
 import BrokerTableHeader from './BrokerTableHeader';
@@ -107,7 +106,6 @@ export default class GB extends React.Component {
             pagination={pagination}
           />
 
-          <BrokerActions />
         </StickyContainer>
 
         {

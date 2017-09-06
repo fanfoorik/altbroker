@@ -1,3 +1,4 @@
+@import "../utils/variables";
 html, body, div, span, h1, h2, h3, h4, h5, h6, p, em, img,
 strong, sub, sup, b, u, i, dl, dt, dd, ol, ul, li, fieldset, form,
 label, table, tbody, tfoot, thead, tr, th, td, article, aside, canvas,
@@ -32,8 +33,9 @@ input,
 select,
 button,
 textarea {
-  margin: 0;
+  font-family: $f-ptsans;
   font-size: 100%;
+  margin: 0;
 }
 
 input[type="button"],

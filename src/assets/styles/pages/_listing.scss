@@ -40,6 +40,7 @@
   height: $table-row-height;
   display: flex;
   transition: color 0.3s;
+  width: 100%;
 
   &:hover {
     color: $c-tr-hovered;
@@ -290,45 +291,6 @@
 
   &__items-count {
     color: $c-table-active-text;
-  }
-}
-
-.table-actions {
-  color: $c-table-muted-text;
-  display: flex;
-  font-size: 12px;
-  padding: 0 11px;
-
-  &__checkbox {
-    flex: 1;
-  }
-
-  &__items {
-    display: flex;
-    line-height: 1.6;
-    flex: 7;
-  }
-
-  &__item {
-    margin: 0 24px 0 0;
-    position: relative;
-
-    &.active {
-      cursor: pointer;
-    }
-
-    .popover {
-      bottom: 30px;
-    }
-  }
-
-  &__title {
-    color: $c-table-active-item;
-    margin: 0 24px 0 0;
-  }
-
-  &__list {
-    display: flex;
   }
 }
 

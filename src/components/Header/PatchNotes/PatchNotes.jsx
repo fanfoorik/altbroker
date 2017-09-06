@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import DropTip from 'components/DropTip/DropTip';
-import IsActive from 'utils/IsActive';
 import Icon from 'components/Icon';
 
 export default function PatchNotes(props) {
@@ -22,7 +21,7 @@ export default function PatchNotes(props) {
         <Icon icon="info" width="13" height="13" />
       </span>
 
-      <IsActive active={active}>
+      {active &&
         <DropTip handleOuterClick={triggerPatchNotes} className="patch-notes__droptip">
           <div className="droptip__header clear">
 
@@ -56,7 +55,7 @@ export default function PatchNotes(props) {
               </span>
 
               <span
-                className={`patch-note-control ${prev.url ? '' : 'disabled'}`}
+                className={`patch-note-control ${next.url ? '' : 'disabled'}`}
                 title={next.name}
                 onClick={() => {
                   if (next.url) fetchPatchNotes(next.url);
@@ -69,7 +68,7 @@ export default function PatchNotes(props) {
             </div>
           </div>
         </DropTip>
-      </IsActive>
+      }
     </div>
   );
 }

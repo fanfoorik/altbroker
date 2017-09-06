@@ -15,7 +15,9 @@ export default (Component) => {
         this.context.router.replace({
           pathname: `${indexUrl}login/`,
           state: {
-            location: this.props.location,
+            // TODO: Заменить локацию, когда будет готова главная странца
+            //location: this.props.location,
+            location: `${indexUrl}broker/gb/`,
           },
         });
       }
@@ -26,7 +28,9 @@ export default (Component) => {
         this.context.router.replace({
           pathname: `${indexUrl}login/`,
           state: {
-            location: nextProps.location,
+            // TODO: Заменить локацию, когда будет готова главная странца
+            // location: nextProps.location,
+            location: `${indexUrl}broker/gb/`,
           },
         });
       }

@@ -6,6 +6,7 @@ import DropdownHOC from 'components/HOC/DropdownHOC';
 import FormSearch from 'components/ui/FormSearch';
 import Checkpoint from 'components/ui/Checkpoint';
 import FormControls from 'components/ui/FormControls';
+import Icon from 'components/Icon';
 
 function BrokersDropdown(props) {
   const {
@@ -45,18 +46,22 @@ function BrokersDropdown(props) {
       </div>
 
       <FormControls
-        // onReset={resetSection}
         onClose={triggerDropdown}
-        left={[
+        left={(
           <span
-            className="form-controls__reset"
+            key="close-trigger"
+            className="form-control form-control_reset"
             onClick={resetSection}
             role="button"
             tabIndex="0"
             data-name="PROPERTY_BROKER"
-          >Сбросить</span>,
-        ]}
-        name="PROPERTY_BROKER"
+          >Сбросить</span>
+        )}
+        right={(
+          <div className="form-control form-control_close" onClick={triggerDropdown} role="button" tabIndex="0">
+            <Icon className="icon__close" icon="close" width={15} height={15} />
+          </div>
+        )}
       />
     </div>
   );

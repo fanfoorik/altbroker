@@ -17,7 +17,6 @@ import Filter from './Filter';
 import CategoryContainer from './CategoryContainer';
 import BrokersContainer from './BrokersContainer';
 
-
 export default class GbFilter extends React.Component {
   constructor(props) {
     super(props);
@@ -269,53 +268,43 @@ export default class GbFilter extends React.Component {
     return (
       <div>
 
-        <Filter>
-          <Filter.Row>
+        {/*<Filter>*/}
+          {/*<Filter.Row>*/}
 
-            <Filter.Cell className="filter__cell_hover">
-              <input value={idNameTel} onChange={this.idNameTelChange} name="ID_NAME_TEL" className="input filter__input" type="text" placeholder="ID / Название объекта / Телефон" />
-            </Filter.Cell>
+            {/*<Filter.Cell className="filter__cell_hover">*/}
+              {/*<input value={idNameTel} onChange={this.idNameTelChange} name="ID_NAME_TEL" className="input filter__input" type="text" placeholder="ID / Название объекта / Телефон" />*/}
+            {/*</Filter.Cell>*/}
 
-            <Filter.Cell className="filter__cell_hover active">
-              <CategoryContainer
-                items={{ categories, subCategories }}
-                selectedItems={{ selectedCategories, selectedSubCategories }}
-                changeFilterItem={this.changeFilterItem}
-                handleSearch={this.handleSearch}
-                searchValue={{ searchCategory, searchSubCategory }}
-                resetSection={this.resetSection}
-              />
-            </Filter.Cell>
+            {/*<Filter.Cell className="filter__cell_hover active">*/}
+              {/*<CategoryContainer*/}
+                {/*items={{ categories, subCategories }}*/}
+                {/*selectedItems={{ selectedCategories, selectedSubCategories }}*/}
+                {/*changeFilterItem={this.changeFilterItem}*/}
+                {/*handleSearch={this.handleSearch}*/}
+                {/*searchValue={{ searchCategory, searchSubCategory }}*/}
+                {/*resetSection={this.resetSection}*/}
+              {/*/>*/}
+            {/*</Filter.Cell>*/}
 
-            <Filter.Cell />
-            <Filter.Cell />
-            <Filter.Cell />
-          </Filter.Row>
+            {/*<Filter.Cell />*/}
+            {/*<Filter.Cell />*/}
+            {/*<Filter.Cell />*/}
+          {/*</Filter.Row>*/}
 
-          <Filter.Row>
-            <Filter.Cell className="filter__cell_hover">
-              <BrokersContainer
-                items={brokers}
-                selectedItems={selectedBrokers}
-                changeFilterItem={this.changeFilterItem}
-                handleSearch={this.handleSearch}
-                searchValue={searchBrokers}
-                resetSection={this.resetSection}
-                submitOnDropdownClose={this.submitOnDropdownClose}
-              />
-            </Filter.Cell>
-          </Filter.Row>
-        </Filter>
-
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+          {/*<Filter.Row>*/}
+            {/*<Filter.Cell className="filter__cell_hover">*/}
+              {/*<BrokersContainer*/}
+                {/*items={brokers}*/}
+                {/*selectedItems={selectedBrokers}*/}
+                {/*changeFilterItem={this.changeFilterItem}*/}
+                {/*handleSearch={this.handleSearch}*/}
+                {/*searchValue={searchBrokers}*/}
+                {/*resetSection={this.resetSection}*/}
+                {/*submitOnDropdownClose={this.submitOnDropdownClose}*/}
+              {/*/>*/}
+            {/*</Filter.Cell>*/}
+          {/*</Filter.Row>*/}
+        {/*</Filter>*/}
 
         <div className="filter filter_business">
           <form onSubmit={this.filterSubmit}>
