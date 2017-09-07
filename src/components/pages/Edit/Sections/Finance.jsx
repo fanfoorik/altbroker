@@ -76,7 +76,6 @@ Finance.propTypes = {
 
 Finance.defaultProps = {
   selectValues: {},
-  onSubmit: () => {},
 };
 
 export default Finance;

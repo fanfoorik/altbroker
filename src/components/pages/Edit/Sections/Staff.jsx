@@ -56,7 +56,6 @@ Staff.propTypes = {
 
 Staff.defaultProps = {
   selectValues: {},
-  onSubmit: () => {},
 };
 
 export default Staff;

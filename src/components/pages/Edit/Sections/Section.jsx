@@ -52,7 +52,6 @@ Section.propTypes = {
 
 Section.defaultProps = {
   title: '',
-  onSubmit: () => {},
   selectValues: {},
 };
 

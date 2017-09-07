@@ -70,7 +70,6 @@ Salary.propTypes = {
 
 Salary.defaultProps = {
   selectValues: {},
-  onSubmit: () => {},
 };
 
 export default Salary;

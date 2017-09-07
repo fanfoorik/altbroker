@@ -131,7 +131,6 @@ Basic.propTypes = {
 
 Basic.defaultProps = {
   selectValues: {},
-  onSubmit: () => {},
   lib: {},
 };
 

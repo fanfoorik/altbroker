@@ -83,7 +83,6 @@ Asset.propTypes = {
 
 Asset.defaultProps = {
   selectValues: {},
-  onSubmit: () => {},
   lib: {},
 };
 

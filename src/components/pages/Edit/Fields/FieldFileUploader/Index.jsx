@@ -20,8 +20,8 @@ class FieldFileUploader extends React.Component {
     super(props);
 
     this.state = {
-      submittedFiles: props.value,
-      completeFiles: [...props.value],
+      submittedFiles: [],
+      completeFiles: [],
     };
   }
 
@@ -34,6 +34,7 @@ class FieldFileUploader extends React.Component {
     });
 
     this.uploader.on('complete', (event, id, name, responseJSON) => {
+
       this.state.completeFiles.push({
         ID: '',
         SRC: JSON.parse(responseJSON.response).url,
@@ -46,8 +47,13 @@ class FieldFileUploader extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.state.submittedFiles = nextProps.value;
-    this.state.completeFiles = [...nextProps.value];
+    if (!this.state.submittedFiles.length) {
+      this.state.submittedFiles = [...nextProps.value];
+    }
+
+    if (!this.state.completeFiles.length) {
+      this.state.completeFiles = [...nextProps.value];
+    }
 
     this.setState(this.state);
   }
@@ -60,7 +66,10 @@ class FieldFileUploader extends React.Component {
       },
       request: {
         endpoint: `${hostUrl + apiUrl}tools/picture/add/`,
-        customHeaders: { login: localStorage.getItem('login'), token: localStorage.getItem('token') },
+        customHeaders: {
+          login: localStorage.getItem('login'),
+          token: localStorage.getItem('token'),
+        },
       },
     },
   });
@@ -81,7 +90,11 @@ class FieldFileUploader extends React.Component {
 
   customResizer = resizeInfo => (
     new Promise(resolve => {
-      resizeInfo.targetCanvas.height = 100;
+      const height = 100;
+      const width = resizeInfo.targetCanvas.width * (height / resizeInfo.targetCanvas.height);
+
+      resizeInfo.targetCanvas.height = height;
+      resizeInfo.targetCanvas.width = width;
 
       new Pica()
         .resize(resizeInfo.sourceCanvas, resizeInfo.targetCanvas)

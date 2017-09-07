@@ -36,16 +36,19 @@ class Form extends React.Component {
             errors: this.state.errors,
           });
         })}
-        <button
-          disabled={
-            this.state.disabledSubmit ||
-            !!Object.keys(this.state.errors).length
-          }
-          className="btn"
-          type="submit"
-        >
-          Сохранить
-        </button>
+        {
+          (this.props.onSubmit !== undefined) ?
+            <button
+              disabled={
+                this.state.disabledSubmit ||
+                !!Object.keys(this.state.errors).length
+              }
+              className="btn"
+              type="submit"
+            >
+              Сохранить
+            </button> : ''
+        }
       </form>
     );
   }

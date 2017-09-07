@@ -87,7 +87,6 @@ Building.propTypes = {
 
 Building.defaultProps = {
   selectValues: {},
-  onSubmit: () => {},
   lib: {},
 };
 

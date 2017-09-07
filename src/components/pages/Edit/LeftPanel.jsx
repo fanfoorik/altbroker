@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 const LeftPanel = ({
   sections,
   selectValues,
+  onSubmit,
+  onDraft,
 }) => {
   let sumAllField = 0;
   let sumAllFilledField = 0;
@@ -86,6 +88,14 @@ const LeftPanel = ({
           );
         })
       }
+      {
+        onSubmit && onDraft ?
+          <div className="page-aside__buttons">
+            <button className="btn btn-primary" onClick={onSubmit}>Сохранить</button>
+            <button className="btn" onClick={onDraft}>В черновик</button>
+          </div> : ''
+      }
+
     </div>
   );
 };
