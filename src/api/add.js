@@ -12,9 +12,10 @@ export const saveData = (data, draft = false) => {
   delete data.PROPERTY_IMGS_FULL;
   delete data.PROPERTY_HIDE_IMGS_FULL;
 
-  ajax.post('broker/gb/add/', data).then((result) => {
+  return ajax.post('broker/gb/add/', data).then((result) => {
     if (result.ANSWER.SUCCESS) {
       NotificationManager.success('Объект добавлен', 'OK');
+      return result.ANSWER.ID;
     } else {
       NotificationManager.error('Извините на сервере произошла ошибка!', 'ОШИБКА');
     }

@@ -1,11 +1,12 @@
 import React from 'react';
-import Dropzone from 'react-fine-uploader/dropzone';
+import Dropzone from './Dropzone';
 import FineUploaderTraditional from 'fine-uploader-wrappers';
 import Thumbnail from 'react-fine-uploader/thumbnail';
 import 'react-fine-uploader/gallery/gallery.css';
 import Pica from 'pica/dist/pica';
 import update from 'react/lib/update';
 import PropTypes from 'prop-types';
+import nanoid from 'nanoid';
 
 import Container from './Container';
 import Photo from './Photo';
@@ -40,6 +41,8 @@ class FieldFileUploader extends React.Component {
         SRC: JSON.parse(responseJSON.response).url,
       });
 
+      this.setState(this.state);
+
       this.props.onChangeState({
         [this.props.field]: this.state.completeFiles,
       });
@@ -49,13 +52,13 @@ class FieldFileUploader extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (!this.state.submittedFiles.length) {
       this.state.submittedFiles = [...nextProps.value];
+      this.setState(this.state);
     }
 
     if (!this.state.completeFiles.length) {
-      this.state.completeFiles = [...nextProps.value];
+      this.state.completeFiles = nextProps.value;
+      this.setState(this.state);
     }
-
-    this.setState(this.state);
   }
 
   uploader = new FineUploaderTraditional({
@@ -113,8 +116,8 @@ class FieldFileUploader extends React.Component {
                   <Photo
                     key={id}
                     index={id}
+                    type={this.props.field}
                     id={id}
-                    text="Hello"
                     movePhoto={this.movePhoto}
                   >
                     {

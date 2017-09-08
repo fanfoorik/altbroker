@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Editor, EditorState, RichUtils, convertToRaw, convertFromHTML, ContentState } from 'draft-js';
+import { Editor, EditorState, RichUtils, convertFromHTML, ContentState } from 'draft-js';
 import Draft from 'draft-js/dist/Draft.css';
-import draftToHtml from 'draftjs-to-html';
 import BlockStyleBtn from './BlockStyleBtn';
 import InlineStyleBtn from './InlineStyleBtn';
 import Icon from 'components/Icon';
@@ -13,20 +12,20 @@ export default class BaseEditorContainer extends React.Component {
     super(props);
     this.state = {
       trigger: false,
-      editorState: EditorState.createWithContent(this.exportHtml(props.html)),
+      editorState: EditorState.createWithContent(this.exportHtml(props.value)),
     };
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      editorState: EditorState.createWithContent(this.exportHtml(nextProps.html)),
+      editorState: nextProps.html ||
+      EditorState.createWithContent(this.exportHtml(nextProps.value)),
     });
   }
 
   onChange = (editorState) => {
     this.setState({ editorState });
-    const content = convertToRaw(editorState.getCurrentContent());
-    this.props.getHtml(draftToHtml(content));
+    this.props.getHtml(editorState);
   };
 
   onTab = (e) => {
@@ -51,12 +50,10 @@ export default class BaseEditorContainer extends React.Component {
 
   toggleBlockType = (type) => {
     this.onChange(RichUtils.toggleBlockType(this.state.editorState, type));
-    setTimeout(() => this.editor.focus(), 1);
   };
 
   toggleInlineStyle = (type) => {
     this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, type));
-    setTimeout(() => this.editor.focus(), 1);
   };
 
   render() {
@@ -117,11 +114,11 @@ export default class BaseEditorContainer extends React.Component {
 }
 
 BaseEditorContainer.defaultProps = {
-  content: '',
   getHtml() { return false; },
+  value: '',
 };
 
 BaseEditorContainer.propTypes = {
-  html: PropTypes.string,
   getHtml: PropTypes.func,
+  value: PropTypes.string,
 };

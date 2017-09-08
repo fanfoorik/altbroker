@@ -21,15 +21,11 @@ const cardTarget = {
     }
 
     const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
-    const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+    const hoverMiddleX = (hoverBoundingRect.left - hoverBoundingRect.right) / 5;
     const clientOffset = monitor.getClientOffset();
-    const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+    const hoverClientX = clientOffset.x - hoverBoundingRect.right;
 
-    if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-      return;
-    }
-
-    if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+    if (hoverClientX < hoverMiddleX) {
       return;
     }
 
@@ -45,12 +41,18 @@ const Photo = (props) => {
     <div className="gallery__photos-list__photo">
       {children}
     </div>,
-));
+  ));
 };
 
-export default DropTarget('photo', cardTarget, connect => ({
-  connectDropTarget: connect.dropTarget(),
-}))(DragSource('photo', cardSource, (connect, monitor) => ({
-  connectDragSource: connect.dragSource(),
-  isDragging: monitor.isDragging(),
-}))(Photo));
+export default DropTarget(
+  'photo',
+  cardTarget,
+  connect => ({
+    connectDropTarget: connect.dropTarget(),
+  }))(DragSource(
+  'photo',
+  cardSource,
+  (connect, monitor) => ({
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging(),
+  }))(Photo));

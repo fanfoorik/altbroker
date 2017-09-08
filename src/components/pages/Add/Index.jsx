@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 
 import Header from '../Edit/Header';
 import LeftPanel from '../Edit/LeftPanel';
@@ -157,24 +158,26 @@ class AddPage extends React.Component {
     },
   ];
 
-  onSubmit = (e) => {
-    let data = {};
-
-    Object.values(this.state.selectValues).map(value => {
-      data = { ...data, ...value };
-    });
-
-    saveData(data);
+  onSubmit = () => {
+    this.onSubmitHandler(false);
   };
 
-  onDraft = (e) => {
+  onDraft = () => {
+    this.onSubmitHandler(true);
+  };
+
+  onSubmitHandler = (draft = false) => {
     let data = {};
 
     Object.values(this.state.selectValues).map(value => {
       data = { ...data, ...value };
     });
 
-    saveData(data, true);
+    saveData(data, draft).then(data => {
+      if (data !== undefined) {
+        browserHistory.push('/altbroker3/broker/gb/');
+      }
+    });
   };
 
   render() {

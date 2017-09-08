@@ -62,7 +62,7 @@ class EditPage extends React.Component {
 
       this.state.selectValues[section] = { ...this.state.selectValues[section], ...state };
 
-      this.setState(this.state);
+      this.setState({ selectValues: this.state.selectValues });
     };
   };
 

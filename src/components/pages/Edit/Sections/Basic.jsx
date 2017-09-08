@@ -62,6 +62,7 @@ const Basic = ({
           options={lib.categories}
           field="SECTION_ID_1"
           title="Категории"
+          maxCountCurrentValues={1}
           required
           {...props}
         />
