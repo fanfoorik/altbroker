@@ -2,6 +2,9 @@ import React from 'react';
 import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 
+import Icon from 'components/Icon';
+import { deleteImg } from 'api/editPage';
+
 const cardSource = {
   beginDrag(props) {
     return {
@@ -35,11 +38,27 @@ const cardTarget = {
 };
 
 const Photo = (props) => {
-  const { children, connectDragSource, connectDropTarget } = props;
+  const {
+    children,
+    connectDragSource,
+    connectDropTarget,
+    dataPhoto,
+    objectId,
+    deletePhotoHandler,
+  } = props;
+
+  const onClickHandler = (e) => {
+    deleteImg(dataPhoto.ID, dataPhoto.SRC, objectId).then((result) => {
+      deletePhotoHandler(dataPhoto.SRC);
+    });
+  };
 
   return connectDragSource(connectDropTarget(
     <div className="gallery__photos-list__photo">
       {children}
+      <div onClick={onClickHandler} className="gallery__btn-delete">
+        <Icon icon="close" width="10" height="10" />
+      </div>
     </div>,
   ));
 };

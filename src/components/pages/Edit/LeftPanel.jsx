@@ -1,6 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const pagePanelDomElements = document.getElementsByClassName('page-panel');
+
+function myMove(posi) {
+  let pos = window.pageYOffset;
+
+  let id = setInterval(frame, 10);
+  function frame() {
+      if (pos >= posi) {
+          clearInterval(id);
+      } else {
+          var pospre = pos;
+          pos += 50;
+          window.scrollTo(pospre,  pos);
+      }
+  }
+}
+
 const LeftPanel = ({
   sections,
   selectValues,
@@ -62,6 +79,14 @@ const LeftPanel = ({
           let countFilledField = 0;
           const allCountField = Object.keys(selectValues[section.component]).length;
 
+          const onClickHandler = () => {
+            Object.keys(pagePanelDomElements).map(id => {
+              if (pagePanelDomElements[id].getAttribute('data-anchor') === section.anchor) {
+                myMove(pagePanelDomElements[id].offsetTop);
+              }
+            });
+          };
+
           Object.keys(selectValues[section.component]).map((key) => {
             const value = selectValues[section.component][key];
 
@@ -73,7 +98,7 @@ const LeftPanel = ({
           });
 
           return (
-            <span className="page-aside__item" key={index}>
+            <span className="page-aside__item" onClick={onClickHandler} key={index}>
               <span className="page-aside__item_text">{section.title}</span>
               {
                 (countFilledField === allCountField) ?

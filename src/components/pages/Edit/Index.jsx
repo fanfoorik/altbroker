@@ -88,30 +88,37 @@ class EditPage extends React.Component {
     {
       title: 'Основное',
       component: 'Basic',
+      anchor: 'basic',
     },
     {
       title: 'Финансы',
       component: 'Finance',
+      anchor: 'finance',
     },
     {
       title: 'Штат',
       component: 'Staff',
+      anchor: 'staff',
     },
     {
       title: 'Помещение',
       component: 'Building',
+      anchor: 'building',
     },
     {
       title: 'Активы',
       component: 'Asset',
+      anchor: 'asset',
     },
     {
       title: 'Продавец',
       component: 'Salary',
+      anchor: 'salary',
     },
     {
       title: 'Галерея',
       component: 'Gallery',
+      anchor: 'gallery',
     },
   ];
 
@@ -134,6 +141,7 @@ class EditPage extends React.Component {
                       selectValues={this.state.selectValues[section.component]}
                       onChangeState={this.onChangeStateHandler(section.component)}
                       onSubmit={this.onSubmitHandler(section.component)}
+                      objectId={this.props.params.id}
                     />
                   );
                 })

@@ -6,7 +6,6 @@ import 'react-fine-uploader/gallery/gallery.css';
 import Pica from 'pica/dist/pica';
 import update from 'react/lib/update';
 import PropTypes from 'prop-types';
-import nanoid from 'nanoid';
 
 import Container from './Container';
 import Photo from './Photo';
@@ -28,13 +27,26 @@ class FieldFileUploader extends React.Component {
 
   componentDidMount() {
     this.uploader.on('statusChange', (id, oldStatus, newStatus) => {
-      if (newStatus === 'submitted') {
-        this.state.submittedFiles.push(id);
-        this.setState(this.state);
-      }
+      // if (newStatus === 'submitted') {
+      //   this.state.submittedFiles.push(id);
+      //   this.setState(this.state);
+      // }
     });
 
-    this.uploader.on('complete', (event, id, name, responseJSON) => {
+    this.uploader.on('complete', (id, name, resp, responseJSON) => {
+      const idPreview = this.state.submittedFiles.indexOf(id);
+
+      // this.state.submittedFiles[idPreview] = {
+      //   ID: '',
+      //   SRC: JSON.parse(responseJSON.response).url,
+      //   ID_UPLOAD: id,
+      // };
+
+      this.state.submittedFiles.push({
+        ID: '',
+        SRC: JSON.parse(responseJSON.response).url,
+        ID_UPLOAD: id,
+      });
 
       this.state.completeFiles.push({
         ID: '',
@@ -65,7 +77,7 @@ class FieldFileUploader extends React.Component {
     options: {
       deleteFile: {
         enabled: true,
-        endpoint: `${hostUrl + apiUrl}tools/picture/add/`,
+        endpoint: `${hostUrl + apiUrl}tools/picture/delet/`,
       },
       request: {
         endpoint: `${hostUrl + apiUrl}tools/picture/add/`,
@@ -105,6 +117,17 @@ class FieldFileUploader extends React.Component {
     })
   );
 
+  deletePhotoHandler = (SRC) => {
+    this.setState({
+      submittedFiles: this.state.submittedFiles.filter(photo => photo.SRC !== SRC),
+      completeFiles: this.state.completeFiles.filter(photo => photo.SRC !== SRC),
+    });
+
+    this.props.onChangeState({
+      [this.props.field]: this.state.completeFiles,
+    });
+  };
+
   render() {
     return (
       <Field {...this.props}>
@@ -119,6 +142,9 @@ class FieldFileUploader extends React.Component {
                     type={this.props.field}
                     id={id}
                     movePhoto={this.movePhoto}
+                    dataPhoto={photo}
+                    objectId={this.props.objectId}
+                    deletePhotoHandler={this.deletePhotoHandler}
                   >
                     {
                       photo.SRC ?
@@ -129,7 +155,7 @@ class FieldFileUploader extends React.Component {
                         /> :
                         <Thumbnail
                           customResizer={!this.uploader.qq.ios() && this.customResizer}
-                          id={photo}
+                          id={photo.ID_UPLOAD === undefined ? photo : photo.ID_UPLOAD}
                           uploader={this.uploader}
                         />
                     }

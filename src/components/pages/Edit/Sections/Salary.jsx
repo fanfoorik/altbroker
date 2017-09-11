@@ -15,6 +15,7 @@ const Salary = ({
       selectValues={selectValues}
       title="Продавец"
       onSubmit={onSubmit}
+      anchor="salary"
     >
       <FormRow>
         <FieldText

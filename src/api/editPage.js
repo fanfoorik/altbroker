@@ -58,8 +58,8 @@ export const fetchDataForEditPage = (context) => {
           PROPERTY_KLIENT_MESTO: fields.PROPERTY_KLIENT_MESTO,
         },
         Gallery: {
-          PROPERTY_IMGS_FULL: fields.PROPERTY_IMGS_FULL,
-          PROPERTY_HIDE_IMGS_FULL: fields.PROPERTY_HIDE_IMGS_FULL,
+          PROPERTY_IMGS_PRE: fields.PROPERTY_IMGS_FULL,
+          PROPERTY_HIDE_IMGS_PRE: fields.PROPERTY_HIDE_IMGS_FULL,
         },
       },
     });
@@ -143,5 +143,13 @@ export const sendDataFromEditPage = (context, section) => {
     } else {
       NotificationManager.error('Извините на сервере произошла ошибка!', 'ОШИБКА');
     }
+  });
+};
+
+export const deleteImg = (PIC_ID = '', PIC_URL = '', ELEMENT_ID = '') => {
+  return ajax.post('tools/picture/delet/', {
+    PIC_ID,
+    PIC_URL,
+    ELEMENT_ID,
   });
 };

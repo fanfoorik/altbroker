@@ -20,6 +20,7 @@ const Asset = ({
       selectValues={selectValues}
       title="Активы"
       onSubmit={onSubmit}
+      anchor="asset"
     >
       <FormRow>
         <FieldSelect

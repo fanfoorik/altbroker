@@ -21,6 +21,7 @@ const Basic = ({
       selectValues={selectValues}
       title="Основное"
       onSubmit={onSubmit}
+      anchor="basic"
     >
       <FormRow>
         <FieldText

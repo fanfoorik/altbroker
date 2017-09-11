@@ -218,9 +218,23 @@ textarea,
 
     &__photo {
       display: inline-block;
-      padding-bottom: 5px;
-      padding-right: 8px;
+      margin-bottom: 5px;
+      margin-right: 8px;
+      position: relative;
     }
+  }
+
+  &__btn-delete {
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: white;
+    line-height: 20px;
+    text-align: center;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
   }
 }
 

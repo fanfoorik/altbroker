@@ -15,10 +15,11 @@ const Gallery = ({
       selectValues={selectValues}
       title="Галлерея"
       onSubmit={onSubmit}
+      anchor="gallery"
     >
       <FormRow>
         <FieldFileUploader
-          value={selectValues.PROPERTY_IMGS_FULL}
+          value={selectValues.PROPERTY_IMGS_PRE}
           field="PROPERTY_IMGS_PRE"
           title="Публичные фотографии"
           {...props}
@@ -26,7 +27,7 @@ const Gallery = ({
       </FormRow>
       <FormRow>
         <FieldFileUploader
-          value={selectValues.PROPERTY_HIDE_IMGS_FULL}
+          value={selectValues.PROPERTY_HIDE_IMGS_PRE}
           field="PROPERTY_HIDE_IMGS_PRE"
           title="Приватные фотографии"
           {...props}

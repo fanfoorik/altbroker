@@ -8,6 +8,7 @@ const Section = ({
   title,
   onSubmit,
   selectValues,
+  anchor
 }) => {
   let countFilledField = 0;
   const allCountField = Object.keys(selectValues).length;
@@ -22,7 +23,7 @@ const Section = ({
   });
 
   return (
-    <div className="page-panel" data-anchor="basic">
+    <div className="page-panel" data-anchor={anchor}>
       <div className="page-panel-title">
         <span className="page-panel-title__heading">{title}</span>
         <span className="block-right">

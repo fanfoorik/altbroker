@@ -18,6 +18,7 @@ const Staff = ({
       selectValues={selectValues}
       title="Штат"
       onSubmit={onSubmit}
+      anchor="staff"
     >
       <FormRow>
         <FieldText

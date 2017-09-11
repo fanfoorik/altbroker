@@ -21,6 +21,7 @@ const Finance = ({
       selectValues={selectValues}
       title="Финансы"
       onSubmit={onSubmit}
+      anchor="finance"
     >
       <FormRow>
         <FieldText

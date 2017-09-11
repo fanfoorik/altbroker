@@ -21,6 +21,7 @@ const Building = ({
       title="Помещение"
       selectValues={selectValues}
       onSubmit={onSubmit}
+      anchor="building"
     >
       <FormRow>
         <FieldSwitcher
