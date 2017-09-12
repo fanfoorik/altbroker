@@ -6,15 +6,26 @@ const pagePanelDomElements = document.getElementsByClassName('page-panel');
 function myMove(posi) {
   let pos = window.pageYOffset;
 
-  let id = setInterval(frame, 10);
-  function frame() {
-      if (pos >= posi) {
-          clearInterval(id);
-      } else {
-          var pospre = pos;
-          pos += 50;
-          window.scrollTo(pospre,  pos);
-      }
+  let id = (pos < posi) ? setInterval(top, 10) : setInterval(bottom, 10);
+
+  function top() {
+    if (pos >= posi) {
+      clearInterval(id);
+    } else {
+      var pospre = pos;
+      pos += 50;
+      window.scrollTo(pospre,  pos);
+    }
+  }
+
+  function bottom() {
+    if (pos <= posi) {
+      clearInterval(id);
+    } else {
+      var pospre = pos;
+      pos -= 50;
+      window.scrollTo(pospre,  pos);
+    }
   }
 }
 

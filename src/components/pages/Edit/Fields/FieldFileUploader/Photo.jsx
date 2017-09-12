@@ -24,7 +24,7 @@ const cardTarget = {
     }
 
     const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
-    const hoverMiddleX = (hoverBoundingRect.left - hoverBoundingRect.right) / 5;
+    const hoverMiddleX = (hoverBoundingRect.left - hoverBoundingRect.right);
     const clientOffset = monitor.getClientOffset();
     const hoverClientX = clientOffset.x - hoverBoundingRect.right;
 
@@ -64,12 +64,12 @@ const Photo = (props) => {
 };
 
 export default DropTarget(
-  'photo',
+  'photos',
   cardTarget,
   connect => ({
     connectDropTarget: connect.dropTarget(),
   }))(DragSource(
-  'photo',
+  'photos',
   cardSource,
   (connect, monitor) => ({
     connectDragSource: connect.dragSource(),

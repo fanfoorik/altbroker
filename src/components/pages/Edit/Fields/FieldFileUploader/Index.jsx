@@ -1,5 +1,5 @@
 import React from 'react';
-import Dropzone from './Dropzone';
+import Dropzone from 'react-fine-uploader/dropzone';
 import FineUploaderTraditional from 'fine-uploader-wrappers';
 import Thumbnail from 'react-fine-uploader/thumbnail';
 import 'react-fine-uploader/gallery/gallery.css';
@@ -90,8 +90,9 @@ class FieldFileUploader extends React.Component {
   });
 
   movePhoto = (dragIndex, hoverIndex) => {
-    const { submittedFiles } = this.state;
+    const { submittedFiles, completeFiles } = this.state;
     const dragCard = submittedFiles[dragIndex];
+    const dragCardComp = completeFiles[dragIndex];
 
     this.setState(update(this.state, {
       submittedFiles: {
@@ -100,7 +101,18 @@ class FieldFileUploader extends React.Component {
           [hoverIndex, 0, dragCard],
         ],
       },
-    }));
+      completeFiles: {
+        $splice: [
+          [dragIndex, 1],
+          [hoverIndex, 0, dragCardComp],
+        ],
+      },
+    },
+    ));
+
+    this.props.onChangeState({
+      [this.props.field]: this.state.completeFiles,
+    });
   };
 
   customResizer = resizeInfo => (

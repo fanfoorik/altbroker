@@ -5,7 +5,7 @@ import Dropzone from 'react-fine-uploader/dropzone';
 
 const DropzoneCustom = (props) => {
   return (
-    <Dropzone multiple={props.multiple} uploader={props.uploader} >
+    <Dropzone multiple={props.multiple} uploader={props.uploader}>
       Перетащите сюда файлы для добавления
     </Dropzone>
   );
