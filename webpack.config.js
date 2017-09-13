@@ -29,6 +29,7 @@ module.exports = {
     open: false,
     hot: true,
     historyApiFallback: true,
+    // host: '192.168.1.235',
   },
 
   devtool: dev ? 'eval' : false,

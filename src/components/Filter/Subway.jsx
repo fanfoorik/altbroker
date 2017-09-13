@@ -18,7 +18,7 @@ class Subway extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { isActive, items, selectedItems } = nextProps;
+    const { isActive, items } = nextProps;
     const { selectedSubways } = nextProps.selectedItems;
     const { all: stateItems } = this.state.items;
     const { handleSearch } = this.props;
@@ -27,11 +27,13 @@ class Subway extends React.Component {
       this.setState({ items: parseCheckObjects(stateItems, selectedSubways, false) });
     } else {
       this.setState({ items: parseCheckObjects(items, selectedSubways, true) });
-      if (nextProps.searchValue) {
-        handleSearch('PROPERTY_METRO_NEW', '');
-      }
     }
   }
+
+  handleDropdownClose = () => {
+    if (this.props.searchValue) this.props.handleSearch('PROPERTY_METRO_NEW', '');
+    this.props.submitOnDropdownClose();
+  };
 
   render() {
     const {
@@ -81,7 +83,11 @@ class Subway extends React.Component {
           }
         </div>
         {isActive &&
-          <SubwayDropdown {...this.props} items={filteredItems} />
+          <SubwayDropdown
+            {...this.props}
+            items={filteredItems}
+            onClose={this.handleDropdownClose}
+          />
         }
       </div>
     );
@@ -89,14 +95,16 @@ class Subway extends React.Component {
 }
 
 Subway.propTypes = {
-  isActive: PropTypes.bool.isRequired,
-  triggerDropdown: PropTypes.func.isRequired,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectedItems: PropTypes.shape({
     selectedCity: PropTypes.arrayOf(PropTypes.string),
     selectedSubways: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   searchValue: PropTypes.string.isRequired,
+  handleSearch: PropTypes.func.isRequired,
+  submitOnDropdownClose: PropTypes.func.isRequired,
+  isActive: PropTypes.bool.isRequired,
+  triggerDropdown: PropTypes.func.isRequired,
 };
 
 export default DropdownTriggerHOC(Subway);

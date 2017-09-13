@@ -95,7 +95,24 @@ function LocationDropdown(props) {
         </div>
       }
 
-      <FormControls onReset={resetSection} onClose={triggerDropdown} name="PROPERTY_GEO_ID" />
+      <FormControls
+        onClose={triggerDropdown}
+        left={(
+          <span
+            key="close-trigger"
+            className="form-control form-control_reset"
+            onClick={resetSection}
+            role="button"
+            tabIndex="0"
+            data-name="PROPERTY_GEO_ID"
+          >Сбросить</span>
+        )}
+        right={(
+          <div className="form-control form-control_close" onClick={triggerDropdown} role="button" tabIndex="0">
+            <Icon className="icon__close" icon="close" width={15} height={15} />
+          </div>
+        )}
+      />
 
     </div>
   );

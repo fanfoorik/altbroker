@@ -8,11 +8,7 @@ import { indexUrl } from 'utils/urls.js';
 const itemsPerPage = [15, 25, 50];
 
 export default function GBPaginator(props) {
-  let NextLink;
   const { itemsCount, pagination, updateGBOptions } = props;
-  const objectsCount = pagination.COUNT_OBJ || 0;
-  let PrevLink;
-  let currPageIndex = 0;
 
   /**
    * Updates url & updates page options.
@@ -32,7 +28,7 @@ export default function GBPaginator(props) {
    */
   function generateItemsPerPageLinks(count, url) {
     return itemsPerPage.map(item => (
-      <li
+      <div
         className={`paginator__list-item ${item === count ? 'active' : ''}`}
         key={`paginator__item-${Math.floor(Date.now() * Math.random())}`}
       >
@@ -42,7 +38,7 @@ export default function GBPaginator(props) {
           role="button"
           tabIndex="0"
         >{item}</span>;
-      </li>
+      </div>
     ));
   }
 
@@ -52,41 +48,28 @@ export default function GBPaginator(props) {
     NAV_HREF: navHrefs,
     NEXT_GAGE: nextPage,
     PREV_GAGE: prevPage,
+    COUNT_OBJ: objectsCount = 0,
   } = pagination;
 
-  if (navHrefs) {
-    currPageIndex = currPage.ID;
-    NextLink = nextPage ?
-    (
-      <li className="paginator__list-item paginator__next">
-        <span
-          className="paginator__list-link"
-          onClick={() => fetchItems(nextPage.ID, countPerPage, nextPage.URL)}
-          role="button"
-          tabIndex="0"
-        >&gt;</span>
-      </li>
-    )
-    :
-      <li className="paginator__list-item paginator__next disabled">&gt;</li>;
+  const currPageIndex = (currPage && currPage.ID) || 0;
 
-    PrevLink = prevPage ?
-      (
-        <li className="paginator__list-item paginator__prev">
-          <span
-            className="paginator__list-link"
-            onClick={() => fetchItems(prevPage.ID, countPerPage, prevPage.URL)}
-            role="button"
-            tabIndex="0"
-          >&lt;</span>
-        </li>
-      ) :
-        <li className="paginator__list-item paginator__prev disabled">&lt;</li>
-    ;
-  } else {
-    NextLink = <li className="paginator__list-item paginator__next disabled">&gt;</li>;
-    PrevLink = <li className="paginator__list-item paginator__prev disabled">&lt;</li>;
-  }
+  const nextLink = (
+    <div
+      className={`paginator__list-item paginator__next ${!nextPage ? 'disabled' : ''}`}
+      onClick={() => (nextPage ? fetchItems(nextPage.ID, countPerPage, nextPage.URL) : false)}
+      role="button"
+      tabIndex="0"
+    >&gt;</div>
+  );
+
+  const prevLink = (
+    <div
+      className={`paginator__list-item paginator__prev ${!prevPage ? 'disabled' : ''}`}
+      onClick={() => (prevPage ? fetchItems(prevPage.ID, countPerPage, prevPage.URL) : false)}
+      role="button"
+      tabIndex="0"
+    >&lt;</div>
+  );
 
   return (
     <div className="table-footer">
@@ -94,12 +77,12 @@ export default function GBPaginator(props) {
         Всего <span className="table-footer__items-count">{formatNumber(objectsCount)}</span> объектов
       </div>
 
-      <ul className="paginator__list">
-        {PrevLink}
+      <div className="paginator__list">
+        {prevLink}
         {navHrefs && navHrefs.map(item => (
-          <li
+          <div
             className={`paginator__list-item ${currPageIndex === item.ID ? 'active' : ''}`}
-            key={`paginator-link-${Math.floor(Date.now() * Math.random())}`}
+            key={`paginator-link-${item.ID}`}
           >
             <span
               className="paginator__list-link"
@@ -107,30 +90,27 @@ export default function GBPaginator(props) {
               role="button"
               tabIndex="0"
             >{item.ID}</span>
-          </li>
-        ))}
-        {NextLink}
-      </ul>
-
-      {currPageIndex ?
-        (
-          <div className="table-footer__items">
-            {'Показаны с '}
-            <span className="table-footer__items-count">
-              { ((currPageIndex * itemsCount) - itemsCount) + 1 }
-              {' по '}
-              {currPageIndex * itemsCount}
-            </span>
           </div>
-        ) :
-          ''
+        ))}
+        {nextLink}
+      </div>
+
+      {!!currPageIndex &&
+        <div className="table-footer__items">
+          {'Показаны с '}
+          <span className="table-footer__items-count">
+            { ((currPageIndex * itemsCount) - itemsCount) + 1 }
+            {' по '}
+            {currPageIndex * itemsCount}
+          </span>
+        </div>
       }
 
       <div className="paginator__count">
         <span className="paginator__count-text">Показывать по:</span>
-        <ul className="paginator__list">
+        <div className="paginator__list">
           {navHrefs && generateItemsPerPageLinks(countPerPage, currPageIndex)}
-        </ul>
+        </div>
       </div>
     </div>
   );

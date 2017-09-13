@@ -3,7 +3,7 @@
 .btn {
   background-color: $c-white;
   background-image: none;
-  border: 2px solid $c-btn-primary;
+  border: 1px solid $c-btn-primary;
   border-radius: 3px;
   color: $c-text-main;
   cursor: pointer;
@@ -11,7 +11,7 @@
   height: 36px;
   font-size: 16px;
   font-weight: normal;
-  line-height: 1.4;
+  line-height: 32px;
   padding: 0 20px;
   position: relative;
   text-align: center;
@@ -35,6 +35,7 @@
     background-color: $c-btn-hovered;
     border-color: $c-btn-hovered;
     color: $c-white;
+    text-decoration: none;
 
     &::after {
       box-shadow: 0 8px 26px -10px $c-btn-hovered;
@@ -80,5 +81,6 @@
 
   &-lg {
     height: 48px;
+    line-height: 46px;
   }
 }

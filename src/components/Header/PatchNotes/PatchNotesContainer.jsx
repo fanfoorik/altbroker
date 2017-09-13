@@ -2,7 +2,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import PatchNotes from './PatchNotes';
-import { fetchPatchNotes, triggerPatchNotes } from 'actions/header/patchNotesActions';
+import { fetchPatchNotes } from 'actions/header/patchNotesActions';
+import DropdownTriggerHOC from 'components/HOC/DropdownTriggerHOC';
 
 function mapStateToProps(state) {
   return {
@@ -11,7 +12,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchPatchNotes, triggerPatchNotes }, dispatch);
+  return bindActionCreators({ fetchPatchNotes }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PatchNotes);
+export default connect(mapStateToProps, mapDispatchToProps)(DropdownTriggerHOC(PatchNotes));

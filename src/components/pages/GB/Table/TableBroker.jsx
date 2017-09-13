@@ -5,7 +5,7 @@ import IsActive from 'utils/IsActive';
 import DelegatePopover from 'components/popovers/DelegatePopover';
 import PopoverTriggerHOC from 'components/popovers/PopoverTriggerHOC';
 
-class TablePrice extends React.Component {
+class TableBroker extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -46,13 +46,13 @@ class TablePrice extends React.Component {
       </div>
     );
   }
-};
+}
 
-TablePrice.propTypes = {
+TableBroker.propTypes = {
   id: PropTypes.string.isRequired,
   active: PropTypes.bool.isRequired,
   broker: PropTypes.string.isRequired,
   triggerPopover: PropTypes.func.isRequired,
 };
 
-export default PopoverTriggerHOC(TablePrice);
+export default PopoverTriggerHOC(TableBroker);
