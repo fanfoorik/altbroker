@@ -1,99 +1,104 @@
- import HTML5Backend from 'react-dnd-html5-mixed-backend/lib/HTML5Backend';
-import { getNodeClientOffset, getEventClientOffset, getDragPreviewOffset } from 'react-dnd-html5-mixed-backend/lib/OffsetUtils';
+import HTML5Backend from 'react-dnd-html5-mixed-backend/lib/HTML5Backend';
+import { getEventClientOffset, getDragPreviewOffset } from 'react-dnd-html5-mixed-backend/lib/OffsetUtils';
+import { matchNativeItemType } from 'react-dnd-html5-mixed-backend/lib/NativeDragSources';
+
 class NonNativeHTML5Backend extends HTML5Backend {
   constructor(manager) {
     super(manager);
-    // this.getSourceClientOffset = this.getSourceClientOffset.bind(this);
     this.handleTopDragStart = this.handleTopDragStart.bind(this);
-    // this.handleTopDragStartCapture = this.handleTopDragStartCapture.bind(this);
-    // this.handleTopDragEndCapture = this.handleTopDragEndCapture.bind(this);
-    // this.handleTopDragEnter = this.handleTopDragEnter.bind(this);
-    // this.handleTopDragEnterCapture = this.handleTopDragEnterCapture.bind(this);
-    // this.handleTopDragLeaveCapture = this.handleTopDragLeaveCapture.bind(this);
-    // this.handleTopDragOver = this.handleTopDragOver.bind(this);
-    // this.handleTopDragOverCapture = this.handleTopDragOverCapture.bind(this);
-    // this.handleTopDrop = this.handleTopDrop.bind(this);
-    // this.handleTopDropCapture = this.handleTopDropCapture.bind(this);
-    // this.handleSelectStart = this.handleSelectStart.bind(this);
-    // this.endDragIfSourceWasRemovedFromDOM = this.endDragIfSourceWasRemovedFromDOM.bind(this);
-    // this.endDragNativeItem = this.endDragNativeItem.bind(this);
-    // this.asyncEndDragNativeItem = this.asyncEndDragNativeItem.bind(this);
   }
 
   handleTopDragStart(e) {
-    this.actions.beginDrag(this.dragStartSourceIds);
-    super.handleTopDragStart(e);
-  }
+    const { dragStartSourceIds } = this;
+    this.dragStartSourceIds = null;
 
-  // endDragNativeItem(e) {
-  //   console.log(this.dragStartSourceIds, 2)
-  //   super.endDragNativeItem(e);
-  // }
-  //
-  // handleTopDrop(e) {
-  //   console.log(this.dragStartSourceIds, 3)
-  //   super.handleTopDrop(e);
-  // }
-  //
-  // getSourceClientOffset(e) {
-  //   console.log(this.dragStartSourceIds, 4)
-  //   super.getSourceClientOffset(e);
-  // }
-  // handleTopDragStartCapture(e) {
-  //   console.log(this.dragStartSourceIds, 5)
-  //   super.handleTopDragStartCapture(e);
-  // }
-  // handleTopDragEndCapture(e) {
-  //   console.log(this.dragStartSourceIds, 6)
-  //   super.handleTopDragEndCapture(e);
-  // }
-  // handleTopDragEnter(e) {
-  //   console.log(this.dragStartSourceIds, 7)
-  //   super.handleTopDragEnter(e);
-  // }
-  // handleTopDragEnterCapture(e) {
-  //   console.log(this.dragStartSourceIds, 8)
-  //   super.handleTopDragEnterCapture(e);
-  // }
-  // handleTopDragLeaveCapture(e) {
-  //   console.log(this.dragStartSourceIds, 9)
-  //   super.handleTopDragLeaveCapture(e);
-  // }
-  // handleTopDragOver(e) {
-  //   console.log(this.dragStartSourceIds, 10)
-  //   super.handleTopDragOver(e);
-  // }
-  // handleTopDragOverCapture(e) {
-  //   console.log(this.dragStartSourceIds, 11)
-  //   super.handleTopDragOverCapture(e);
-  // }
-  // handleTopDrop(e) {
-  //   console.log(this.dragStartSourceIds, 12)
-  //   super.handleTopDrop(e);
-  // }
-  // handleTopDropCapture(e) {
-  //   console.log(this.dragStartSourceIds, 13)
-  //   super.handleTopDropCapture(e);
-  // }
-  // handleSelectStart(e) {
-  //   console.log(this.dragStartSourceIds, 14)
-  //   super.handleSelectStart(e);
-  // }
-  // endDragIfSourceWasRemovedFromDOM(e) {
-  //   console.log(this.dragStartSourceIds, 15)
-  //   super.endDragIfSourceWasRemovedFromDOM(e);
-  // }
-  // endDragNativeItem(e) {
-  //   console.log(this.dragStartSourceIds, 16)
-  //   super.endDragNativeItem(e);
-  // }
-  // asyncEndDragNativeItem(e) {
-  //   console.log(this.dragStartSourceIds, 17)
-  //   super.asyncEndDragNativeItem(e);
-  // }
+    const clientOffset = getEventClientOffset(e);
+
+  // Don't publish the source just yet (see why below)
+    try {
+      this.actions.beginDrag(dragStartSourceIds, {
+        publishSource: false,
+        getSourceClientOffset: this.getSourceClientOffset,
+        clientOffset,
+      });
+    } catch(er) {
+      return;
+    }
+
+    const { dataTransfer } = e;
+    const nativeType = matchNativeItemType(dataTransfer);
+
+    if (this.monitor.isDragging()) {
+      if (typeof dataTransfer.setDragImage === 'function') {
+        // Use custom drag image if user specifies it.
+        // If child drag source refuses drag but parent agrees,
+        // use parent's node as drag image. Neither works in IE though.
+        const sourceId = this.monitor.getSourceId();
+        const sourceNode = this.sourceNodes[sourceId];
+        const dragPreview = this.sourcePreviewNodes[sourceId] || sourceNode;
+        const { anchorX, anchorY } = this.getCurrentSourcePreviewNodeOptions();
+        const anchorPoint = { anchorX, anchorY };
+        const dragPreviewOffset = getDragPreviewOffset(
+          sourceNode,
+          dragPreview,
+          clientOffset,
+          anchorPoint,
+        );
+        dataTransfer.setDragImage(dragPreview, dragPreviewOffset.x, dragPreviewOffset.y);
+      }
+
+      try {
+        // Firefox won't drag without setting data
+        dataTransfer.setData('application/json', {});
+      } catch (err) {
+        // IE doesn't support MIME types in setData
+      }
+
+      // Store drag source node so we can check whether
+      // it is removed from DOM and trigger endDrag manually.
+      this.setCurrentDragSourceNode(e.target);
+
+      // Now we are ready to publish the drag source.. or are we not?
+      const { captureDraggingState } = this.getCurrentSourcePreviewNodeOptions();
+      if (!captureDraggingState) {
+        // Usually we want to publish it in the next tick so that browser
+        // is able to screenshot the current (not yet dragging) state.
+        //
+        // It also neatly avoids a situation where render() returns null
+        // in the same tick for the source element, and browser freaks out.
+        setTimeout(() => this.actions.publishDragSource());
+      } else {
+        // In some cases the user may want to override this behavior, e.g.
+        // to work around IE not supporting custom drag previews.
+        //
+        // When using a custom drag layer, the only way to prevent
+        // the default drag preview from drawing in IE is to screenshot
+        // the dragging state in which the node itself has zero opacity
+        // and height. In this case, though, returning null from render()
+        // will abruptly end the dragging, which is not obvious.
+        //
+        // This is the reason such behavior is strictly opt-in.
+        this.actions.publishDragSource();
+      }
+    } else if (nativeType) {
+      // A native item (such as URL) dragged from inside the document
+      this.beginDragNativeItem(nativeType);
+    } else if (
+      !dataTransfer.types && (
+        !e.target.hasAttribute ||
+        !e.target.hasAttribute('draggable')
+      )
+    ) {
+      // Looks like a Safari bug: dataTransfer.types is null, but there was no draggable.
+      // Just let it drag. It's a native type (URL or text) and will be picked up in
+      // dragenter handler.
+      return; // eslint-disable-line no-useless-return
+    } else {
+      e.preventDefault();
+    }
+  }
 }
 
 export default function createHTML5Backend(manager) {
-  console.log(manager)
   return new NonNativeHTML5Backend(manager);
 }
