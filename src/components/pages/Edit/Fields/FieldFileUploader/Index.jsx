@@ -29,19 +29,11 @@ class FieldFileUploader extends React.Component {
     this.uploader.on('statusChange', (id, oldStatus, newStatus) => {
       // if (newStatus === 'submitted') {
       //   this.state.submittedFiles.push(id);
-      //   this.setState(this.state);
+      //   this.setState(this.state); // когда будет готов прелоадер
       // }
     });
 
     this.uploader.on('complete', (id, name, resp, responseJSON) => {
-      const idPreview = this.state.submittedFiles.indexOf(id);
-
-      // this.state.submittedFiles[idPreview] = {
-      //   ID: '',
-      //   SRC: JSON.parse(responseJSON.response).url,
-      //   ID_UPLOAD: id,
-      // };
-
       this.state.submittedFiles.push({
         ID: '',
         SRC: JSON.parse(responseJSON.response).url,
@@ -145,6 +137,11 @@ class FieldFileUploader extends React.Component {
       <Field {...this.props}>
         <div>
           <Container>
+            {
+              this.state.submittedFiles.length ?
+                <span className="gallery__text">Обложка</span> : ''
+            }
+
             {
               this.state.submittedFiles.length ?
                 this.state.submittedFiles.map((photo, id) => (

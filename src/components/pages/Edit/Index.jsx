@@ -128,7 +128,11 @@ class EditPage extends React.Component {
         <div className="container container__min position-rel">
           <Header />
           <div className="edit-page">
-            <LeftPanel sections={this.sections} selectValues={this.state.selectValues} />
+            <LeftPanel
+              sections={this.sections}
+              anchar={window.location.hash.substr(1)}
+              selectValues={this.state.selectValues}
+            />
             <div className="edit-page__container">
               {
                 this.sections.map((section, index) => {

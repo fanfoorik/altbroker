@@ -24,7 +24,7 @@ const cardTarget = {
     }
 
     const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
-    const hoverMiddleX = (hoverBoundingRect.left - hoverBoundingRect.right);
+    const hoverMiddleX = (hoverBoundingRect.left - hoverBoundingRect.right) / 5;
     const clientOffset = monitor.getClientOffset();
     const hoverClientX = clientOffset.x - hoverBoundingRect.right;
 
@@ -45,19 +45,30 @@ const Photo = (props) => {
     dataPhoto,
     objectId,
     deletePhotoHandler,
+    index,
   } = props;
 
-  const onClickHandler = (e) => {
+  const onClickHandlerClose = (e) => {
     deleteImg(dataPhoto.ID, dataPhoto.SRC, objectId).then((result) => {
       deletePhotoHandler(dataPhoto.SRC);
     });
   };
 
+  const onClickHandlerChangeVisible = (e) => {
+
+  };
+
   return connectDragSource(connectDropTarget(
     <div className="gallery__photos-list__photo">
       {children}
-      <div onClick={onClickHandler} className="gallery__btn-delete">
+      <span className="gallery__number-photo">
+        {index + 1}
+      </span>
+      <div onClick={onClickHandlerClose} className="gallery__btn-delete">
         <Icon icon="close" width="10" height="10" />
+      </div>
+      <div onClick={onClickHandlerChangeVisible} className="gallery__btn-change-visible">
+        <Icon icon="eye" width="10" height="10" />
       </div>
     </div>,
   ));

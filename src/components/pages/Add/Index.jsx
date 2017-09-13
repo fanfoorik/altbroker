@@ -76,8 +76,8 @@ class AddPage extends React.Component {
           PROPERTY_KLIENT_MESTO: '',
         },
         Gallery: {
-          PROPERTY_IMGS_FULL: '',
-          PROPERTY_HIDE_IMGS_FULL: '',
+          PROPERTY_IMGS_PRE: [],
+          PROPERTY_HIDE_IMGS_PRE: [],
         },
       },
       lib: {},

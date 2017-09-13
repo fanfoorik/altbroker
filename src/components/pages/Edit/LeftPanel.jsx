@@ -34,6 +34,7 @@ const LeftPanel = ({
   selectValues,
   onSubmit,
   onDraft,
+  anchar
 }) => {
   let sumAllField = 0;
   let sumAllFilledField = 0;
@@ -61,6 +62,14 @@ const LeftPanel = ({
 
   const R = 65;
   const circleProgress = 2 * Math.PI * R * (1 - (percentFilledField / 100));
+
+  if (anchar) {
+    Object.keys(pagePanelDomElements).map(id => {
+      if (pagePanelDomElements[id].getAttribute('data-anchor') === anchar) {
+        myMove(pagePanelDomElements[id].offsetTop);
+      }
+    });
+  }
 
   return (
     <div className="page-aside">
