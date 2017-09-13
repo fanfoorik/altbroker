@@ -58,8 +58,8 @@ export const fetchDataForEditPage = (context) => {
           PROPERTY_KLIENT_MESTO: fields.PROPERTY_KLIENT_MESTO,
         },
         Gallery: {
-          PROPERTY_IMGS: fields.PROPERTY_IMGS_FULL,
-          PROPERTY_HIDE_IMGS: fields.PROPERTY_HIDE_IMGS_FULL,
+          PROPERTY_IMGS_PRE: fields.PROPERTY_IMGS_FULL,
+          PROPERTY_HIDE_IMGS_PRE: fields.PROPERTY_HIDE_IMGS_FULL,
         },
       },
     });
@@ -114,16 +114,11 @@ export const sendDataFromEditPage = (context, section) => {
   };
 
   newState.PROPERTY_SOBSTVEN = newState.PROPERTY_SOBSTVEN ? 'Y' : 'N';
-
-  const keysNewState = Object.keys(newState);
-  const sumAllField = keysNewState.length;
+  const sumAllField = Object.keys(newState).length;
 
   let sumFilledField = 0;
-  keysNewState.map(key => {
-    const value = newState[key];
-    if (value !== undefined &&
-        value !== null &&
-        value.length !== 0) {
+  Object.values(newState).map(value => {
+    if (value !== undefined && value !== null && value.length !== 0) {
       sumFilledField += 1;
     }
   });
@@ -131,8 +126,8 @@ export const sendDataFromEditPage = (context, section) => {
   newState = Object.assign(newState, {
     ACTION: 'EDIT',
     BUTT_PRESS: 'SAVE',
-    PROPERTY_IMGS: newState.PROPERTY_IMGS_PRE || newState.PROPERTY_IMGS,
-    PROPERTY_HIDE_IMGS: newState.PROPERTY_HIDE_IMGS_PRE || newState.PROPERTY_HIDE_IMGS,
+    PROPERTY_IMGS: newState.PROPERTY_IMGS_PRE,
+    PROPERTY_HIDE_IMGS: newState.PROPERTY_HIDE_IMGS_PRE,
     SECTION_ID: [...newState.SECTION_ID_1, ...newState.SECTION_ID_2],
     QUALITY_FORM_FILL: Math.ceil(100 * sumFilledField) / (sumAllField || 1),
   });
@@ -148,5 +143,13 @@ export const sendDataFromEditPage = (context, section) => {
     } else {
       NotificationManager.error('Извините на сервере произошла ошибка!', 'ОШИБКА');
     }
+  });
+};
+
+export const deleteImg = (PIC_ID = '', PIC_URL = '', ELEMENT_ID = '') => {
+  return ajax.post('tools/picture/delet/', {
+    PIC_ID,
+    PIC_URL,
+    ELEMENT_ID,
   });
 };

@@ -21,6 +21,7 @@ const Finance = ({
       selectValues={selectValues}
       title="Финансы"
       onSubmit={onSubmit}
+      anchor="finance"
     >
       <FormRow>
         <FieldText
@@ -76,7 +77,6 @@ Finance.propTypes = {
 
 Finance.defaultProps = {
   selectValues: {},
-  onSubmit: () => {},
 };
 
 export default Finance;

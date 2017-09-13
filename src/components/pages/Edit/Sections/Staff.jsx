@@ -18,6 +18,7 @@ const Staff = ({
       selectValues={selectValues}
       title="Штат"
       onSubmit={onSubmit}
+      anchor="staff"
     >
       <FormRow>
         <FieldText
@@ -56,7 +57,6 @@ Staff.propTypes = {
 
 Staff.defaultProps = {
   selectValues: {},
-  onSubmit: () => {},
 };
 
 export default Staff;

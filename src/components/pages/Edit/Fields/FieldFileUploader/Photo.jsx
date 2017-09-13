@@ -2,6 +2,9 @@ import React from 'react';
 import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 
+import Icon from 'components/Icon';
+import { deleteImg } from 'api/editPage';
+
 const cardSource = {
   beginDrag(props) {
     return {
@@ -21,15 +24,11 @@ const cardTarget = {
     }
 
     const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
-    const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+    const hoverMiddleX = (hoverBoundingRect.left - hoverBoundingRect.right) / 5;
     const clientOffset = monitor.getClientOffset();
-    const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+    const hoverClientX = clientOffset.x - hoverBoundingRect.right;
 
-    if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-      return;
-    }
-
-    if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+    if (hoverClientX < hoverMiddleX) {
       return;
     }
 
@@ -39,18 +38,51 @@ const cardTarget = {
 };
 
 const Photo = (props) => {
-  const { children, connectDragSource, connectDropTarget } = props;
+  const {
+    children,
+    connectDragSource,
+    connectDropTarget,
+    dataPhoto,
+    objectId,
+    deletePhotoHandler,
+    index,
+  } = props;
+
+  const onClickHandlerClose = (e) => {
+    deleteImg(dataPhoto.ID, dataPhoto.SRC, objectId).then((result) => {
+      deletePhotoHandler(dataPhoto.SRC);
+    });
+  };
+
+  const onClickHandlerChangeVisible = (e) => {
+
+  };
 
   return connectDragSource(connectDropTarget(
     <div className="gallery__photos-list__photo">
       {children}
+      <span className="gallery__number-photo">
+        {index + 1}
+      </span>
+      <div onClick={onClickHandlerClose} className="gallery__btn-delete">
+        <Icon icon="close" width="10" height="10" />
+      </div>
+      <div onClick={onClickHandlerChangeVisible} className="gallery__btn-change-visible">
+        <Icon icon="eye" width="10" height="10" />
+      </div>
     </div>,
-));
+  ));
 };
 
-export default DropTarget('photo', cardTarget, connect => ({
-  connectDropTarget: connect.dropTarget(),
-}))(DragSource('photo', cardSource, (connect, monitor) => ({
-  connectDragSource: connect.dragSource(),
-  isDragging: monitor.isDragging(),
-}))(Photo));
+export default DropTarget(
+  'photos',
+  cardTarget,
+  connect => ({
+    connectDropTarget: connect.dropTarget(),
+  }))(DragSource(
+  'photos',
+  cardSource,
+  (connect, monitor) => ({
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging(),
+  }))(Photo));

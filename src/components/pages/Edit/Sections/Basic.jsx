@@ -21,6 +21,7 @@ const Basic = ({
       selectValues={selectValues}
       title="Основное"
       onSubmit={onSubmit}
+      anchor="basic"
     >
       <FormRow>
         <FieldText
@@ -62,6 +63,7 @@ const Basic = ({
           options={lib.categories}
           field="SECTION_ID_1"
           title="Категории"
+          maxCountCurrentValues={1}
           required
           {...props}
         />
@@ -131,7 +133,6 @@ Basic.propTypes = {
 
 Basic.defaultProps = {
   selectValues: {},
-  onSubmit: () => {},
   lib: {},
 };
 

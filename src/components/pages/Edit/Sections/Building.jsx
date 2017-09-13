@@ -21,6 +21,7 @@ const Building = ({
       title="Помещение"
       selectValues={selectValues}
       onSubmit={onSubmit}
+      anchor="building"
     >
       <FormRow>
         <FieldSwitcher
@@ -87,7 +88,6 @@ Building.propTypes = {
 
 Building.defaultProps = {
   selectValues: {},
-  onSubmit: () => {},
   lib: {},
 };
 

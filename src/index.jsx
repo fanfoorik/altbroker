@@ -5,6 +5,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import { AUTH_USER } from 'constants/userTypes';
 import Edit from 'components/pages/Edit';
+import Add from 'components/pages/Add';
 import Admin from 'components/pages/Admin';
 import AppContainer from 'components/App/AppContainer';
 import AuthContainer from 'components/pages/Auth/AuthContainer';
@@ -54,7 +55,7 @@ ReactDOM.render(
           <Route path="gb">
             <IndexRoute component={ProtectedRoute(GBContainer)} />
             <Route path=":id/edit" component={ProtectedRoute(Edit)} />
-            <Route path="add" component={ProtectedRoute(Edit)} />
+            <Route path="add" component={ProtectedRoute(Add)} />
           </Route>
           <Route path=":page" component={ProtectedRoute(GBNavItems)} />
         </Route>

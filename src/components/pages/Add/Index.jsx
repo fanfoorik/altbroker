@@ -1,7 +1,8 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 
-import Header from './Header';
-import LeftPanel from './LeftPanel';
+import Header from '../Edit/Header';
+import LeftPanel from '../Edit/LeftPanel';
 import {
   Basic,
   Finance,
@@ -10,34 +11,80 @@ import {
   Building,
   Asset,
   Gallery,
-} from './Sections';
+} from '../Edit/Sections';
 
 import {
-  fetchDataForEditPage,
   fetchLib,
-  sendDataFromEditPage,
 } from 'api/editPage';
 
-class EditPage extends React.Component {
+import {
+  saveData,
+} from 'api/add';
+
+class AddPage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       selectValues: {
-        Basic: {},
-        Finance: {},
-        Staff: {},
-        Building: {},
-        Asset: {},
-        Salary: {},
-        Gallery: {},
+        Basic: {
+          NAME: '',
+          PROPERTY_GEO_ID: '',
+          PROPERTY_METRO_NEW: '',
+          SECTION_ID_1: '',
+          PROPERTY_RAYON2: '',
+          SECTION_ID_2: '',
+          PROPERTY_DOP_INFO: '',
+          PROPERTY_SOURCE: '',
+          PROPERTY_REASON_FOR_SALE: '',
+          PROPERTY_DOP_ICON: '',
+        },
+        Finance: {
+          PROPERTY_PRICE_BUSINESS: '',
+          PROPERTY_CHIST_PRIB: '',
+          PROPERTY_OKUP: '',
+          PROPERTY_SREDMES_OBOR: '',
+          PROPERTY_SREDMES_RASH: '',
+        },
+        Staff: {
+          PROPERTY_KOLVO_SOTR: '',
+          PROPERTY_FOND_ZP: '',
+          PROPERTY_STATE_INFORMATION: '',
+        },
+        Building: {
+          PROPERTY_SOBSTVEN: false,
+          PROPERTY_LANDLORD: '',
+          PROPERTY_S_POM: '',
+          PROPERTY_RENT_PRICE: '',
+          PROPERTY_S_UCH: '',
+          PROPERTY_ADDITIONAL_INFORMATION: '',
+        },
+        Asset: {
+          PROPERTY_OPF: '',
+          PROPERTY_DOLYA: '',
+          PROPERTY_VOZR_BUSINESS: '',
+          PROPERTY_DOP_BUSINESS_INFO: '',
+          PROPERTY_SRV_PRZ: '',
+          PROPERTY_NEM_ACT: '',
+          PROPERTY_DOC_LIC: '',
+        },
+        Salary: {
+          PROPERTY_KLIENT_FIO: '',
+          PROPERTY_KLIENT_TLF: '',
+          PROPERTY_KLIENT_EMAIL: '',
+          PROPERTY_KLIENT_SAIT: '',
+          PROPERTY_KLIENT_MESTO: '',
+        },
+        Gallery: {
+          PROPERTY_IMGS_PRE: [],
+          PROPERTY_HIDE_IMGS_PRE: [],
+        },
       },
       lib: {},
     };
   }
 
   componentDidMount() {
-    fetchDataForEditPage(this);
     fetchLib(this);
   }
 
@@ -52,6 +99,10 @@ class EditPage extends React.Component {
       }
 
       if (state.SECTION_ID_1) {
+        this.state.selectValues[section].SECTION_ID_2 =
+          this.state.selectValues[section].SECTION_ID_2 ||
+          [];
+
         state.SECTION_ID_2 = this.state.selectValues[section].SECTION_ID_2
           .filter(childSection => (
             !!state.SECTION_ID_1
@@ -62,15 +113,7 @@ class EditPage extends React.Component {
 
       this.state.selectValues[section] = { ...this.state.selectValues[section], ...state };
 
-      this.setState({ selectValues: this.state.selectValues });
-    };
-  };
-
-
-  onSubmitHandler = (section) => {
-    return (e) => {
-      e.preventDefault();
-      sendDataFromEditPage(this, section);
+      this.setState(this.state);
     };
   };
 
@@ -88,39 +131,54 @@ class EditPage extends React.Component {
     {
       title: 'Основное',
       component: 'Basic',
-      anchor: 'basic',
     },
     {
       title: 'Финансы',
       component: 'Finance',
-      anchor: 'finance',
     },
     {
       title: 'Штат',
       component: 'Staff',
-      anchor: 'staff',
     },
     {
       title: 'Помещение',
       component: 'Building',
-      anchor: 'building',
     },
     {
       title: 'Активы',
       component: 'Asset',
-      anchor: 'asset',
     },
     {
       title: 'Продавец',
       component: 'Salary',
-      anchor: 'salary',
     },
     {
       title: 'Галерея',
       component: 'Gallery',
-      anchor: 'gallery',
     },
   ];
+
+  onSubmit = () => {
+    this.onSubmitHandler(false);
+  };
+
+  onDraft = () => {
+    this.onSubmitHandler(true);
+  };
+
+  onSubmitHandler = (draft = false) => {
+    let data = {};
+
+    Object.values(this.state.selectValues).map(value => {
+      data = { ...data, ...value };
+    });
+
+    saveData(data, draft).then(data => {
+      if (data !== undefined) {
+        browserHistory.push('/altbroker3/broker/gb/');
+      }
+    });
+  };
 
   render() {
     return (
@@ -130,7 +188,8 @@ class EditPage extends React.Component {
           <div className="edit-page">
             <LeftPanel
               sections={this.sections}
-              anchar={window.location.hash.substr(1)}
+              onSubmit={this.onSubmit}
+              onDraft={this.onDraft}
               selectValues={this.state.selectValues}
             />
             <div className="edit-page__container">
@@ -144,8 +203,6 @@ class EditPage extends React.Component {
                       key={index}
                       selectValues={this.state.selectValues[section.component]}
                       onChangeState={this.onChangeStateHandler(section.component)}
-                      onSubmit={this.onSubmitHandler(section.component)}
-                      objectId={this.props.params.id}
                     />
                   );
                 })
@@ -158,4 +215,4 @@ class EditPage extends React.Component {
   }
 }
 
-export default EditPage;
+export default AddPage;

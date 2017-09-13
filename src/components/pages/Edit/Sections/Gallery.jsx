@@ -12,13 +12,14 @@ const Gallery = ({
 }) => {
   return (
     <Section
-      selectValues={{}}
+      selectValues={selectValues}
       title="Галлерея"
       onSubmit={onSubmit}
+      anchor="gallery"
     >
       <FormRow>
         <FieldFileUploader
-          value={selectValues.PROPERTY_IMGS}
+          value={selectValues.PROPERTY_IMGS_PRE}
           field="PROPERTY_IMGS_PRE"
           title="Публичные фотографии"
           {...props}
@@ -26,7 +27,7 @@ const Gallery = ({
       </FormRow>
       <FormRow>
         <FieldFileUploader
-          value={selectValues.PROPERTY_HIDE_IMGS}
+          value={selectValues.PROPERTY_HIDE_IMGS_PRE}
           field="PROPERTY_HIDE_IMGS_PRE"
           title="Приватные фотографии"
           {...props}
@@ -43,7 +44,6 @@ Gallery.propTypes = {
 
 Gallery.defaultProps = {
   selectValues: {},
-  onSubmit: () => {},
 };
 
 export default Gallery;

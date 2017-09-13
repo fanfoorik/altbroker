@@ -20,24 +20,32 @@ class FieldFileUploader extends React.Component {
     super(props);
 
     this.state = {
-      submittedFiles: props.value,
-      completeFiles: [...props.value],
+      submittedFiles: [],
+      completeFiles: [],
     };
   }
 
   componentDidMount() {
     this.uploader.on('statusChange', (id, oldStatus, newStatus) => {
-      if (newStatus === 'submitted') {
-        this.state.submittedFiles.push(id);
-        this.setState(this.state);
-      }
+      // if (newStatus === 'submitted') {
+      //   this.state.submittedFiles.push(id);
+      //   this.setState(this.state); // когда будет готов прелоадер
+      // }
     });
 
-    this.uploader.on('complete', (event, id, name, responseJSON) => {
+    this.uploader.on('complete', (id, name, resp, responseJSON) => {
+      this.state.submittedFiles.push({
+        ID: '',
+        SRC: JSON.parse(responseJSON.response).url,
+        ID_UPLOAD: id,
+      });
+
       this.state.completeFiles.push({
         ID: '',
         SRC: JSON.parse(responseJSON.response).url,
       });
+
+      this.setState(this.state);
 
       this.props.onChangeState({
         [this.props.field]: this.state.completeFiles,
@@ -46,28 +54,37 @@ class FieldFileUploader extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.state.submittedFiles = nextProps.value;
-    this.state.completeFiles = [...nextProps.value];
+    if (!this.state.submittedFiles.length) {
+      this.state.submittedFiles = [...nextProps.value];
+      this.setState(this.state);
+    }
 
-    this.setState(this.state);
+    if (!this.state.completeFiles.length) {
+      this.state.completeFiles = nextProps.value;
+      this.setState(this.state);
+    }
   }
 
   uploader = new FineUploaderTraditional({
     options: {
       deleteFile: {
         enabled: true,
-        endpoint: `${hostUrl + apiUrl}tools/picture/add/`,
+        endpoint: `${hostUrl + apiUrl}tools/picture/delet/`,
       },
       request: {
         endpoint: `${hostUrl + apiUrl}tools/picture/add/`,
-        customHeaders: { login: localStorage.getItem('login'), token: localStorage.getItem('token') },
+        customHeaders: {
+          login: localStorage.getItem('login'),
+          token: localStorage.getItem('token'),
+        },
       },
     },
   });
 
   movePhoto = (dragIndex, hoverIndex) => {
-    const { submittedFiles } = this.state;
+    const { submittedFiles, completeFiles } = this.state;
     const dragCard = submittedFiles[dragIndex];
+    const dragCardComp = completeFiles[dragIndex];
 
     this.setState(update(this.state, {
       submittedFiles: {
@@ -76,18 +93,44 @@ class FieldFileUploader extends React.Component {
           [hoverIndex, 0, dragCard],
         ],
       },
-    }));
+      completeFiles: {
+        $splice: [
+          [dragIndex, 1],
+          [hoverIndex, 0, dragCardComp],
+        ],
+      },
+    },
+    ));
+
+    this.props.onChangeState({
+      [this.props.field]: this.state.completeFiles,
+    });
   };
 
   customResizer = resizeInfo => (
     new Promise(resolve => {
-      resizeInfo.targetCanvas.height = 100;
+      const height = 100;
+      const width = resizeInfo.targetCanvas.width * (height / resizeInfo.targetCanvas.height);
+
+      resizeInfo.targetCanvas.height = height;
+      resizeInfo.targetCanvas.width = width;
 
       new Pica()
         .resize(resizeInfo.sourceCanvas, resizeInfo.targetCanvas)
         .then(data => resolve(data));
     })
   );
+
+  deletePhotoHandler = (SRC) => {
+    this.setState({
+      submittedFiles: this.state.submittedFiles.filter(photo => photo.SRC !== SRC),
+      completeFiles: this.state.completeFiles.filter(photo => photo.SRC !== SRC),
+    });
+
+    this.props.onChangeState({
+      [this.props.field]: this.state.completeFiles,
+    });
+  };
 
   render() {
     return (
@@ -96,13 +139,21 @@ class FieldFileUploader extends React.Component {
           <Container>
             {
               this.state.submittedFiles.length ?
+                <span className="gallery__text">Обложка</span> : ''
+            }
+
+            {
+              this.state.submittedFiles.length ?
                 this.state.submittedFiles.map((photo, id) => (
                   <Photo
                     key={id}
                     index={id}
+                    type={this.props.field}
                     id={id}
-                    text="Hello"
                     movePhoto={this.movePhoto}
+                    dataPhoto={photo}
+                    objectId={this.props.objectId}
+                    deletePhotoHandler={this.deletePhotoHandler}
                   >
                     {
                       photo.SRC ?
@@ -113,7 +164,7 @@ class FieldFileUploader extends React.Component {
                         /> :
                         <Thumbnail
                           customResizer={!this.uploader.qq.ios() && this.customResizer}
-                          id={photo}
+                          id={photo.ID_UPLOAD === undefined ? photo : photo.ID_UPLOAD}
                           uploader={this.uploader}
                         />
                     }

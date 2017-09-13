@@ -20,6 +20,7 @@ const Asset = ({
       selectValues={selectValues}
       title="Активы"
       onSubmit={onSubmit}
+      anchor="asset"
     >
       <FormRow>
         <FieldSelect
@@ -83,7 +84,6 @@ Asset.propTypes = {
 
 Asset.defaultProps = {
   selectValues: {},
-  onSubmit: () => {},
   lib: {},
 };
 
