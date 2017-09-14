@@ -3,3 +3,4 @@ export { default as FieldText } from './FieldText';
 export { default as FieldSwitcher } from './FieldSwitcher';
 export { default as FieldTextArea } from './FieldTextArea';
 export { default as FieldDiv } from './FieldDiv';
+export { default as FieldFileUploader } from './FieldFileUploader';

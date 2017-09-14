@@ -1,15 +1,13 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router';
-
 import Icon from 'components/Icon';
 
-export default function Navigation(props) {
-  const { nav } = props;
-
+export default function Navigation({ nav }) {
   return (
     <nav className="nav">
       {
-        nav.map(link => (
+        Object.values(nav).map(link => (
           <div className="nav__section" key={`nav-item-id-${link.ID}`}>
             <Link
               activeClassName="nav__link_active"
@@ -21,20 +19,18 @@ export default function Navigation(props) {
 
             <div className={`nav__subnav nav__section_item-${link.ID} subnav`}>
               {
-                link.subnav.map((subLink) => {
-                  return (
-                    <Link
-                      className={`subnav__link subnav__link-enabled-${subLink.ENABLED}`}
-                      key={`nav-item-link-id-${subLink.ID}`}
-                      to={subLink.URL}
-                    >
-                        <span className="subnav__icon">
-                          <Icon icon={subLink.ICO_CODE} width="22" height="19"/>
-                        </span>
-                      {subLink.NAME}
-                    </Link>
-                  );
-                })
+                Object.values(link.CHILDREN).map(subLink => (
+                  <Link
+                    className={`subnav__link subnav__link-enabled-${subLink.ENABLED}`}
+                    key={`nav-item-link-id-${subLink.ID}`}
+                    to={subLink.URL}
+                  >
+                    <span className="subnav__icon">
+                      <Icon icon={subLink.ICO_CODE} width="22" height="19" />
+                    </span>
+                    {subLink.NAME}
+                  </Link>
+                ))
               }
             </div>
           </div>
@@ -43,3 +39,9 @@ export default function Navigation(props) {
     </nav>
   );
 }
+
+Navigation.propTypes = {
+  nav: PropTypes.objectOf(PropTypes.shape({
+    CHILDREN: PropTypes.object.isRequired,
+  })).isRequired,
+};

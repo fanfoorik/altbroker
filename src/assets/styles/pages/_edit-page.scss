@@ -209,8 +209,14 @@
     padding: 14px 14px 14px 24px;
     border-top: 1px solid $c-border-main;
     color: $c-grey-dark;
+    cursor: pointer;
 
     &:hover {
+      text-decoration: none;
+      box-shadow: inset 3px 0px 0px -2px $c-blue-main;
+    }
+
+    &_current {
       text-decoration: none;
       box-shadow: inset 3px 0px 0px -2px $c-blue-main;
     }

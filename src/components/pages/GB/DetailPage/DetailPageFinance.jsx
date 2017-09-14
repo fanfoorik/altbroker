@@ -1,10 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import Icon from 'components/Icon';
+import { indexUrl } from 'utils/urls';
+import { Link } from 'react-router';
 
 import { formatNumber } from 'utils/formaters';
 
 function DetailPageFinance(props) {
   const {
+    id,
     profitPerMonth,
     recoupmentPerMonth,
     turnoverPerMonth,
@@ -13,6 +17,9 @@ function DetailPageFinance(props) {
 
   return (
     <div className="detail-page-blank" data-anchor="finance">
+      <Link to={`${indexUrl}broker/gb/${id}/edit/#finance`} className="detail-page-blank__edit">
+        <Icon icon="edit" width="16" height="16" />
+      </Link>
 
       <div className="detail-page__title">Финансы</div>
 
@@ -56,6 +63,7 @@ function DetailPageFinance(props) {
 }
 
 DetailPageFinance.propTypes = {
+  id: PropTypes.string.isRequired,
   profitPerMonth: PropTypes.string.isRequired,
   recoupmentPerMonth: PropTypes.string.isRequired,
   turnoverPerMonth: PropTypes.string.isRequired,

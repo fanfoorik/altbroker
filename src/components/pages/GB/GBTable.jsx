@@ -139,7 +139,7 @@ export default class BrokerTable extends React.Component {
           );
         });
       }
-      return <div className="table-cover">Ничего не найдено.</div>;
+      return <div className="table-cover"><div className="table-cover__not-found">Нет данных.</div></div>;
     }
 
     return (

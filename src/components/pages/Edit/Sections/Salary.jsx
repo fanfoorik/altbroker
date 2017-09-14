@@ -15,6 +15,7 @@ const Salary = ({
       selectValues={selectValues}
       title="Продавец"
       onSubmit={onSubmit}
+      anchor="salary"
     >
       <FormRow>
         <FieldText
@@ -70,7 +71,6 @@ Salary.propTypes = {
 
 Salary.defaultProps = {
   selectValues: {},
-  onSubmit: () => {},
 };
 
 export default Salary;

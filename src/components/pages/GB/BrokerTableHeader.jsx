@@ -20,7 +20,7 @@ export default function BrokerTableHeader(props) {
       </div>
       <div className="table-th table-col__color popover-parent no-padding">
         <div className="table-dot" />
-        <ColorsLegendPopover />
+        {/*<ColorsLegendPopover />*/}
       </div>
       <div className="table-th table-col__id">
         <span

@@ -1,16 +1,6 @@
 import * as types from 'constants/headerTypes';
 import ajax from 'utils/ajax';
 
-function parseMenu(menu) {
-  return Object.keys(menu).map((item) => {
-    const subnav = menu[item].CHILDREN;
-    return {
-      ...menu[item],
-      subnav: Object.keys(subnav).map(sublink => subnav[sublink]),
-    };
-  });
-}
-
 const fetchInit = () => (dispatch) => {
   ajax.get('init/')
     .then((data) => {
@@ -33,7 +23,7 @@ const fetchInit = () => (dispatch) => {
 
       dispatch({
         type: types.SET_NAVIGATION,
-        payload: parseMenu(menu),
+        payload: menu,
       });
 
       dispatch({

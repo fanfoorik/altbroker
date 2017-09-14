@@ -196,7 +196,6 @@
   }
 
   &__action-left {
-    cursor: pointer;
     min-height: 40px;
     padding: 11px 0 0 16px;
 
@@ -206,7 +205,6 @@
   }
 
   &__action-right {
-    cursor: pointer;
     min-height: 40px;
     padding: 10px;
   }
@@ -335,10 +333,19 @@
 }
 
 .table-cover {
-  padding: 100px 0;
+  height: 300px;
   text-align: center;
   background: $bg-white;
   border-bottom: 1px solid $bd-main;
+  position: relative;
+
+  &__not-found {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 300px;
+    margin: -8px 0 0 -150px;
+  }
 }
 
 .sort-trigger {
@@ -355,4 +362,8 @@
     right: 0;
     color: $c-blue-main;
   }
+}
+
+.table-trigger-container {
+  cursor: pointer;
 }

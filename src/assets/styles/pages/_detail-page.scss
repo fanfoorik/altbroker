@@ -70,6 +70,28 @@
   border: 1px solid $c-border-main;
   border-radius: 3px;
   margin-bottom: 16px;
+  position: relative;
+
+  &__edit {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .icon {
+      fill: $c-grey-middle;
+    }
+
+    &:hover {
+      .icon {
+        fill: $c-blue-main;
+      }
+    }
+  }
 }
 
 .detail-page-header {

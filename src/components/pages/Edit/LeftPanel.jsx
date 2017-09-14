@@ -1,9 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const pagePanelDomElements = document.getElementsByClassName('page-panel');
+
+function myMove(posi) {
+  let pos = window.pageYOffset;
+
+  let id = (pos < posi) ? setInterval(top, 10) : setInterval(bottom, 10);
+
+  function top() {
+    if (pos >= posi) {
+      clearInterval(id);
+    } else {
+      var pospre = pos;
+      pos += 50;
+      window.scrollTo(pospre,  pos);
+    }
+  }
+
+  function bottom() {
+    if (pos <= posi) {
+      clearInterval(id);
+    } else {
+      var pospre = pos;
+      pos -= 50;
+      window.scrollTo(pospre,  pos);
+    }
+  }
+}
+
 const LeftPanel = ({
   sections,
   selectValues,
+  onSubmit,
+  onDraft,
+  anchar
 }) => {
   let sumAllField = 0;
   let sumAllFilledField = 0;
@@ -31,6 +62,14 @@ const LeftPanel = ({
 
   const R = 65;
   const circleProgress = 2 * Math.PI * R * (1 - (percentFilledField / 100));
+
+  if (anchar) {
+    Object.keys(pagePanelDomElements).map(id => {
+      if (pagePanelDomElements[id].getAttribute('data-anchor') === anchar) {
+        myMove(pagePanelDomElements[id].offsetTop);
+      }
+    });
+  }
 
   return (
     <div className="page-aside">
@@ -60,6 +99,14 @@ const LeftPanel = ({
           let countFilledField = 0;
           const allCountField = Object.keys(selectValues[section.component]).length;
 
+          const onClickHandler = () => {
+            Object.keys(pagePanelDomElements).map(id => {
+              if (pagePanelDomElements[id].getAttribute('data-anchor') === section.anchor) {
+                myMove(pagePanelDomElements[id].offsetTop);
+              }
+            });
+          };
+
           Object.keys(selectValues[section.component]).map((key) => {
             const value = selectValues[section.component][key];
 
@@ -71,7 +118,7 @@ const LeftPanel = ({
           });
 
           return (
-            <span className="page-aside__item" key={index}>
+            <span className="page-aside__item" onClick={onClickHandler} key={index}>
               <span className="page-aside__item_text">{section.title}</span>
               {
                 (countFilledField === allCountField) ?
@@ -86,6 +133,14 @@ const LeftPanel = ({
           );
         })
       }
+      {
+        onSubmit && onDraft ?
+          <div className="page-aside__buttons">
+            <button className="btn btn-primary" onClick={onSubmit}>Сохранить</button>
+            <button className="btn" onClick={onDraft}>В черновик</button>
+          </div> : ''
+      }
+
     </div>
   );
 };

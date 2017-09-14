@@ -9,6 +9,7 @@ import {
   Staff,
   Building,
   Asset,
+  Gallery,
 } from './Sections';
 
 import {
@@ -29,12 +30,10 @@ class EditPage extends React.Component {
         Building: {},
         Asset: {},
         Salary: {},
+        Gallery: {},
       },
       lib: {},
     };
-
-    this.onChangeStateHandler = this.onChangeStateHandler.bind(this);
-    this.onSubmitHandler = this.onSubmitHandler.bind(this);
   }
 
   componentDidMount() {
@@ -42,9 +41,8 @@ class EditPage extends React.Component {
     fetchLib(this);
   }
 
-  onChangeStateHandler(section) {
-    return (state, type = 'selectValues') => {
-
+  onChangeStateHandler = (section) => {
+    return (state) => {
       if (state.PROPERTY_GEO_ID) {
         state.PROPERTY_METRO_NEW = null;
       }
@@ -54,36 +52,27 @@ class EditPage extends React.Component {
       }
 
       if (state.SECTION_ID_1) {
-        const section2 = this.state.selectValues[section].SECTION_ID_2.filter(childSection => {
-          return state.SECTION_ID_1.filter(parentSection => {
-            return parentSection.ID === childSection.parentSectionId;
-          }).length !== 0;
-        });
-
-        state.SECTION_ID_2 = section2;
+        state.SECTION_ID_2 = this.state.selectValues[section].SECTION_ID_2
+          .filter(childSection => (
+            !!state.SECTION_ID_1
+              .filter(parentSection => parentSection.ID === childSection.parentSectionId)
+              .length
+          ));
       }
 
-      const newStateSection = {
-        [section]: Object.assign(this.state[type][section], state),
-      };
+      this.state.selectValues[section] = { ...this.state.selectValues[section], ...state };
 
-      const newSelectState = {
-        [type]: Object.assign(this.state[type], newStateSection),
-      };
-
-      const newState = Object.assign(this.state, newSelectState);
-
-      this.setState(newState);
+      this.setState({ selectValues: this.state.selectValues });
     };
-  }
+  };
 
 
-  onSubmitHandler(section) {
+  onSubmitHandler = (section) => {
     return (e) => {
       e.preventDefault();
       sendDataFromEditPage(this, section);
     };
-  }
+  };
 
   componentSections = {
     Basic,
@@ -92,32 +81,44 @@ class EditPage extends React.Component {
     Building,
     Asset,
     Salary,
+    Gallery,
   };
 
   sections = [
     {
       title: 'Основное',
       component: 'Basic',
+      anchor: 'basic',
     },
     {
       title: 'Финансы',
       component: 'Finance',
+      anchor: 'finance',
     },
     {
       title: 'Штат',
       component: 'Staff',
+      anchor: 'staff',
     },
     {
       title: 'Помещение',
       component: 'Building',
+      anchor: 'building',
     },
     {
       title: 'Активы',
       component: 'Asset',
+      anchor: 'asset',
     },
     {
       title: 'Продавец',
       component: 'Salary',
+      anchor: 'salary',
+    },
+    {
+      title: 'Галерея',
+      component: 'Gallery',
+      anchor: 'gallery',
     },
   ];
 
@@ -127,7 +128,11 @@ class EditPage extends React.Component {
         <div className="container container__min position-rel">
           <Header />
           <div className="edit-page">
-            <LeftPanel sections={this.sections} selectValues={this.state.selectValues} />
+            <LeftPanel
+              sections={this.sections}
+              anchar={window.location.hash.substr(1)}
+              selectValues={this.state.selectValues}
+            />
             <div className="edit-page__container">
               {
                 this.sections.map((section, index) => {
@@ -140,6 +145,7 @@ class EditPage extends React.Component {
                       selectValues={this.state.selectValues[section.component]}
                       onChangeState={this.onChangeStateHandler(section.component)}
                       onSubmit={this.onSubmitHandler(section.component)}
+                      objectId={this.props.params.id}
                     />
                   );
                 })
