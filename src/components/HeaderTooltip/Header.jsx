@@ -1,20 +1,20 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default function Cell(props) {
+export default function Header(props) {
   return (
-    <div className={`filter__cell ${props.className}`}>
+    <div className={`droptip__header ${props.className}`}>
       {props.children}
     </div>
   );
 }
 
-Cell.defaultProps = {
+Header.defaultProps = {
   children: null,
   className: '',
 };
 
-Cell.propTypes = {
+Header.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,

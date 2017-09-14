@@ -3,11 +3,9 @@ import React from 'react';
 import { StickyContainer, Sticky } from 'react-sticky';
 
 import GBPaginator from './GBPaginator';
-import BrokerTable from './BrokerTable';
+import GBTable from './GBTable';
 import BrokerTableHeader from './BrokerTableHeader';
-
 import GBFilter from 'components/Filter/GBFilter';
-
 import DetailPage from './DetailPage/DetailPage';
 
 const statusColors = {
@@ -48,8 +46,22 @@ export default class GB extends React.Component {
     });
   };
 
+  handleSort = (event) => {
+    const { updateGBOptions, options: { SORT_CODE, SORT_METOD } } = this.props;
+    const id = event.currentTarget.dataset.id;
+    const isSortCodeActive = SORT_CODE[0] === id;
+    let sortMethod = 'DESC';
+
+    if (isSortCodeActive) {
+      sortMethod = SORT_METOD[0] !== 'DESC' ? 'DESC' : 'ASC';
+    }
+
+    updateGBOptions({ SORT_CODE: [id], SORT_METOD: [sortMethod] });
+  };
+
   render() {
     const query = this.props.location.query;
+
     const {
       fetchGBListing,
       updateGBOptions,
@@ -58,6 +70,7 @@ export default class GB extends React.Component {
       listing,
       pagination,
       options,
+      loading,
     } = this.props;
     const { FILTER: filterState } = options;
     const { detailPageSettings } = this.state;
@@ -67,6 +80,8 @@ export default class GB extends React.Component {
       closeDetailPage: this.closeDetailPage,
       getStatusColor,
     };
+
+    const { SORT_CODE: sortCode, SORT_METOD: sortMethod } = this.props.options;
 
     return (
       <div>
@@ -88,16 +103,21 @@ export default class GB extends React.Component {
         </div>
         <StickyContainer className="table container listing-wrapper">
           <Sticky>
-            <BrokerTableHeader />
+            <BrokerTableHeader
+              handleSort={this.handleSort}
+              sortCode={sortCode}
+              sortMethod={sortMethod}
+            />
           </Sticky>
 
-          <BrokerTable
+          <GBTable
             fetchGBListing={fetchGBListing}
             listing={listing}
             query={query}
             openDetailPage={this.openDetailPage}
             getStatusColor={getStatusColor}
             updateGBOptions={updateGBOptions}
+            loading={loading}
           />
 
           <GBPaginator

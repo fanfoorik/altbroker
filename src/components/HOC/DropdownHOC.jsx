@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import preventOverScroll from 'utils/preventOverScroll';
-
 export default function FilterDropdownHOC(Dropdown) {
   return class FilterDropdown extends React.Component {
     static defaultProps = {
@@ -46,7 +44,6 @@ export default function FilterDropdownHOC(Dropdown) {
           <Dropdown {...this.props} />
         </div>
       );
-      return false;
     }
   };
 }

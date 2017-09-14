@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, IndexRedirect, browserHistory } from 'react-router';
 
 import { AUTH_USER } from 'constants/userTypes';
 import EditPage from 'components/pages/EditPage';
@@ -34,8 +34,8 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/altbroker3" component={ProtectedRoute(AppContainer)}>
-        <IndexRoute component={ProtectedRoute(Index)} />
-
+        <IndexRedirect to="broker/gb" />
+        {/*<IndexRoute component={ProtectedRoute(Index)} />*/}
         <Route path="user" component={ProtectedRoute(User)}>
           <Route path=":userId">
             <Route path=":action" />

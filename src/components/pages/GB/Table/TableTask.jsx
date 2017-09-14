@@ -27,9 +27,13 @@ const TableTask = (props) => {
         onClick={triggerPopover}
       />
 
-      {
-        active &&
-        <TaskPopover id={id} pageUrl={pageUrl} brokerEmail={brokerEmail} triggerPopover={triggerPopover} />
+      {active &&
+        <TaskPopover
+          id={id}
+          pageUrl={pageUrl}
+          brokerEmail={brokerEmail}
+          triggerPopover={triggerPopover}
+        />
       }
     </div>
   );

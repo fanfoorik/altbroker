@@ -10,4 +10,9 @@ export default function Row(props) {
 }
 
 Row.defaultProps = { children: null };
-Row.propTypes = { children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]) };
+Row.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
+};

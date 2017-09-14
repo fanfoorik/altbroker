@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import DropdownHOC from 'components/HOC/DropdownHOC';
 import FormControls from 'components/ui/FormControls';
+import DropdownHOC from 'components/HOC/DropdownHOC';
+import Icon from 'components/Icon';
 import { formatNumber } from 'utils/formaters';
 
 function RangeDropdown(props) {
@@ -72,7 +73,24 @@ function RangeDropdown(props) {
         </div>
       </div>
 
-      <FormControls onReset={resetSection} onClose={triggerDropdown} name={name} />
+      <FormControls
+        onClose={triggerDropdown}
+        left={(
+          <span
+            key="close-trigger"
+            className="form-control form-control_reset"
+            onClick={resetSection}
+            role="button"
+            tabIndex="0"
+            data-name={name}
+          >Сбросить</span>
+        )}
+        right={(
+          <div className="form-control form-control_close" onClick={triggerDropdown} role="button" tabIndex="0">
+            <Icon className="icon__close" icon="close" width={15} height={15} />
+          </div>
+        )}
+      />
 
     </div>
   );

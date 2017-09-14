@@ -8,7 +8,7 @@ export default function NotFound() {
         <div className="page-404">
           <div className="page-404__code">404</div>
           <div className="page-404__slogan">Вы оказались снаружи всех измерений</div>
-          <Link to="/altbroker3/" className="btn btn-lg">Вернуться в бренный мир</Link>
+          <Link to="/altbroker3/broker/gb/" className="btn btn-lg">Вернуться в бренный мир</Link>
         </div>
       </div>
     </div>

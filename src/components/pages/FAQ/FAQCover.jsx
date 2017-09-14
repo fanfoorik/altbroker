@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
 import Icon from 'components/Icon';
-
 import { indexUrl } from 'utils/urls';
 
 export default function () {
@@ -17,7 +16,7 @@ export default function () {
         Ответ мы вышлем вам на почту.
       </div>
 
-      <Link to={`${indexUrl}faq/`} className="faq-cover__back">Вернуться в начало</Link>
+      <Link to={`${indexUrl}broker/gb/`} className="faq-cover__back">К списку объектов готового бизнеса</Link>
 
     </div>
   );

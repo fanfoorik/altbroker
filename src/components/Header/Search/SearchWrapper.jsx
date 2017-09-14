@@ -26,7 +26,7 @@ export default class SearchWrapper extends React.Component {
     return (
       <div className="searchbar">
         <div
-          className="top-trigger"
+          className="style-disabled top-trigger"
           onClick={() => this.clickHandler()}
           role="button"
           tabIndex={0}

@@ -13,6 +13,7 @@ function mapStateToProps(state) {
   return {
     filter: state.GB.filter,
     listing: state.GB.listing.listingItems,
+    loading: state.GB.listing.loading,
     pagination: state.GB.listing.listingNav,
     options: state.GB.options,
   };

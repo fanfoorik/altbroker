@@ -1,20 +1,20 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default function Cell(props) {
+export default function Footer(props) {
   return (
-    <div className={`filter__cell ${props.className}`}>
+    <div className={`droptip__footer ${props.className}`}>
       {props.children}
     </div>
   );
 }
 
-Cell.defaultProps = {
+Footer.defaultProps = {
   children: null,
   className: '',
 };
 
-Cell.propTypes = {
+Footer.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,

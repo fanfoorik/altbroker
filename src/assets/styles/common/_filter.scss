@@ -8,10 +8,15 @@
   border-left: 1px solid $bd-main;
   position: relative;
   z-index: 11;
+  $this: &;
 
   &__row {
     clear: both;
     box-shadow: 0 -1px 0 0 $bd-main inset;
+
+    #{$this}__row {
+      margin-right: -1px;
+    }
   }
 
   &__cell {
@@ -37,7 +42,7 @@
     }
 
     &_deeper {
-      width: 50%;
+      width: calc(50% + 1px);
 
       .form-dropdown {
         width: 200%;
@@ -108,36 +113,29 @@
   background-color: $c-grey-light;
   padding: 8px 12px 8px 15px;
   font-size: 12px;
+  min-height: 32px;
 
   &__name {
-    float: left;
-
     &_number {
       display: inline-block;
       border-radius: 100%;
-      width: 15px;
-      height: 15px;
+      width: 16px;
+      height: 16px;
       color: $c-white;
-      font-size: 12px;
+      font-size: 11px;
       background-color: $c-grey-middle;
       margin-left: 5px;
       text-align: center;
-
+      line-height: 16px;
     }
   }
-
-  //&__subcategory {
-  //  float: right;
-  //  color: $c-grey-main;
-  //  cursor: pointer;
-  //}
 }
 
 .form-dropdown {
   position: absolute;
   left: 0;
   top: 100%;
-  width: 100%;
+  min-width: calc(100% + 1px);
   margin-top: 1px;
   background: $bg-white;
   box-shadow: 0 0 18px rgba($c-black, 0.2);

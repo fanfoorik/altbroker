@@ -27,19 +27,19 @@ class DealPopover extends React.Component {
                 <Icon className="popover-deal-list-icon" icon="edit" width={16} height={16} />
                 Редактировать
               </a>
-              <div className="popover-deal-item">
+              <div className="popover-deal-item style-disabled">
                 <Icon className="popover-deal-list-icon" icon="copy" width={16} height={16} />
                 Скопировать
               </div>
-              <div className="popover-deal-item">
+              <div className="popover-deal-item style-disabled">
                 <Icon className="popover-deal-list-icon" icon="share" width={16} height={16} />
                 Поделиться
               </div>
-              <div className="popover-deal-item">
+              <div className="popover-deal-item style-disabled">
                 <Icon className="popover-deal-list-icon" icon="rocket" width={16} height={16} />
                 Создать сделку
               </div>
-              <div className="popover-deal-item">
+              <div className="popover-deal-item style-disabled">
                 <Icon className="popover-deal-list-icon" icon="close" width={16} height={16} />
                 Удалить
               </div>

@@ -21,7 +21,10 @@ Filter.defaultProps = {
 
 Filter.propTypes = {
   onSubmit: PropTypes.func,
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
 };
 
 Filter.Cell = Cell;

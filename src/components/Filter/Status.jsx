@@ -7,14 +7,10 @@ import DropdownTriggerHOC from 'components/HOC/DropdownTriggerHOC';
 import StatusDropdown from './dropdowns/StatusDropdown';
 
 class Status extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      items: {
-        checked: [],
-        all: [],
-      },
-    };
+  constructor(props) {
+    super(props);
+    const { items, selectedItems } = props;
+    this.state = { items: parseCheckObjects(items, [selectedItems], false) };
   }
 
   componentWillReceiveProps(nextProps) {

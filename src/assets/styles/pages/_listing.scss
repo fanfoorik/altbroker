@@ -60,7 +60,8 @@
 
 .table-th-wrapper {
   background: $c-grey-light;
-  border-width: 2px;
+  border: 1px solid $bd-main;
+  height: 46px;
 }
 
 .table-heading,
@@ -334,8 +335,24 @@
 }
 
 .table-cover {
-  padding: 60px 0;
+  padding: 100px 0;
   text-align: center;
   background: $bg-white;
   border-bottom: 1px solid $bd-main;
+}
+
+.sort-trigger {
+  cursor: pointer;
+  position: relative;
+  padding-right: 9px;
+
+  &:hover {
+    color: $c-blue-main;
+  }
+
+  &__pointer {
+    position: absolute;
+    right: 0;
+    color: $c-blue-main;
+  }
 }

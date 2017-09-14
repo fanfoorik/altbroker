@@ -1,23 +1,21 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default function Cell(props) {
+export default function Column({ children }) {
   return (
-    <div className={`filter__cell ${props.className}`}>
-      {props.children}
+    <div className="form-column">
+      {children}
     </div>
   );
 }
 
-Cell.defaultProps = {
+Column.defaultProps = {
   children: null,
-  className: '',
 };
 
-Cell.propTypes = {
+Column.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
-  className: PropTypes.string,
 };

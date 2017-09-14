@@ -8,12 +8,8 @@ import BrokersDropdown from 'components/Filter/dropdowns/BrokersDropdown';
 class Brokers extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      items: {
-        checked: [],
-        all: [],
-      },
-    };
+    const { items, selectedItems } = props;
+    this.state = ({ items: parseCheckObjects(items, selectedItems, true) });
   }
 
   componentWillReceiveProps(nextProps) {

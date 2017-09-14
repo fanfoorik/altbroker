@@ -2,9 +2,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import { parseCheckObjects } from 'utils/filterUtils';
-
 import DropdownTriggerHOC from 'components/HOC/DropdownTriggerHOC';
 import CategoryDropdown from './dropdowns/CategoryDropdown';
+import Dropdown from 'components/Dropdown';
+import FormSearch from 'components/ui/FormSearch';
+import FilterDropdown from './dropdowns/FilterDropdown';
 
 import Filter from './Filter';
 
@@ -66,18 +68,33 @@ class Category extends React.Component {
           onClick={triggerDropdown}
           more={more}
         />
-        {
-          isActive &&
-          <CategoryDropdown
-            {...this.props}
-            items={categories}
-            onClose={this.closeCategoryDropdown}
-          />
+        {isActive &&
+          <Dropdown triggerDropdown={triggerDropdown}>
+            <FilterDropdown className="form-dropdown_two">
+
+              <FilterDropdown.Column>
+                <FilterDropdown.Header label="Категории" />
+                <FormSearch autoFocus />
+              </FilterDropdown.Column>
+
+              <FilterDropdown.Column>
+                <FilterDropdown.Header label="Подкатегории" />
+                <FormSearch autoFocus />
+              </FilterDropdown.Column>
+
+            </FilterDropdown>
+          </Dropdown>
         }
       </div>
     );
   }
 }
+
+{/*<CategoryDropdown*/}
+  {/*{...this.props}*/}
+  {/*items={categories}*/}
+  {/*onClose={this.closeCategoryDropdown}*/}
+{/*/>*/}
 
 Category.propTypes = {
   isActive: PropTypes.bool.isRequired,

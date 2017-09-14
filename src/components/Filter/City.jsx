@@ -9,15 +9,18 @@ import LocationDropdown from './dropdowns/LocationDropdown';
 class City extends React.Component {
   constructor(props) {
     super(props);
+
+    const { items, selectedItems } = props;
+    const { selectedCity, selectedRegions } = selectedItems;
+
+    const cityRegions = items.regions.filter((item) => {
+      const { PROPERTY_CITY_VALUE: cityId } = item;
+      return cityId && cityId === selectedCity[0];
+    });
+
     this.state = {
-      cities: {
-        checked: [],
-        all: [],
-      },
-      regions: {
-        checked: [],
-        all: [],
-      },
+      cities: parseCheckObjects(items.cities, selectedCity, true),
+      regions: parseCheckObjects(cityRegions, selectedRegions, true),
     };
   }
 

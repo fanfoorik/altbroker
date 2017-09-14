@@ -1,7 +1,6 @@
-import { SET_PATCH_NOTES, TRIGGER_PATCH_NOTES } from 'constants/headerTypes';
+import { SET_PATCH_NOTES } from 'constants/headerTypes';
 
 const initialState = {
-  active: false,
   loading: false,
   data: {
     current: {
@@ -38,7 +37,7 @@ export default function (state = initialState, action) {
             ...state.current,
             name: current.NAME,
             text: current.PREVIEW_TEXT,
-            icon: current.PROPERTY_ICO_VALUE,
+            icon: current.ICO,
             version: current.PROPERTY_VERSION_VALUE,
             url: current.URL,
           },
@@ -51,12 +50,6 @@ export default function (state = initialState, action) {
             name: next ? next.NAME : '',
           },
         },
-      };
-
-    case TRIGGER_PATCH_NOTES:
-      return {
-        ...state,
-        active: !state.active,
       };
 
     default:
