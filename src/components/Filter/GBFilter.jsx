@@ -13,11 +13,9 @@ import Income from './Income';
 import Recoupment from './Recoupment';
 import Status from 'components/Filter/Status';
 
-
-import CategoryContainer from './CategoryContainer';
-
-
 import Filter from './Filter';
+import CategoryContainer from './CategoryContainer';
+import BrokersContainer from './BrokersContainer';
 
 export default class GbFilter extends React.Component {
   constructor(props) {
