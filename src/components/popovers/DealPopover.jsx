@@ -3,6 +3,7 @@ import React from 'react';
 
 import Icon from 'components/Icon';
 import PopoverBaseHOC from 'components/popovers/PopoverBaseHOC';
+import { indexUrl } from 'utils/urls';
 import { Link } from 'react-router';
 
 class DealPopover extends React.Component {
@@ -19,14 +20,19 @@ class DealPopover extends React.Component {
         <div className="popover-body">
           <div className="popover-content-wrapper no-padding-top no-padding-bottom active">
             <ul className="popover-deal-list">
-              <div className="popover-deal-item" onClick={this.openDetailPage}>
+              <div
+                className="popover-deal-item"
+                onClick={this.openDetailPage}
+                role="button"
+                tabIndex="0"
+              >
                 <Icon className="popover-deal-list-icon" icon="eye" width={16} height={16} />
                 Смотреть
               </div>
-              <a href={`${id}/edit/`} className="popover-deal-item">
+              <Link to={`${indexUrl}broker/gb/${id}/edit/`} className="popover-deal-item">
                 <Icon className="popover-deal-list-icon" icon="edit" width={16} height={16} />
                 Редактировать
-              </a>
+              </Link>
               <div className="popover-deal-item style-disabled">
                 <Icon className="popover-deal-list-icon" icon="copy" width={16} height={16} />
                 Скопировать
