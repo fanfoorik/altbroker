@@ -88,12 +88,13 @@ export default class GB extends React.Component {
     return (
       <div>
         <div className="container">
-          <div className="breadcrumb breadcrumb-main clear">
-            <div className="breadcrumb__item">Бизнесы</div>
-            <div className="breadcrumb__item breadcrumb-active">
-              <Link className="breadcrumb__item_link" to={`${indexUrl}broker/gb/add/`}>+ создать новый</Link>
-            </div>
-          </div>
+          <div className="h1">Бизнесы &nbsp; + создать новый</div>
+          {/*<div className="breadcrumb breadcrumb-main clear">*/}
+            {/*<div className="breadcrumb__item">Бизнесы</div>*/}
+            {/*<div className="breadcrumb__item breadcrumb-active">*/}
+              {/*<Link className="breadcrumb__item_link" to={`${indexUrl}broker/gb/add/`}>+ создать новый</Link>*/}
+            {/*</div>*/}
+          {/*</div>*/}
 
           <GBFilter
             updateGBOptions={updateGBOptions}
