@@ -1,16 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router';
+import { indexUrl } from 'utils/urls';
 
-export default () => {
+export default function () {
   return (
-    <ol className="breadcrumb">
-      <li className="breadcrumb__item">
-        <a className="breadcrumb__item_link" href="#">
-          Бизнесы
-        </a>
-      </li>
-      <li className="breadcrumb__item breadcrumb-active">
-        Добавление
-      </li>
-    </ol>
+    <div className="breadcrumb clear">
+      <div className="breadcrumb__item">
+        <Link className="breadcrumb__item_link" to={`${indexUrl}broker/gb/`}>Бизнесы</Link>
+      </div>
+      <div className="breadcrumb__item breadcrumb-active">Добавление</div>
+    </div>
   );
-};
+}

@@ -107,16 +107,15 @@
   }
 }
 
-
 .breadcrumb {
   margin-top: -60px;
+  margin-bottom: 26px;
 
   &__item {
-    display: inline-block;
+    float: left;
     font-size: 26px;
     font-family: $f-gothapro;
-    margin-bottom: 36px;
-    margin-right: 10px;
+    margin: 0 10px 10px 0;
 
     &_link {
       color: $c-grey-middle;
