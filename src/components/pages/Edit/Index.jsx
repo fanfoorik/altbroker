@@ -1,7 +1,8 @@
 import React from 'react';
-
-import Header from './Header';
 import LeftPanel from './LeftPanel';
+import Breadcrumbs from 'components/ui/Breadcrumbs';
+import { indexUrl } from 'utils/urls';
+
 import {
   Basic,
   Finance,
@@ -124,36 +125,40 @@ class EditPage extends React.Component {
 
   render() {
     return (
-      <section className="content" id="content">
-        <div className="container container__min position-rel">
-          <Header />
-          <div className="edit-page">
-            <LeftPanel
-              sections={this.sections}
-              anchar={window.location.hash.substr(1)}
-              selectValues={this.state.selectValues}
-            />
-            <div className="edit-page__container">
-              {
-                this.sections.map((section, index) => {
-                  const Component = this.componentSections[section.component];
+      <div className="container container__min position-rel">
+        <Breadcrumbs
+          items={[
+            { label: 'Бизнесы', link: `${indexUrl}broker/gb/` },
+            { label: 'Редактировать' },
+          ]}
+        />
 
-                  return (
-                    <Component
-                      lib={this.state.lib}
-                      key={index}
-                      selectValues={this.state.selectValues[section.component]}
-                      onChangeState={this.onChangeStateHandler(section.component)}
-                      onSubmit={this.onSubmitHandler(section.component)}
-                      objectId={this.props.params.id}
-                    />
-                  );
-                })
-              }
-            </div>
+        <div className="edit-page">
+          <LeftPanel
+            sections={this.sections}
+            anchar={window.location.hash.substr(1)}
+            selectValues={this.state.selectValues}
+          />
+          <div className="edit-page__container">
+            {
+              this.sections.map((section, index) => {
+                const Component = this.componentSections[section.component];
+
+                return (
+                  <Component
+                    lib={this.state.lib}
+                    key={index}
+                    selectValues={this.state.selectValues[section.component]}
+                    onChangeState={this.onChangeStateHandler(section.component)}
+                    onSubmit={this.onSubmitHandler(section.component)}
+                    objectId={this.props.params.id}
+                  />
+                );
+              })
+            }
           </div>
         </div>
-      </section>
+      </div>
     );
   }
 }
