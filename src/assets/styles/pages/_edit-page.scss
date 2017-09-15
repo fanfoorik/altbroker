@@ -136,26 +136,6 @@
       border-bottom: 2px solid $c-grey-middle;
       transform: rotate(315deg);
     }
-
-    //&_link {
-    //  color: $c-grey-middle;
-    //
-    //  &::after {
-    //    content: '';
-    //    display: inline-block;
-    //    width: 12px;
-    //    height: 12px;
-    //    border-right: 2px solid $c-grey-middle;
-    //    border-bottom: 2px solid $c-grey-middle;
-    //    margin: 0 10px;
-    //    transform: rotate(315deg);
-    //  }
-    //
-    //  &:hover {
-    //    color: $c-blue-main;
-    //    text-decoration: none;
-    //  }
-    //}
   }
 
   &__link {
@@ -176,7 +156,6 @@
   }
 
   .breadcrumb__item_link {
-
     &::after {
       display: none;
     }

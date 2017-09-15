@@ -32,7 +32,7 @@ export default class GbFilter extends React.Component {
         SECTION_ID_1: '',
         SECTION_ID_2: '',
       },
-      extendFilter: false,
+      extendFilter: true,
     };
   }
 
