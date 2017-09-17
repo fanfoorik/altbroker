@@ -10,16 +10,22 @@ const Field = ({
   deleteError,
   field,
   errors,
+  maxCountCurrentValues,
 }) => {
   const onBlurHandler = (value) => {
     return (e) => {
       const textErrorRequired = 'Поле обязательно для заполнения!';
+      const textErrorMaxCount = `Максимальное кол-во ${maxCountCurrentValues}`;
 
       if (required &&
         (value === null || value.length === 0) &&
         !e.target.rawValue
       ) {
         addError(field, textErrorRequired);
+      } else if (maxCountCurrentValues && (value.length > maxCountCurrentValues ||
+          e.target.rawValue > maxCountCurrentValues)
+      ) {
+        addError(field, textErrorMaxCount);
       } else {
         deleteError(field, textErrorRequired);
       }
@@ -29,6 +35,7 @@ const Field = ({
   const element = React.Children.map(children, elem =>
     React.cloneElement(elem, {
       onBlur: onBlurHandler(elem.props.value),
+      onFocus: onBlurHandler(elem.props.value),
     }),
   );
 
