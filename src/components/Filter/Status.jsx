@@ -7,20 +7,20 @@ import DropdownTriggerHOC from 'components/HOC/DropdownTriggerHOC';
 import StatusDropdown from './dropdowns/StatusDropdown';
 
 class Status extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      items: {
-        checked: [],
-        all: [],
-      },
-    };
+  constructor(props) {
+    super(props);
+    const { items, selectedItems } = props;
+    this.state = { items: parseCheckObjects(items, [selectedItems], false) };
   }
 
   componentWillReceiveProps(nextProps) {
     const { items, selectedItems } = nextProps;
     this.setState({ items: parseCheckObjects(items, [selectedItems], false) });
   }
+
+  handleDropdownClose = () => {
+    this.props.submitOnDropdownClose();
+  };
 
   render() {
     const {
@@ -53,7 +53,7 @@ class Status extends React.Component {
         </div>
         {
           isActive &&
-          <StatusDropdown {...data} />
+          <StatusDropdown {...data} onClose={this.handleDropdownClose} />
         }
       </div>
     );
@@ -63,6 +63,7 @@ class Status extends React.Component {
 Status.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectedItems: PropTypes.string.isRequired,
+  submitOnDropdownClose: PropTypes.func.isRequired,
   isActive: PropTypes.bool.isRequired,
   triggerDropdown: PropTypes.func.isRequired,
 };

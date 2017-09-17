@@ -9,15 +9,18 @@ import LocationDropdown from './dropdowns/LocationDropdown';
 class City extends React.Component {
   constructor(props) {
     super(props);
+
+    const { items, selectedItems } = props;
+    const { selectedCity, selectedRegions } = selectedItems;
+
+    const cityRegions = items.regions.filter((item) => {
+      const { PROPERTY_CITY_VALUE: cityId } = item;
+      return cityId && cityId === selectedCity[0];
+    });
+
     this.state = {
-      cities: {
-        checked: [],
-        all: [],
-      },
-      regions: {
-        checked: [],
-        all: [],
-      },
+      cities: parseCheckObjects(items.cities, selectedCity, true),
+      regions: parseCheckObjects(cityRegions, selectedRegions, true),
     };
   }
 
@@ -26,7 +29,6 @@ class City extends React.Component {
     const { all: stateCities } = this.state.cities;
     const { all: stateRegions } = this.state.regions;
     const { selectedCity, selectedRegions } = selectedItems;
-    const { searchCity, searchRegions } = this.props.searchValue;
 
     const { handleSearch } = this.props;
 
@@ -45,15 +47,15 @@ class City extends React.Component {
         cities: parseCheckObjects(items.cities, selectedCity, true),
         regions: parseCheckObjects(cityRegions, selectedRegions, true),
       });
-
-      if (searchCity) {
-        handleSearch('PROPERTY_GEO_ID', '');
-      }
-      if (searchRegions) {
-        handleSearch('PROPERTY_RAYON2', '');
-      }
     }
   }
+
+  handleDropdownClose = () => {
+    const { searchCity, searchRegions } = this.props.searchValue;
+    if (searchCity) this.props.handleSearch('PROPERTY_GEO_ID', '');
+    if (searchRegions) this.props.handleSearch('PROPERTY_RAYON2', '');
+    this.props.submitOnDropdownClose();
+  };
 
   render() {
     const {
@@ -103,6 +105,7 @@ class City extends React.Component {
             handleSearch={handleSearch}
             resetSection={resetSection}
             triggerDropdown={triggerDropdown}
+            onClose={this.handleDropdownClose}
           />
         }
       </div>
@@ -126,6 +129,7 @@ City.propTypes = {
   changeFilterItem: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
   resetSection: PropTypes.func.isRequired,
+  submitOnDropdownClose: PropTypes.func.isRequired,
   isActive: PropTypes.bool.isRequired,
   triggerDropdown: PropTypes.func.isRequired,
 };

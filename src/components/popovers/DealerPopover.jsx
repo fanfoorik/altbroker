@@ -83,7 +83,7 @@ class DealerPopover extends React.Component {
 
             <div className="popover-actions-list">
               <div
-                className="popover-actions-item popover-actions-item_share"
+                className="popover-actions-item popover-actions-item_share style-disabled"
                 onClick={() => {
                   triggerPopover();
                   delegateDealerTrigger();

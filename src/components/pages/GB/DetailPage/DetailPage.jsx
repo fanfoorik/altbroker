@@ -178,6 +178,7 @@ class DetailPage extends React.Component {
     };
 
     const detailsFinance = {
+      id,
       profitPerMonth,
       recoupmentPerMonth,
       turnoverPerMonth,
@@ -185,24 +186,28 @@ class DetailPage extends React.Component {
     };
 
     const detailsStaff = {
+      id,
       employeesAmount,
       wages,
       staffInfo,
     };
 
     const detailsRoom = {
+      id,
       own,
       landlord,
       roomInfo,
     };
 
     const detailsActives = {
+      id,
       legalForm,
       activesPart,
       businessAge,
     };
 
     const detailsSeller = {
+      id,
       sellerName,
       sellerPhone,
       sellerEmail,

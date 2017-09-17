@@ -33,7 +33,7 @@ function SubCategoryList(props) {
               const filteredItems = filterItems(searchSubCategory, subcateg);
 
               return (
-                <div key={`subcateg-group-${id}`}>
+                <div className="form-checkboxes__group" key={`subcateg-group-${id}`}>
                   {!!filteredItems.length &&
                     <div className="form-checkboxes__item form-checkboxes__item_group">{name}</div>
                   }

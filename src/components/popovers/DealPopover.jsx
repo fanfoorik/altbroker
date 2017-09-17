@@ -3,6 +3,7 @@ import React from 'react';
 
 import Icon from 'components/Icon';
 import PopoverBaseHOC from 'components/popovers/PopoverBaseHOC';
+import { Link } from 'react-router';
 
 class DealPopover extends React.Component {
 
@@ -11,37 +12,37 @@ class DealPopover extends React.Component {
   };
 
   render() {
-    const { providePopover } = this.props;
+    const { providePopover, id } = this.props;
 
     return (
       <div className="popover popover_visible popover_without-tabs popover_last popover_md" ref={node => providePopover(node)}>
         <div className="popover-body">
           <div className="popover-content-wrapper no-padding-top no-padding-bottom active">
             <ul className="popover-deal-list">
-              <li className="popover-deal-item" onClick={this.openDetailPage}>
+              <div className="popover-deal-item" onClick={this.openDetailPage}>
                 <Icon className="popover-deal-list-icon" icon="eye" width={16} height={16} />
                 Смотреть
-              </li>
-              <li className="popover-deal-item">
+              </div>
+              <a href={`${id}/edit/`} className="popover-deal-item">
                 <Icon className="popover-deal-list-icon" icon="edit" width={16} height={16} />
                 Редактировать
-              </li>
-              <li className="popover-deal-item">
+              </a>
+              <div className="popover-deal-item style-disabled">
                 <Icon className="popover-deal-list-icon" icon="copy" width={16} height={16} />
                 Скопировать
-              </li>
-              <li className="popover-deal-item">
+              </div>
+              <div className="popover-deal-item style-disabled">
                 <Icon className="popover-deal-list-icon" icon="share" width={16} height={16} />
                 Поделиться
-              </li>
-              <li className="popover-deal-item">
+              </div>
+              <div className="popover-deal-item style-disabled">
                 <Icon className="popover-deal-list-icon" icon="rocket" width={16} height={16} />
                 Создать сделку
-              </li>
-              <li className="popover-deal-item">
+              </div>
+              <div className="popover-deal-item style-disabled">
                 <Icon className="popover-deal-list-icon" icon="close" width={16} height={16} />
                 Удалить
-              </li>
+              </div>
             </ul>
           </div>
         </div>

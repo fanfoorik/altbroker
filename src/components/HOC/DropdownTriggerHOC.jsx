@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function (TriggeredComponent) {
+export default function (Component) {
   return class extends React.Component {
     constructor() {
       super();
@@ -23,12 +23,12 @@ export default function (TriggeredComponent) {
       const { isActive } = this.state;
 
       return (
-        <TriggeredComponent
+        <Component
           {...this.props}
           isActive={isActive}
           triggerDropdown={this.triggerDropdown}
-          openDropdown={this.dropdownOpen}
-          closeDropdown={this.dropdownClose}
+          openDropdown={this.openDropdown}
+          closeDropdown={this.closeDropdown}
         />
       );
     }

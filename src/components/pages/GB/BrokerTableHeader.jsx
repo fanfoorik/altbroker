@@ -3,7 +3,13 @@ import React from 'react';
 import ColorsLegendPopover from 'components/popovers/ColorsLegendPopover';
 import Icon from 'components/Icon';
 
-export default function BrokerTableHeader() {
+function sortArrow(dir) {
+  return <span className="sort-trigger__pointer">{dir[0] === 'DESC' ? '↓' : '↑'}</span>;
+}
+
+export default function BrokerTableHeader(props) {
+  const { handleSort, sortCode, sortMethod } = props;
+
   return (
     <div className="table-row table-th-wrapper" id="listing-heading">
       <div className="table-th table-col__checkbox">
@@ -14,20 +20,75 @@ export default function BrokerTableHeader() {
       </div>
       <div className="table-th table-col__color popover-parent no-padding">
         <div className="table-dot" />
-        <ColorsLegendPopover />
+        {/*<ColorsLegendPopover />*/}
       </div>
-      <div className="table-th table-col__id">#</div>
+      <div className="table-th table-col__id">
+        <span
+          className="sort-trigger"
+          onClick={handleSort}
+          role="button"
+          tabIndex="0"
+          data-id="ID"
+        >
+          #
+          {sortCode[0] === 'ID' && sortArrow(sortMethod)}
+        </span>
+      </div>
       <div className="table-th table-col__img no-padding" />
-      <div className="table-th table-col__name">Название</div>
+      <div className="table-th table-col__name">
+        <span
+          className="sort-trigger"
+          onClick={handleSort}
+          role="button"
+          tabIndex="0"
+          data-id="NAME"
+        >
+          Название
+          {sortCode[0] === 'NAME' && sortArrow(sortMethod)}
+        </span>
+      </div>
       <div className="table-th table-col__category">Категория</div>
       <div className="table-th table-col__location no-padding">
         <Icon className="table-th__icon table-th__watched" icon="location" width={14} height={14} />
       </div>
-      <div className="table-th table-col__price align-right no-padding-left">Цена</div>
-      <div className="table-th table-col__profit align-right no-padding-left">Прибыль</div>
+      <div className="table-th table-col__price align-right no-padding-left">
+        <span
+          className="sort-trigger"
+          onClick={handleSort}
+          role="button"
+          tabIndex="0"
+          data-id="PROPERTY_PRICE_BUSINESS"
+        >
+          Цена
+          {sortCode[0] === 'PROPERTY_PRICE_BUSINESS' && sortArrow(sortMethod)}
+        </span>
+      </div>
+      <div className="table-th table-col__profit align-right no-padding-left">
+        <span
+          className="sort-trigger"
+          onClick={handleSort}
+          role="button"
+          tabIndex="0"
+          data-id="PROPERTY_CHIST_PRIB"
+        >
+          Прибыль
+          {sortCode[0] === 'PROPERTY_CHIST_PRIB' && sortArrow(sortMethod)}
+        </span>
+      </div>
       <div className="table-th table-col__broker no-padding-left">Брокер</div>
       <div className="table-th table-col__dealer no-padding-left">Продавец</div>
-      <div className="table-th table-col__created no-padding-left">Создан</div>
+      <div className="table-th table-col__created no-padding-left">
+        <span
+          className="sort-trigger"
+          onClick={handleSort}
+          role="button"
+          tabIndex="0"
+          data-id="CREATED_DATE"
+        >
+          Создан
+          {sortCode[0] === 'CREATED_DATE' && sortArrow(sortMethod)}
+        </span>
+      </div>
       <div className="table-th table-col__updated no-padding-left">
         <Icon className="table-th__icon table-th__updated" icon="loading" width={16} height={16} />
       </div>
