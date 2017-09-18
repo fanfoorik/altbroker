@@ -172,30 +172,37 @@ class AddPage extends React.Component {
     {
       title: 'Основное',
       component: 'Basic',
+      anchor: 'basic',
     },
     {
       title: 'Финансы',
       component: 'Finance',
+      anchor: 'finance',
     },
     {
       title: 'Штат',
       component: 'Staff',
+      anchor: 'staff',
     },
     {
       title: 'Помещение',
       component: 'Building',
+      anchor: 'building',
     },
     {
       title: 'Активы',
       component: 'Asset',
+      anchor: 'asset',
     },
     {
       title: 'Продавец',
       component: 'Salary',
+      anchor: 'salary',
     },
     {
       title: 'Галерея',
       component: 'Gallery',
+      anchor: 'gallery',
     },
   ];
 
