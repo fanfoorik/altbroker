@@ -86,7 +86,43 @@ class AddPage extends React.Component {
   }
 
   componentDidMount() {
-    fetchLib(this);
+    fetchLib().then(data => {
+      const answer = data.ANSWER;
+      this.setState({
+        lib: {
+          cities: answer.ALL_CITY.map(city => ({
+            value: city.ID,
+            label: city.NAME,
+          })),
+          metro: answer.ALL_METRO,
+          categories: answer.ALL_CATEGORY_GB_1.map(category => ({
+            label: category.NAME,
+            value: category.ID,
+          })),
+          categories2: answer.ALL_CATEGORY_GB_2,
+          sources: answer.PROPERTY_SOURCE.map(source => ({
+            value: source.ID,
+            label: source.VALUE,
+          })),
+          reasons: answer.PROPERTY_REASON_FOR_SALE.map(reason => ({
+            value: reason.ID,
+            label: reason.NAME,
+          })),
+          advantages: answer.PROPERTY_DOP_ICON.map(advantage => ({
+            label: advantage.VALUE,
+            value: advantage.ID,
+          })),
+          opf: answer.PROPERTY_OPF.map(opf => ({
+            label: opf.VALUE,
+            value: opf.ID,
+          })),
+          landlord: answer.PROPERTY_LANDLORD.map(landlord => ({
+            label: landlord.VALUE,
+            value: landlord.ID,
+          })),
+        },
+      });
+    });
   }
 
   onChangeStateHandler = (section) => {
