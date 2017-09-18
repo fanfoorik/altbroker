@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 
 const dev = process.env.NODE_ENV === 'development';
 
@@ -59,7 +60,7 @@ module.exports = {
         use: cssConfig,
       },
       {
-        test: /\.(jpe?g|png|svg|gif)$/,
+        test: /\.(jpe?g|png|gif)$/,
         use: 'file-loader?name=images/[name].[ext]',
       },
       {
@@ -69,6 +70,12 @@ module.exports = {
       {
         test: /mezr\.min\.js$/,
         use: 'imports-loader?this=>window',
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          'svg-sprite-loader',
+        ],
       },
     ],
   },
@@ -81,6 +88,7 @@ module.exports = {
     new HtmlWebpackPlugin({ template: './src/index.html' }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
+    new SpriteLoaderPlugin(),
     new webpack.DefinePlugin({
       dev,
       prod: !dev,
