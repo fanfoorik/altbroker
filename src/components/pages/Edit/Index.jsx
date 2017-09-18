@@ -250,7 +250,6 @@ class EditPage extends React.Component {
           <div className="edit-page">
             <LeftPanel
               sections={this.sections}
-              anchar={window.location.hash.substr(1)}
               selectValues={this.state.selectValues}
             />
             <div className="edit-page__container">
