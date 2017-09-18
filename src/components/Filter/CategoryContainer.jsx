@@ -7,6 +7,8 @@ import CategoryDropdown from './dropdowns/CategoryDropdown';
 import Dropdown from 'components/Dropdown';
 import FormSearch from 'components/ui/FormSearch';
 import FilterDropdown from './dropdowns/FilterDropdown';
+import FormControls from 'components/ui/FormControls';
+import Icon from 'components/Icon';
 
 import Filter from './Filter';
 
@@ -54,7 +56,11 @@ class Category extends React.Component {
   };
 
   render() {
-    const { isActive, triggerDropdown } = this.props;
+    const { isActive,
+      triggerDropdown,
+      resetSection,
+      selectedItems: { selectedSubCategories },
+    } = this.props;
     const { categories } = this.state;
     const { checked } = categories;
     const value = !!checked.length && checked[0].NAME;
@@ -75,12 +81,32 @@ class Category extends React.Component {
               <FilterDropdown.Column>
                 <FilterDropdown.Header label="Категории" />
                 <FormSearch autoFocus />
+                <br/>
+                <br/>
+                <br/>
+                <br/>
               </FilterDropdown.Column>
 
               <FilterDropdown.Column>
-                <FilterDropdown.Header label="Подкатегории" />
+                <FilterDropdown.Header label="Подкатегории" length={selectedSubCategories.length} />
                 <FormSearch autoFocus />
               </FilterDropdown.Column>
+
+              <FormControls
+                left={
+                  <span
+                    className="form-control form-control_reset"
+                    onClick={resetSection}
+                    role="button"
+                    tabIndex="0"
+                    data-name="SECTION_ID_1"
+                  >Сбросить</span>}
+                right={(
+                  <div className="form-control form-control_close" onClick={triggerDropdown} role="button" tabIndex="0">
+                    <Icon className="icon__close" icon="close" width={15} height={15} />
+                  </div>
+                )}
+              />
 
             </FilterDropdown>
           </Dropdown>

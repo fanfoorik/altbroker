@@ -267,41 +267,57 @@ export default class GbFilter extends React.Component {
 
     return (
       <div>
-        {/*<Filter>*/}
-          {/*<Filter.Row>*/}
+        <Filter>
+          <Filter.Row>
 
-            {/*<Filter.Cell className="round-top-left">*/}
-              {/*<input value={idNameTel} onChange={this.idNameTelChange} name="ID_NAME_TEL" className="input filter__input" type="text" placeholder="ID / Название объекта / Телефон" />*/}
-            {/*</Filter.Cell>*/}
+            <Filter.Cell className="round-top-left">
+              <input value={idNameTel} onChange={this.idNameTelChange} name="ID_NAME_TEL" className="input filter__input" type="text" placeholder="ID / Название объекта / Телефон" />
+            </Filter.Cell>
 
-            {/*<Filter.Cell className="hover active">*/}
-              {/*<CategoryContainer*/}
-                {/*items={{ categories, subCategories }}*/}
-                {/*selectedItems={{ selectedCategories, selectedSubCategories }}*/}
-                {/*changeFilterItem={this.changeFilterItem}*/}
-                {/*handleSearch={this.handleSearch}*/}
-                {/*searchValue={{ searchCategory, searchSubCategory }}*/}
-                {/*resetSection={this.resetSection}*/}
-              {/*/>*/}
-            {/*</Filter.Cell>*/}
+            <Filter.Cell className="hover active">
+              <CategoryContainer
+                items={{ categories, subCategories }}
+                selectedItems={{ selectedCategories, selectedSubCategories }}
+                changeFilterItem={this.changeFilterItem}
+                handleSearch={this.handleSearch}
+                searchValue={{ searchCategory, searchSubCategory }}
+                resetSection={this.resetSection}
+              />
+            </Filter.Cell>
 
-            {/*<Filter.Cell />*/}
-          {/*</Filter.Row>*/}
+            <Filter.Cell />
+          </Filter.Row>
 
-          {/*<Filter.Row>*/}
-            {/*<Filter.Cell className="hover round-bottom-left">*/}
-              {/*<BrokersContainer*/}
-                {/*items={brokers}*/}
-                {/*selectedItems={selectedBrokers}*/}
-                {/*changeFilterItem={this.changeFilterItem}*/}
-                {/*handleSearch={this.handleSearch}*/}
-                {/*searchValue={searchBrokers}*/}
-                {/*resetSection={this.resetSection}*/}
-                {/*submitOnDropdownClose={this.submitOnDropdownClose}*/}
-              {/*/>*/}
-            {/*</Filter.Cell>*/}
-          {/*</Filter.Row>*/}
-        {/*</Filter>*/}
+          <Filter.Row>
+            <Filter.Cell className="hover round-bottom-left">
+              <BrokersContainer
+                items={brokers}
+                selectedItems={selectedBrokers}
+                changeFilterItem={this.changeFilterItem}
+                handleSearch={this.handleSearch}
+                searchValue={searchBrokers}
+                resetSection={this.resetSection}
+                submitOnDropdownClose={this.submitOnDropdownClose}
+              />
+            </Filter.Cell>
+          </Filter.Row>
+        </Filter>
+
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
 
         <div className="filter filter_business mb-28">
           <form onSubmit={this.filterSubmit}>
