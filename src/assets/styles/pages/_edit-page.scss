@@ -164,11 +164,14 @@
 
 .page-aside {
   width: 180px;
-  border: 1px solid $bd-main;
-  border-radius: 4px;
-  background: $c-white;
   position: fixed;
   $this: &;
+
+  &__list {
+    border: 1px solid $bd-main;
+    border-radius: 4px;
+    background: $c-white;
+  }
 
   &__quality {
     padding: 15px;
@@ -255,15 +258,25 @@
   }
 
   &__buttons {
-    border-top: 1px solid $c-border-main;
-    padding: 14px;
+    padding: 14px 0;
 
-    .btn {
+    &__btn {
+      border-color: $c-table-border;
       width: 100%;
-      margin-bottom: 10px;
+      height: 47px;
+      font-size: 14px;
 
-      &:last-child {
-        margin-bottom: 0;
+      &:hover {
+        border-color: $c-blue-main;
+      }
+
+      &:first-child {
+        border-color: $c-blue-main;
+        border-width: 2px; 
+      }
+
+      &::after {
+        content: none;
       }
     }
   }

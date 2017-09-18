@@ -8,7 +8,7 @@ function myMove(posi) {
 
   let id = (pos < posi) ? setInterval(top, 0) : setInterval(bottom, 0);
   const step = 50;
-  const headerHeight = 100;
+  const headerHeight = 20;
 
   function top() {
     if (pos >= posi) {
@@ -87,74 +87,75 @@ const LeftPanel = ({
 
   return (
     <div className="page-aside">
-      <div className="page-aside__quality">
-        <div className="page-aside__quality_heading">
-          Качество заполнения
-        </div>
-        <div className="page-aside__quality_diagrams">
-          <div className="circle">
-            <svg width="50" height="50" viewBox="0 0 150 160">
-              <circle transform="rotate(-90)" r={R} cx="-80" cy="80" />
-              <circle
-                transform="rotate(-90)"
-                r={R}
-                cx="-80"
-                cy="80"
-                strokeDasharray={2 * Math.PI * R}
-                strokeDashoffset={circleProgress}
-              />
-            </svg>
-            <span className="circle__number">{percentFilledField}</span>
+      <div className="page-aside__list">
+        <div className="page-aside__quality">
+          <div className="page-aside__quality_heading">
+            Качество заполнения
+          </div>
+          <div className="page-aside__quality_diagrams">
+            <div className="circle">
+              <svg width="50" height="50" viewBox="0 0 150 160">
+                <circle transform="rotate(-90)" r={R} cx="-80" cy="80" />
+                <circle
+                  transform="rotate(-90)"
+                  r={R}
+                  cx="-80"
+                  cy="80"
+                  strokeDasharray={2 * Math.PI * R}
+                  strokeDashoffset={circleProgress}
+                />
+              </svg>
+              <span className="circle__number">{percentFilledField}</span>
+            </div>
           </div>
         </div>
-      </div>
-      {
-        sections.map((section, index) => {
-          let countFilledField = 0;
-          const allCountField = Object.keys(selectValues[section.component]).length;
+        {
+          sections.map((section, index) => {
+            let countFilledField = 0;
+            const allCountField = Object.keys(selectValues[section.component]).length;
 
-          const onClickHandler = () => {
-            Object.keys(pagePanelDomElements).map(id => {
-              if (pagePanelDomElements[id].getAttribute('data-anchor') === section.anchor) {
-                myMove(pagePanelDomElements[id].offsetTop);
+            const onClickHandler = () => {
+              Object.keys(pagePanelDomElements).map(id => {
+                if (pagePanelDomElements[id].getAttribute('data-anchor') === section.anchor) {
+                  myMove(pagePanelDomElements[id].offsetTop);
+                }
+              });
+            };
+
+            Object.keys(selectValues[section.component]).map((key) => {
+              const value = selectValues[section.component][key];
+
+              if (value !== undefined &&
+                  value !== null &&
+                  value.length !== 0) {
+                countFilledField += 1;
               }
             });
-          };
 
-          Object.keys(selectValues[section.component]).map((key) => {
-            const value = selectValues[section.component][key];
+            return (
+              <span className="page-aside__item" onClick={onClickHandler} key={index}>
+                <span className="page-aside__item_text">{section.title}</span>
+                {
+                  (countFilledField === allCountField) ?
+                    <span className="page-aside__item_status quantity-status" /> :
+                    ''
+                }
 
-            if (value !== undefined &&
-                value !== null &&
-                value.length !== 0) {
-              countFilledField += 1;
-            }
-          });
-
-          return (
-            <span className="page-aside__item" onClick={onClickHandler} key={index}>
-              <span className="page-aside__item_text">{section.title}</span>
-              {
-                (countFilledField === allCountField) ?
-                  <span className="page-aside__item_status quantity-status" /> :
-                  ''
-              }
-
-              <span className="page-aside__item_quantity">
-                {countFilledField}/{allCountField}
+                <span className="page-aside__item_quantity">
+                  {countFilledField}/{allCountField}
+                </span>
               </span>
-            </span>
-          );
-        })
-      }
+            );
+          })
+        }
+      </div>
       {
         onSubmit && onDraft ?
           <div className="page-aside__buttons">
-            <button className="btn btn-primary" onClick={onSubmit}>Сохранить</button>
-            <button className="btn" onClick={onDraft}>В черновик</button>
+            <button className="btn page-aside__buttons__btn" onClick={onSubmit}>Разместить</button>
+            <button className="btn page-aside__buttons__btn" onClick={onDraft}>В черновик</button>
           </div> : ''
       }
-
     </div>
   );
 };
