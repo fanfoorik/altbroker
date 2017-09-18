@@ -278,4 +278,29 @@ textarea,
   }
 }
 
+.Select--multi .Select-value {
+  background-color: $bd-main;
+  border-color: $bd-main;
+  color: $c-grey-dark;
+  line-height: 1.1;
+  margin-top: 3px;
+  margin-left: 3px;
+
+  .Select-value-label {
+    font-size: 13px;
+  }
+
+  .Select-value-icon {
+    font-size: 25px;
+    border-right: none;
+    padding: 0 0 0 3px;
+    color: $se-icon-color;
+
+    &:hover {
+      background-color: $bd-main;
+      color: black;
+    }
+  }
+}
+
 

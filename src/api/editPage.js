@@ -1,5 +1,4 @@
 import ajax from 'utils/ajax';
-import { NotificationManager } from 'react-notifications';
 
 export const fetchDataForEditPage = id => ajax.post(`broker/gb/${id}/edit/`);
 
@@ -31,13 +30,7 @@ export const sendDataFromEditPage = (id, newState, section) => {
   delete newState.PROPERTY_IMGS_FULL;
   delete newState.PROPERTY_HIDE_IMGS_FULL;
 
-  ajax.post(`broker/gb/${id}/edit/`, newState).then((result) => {
-    if (result.ANSWER.SUCCESS) {
-      NotificationManager.success('ДАННЫЕ ОБНОВЛЕНЫ', 'OK');
-    } else {
-      NotificationManager.error('Извините на сервере произошла ошибка!', 'ОШИБКА');
-    }
-  });
+  return ajax.post(`broker/gb/${id}/edit/`, newState);
 };
 
 export const deleteImg = (PIC_ID = '', PIC_URL = '', ELEMENT_ID = '') => {

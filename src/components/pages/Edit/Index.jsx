@@ -2,6 +2,8 @@ import React from 'react';
 import LeftPanel from './LeftPanel';
 import Breadcrumbs from 'components/ui/Breadcrumbs';
 import { indexUrl } from 'utils/urls';
+import { NotificationStack } from 'react-notification';
+import { OrderedSet } from 'immutable';
 
 import {
   Basic,
@@ -24,6 +26,8 @@ class EditPage extends React.Component {
     super(props);
 
     this.state = {
+      notifications: OrderedSet(),
+      count: 0,
       selectValues: {
         Basic: {},
         Finance: {},
@@ -179,7 +183,6 @@ class EditPage extends React.Component {
     };
   };
 
-
   onSubmitHandler = (section) => {
     return (e) => {
       e.preventDefault();
@@ -191,8 +194,40 @@ class EditPage extends React.Component {
           ...this.state.selectValues[section],
         },
         section,
-      );
+      ).then((result) => {
+        if (result.ANSWER.SUCCESS) {
+          this.addNotification('Объект успешно обновлен!');
+        } else {
+            if (result.ANSWER.ERROR.MESSAGE) {
+              this.addNotification(result.ANSWER.ERROR.MESSAGE);
+            } else {
+              result.ANSWER.ERROR.map(error => {
+                this.addNotification(error.VAL);
+              });
+            }
+        }
+      });
     };
+  };
+
+  addNotification = (text) => {
+    const { notifications } = this.state;
+    const count = this.state.count + 1;
+
+    return this.setState({
+      count,
+      notifications: notifications.add({
+        dismissAfter: 3000,
+        key: `notification-id-${count}`,
+        message: text,
+      }),
+    });
+  };
+
+  handleNotificationDismiss = (notification) => {
+    this.setState({
+      notifications: this.state.notifications.delete(notification),
+    });
   };
 
   componentSections = {
@@ -245,40 +280,42 @@ class EditPage extends React.Component {
 
   render() {
     return (
-      <section className="content" id="content">
-        <div className="container container__min position-rel">
-          <Breadcrumbs
-            items={[
-              { label: 'Бизнесы', link: `${indexUrl}broker/gb/` },
-              { label: 'Редактировать' },
-            ]}
+      <div className="container container__min position-rel">
+        <Breadcrumbs
+          items={[
+            { label: 'Бизнесы', link: `${indexUrl}broker/gb/` },
+            { label: 'Редактировать' },
+          ]}
+        />
+        <div className="edit-page">
+          <LeftPanel
+            sections={this.sections}
+            selectValues={this.state.selectValues}
           />
-          <div className="edit-page">
-            <LeftPanel
-              sections={this.sections}
-              selectValues={this.state.selectValues}
-            />
-            <div className="edit-page__container">
-              {
-                this.sections.map((section, index) => {
-                  const Component = this.componentSections[section.component];
+          <div className="edit-page__container">
+            {
+              this.sections.map((section, index) => {
+                const Component = this.componentSections[section.component];
 
-                  return (
-                    <Component
-                      lib={this.state.lib}
-                      key={index}
-                      selectValues={this.state.selectValues[section.component]}
-                      onChangeState={this.onChangeStateHandler(section.component)}
-                      onSubmit={this.onSubmitHandler(section.component)}
-                      objectId={this.props.params.id}
-                    />
-                  );
-                })
-              }
-            </div>
+                return (
+                  <Component
+                    lib={this.state.lib}
+                    key={index}
+                    selectValues={this.state.selectValues[section.component]}
+                    onChangeState={this.onChangeStateHandler(section.component)}
+                    onSubmit={this.onSubmitHandler(section.component)}
+                    objectId={this.props.params.id}
+                  />
+                );
+              })
+            }
           </div>
         </div>
-      </section>
+        <NotificationStack
+          notifications={this.state.notifications.toArray()}
+          onDismiss={instance => this.handleNotificationDismiss(instance)}
+        />
+      </div>
     );
   }
 }
