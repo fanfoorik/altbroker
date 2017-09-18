@@ -13,11 +13,9 @@ import Income from './Income';
 import Recoupment from './Recoupment';
 import Status from 'components/Filter/Status';
 
-
-import CategoryContainer from './CategoryContainer';
-
-
 import Filter from './Filter';
+import CategoryContainer from './CategoryContainer';
+import BrokersContainer from './BrokersContainer';
 
 export default class GbFilter extends React.Component {
   constructor(props) {
@@ -34,7 +32,7 @@ export default class GbFilter extends React.Component {
         SECTION_ID_1: '',
         SECTION_ID_2: '',
       },
-      extendFilter: false,
+      extendFilter: true,
     };
   }
 
@@ -272,11 +270,11 @@ export default class GbFilter extends React.Component {
         {/*<Filter>*/}
           {/*<Filter.Row>*/}
 
-            {/*<Filter.Cell className="filter__cell_hover">*/}
+            {/*<Filter.Cell className="round-top-left">*/}
               {/*<input value={idNameTel} onChange={this.idNameTelChange} name="ID_NAME_TEL" className="input filter__input" type="text" placeholder="ID / Название объекта / Телефон" />*/}
             {/*</Filter.Cell>*/}
 
-            {/*<Filter.Cell className="filter__cell_hover active">*/}
+            {/*<Filter.Cell className="hover active">*/}
               {/*<CategoryContainer*/}
                 {/*items={{ categories, subCategories }}*/}
                 {/*selectedItems={{ selectedCategories, selectedSubCategories }}*/}
@@ -288,12 +286,10 @@ export default class GbFilter extends React.Component {
             {/*</Filter.Cell>*/}
 
             {/*<Filter.Cell />*/}
-            {/*<Filter.Cell />*/}
-            {/*<Filter.Cell />*/}
           {/*</Filter.Row>*/}
 
           {/*<Filter.Row>*/}
-            {/*<Filter.Cell className="filter__cell_hover">*/}
+            {/*<Filter.Cell className="hover round-bottom-left">*/}
               {/*<BrokersContainer*/}
                 {/*items={brokers}*/}
                 {/*selectedItems={selectedBrokers}*/}

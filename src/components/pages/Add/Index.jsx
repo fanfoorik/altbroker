@@ -1,7 +1,8 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
+import Breadcrumbs from 'components/ui/Breadcrumbs';
+import { indexUrl } from 'utils/urls';
 
-import Header from '../Edit/Header';
 import LeftPanel from '../Edit/LeftPanel';
 import {
   Basic,
@@ -218,35 +219,39 @@ class AddPage extends React.Component {
 
   render() {
     return (
-      <section className="content" id="content">
-        <div className="container container__min position-rel">
-          <Header />
-          <div className="edit-page">
-            <LeftPanel
-              sections={this.sections}
-              onSubmit={this.onSubmit}
-              onDraft={this.onDraft}
-              selectValues={this.state.selectValues}
-            />
-            <div className="edit-page__container">
-              {
-                this.sections.map((section, index) => {
-                  const Component = this.componentSections[section.component];
+      <div className="container container__min position-rel">
+        <Breadcrumbs
+          items={[
+            { label: 'Бизнесы', link: `${indexUrl}broker/gb/` },
+            { label: 'Добавить' },
+          ]}
+        />
 
-                  return (
-                    <Component
-                      lib={this.state.lib}
-                      key={index}
-                      selectValues={this.state.selectValues[section.component]}
-                      onChangeState={this.onChangeStateHandler(section.component)}
-                    />
-                  );
-                })
-              }
-            </div>
+        <div className="edit-page">
+          <LeftPanel
+            sections={this.sections}
+            onSubmit={this.onSubmit}
+            onDraft={this.onDraft}
+            selectValues={this.state.selectValues}
+          />
+          <div className="edit-page__container">
+            {
+              this.sections.map((section, index) => {
+                const Component = this.componentSections[section.component];
+
+                return (
+                  <Component
+                    lib={this.state.lib}
+                    key={index}
+                    selectValues={this.state.selectValues[section.component]}
+                    onChangeState={this.onChangeStateHandler(section.component)}
+                  />
+                );
+              })
+            }
           </div>
         </div>
-      </section>
+      </div>
     );
   }
 }

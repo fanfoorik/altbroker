@@ -12,7 +12,6 @@
 
   &__row {
     clear: both;
-    margin-right: -1px;
     box-shadow: 0 -1px 0 0 $bd-main inset;
 
     #{$this}__row {
@@ -49,6 +48,22 @@
         width: 200%;
       }
     }
+
+    &.round-top-left {
+      border-top-left-radius: 3px;
+    }
+
+    &.round-top-right {
+      border-top-right-radius: 3px;
+    }
+
+    &.round-bottom-left {
+      border-bottom-left-radius: 3px;
+    }
+
+    &.round-bottom-right {
+      border-bottom-right-radius: 3px;
+    }
   }
 
   &__input.input {
@@ -72,6 +87,7 @@
   height: 40px;
   padding: 0 12px;
   color: $c-grey-middle;
+  //cursor: pointer;
   $this: &;
 
   .filter__cell_hover & {
@@ -202,43 +218,67 @@
 .form-controls {
   border-top: 1px solid $c-border-main;
   color: $c-grey-middle;
-  padding: 2px 8px 2px 16px;
+  padding: 0 8px 0 8px;
   font-size: 12px;
   overflow: hidden;
   width: 100%;
+  min-height: 36px;
 
-  &__reset {
+  &__left {
     float: left;
-    padding: 8px 0;
-    cursor: pointer;
+    display: flex;
+    min-height: 40px;
+    justify-content: center;
+    align-items: stretch;
 
-    &:hover {
-      color: $c-blue-main;
+    > * {
+      padding-left: 4px;
+      padding-right: 4px;
+      display: flex;
+      align-items: center;
     }
   }
 
-  &__actions {
+  &__right {
     float: right;
+    display: flex;
+    min-height: 40px;
+    justify-content: center;
+    align-items: stretch;
 
-    &_item {
-      margin: 0 0 0 8px;
-      padding: 8px;
-      background: none;
-      border-width: 0;
-      display: inline-block;
-
-      &.disabled .icon {
-        cursor: default;
-        fill: $c-grey-middle;
-        opacity: 0.5;
-      }
+    > * {
+      padding-left: 4px;
+      padding-right: 4px;
+      display: flex;
+      align-items: center;
     }
   }
 
-  .icon__close {
-    cursor: pointer;
+}
 
-    &:hover {
+.form-control {
+  background: none;
+  border-width: 0;
+  cursor: pointer;
+
+  &.disabled .icon {
+    cursor: default;
+    fill: $c-grey-middle;
+    opacity: 0.5;
+  }
+
+  &_reset {
+    margin-left: 4px;
+  }
+
+  &_close {
+    padding: 0 10px;
+  }
+
+  &:hover {
+    color: $c-blue-main;
+
+    .icon {
       fill: $c-blue-main;
     }
   }
@@ -355,6 +395,44 @@
       padding: 8px 12px;
       border-bottom: 1px solid $c-border-main;
       border-top: 1px solid $c-border-main;
+      min-height: 38px;
+    }
+
+    &_upper {
+      margin-top: -9px;
+    }
+  }
+}
+
+.form-checkboxes-heading {
+  background-color: $c-grey-light;
+  margin: 0px -12px 8px -12px;
+  padding: 8px 12px;
+  border-bottom: 1px solid $c-border-main;
+  border-top: 1px solid $c-border-main;
+  min-height: 38px;
+  $this: &;
+
+  &_upper {
+    margin-top: -9px;
+  }
+
+  &_clickable {
+    cursor: pointer;
+
+    &:hover {
+      color: $c-blue-main;
+    }
+  }
+
+  &__label {
+    float: right;
+    font-size: 12px;
+    padding-top: 2px;
+    color: $c-grey-main;
+
+    #{$this}:hover & {
+      color: $c-blue-main;
     }
   }
 }

@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import IsActive from 'utils/IsActive';
 
 import DealPopover from 'components/popovers/DealPopover';
 import PopoverTriggerHOC from 'components/popovers/PopoverTriggerHOC';
+import Dropdown from 'components/Dropdown';
 
 const TableOptions = (props) => {
   const {
@@ -25,13 +25,13 @@ const TableOptions = (props) => {
         <span className="table-cell__dot" />
       </span>
 
-      <IsActive active={active}>
+      {active &&
         <DealPopover
           id={id}
           triggerPopover={triggerPopover}
           openDetailPage={openDetailPage}
         />
-      </IsActive>
+      }
     </div>
   );
 };

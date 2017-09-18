@@ -35,7 +35,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/altbroker3" component={ProtectedRoute(AppContainer)}>
-        <IndexRedirect to="broker/gb" />
+        <IndexRedirect to="broker/gb/" />
         {/*<IndexRoute component={ProtectedRoute(Index)} />*/}
         <Route path="user" component={ProtectedRoute(User)}>
           <Route path=":userId">

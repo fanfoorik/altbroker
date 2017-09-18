@@ -16,6 +16,10 @@
   width: 150px;
   z-index: 10;
 
+  .table-options & {
+    min-height: 226px;
+  }
+
   &::before {
     background: $c-white;
     bottom: -7px;
@@ -349,6 +353,18 @@ input.popover-input {
   position: relative;
   word-wrap: break-word;
 
+  .table-options & {
+    cursor: pointer;
+
+    &:hover {
+      color: $c-blue-main;
+      background: $bg-blue-grey;
+
+      .icon {
+        fill: $c-blue-main
+      }
+    }
+  }
 
   &:last-child {
     border: 0;

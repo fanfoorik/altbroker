@@ -23,7 +23,7 @@ export default function Trigger(props) {
 }
 
 Trigger.defaultProps = {
-  label: '',
+  label: '--',
   more: '',
   value: '',
   onClick: null,

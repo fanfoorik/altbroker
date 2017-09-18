@@ -1,7 +1,8 @@
 import React from 'react';
-
-import Header from './Header';
 import LeftPanel from './LeftPanel';
+import Breadcrumbs from 'components/ui/Breadcrumbs';
+import { indexUrl } from 'utils/urls';
+
 import {
   Basic,
   Finance,
@@ -246,7 +247,12 @@ class EditPage extends React.Component {
     return (
       <section className="content" id="content">
         <div className="container container__min position-rel">
-          <Header />
+          <Breadcrumbs
+            items={[
+              { label: 'Бизнесы', link: `${indexUrl}broker/gb/` },
+              { label: 'Редактировать' },
+            ]}
+          />
           <div className="edit-page">
             <LeftPanel
               sections={this.sections}

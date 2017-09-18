@@ -14,8 +14,9 @@ export default function PopoverBaseHOC(Popover) {
      */
     setDirection = (popover) => {
       const heading = document.getElementById('listing-heading');
-      if (!intersection(heading, popover)) return;
-      popover.classList.add('top');
+      if (intersection(heading, popover)) {
+        popover.classList.add('top');
+      }
     };
 
     componentDidMount() {
