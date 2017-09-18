@@ -7,16 +7,18 @@ function myMove(posi) {
   let pos = window.pageYOffset;
 
   let id = (pos < posi) ? setInterval(top, 0) : setInterval(bottom, 0);
+  const step = 50;
+  const headerHeight = 100;
 
   function top() {
     if (pos >= posi) {
       clearInterval(id);
     } else {
       var pospre = pos;
-      pos += 50;
+      pos += step;
 
       if (pos >= posi) {
-        window.scrollTo(pospre,  posi + 100);
+        window.scrollTo(pospre,  posi + headerHeight);
       } else {
         window.scrollTo(pospre,  pos);
       }
@@ -28,10 +30,10 @@ function myMove(posi) {
       clearInterval(id);
     } else {
       var pospre = pos;
-      pos -= 50;
+      pos -= step;
 
       if (pos <= posi) {
-        window.scrollTo(pospre,  posi + 100);
+        window.scrollTo(pospre,  posi + headerHeight);
       } else {
         window.scrollTo(pospre,  pos);
       }
