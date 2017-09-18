@@ -358,8 +358,21 @@
   }
 
   &__pointer {
+    color: $c-blue-main;
     position: absolute;
     right: 0;
+  }
+}
+
+.create-new-link {
+  font-size: 20px;
+  color: $c-grey-middle;
+  display: inline-block;
+  margin-left: 20px;
+  vertical-align: bottom;
+
+  &:hover {
     color: $c-blue-main;
+    text-decoration: none;
   }
 }

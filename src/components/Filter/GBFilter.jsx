@@ -270,11 +270,11 @@ export default class GbFilter extends React.Component {
         {/*<Filter>*/}
           {/*<Filter.Row>*/}
 
-            {/*<Filter.Cell className="filter__cell_hover">*/}
+            {/*<Filter.Cell className="round-top-left">*/}
               {/*<input value={idNameTel} onChange={this.idNameTelChange} name="ID_NAME_TEL" className="input filter__input" type="text" placeholder="ID / Название объекта / Телефон" />*/}
             {/*</Filter.Cell>*/}
 
-            {/*<Filter.Cell className="filter__cell_hover active">*/}
+            {/*<Filter.Cell className="hover active">*/}
               {/*<CategoryContainer*/}
                 {/*items={{ categories, subCategories }}*/}
                 {/*selectedItems={{ selectedCategories, selectedSubCategories }}*/}
@@ -286,12 +286,10 @@ export default class GbFilter extends React.Component {
             {/*</Filter.Cell>*/}
 
             {/*<Filter.Cell />*/}
-            {/*<Filter.Cell />*/}
-            {/*<Filter.Cell />*/}
           {/*</Filter.Row>*/}
 
           {/*<Filter.Row>*/}
-            {/*<Filter.Cell className="filter__cell_hover">*/}
+            {/*<Filter.Cell className="hover round-bottom-left">*/}
               {/*<BrokersContainer*/}
                 {/*items={brokers}*/}
                 {/*selectedItems={selectedBrokers}*/}

@@ -48,6 +48,22 @@
         width: 200%;
       }
     }
+
+    &.round-top-left {
+      border-top-left-radius: 3px;
+    }
+
+    &.round-top-right {
+      border-top-right-radius: 3px;
+    }
+
+    &.round-bottom-left {
+      border-bottom-left-radius: 3px;
+    }
+
+    &.round-bottom-right {
+      border-bottom-right-radius: 3px;
+    }
   }
 
   &__input.input {
@@ -71,6 +87,7 @@
   height: 40px;
   padding: 0 12px;
   color: $c-grey-middle;
+  //cursor: pointer;
   $this: &;
 
   .filter__cell_hover & {
