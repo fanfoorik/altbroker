@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router';
 
 import { formatNumber } from 'utils/formaters';
 import { indexUrl } from 'utils/urls.js';
+import nanoid  from 'nanoid';
 
 const itemsPerPage = [15, 25, 50];
 
@@ -14,10 +15,8 @@ export default function GBPaginator(props) {
    * Updates url & updates page options.
    * @param {number} index - page index
    * @param {number } count - items per page
-   * @param {string} url - url with query params
    */
-  function fetchItems(index, count, url) {
-    browserHistory.push(`${indexUrl}broker/gb/${url}`);
+  function fetchItems(index, count) {
     updateGBOptions({ PAGE: index, COUNT: count });
   }
 
@@ -29,12 +28,12 @@ export default function GBPaginator(props) {
   function generateItemsPerPageLinks(count, url) {
     return itemsPerPage.map(item => (
       <div
+        key={nanoid()}
         className={`paginator__list-item ${item === count ? 'active' : ''}`}
-        key={`paginator__item-${Math.floor(Date.now() * Math.random())}`}
       >
         <span
           className="paginator__list-link"
-          onClick={() => fetchItems(url, item, `?PAGE=${url}&COUNT=${item}`)}
+          onClick={() => fetchItems(url, item)}
           role="button"
           tabIndex="0"
         >{item}</span>;
@@ -56,7 +55,7 @@ export default function GBPaginator(props) {
   const nextLink = (
     <div
       className={`paginator__list-item paginator__next ${!nextPage ? 'disabled' : ''}`}
-      onClick={() => (nextPage ? fetchItems(nextPage.ID, countPerPage, nextPage.URL) : false)}
+      onClick={() => (nextPage ? fetchItems(nextPage.ID, countPerPage) : false)}
       role="button"
       tabIndex="0"
     >&gt;</div>
@@ -65,7 +64,7 @@ export default function GBPaginator(props) {
   const prevLink = (
     <div
       className={`paginator__list-item paginator__prev ${!prevPage ? 'disabled' : ''}`}
-      onClick={() => (prevPage ? fetchItems(prevPage.ID, countPerPage, prevPage.URL) : false)}
+      onClick={() => (prevPage ? fetchItems(prevPage.ID, countPerPage) : false)}
       role="button"
       tabIndex="0"
     >&lt;</div>
@@ -82,7 +81,7 @@ export default function GBPaginator(props) {
         {navHrefs && navHrefs.map(item => (
           <div
             className={`paginator__list-item ${currPageIndex === item.ID ? 'active' : ''}`}
-            key={`paginator-link-${item.ID}`}
+            key={nanoid()}
           >
             <span
               className="paginator__list-link"

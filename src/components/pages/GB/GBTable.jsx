@@ -24,13 +24,7 @@ export default class BrokerTable extends React.Component {
   }
 
   componentDidMount() {
-    const query = this.props.query;
-
-    if (query.PAGE && query.COUNT) {
-      this.props.updateGBOptions({ PAGE: query.PAGE, COUNT: query.COUNT });
-    } else {
-      this.props.fetchGBListing(this.pageIndex, this.itemsCount);
-    }
+    this.props.fetchGBListing();
   }
 
   componentWillReceiveProps(nextProps) {
