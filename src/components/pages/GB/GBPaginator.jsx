@@ -99,9 +99,9 @@ export default function GBPaginator(props) {
         <div className="table-footer__items">
           {'Показаны с '}
           <span className="table-footer__items-count">
-            { ((currPageIndex * itemsCount) - itemsCount) + 1 }
+            {((currPageIndex - 1) * countPerPage) + 1}
             {' по '}
-            {currPageIndex * itemsCount}
+            {((currPageIndex - 1) * countPerPage) + itemsCount}
           </span>
         </div>
       }
