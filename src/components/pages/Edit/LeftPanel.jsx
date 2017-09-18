@@ -7,8 +7,10 @@ function myMove(posi) {
   let pos = window.pageYOffset;
 
   let id = (pos < posi) ? setInterval(top, 0) : setInterval(bottom, 0);
+  
   const step = 50;
   const headerHeight = 20;
+
 
   function top() {
     if (pos >= posi) {
