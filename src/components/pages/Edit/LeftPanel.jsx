@@ -16,7 +16,7 @@ function myMove(posi) {
       pos += 50;
 
       if (pos >= posi) {
-        window.scrollTo(pospre,  posi + 50);
+        window.scrollTo(pospre,  posi + 100);
       } else {
         window.scrollTo(pospre,  pos);
       }
@@ -31,7 +31,7 @@ function myMove(posi) {
       pos -= 50;
 
       if (pos <= posi) {
-        window.scrollTo(pospre,  posi + 50);
+        window.scrollTo(pospre,  posi + 100);
       } else {
         window.scrollTo(pospre,  pos);
       }

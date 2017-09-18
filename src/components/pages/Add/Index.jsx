@@ -2,6 +2,8 @@ import React from 'react';
 import { browserHistory } from 'react-router';
 import Breadcrumbs from 'components/ui/Breadcrumbs';
 import { indexUrl } from 'utils/urls';
+import { NotificationStack } from 'react-notification';
+import { OrderedSet } from 'immutable';
 
 import LeftPanel from '../Edit/LeftPanel';
 import {
@@ -27,6 +29,8 @@ class AddPage extends React.Component {
     super(props);
 
     this.state = {
+      notifications: OrderedSet(),
+      count: 0,
       selectValues: {
         Basic: {
           NAME: '',
@@ -210,10 +214,38 @@ class AddPage extends React.Component {
       data = { ...data, ...value };
     });
 
-    saveData(data, draft).then(data => {
-      if (data !== undefined) {
+    saveData(data, draft).then((result) => {
+      if (result.ANSWER.SUCCESS) {
         browserHistory.push('/altbroker3/broker/gb/');
+      } else {
+        if (result.ANSWER.ERROR.MESSAGE) {
+          this.addNotification(result.ANSWER.ERROR.MESSAGE);
+        } else {
+          result.ANSWER.ERROR.map(error => {
+            this.addNotification(error.VAL);
+          });
+        }
       }
+    });
+  };
+
+  addNotification = (text) => {
+    const { notifications } = this.state;
+    const count = this.state.count + 1;
+
+    return this.setState({
+      count,
+      notifications: notifications.add({
+        dismissAfter: 3000,
+        key: `notification-id-${count}`,
+        message: text,
+      }),
+    });
+  };
+
+  handleNotificationDismiss = (notification) => {
+    this.setState({
+      notifications: this.state.notifications.delete(notification),
     });
   };
 
@@ -251,6 +283,10 @@ class AddPage extends React.Component {
             }
           </div>
         </div>
+        <NotificationStack
+            notifications={this.state.notifications.toArray()}
+            onDismiss={instance => this.handleNotificationDismiss(instance)}
+        />
       </div>
     );
   }
