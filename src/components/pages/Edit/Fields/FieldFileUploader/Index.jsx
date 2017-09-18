@@ -6,6 +6,7 @@ import 'react-fine-uploader/gallery/gallery.css';
 import Pica from 'pica/dist/pica';
 import update from 'react/lib/update';
 import PropTypes from 'prop-types';
+import FileInput from 'react-fine-uploader/file-input';
 
 import Container from './Container';
 import Photo from './Photo';
@@ -177,7 +178,9 @@ class FieldFileUploader extends React.Component {
           </Container>
 
           <Dropzone multiple uploader={this.uploader} >
-            Перетащите сюда файлы для добавления
+            <FileInput multiple uploader={this.uploader}>
+              Перетащите сюда файлы для добавления или нажмите для выбора
+            </FileInput>
           </Dropzone>
         </div>
       </Field>

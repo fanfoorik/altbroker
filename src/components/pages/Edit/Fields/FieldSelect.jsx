@@ -19,10 +19,6 @@ const FieldSelect = (props) => {
   const onChangeHandler = (selectData) => {
     let selectOption = selectData;
 
-    if (multi && maxCountCurrentValues) {
-      selectOption = selectOption.slice(0, maxCountCurrentValues);
-    }
-
     if (selectOption === null) {
       onChangeState({ [field]: selectOption });
     } else {
@@ -40,11 +36,12 @@ const FieldSelect = (props) => {
     .filter(metro => metro.PROPERTY_CITY_VALUE === link)
     .map(metro => ({ value: metro.ID, label: metro.NAME }));
   } else if (field === 'SECTION_ID_2' && options) {
-    optionsRes = options
+    optionsRes = !link.length ? options : options
     .filter(section =>
       !link ? true : link.filter(parentSection =>
-        section.IBLOCK_SECTION_ID === parentSection).length !== 0)
-    .map(section => ({
+        section.IBLOCK_SECTION_ID === parentSection).length !== 0);
+
+    optionsRes = optionsRes.map(section => ({
       value: section.ID,
       label: section.NAME,
       parentSectionId: section.IBLOCK_SECTION_ID,
