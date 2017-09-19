@@ -202,14 +202,14 @@
 
     circle {
       fill: rgba(0,0,0,0);
-      stroke: $c-grey-middle;
+      stroke: $bd-main;
       stroke-width: 9;
     }
 
     circle:nth-child(2n) {
       fill: rgba(0,0,0,0);
       stroke: #ffcf1e;
-      stroke-width: 3;
+      stroke-width: 9;
     }
   }
 
@@ -373,6 +373,25 @@
     border: 2px solid $c-btn-primary;
     padding: 8px;
     width: 150px;
+  }
+
+  &__item_error {
+    lable {
+      color: red;
+    }
+
+    input#{$this}__item-input, textarea {
+      border-color: red;
+
+      &:hover,
+      &:focus {
+        border-color: red;
+      }
+    }
+
+    .Select-control {
+      border-color: red;
+    }
   }
 }
 
