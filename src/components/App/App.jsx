@@ -1,11 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
 import Header from 'components/Header/Header';
 import Icons from 'components/Icons';
-import iconv from 'assets/images/icons/iconv.svg';
-
-import globalSprite from 'svg-sprite-loader/runtime/sprite';
 
 export default class App extends React.Component {
   componentWillMount() {
@@ -14,15 +10,11 @@ export default class App extends React.Component {
   }
 
   render() {
-    console.log(globalSprite);
     return (
       <main>
         <Icons />
         <Header />
         <section className="content" id="content">
-          <svg>
-            <use xlinkHref={`#${iconv.id}`} width="40px" height="40px" />
-          </svg>
           {this.props.children}
         </section>
       </main>

@@ -37,7 +37,7 @@ class AboutText extends React.Component {
           { !this.state.trigger && htmlText.length > 8 ? htmlText.slice(0, 8) : htmlText }
         </div>
 
-        <BaseEditor html={!this.state.trigger ? this.props.data : 'asdasdasdasdsad'} onChange={this.onChange} />
+        {/*<BaseEditor html={!this.state.trigger ? this.props.data : 'asdasdasdasdsad'} onChange={this.onChange} />*/}
 
         {htmlText.length > 8 &&
         <span

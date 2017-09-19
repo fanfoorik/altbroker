@@ -1,9 +1,10 @@
-import ajax from 'utils/ajax';
+import axios from 'axios';
+import { hostUrl, apiUrl } from 'utils/urls';
 
 export default () => (dispatch, getState) => {
   const { user } = getState().auth.recoverPassword;
 
-  ajax.get(`user/user_change_pass/?USER_LOGIN=${user.login}&USER_CHECKWORD=${user.checkword}`)
+  axios.get(`${hostUrl + apiUrl}user/user_change_pass/?USER_LOGIN=${user.login}&USER_CHECKWORD=${user.checkword}`)
     .then(() => {
       // from recoverPasswordReducer
       dispatch({ type: 'RECOVER_CHECKWORD_SUCCESS' });

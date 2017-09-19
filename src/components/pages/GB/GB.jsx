@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { StickyContainer, Sticky } from 'react-sticky';
+import { Link } from 'react-router';
+import { indexUrl } from 'utils/urls';
 
 import GBPaginator from './GBPaginator';
 import GBTable from './GBTable';
@@ -60,8 +62,6 @@ export default class GB extends React.Component {
   };
 
   render() {
-    const query = this.props.location.query;
-
     const {
       fetchGBListing,
       updateGBOptions,
@@ -69,10 +69,9 @@ export default class GB extends React.Component {
       filter,
       listing,
       pagination,
-      options,
+      options: { FILTER: filterState },
       loading,
     } = this.props;
-    const { FILTER: filterState } = options;
     const { detailPageSettings } = this.state;
 
     const detailPageData = {
@@ -86,13 +85,7 @@ export default class GB extends React.Component {
     return (
       <div>
         <div className="container">
-          <ol className="breadcrumb breadcrumb-main">
-            <li className="breadcrumb__item">Бизнесы</li>
-            <li className="breadcrumb__item breadcrumb-active">
-              <a className="breadcrumb__item_link" href="#">+ создать новый</a>
-            </li>
-          </ol>
-
+          <div className="h1">Бизнесы <Link to={`${indexUrl}broker/gb/add/`} className="create-new-link">+ создать новый</Link></div>
           <GBFilter
             updateGBOptions={updateGBOptions}
             filter={filter}
@@ -113,7 +106,6 @@ export default class GB extends React.Component {
           <GBTable
             fetchGBListing={fetchGBListing}
             listing={listing}
-            query={query}
             openDetailPage={this.openDetailPage}
             getStatusColor={getStatusColor}
             updateGBOptions={updateGBOptions}
@@ -141,6 +133,7 @@ GB.propTypes = {
   fetchGBListing: PropTypes.func.isRequired,
   updateGBOptions: PropTypes.func.isRequired,
   listing: PropTypes.arrayOf(PropTypes.object),
+  loading: PropTypes.bool.isRequired,
   filter: PropTypes.shape({
     ALL_BROKER: PropTypes.arrayOf(PropTypes.object),
     ALL_STATUS_OBJ: PropTypes.arrayOf(PropTypes.object),

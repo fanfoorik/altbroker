@@ -18,15 +18,11 @@ function FormControls(props) {
 }
 
 FormControls.defaultProps = {
-  name: '',
-  onClose: false,
-  onReset: false,
+  left: null,
 };
 
 FormControls.propTypes = {
-  name: PropTypes.string,
-  onClose: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-  onReset: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+  left: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
 };
 
 export default FormControls;

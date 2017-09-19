@@ -6,8 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "(NODE_ENV=development webpack-dev-server) || (set NODE_ENV=development & webpack-dev-server)",
-    "prod": "webpack -p",
-    "test:watch": "npm run test -- --watch"
+    "prod": "webpack -p"
   },
   "babel": {
     "presets": [

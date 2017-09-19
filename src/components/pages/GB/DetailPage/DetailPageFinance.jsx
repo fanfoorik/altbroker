@@ -17,9 +17,10 @@ function DetailPageFinance(props) {
 
   return (
     <div className="detail-page-blank" data-anchor="finance">
-      <Link to={`${indexUrl}broker/gb/${id}/edit/#finance`} className="detail-page-blank__edit">
-        <Icon icon="edit" width="16" height="16" />
-      </Link>
+      {/*TODO: раскомментировать когда разберемся с ролями*/}
+      {/*<Link to={`${indexUrl}broker/gb/${id}/edit/#finance`} className="detail-page-blank__edit">*/}
+        {/*<Icon icon="edit" width="16" height="16" />*/}
+      {/*</Link>*/}
 
       <div className="detail-page__title">Финансы</div>
 
