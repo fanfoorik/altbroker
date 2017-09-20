@@ -1,7 +1,10 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
+import Breadcrumbs from 'components/ui/Breadcrumbs';
+import { indexUrl } from 'utils/urls';
+import { NotificationStack } from 'react-notification';
+import { OrderedSet } from 'immutable';
 
-import Header from '../Edit/Header';
 import LeftPanel from '../Edit/LeftPanel';
 import {
   Basic,
@@ -26,6 +29,8 @@ class AddPage extends React.Component {
     super(props);
 
     this.state = {
+      notifications: OrderedSet(),
+      count: 0,
       selectValues: {
         Basic: {
           NAME: '',
@@ -85,7 +90,43 @@ class AddPage extends React.Component {
   }
 
   componentDidMount() {
-    fetchLib(this);
+    fetchLib().then(data => {
+      const answer = data.ANSWER;
+      this.setState({
+        lib: {
+          cities: answer.ALL_CITY.map(city => ({
+            value: city.ID,
+            label: city.NAME,
+          })),
+          metro: answer.ALL_METRO,
+          categories: answer.ALL_CATEGORY_GB_1.map(category => ({
+            label: category.NAME,
+            value: category.ID,
+          })),
+          categories2: answer.ALL_CATEGORY_GB_2,
+          sources: answer.PROPERTY_SOURCE.map(source => ({
+            value: source.ID,
+            label: source.VALUE,
+          })),
+          reasons: answer.PROPERTY_REASON_FOR_SALE.map(reason => ({
+            value: reason.ID,
+            label: reason.NAME,
+          })),
+          advantages: answer.PROPERTY_DOP_ICON.map(advantage => ({
+            label: advantage.VALUE,
+            value: advantage.ID,
+          })),
+          opf: answer.PROPERTY_OPF.map(opf => ({
+            label: opf.VALUE,
+            value: opf.ID,
+          })),
+          landlord: answer.PROPERTY_LANDLORD.map(landlord => ({
+            label: landlord.VALUE,
+            value: landlord.ID,
+          })),
+        },
+      });
+    });
   }
 
   onChangeStateHandler = (section) => {
@@ -131,30 +172,37 @@ class AddPage extends React.Component {
     {
       title: 'Основное',
       component: 'Basic',
+      anchor: 'basic',
     },
     {
       title: 'Финансы',
       component: 'Finance',
+      anchor: 'finance',
     },
     {
       title: 'Штат',
       component: 'Staff',
+      anchor: 'staff',
     },
     {
       title: 'Помещение',
       component: 'Building',
+      anchor: 'building',
     },
     {
       title: 'Активы',
       component: 'Asset',
+      anchor: 'asset',
     },
     {
       title: 'Продавец',
       component: 'Salary',
+      anchor: 'salary',
     },
     {
       title: 'Галерея',
       component: 'Gallery',
+      anchor: 'gallery',
     },
   ];
 
@@ -173,44 +221,80 @@ class AddPage extends React.Component {
       data = { ...data, ...value };
     });
 
-    saveData(data, draft).then(data => {
-      if (data !== undefined) {
+    saveData(data, draft).then((result) => {
+      if (result.ANSWER.SUCCESS) {
         browserHistory.push('/altbroker3/broker/gb/');
+      } else {
+        if (result.ANSWER.ERROR.MESSAGE) {
+          this.addNotification(result.ANSWER.ERROR.MESSAGE);
+        } else {
+          result.ANSWER.ERROR.map(error => {
+            this.addNotification(error.VAL);
+          });
+        }
       }
+    });
+  };
+
+  addNotification = (text) => {
+    const { notifications } = this.state;
+    const count = this.state.count + 1;
+
+    return this.setState({
+      count,
+      notifications: notifications.add({
+        dismissAfter: 3000,
+        key: `notification-id-${count}`,
+        message: text,
+      }),
+    });
+  };
+
+  handleNotificationDismiss = (notification) => {
+    this.setState({
+      notifications: this.state.notifications.delete(notification),
     });
   };
 
   render() {
     return (
-      <section className="content" id="content">
-        <div className="container container__min position-rel">
-          <Header />
-          <div className="edit-page">
-            <LeftPanel
-              sections={this.sections}
-              onSubmit={this.onSubmit}
-              onDraft={this.onDraft}
-              selectValues={this.state.selectValues}
-            />
-            <div className="edit-page__container">
-              {
-                this.sections.map((section, index) => {
-                  const Component = this.componentSections[section.component];
+      <div className="container container__min position-rel">
+        <Breadcrumbs
+          items={[
+            { label: 'Бизнесы', link: `${indexUrl}broker/gb/` },
+            { label: 'Добавить' },
+          ]}
+        />
 
-                  return (
-                    <Component
-                      lib={this.state.lib}
-                      key={index}
-                      selectValues={this.state.selectValues[section.component]}
-                      onChangeState={this.onChangeStateHandler(section.component)}
-                    />
-                  );
-                })
-              }
-            </div>
+        <div className="edit-page">
+          <LeftPanel
+            sections={this.sections}
+            onSubmit={this.onSubmit}
+            onDraft={this.onDraft}
+            selectValues={this.state.selectValues}
+          />
+          <div className="edit-page__container">
+            {
+              this.sections.map((section, index) => {
+                const Component = this.componentSections[section.component];
+
+                return (
+                  <Component
+                    lib={this.state.lib}
+                    key={index}
+                    selectValues={this.state.selectValues[section.component]}
+                    onChangeState={this.onChangeStateHandler(section.component)}
+                  />
+                );
+              })
+            }
           </div>
         </div>
-      </section>
+        <NotificationStack
+            notifications={this.state.notifications.toArray()}
+            onDismiss={instance => this.handleNotificationDismiss(instance)}
+        />
+      </div>
     );
   }
 }

@@ -6,15 +6,22 @@ const pagePanelDomElements = document.getElementsByClassName('page-panel');
 function myMove(posi) {
   let pos = window.pageYOffset;
 
-  let id = (pos < posi) ? setInterval(top, 10) : setInterval(bottom, 10);
+  let id = (pos < posi) ? setInterval(top, 0) : setInterval(bottom, 0);
+  const step = 50;
+  const headerHeight = 100;
 
   function top() {
     if (pos >= posi) {
       clearInterval(id);
     } else {
       var pospre = pos;
-      pos += 50;
-      window.scrollTo(pospre,  pos);
+      pos += step;
+
+      if (pos >= posi) {
+        window.scrollTo(pospre,  posi + headerHeight);
+      } else {
+        window.scrollTo(pospre,  pos);
+      }
     }
   }
 
@@ -23,18 +30,33 @@ function myMove(posi) {
       clearInterval(id);
     } else {
       var pospre = pos;
-      pos -= 50;
-      window.scrollTo(pospre,  pos);
+      pos -= step;
+
+      if (pos <= posi) {
+        window.scrollTo(pospre,  posi + headerHeight);
+      } else {
+        window.scrollTo(pospre,  pos);
+      }
     }
   }
 }
+
+window.onload = function() {
+  const anchar = window.location.hash.substr(1);
+  if (anchar) {
+    Object.keys(pagePanelDomElements).map(id => {
+      if (pagePanelDomElements[id].getAttribute('data-anchor') === anchar) {
+        myMove(pagePanelDomElements[id].offsetTop);
+      }
+    });
+  }
+};
 
 const LeftPanel = ({
   sections,
   selectValues,
   onSubmit,
   onDraft,
-  anchar
 }) => {
   let sumAllField = 0;
   let sumAllFilledField = 0;
@@ -62,14 +84,6 @@ const LeftPanel = ({
 
   const R = 65;
   const circleProgress = 2 * Math.PI * R * (1 - (percentFilledField / 100));
-
-  if (anchar) {
-    Object.keys(pagePanelDomElements).map(id => {
-      if (pagePanelDomElements[id].getAttribute('data-anchor') === anchar) {
-        myMove(pagePanelDomElements[id].offsetTop);
-      }
-    });
-  }
 
   return (
     <div className="page-aside">

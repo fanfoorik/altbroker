@@ -37,7 +37,7 @@ export default class Dropdown extends React.Component {
 
   render() {
     return (
-      <div className="target-panel" ref={(node) => { this.target = node; }}>
+      <div className={`target-panel ${this.props.className}`} ref={(node) => { this.target = node; }}>
         {this.props.children}
       </div>
     );
@@ -46,6 +46,7 @@ export default class Dropdown extends React.Component {
 
 Dropdown.defaultProps = {
   children: null,
+  className: '',
   disableCloseOnScroll: false,
   disableCloseOnEscape: false,
   disableCloseOnOuterClick: false,
@@ -59,6 +60,7 @@ Dropdown.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
+  className: PropTypes.string,
   disableCloseOnScroll: PropTypes.bool,
   disableCloseOnEscape: PropTypes.bool,
   disableCloseOnOuterClick: PropTypes.bool,

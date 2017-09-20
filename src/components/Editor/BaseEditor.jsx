@@ -50,10 +50,12 @@ export default class BaseEditorContainer extends React.Component {
 
   toggleBlockType = (type) => {
     this.onChange(RichUtils.toggleBlockType(this.state.editorState, type));
+    setTimeout(() => this.editor.focus(), 1);
   };
 
   toggleInlineStyle = (type) => {
     this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, type));
+    setTimeout(() => this.editor.focus(), 1);
   };
 
   render() {
