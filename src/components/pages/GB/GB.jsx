@@ -62,8 +62,6 @@ export default class GB extends React.Component {
   };
 
   render() {
-    const query = this.props.location.query;
-
     const {
       fetchGBListing,
       updateGBOptions,
@@ -71,10 +69,9 @@ export default class GB extends React.Component {
       filter,
       listing,
       pagination,
-      options,
+      options: { FILTER: filterState },
       loading,
     } = this.props;
-    const { FILTER: filterState } = options;
     const { detailPageSettings } = this.state;
 
     const detailPageData = {
@@ -109,7 +106,6 @@ export default class GB extends React.Component {
           <GBTable
             fetchGBListing={fetchGBListing}
             listing={listing}
-            query={query}
             openDetailPage={this.openDetailPage}
             getStatusColor={getStatusColor}
             updateGBOptions={updateGBOptions}
@@ -137,6 +133,7 @@ GB.propTypes = {
   fetchGBListing: PropTypes.func.isRequired,
   updateGBOptions: PropTypes.func.isRequired,
   listing: PropTypes.arrayOf(PropTypes.object),
+  loading: PropTypes.bool.isRequired,
   filter: PropTypes.shape({
     ALL_BROKER: PropTypes.arrayOf(PropTypes.object),
     ALL_STATUS_OBJ: PropTypes.arrayOf(PropTypes.object),

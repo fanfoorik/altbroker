@@ -59,7 +59,7 @@ module.exports = {
         use: cssConfig,
       },
       {
-        test: /\.(jpe?g|png|svg|gif)$/,
+        test: /\.(jpe?g|svg|png|gif)$/,
         use: 'file-loader?name=images/[name].[ext]',
       },
       {

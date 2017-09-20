@@ -36,7 +36,7 @@ export default class GbFilter extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.fetchGBfilter();
   }
 
@@ -303,6 +303,22 @@ export default class GbFilter extends React.Component {
           {/*</Filter.Row>*/}
         {/*</Filter>*/}
 
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
+
         <div className="filter filter_business mb-28">
           <form onSubmit={this.filterSubmit}>
 
@@ -387,6 +403,7 @@ export default class GbFilter extends React.Component {
                   searchValue={searchBrokers}
                   resetSection={this.resetSection}
                   submitOnDropdownClose={this.submitOnDropdownClose}
+                  selectCheckGroup={this.selectCheckGroup}
                 />
 
                 <City

@@ -1,4 +1,6 @@
 import ajax from 'utils/ajax';
+import axios from 'axios';
+
 import {
   SET_GB_LISTING,
   SET_GB_FILTER,
@@ -41,9 +43,17 @@ export const updateGBOptions = options => (dispatch, getState) => {
 export const fetchGBfilter = () => (dispatch) => {
   ajax.post('broker/gb/getfilter/')
     .then((data) => {
-      dispatch({
-        type: SET_GB_FILTER,
-        payload: data.ANSWER,
-      });
+      if (!data.ERRORS.length) {
+        // TODO: Спарсить все поля по отдельности и задиспатчить
+        // const categs = data.ANSWER.ALL_CATEGORY_GB_1.map((item, ind) => (
+        //   { ...item, checked: false, position: ind }
+        // ));
+        // aobbjs.sort((a, b) => (a.position - b.position));
+
+        dispatch({
+          type: SET_GB_FILTER,
+          payload: data.ANSWER,
+        });
+      }
     });
 };
