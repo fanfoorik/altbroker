@@ -16,6 +16,7 @@ function BrokersDropdown(props) {
     handleSearch,
     resetSection,
     triggerDropdown,
+    selectCheckGroup,
   } = props;
 
   return (
@@ -47,16 +48,23 @@ function BrokersDropdown(props) {
 
       <FormControls
         onClose={triggerDropdown}
-        left={(
+        left={[
+          <div
+            className="form-control"
+            key="check-all-brokers"
+            onClick={() => selectCheckGroup(items, 'PROPERTY_BROKER')}
+            role="button"
+            tabIndex="0"
+          >Все</div>,
           <span
-            key="close-trigger"
+            key="close-trigger-brokers"
             className="form-control form-control_reset"
             onClick={resetSection}
             role="button"
             tabIndex="0"
             data-name="PROPERTY_BROKER"
-          >Сбросить</span>
-        )}
+          >Сбросить</span>,
+        ]}
         right={(
           <div className="form-control form-control_close" onClick={triggerDropdown} role="button" tabIndex="0">
             <Icon className="icon__close" icon="close" width={15} height={15} />
@@ -74,6 +82,7 @@ BrokersDropdown.propTypes = {
   handleSearch: PropTypes.func.isRequired,
   resetSection: PropTypes.func.isRequired,
   triggerDropdown: PropTypes.func.isRequired,
+  selectCheckGroup: PropTypes.func.isRequired,
 };
 
 export default DropdownHOC(BrokersDropdown);
