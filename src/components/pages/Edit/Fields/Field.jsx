@@ -45,7 +45,7 @@ const Field = ({
 
   return (
     <div className={`col-lg-${size}`}>
-      <div className="edit-form__item">
+      <div className={`edit-form__item ${errors[field] ? 'edit-form__item_error' : ''}`}>
         <lable
           className={`edit-form__item-label ${required ? 'required' : ''}`}
           {...toolTip}
