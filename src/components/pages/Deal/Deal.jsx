@@ -116,7 +116,7 @@ class Deal extends Component {
     return (
       <div className="container">
         <div className="h1">Сделки <Link to={`${indexUrl}broker/gb/add/`} className="create-new-link">+ создать новую</Link></div>
-        <div styleName="test">
+        <div className={style.test}>
           <span style={{marginRight: '10px'}}>
             <span style={{marginRight: '5px'}}>
               На продажу

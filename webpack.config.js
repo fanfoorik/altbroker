@@ -21,7 +21,12 @@ const lessProd = ExtractTextPlugin.extract({
   publicPath: '../',
 });
 
-const lessModuleDev = ['style-loader', 'css-loader?importLoader=1&modules&localIdentName=[path]___[name]__[local]___[hash:base64:5]', 'less-loader'];
+const lessModuleDev = [
+  'style-loader',
+  'css-loader?importLoader=1&modules&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+  'less-loader',
+];
+
 const lessModuleProd = ExtractTextPlugin.extract({
   fallback: 'style-loader',
   use: ['css-loader?importLoader=1&modules&localIdentName=[path]___[name]__[local]___[hash:base64:5]', 'less-loader'],
@@ -86,7 +91,7 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        exclude: /\.module.less$/,
+        exclude: path.resolve('./src/components'),
         use: lessConfig,
       },
       {
@@ -112,6 +117,7 @@ module.exports = {
     new ExtractTextPlugin({
       filename: 'styles/style.css',
       disable: dev,
+      allChunks: true,
     }),
     new HtmlWebpackPlugin({ template: './src/index.html' }),
     new webpack.HotModuleReplacementPlugin(),
