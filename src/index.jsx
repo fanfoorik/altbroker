@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, IndexRedirect, browserHistory } from 'react-router';
+import 'babel-polyfill';
 
 import { AUTH_USER } from 'constants/userTypes';
 import Edit from 'components/pages/Edit';
@@ -12,7 +13,7 @@ import AuthContainer from 'components/pages/Auth/AuthContainer';
 import GBContainer from 'components/pages/GB/GBContainer';
 import GBNavItems from 'components/pages/GB/GBNavItems';
 import Deal from 'components/pages/Deal/Deal.jsx';
-import DealDetail from 'components/pages/Deal/Detail/Detail.jsx';
+import DealDetail from 'components/pages/DetailDeal';
 import Evolution from 'components/pages/Evolution';
 import FAQ from 'components/pages/FAQ/FAQ';
 import FAQAskQuestion from 'components/pages/FAQ/FAQAskQuestion';

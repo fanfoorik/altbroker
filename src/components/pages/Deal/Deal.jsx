@@ -1,94 +1,58 @@
 import React, { Component } from 'react';
-import { Table, Menu, Dropdown, Badge } from 'antd';
+import { Table, Menu, Dropdown } from 'antd';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
+
 import { indexUrl } from 'utils/urls';
-import style from './Deal.module.less';
 import Icon from 'components/Icon';
-import CSSModules from 'react-css-modules';
+import { sagaSetDeal, clearDeal } from 'actions/deal';
+import store from 'store';
+import columns from './columnsTable';
+import CustomHeader from './CustomHeader';
+import BadgeList from './BadgeList';
 
-const columns = [{
-  title: '#',
-  dataIndex: 'number',
-}, {
-  title: 'Этап',
-  dataIndex: 'step',
-}, {
-  title: 'Сумма',
-  dataIndex: 'sum',
-}, {
-  title: 'Комиссия',
-  dataIndex: 'commission',
-}, {
-  title: 'Брокер',
-  dataIndex: 'broker',
-}, {
-  title: 'Юрист',
-  dataIndex: 'lawyer',
-}, {
-  title: 'Продавец',
-  dataIndex: 'salary',
-}, {
-  title: 'Создана',
-  dataIndex: 'creating',
-}, {
-  title: 'Окончание',
-  dataIndex: 'ending',
-}, {
-  title: 'Действие',
-  dataIndex: 'action',
-}];
-
-const menu = (
-  <Menu>
-    <Menu.Item key="0">
-        Смотреть
-    </Menu.Item>
-    <Menu.Divider />
-    <Menu.Item key="1">
-      Редактировать
-    </Menu.Item>
-  </Menu>
-);
-
-const dropdown = (
-  <Dropdown overlay={menu} trigger={['click']}>
-    <a className="ant-dropdown-link" href="#">
-      Click me
-    </a>
-  </Dropdown>
-);
-
-const data = [];
-for (let i = 0; i < 46; i++) {
-  data.push({
-    key: i,
-    number: i,
-    step: '3 / 8 Основной договор',
-    sum: '320 000',
-    commission: '20 000',
-    broker: 'Панахов A.',
-    lawyer: 'Мечников К.',
-    salary: 'Путин В.',
-    creating: '12.03.17',
-    ending: '12.03.18',
-    action: dropdown,
-  });
-}
 const showHeader = true;
-
-const Header = (
-  <div style={{
-    width: '100%',
-    height: '50px',
-    backgroundColor: 'red',
-  }} />
-);
 
 class Deal extends Component {
   state = {
     selectedRowKeys: [],
     showHeader,
+    loading: true,
+    countPages: 10,
+    currentPage: 1,
   };
+
+  componentDidMount() {
+    const queryProps = {
+      page: 1,
+      count: 10,
+    };
+
+    if(window.location.search) {
+      const getParams = window.location.search.substring(1).split('&');
+
+      getParams
+        .map(param => param.split('='))
+        .map(param => queryProps[param[0].toLowerCase()] = parseInt(param[1], 10));
+    }
+
+    this.setState({
+      countPages: queryProps.count,
+      currentPage: queryProps.page,
+    });
+
+    store.dispatch(sagaSetDeal(queryProps.page, queryProps.count));
+  }
+
+  componentWillUnmount() {
+    store.dispatch(clearDeal());
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      loading: nextProps.deals.data === null,
+    });
+  }
 
   onSelectChange = (selectedRowKeys) => {
     if (selectedRowKeys.length !== 0) {
@@ -104,6 +68,16 @@ class Deal extends Component {
     this.setState({ showHeader: enable ? showHeader : false });
   }
 
+  handlePagerOnChange = (page) => {
+    this.setState({
+      loading: true,
+      currentPage: page,
+    });
+
+    window.history.replaceState({}, '', `?PAGE=${page}&COUNT=${this.state.countPages}`);
+    store.dispatch(sagaSetDeal(page, this.state.countPages));
+  }
+
   render() {
     const { selectedRowKeys } = this.state;
     const rowSelection = {
@@ -113,39 +87,85 @@ class Deal extends Component {
       onSelection: this.onSelection,
     };
 
+    if (this.props.deals.data) {
+      this.props.deals.data.map((deal, id) => {
+        const menu = (
+          <Menu>
+            <Menu.Item key="0">
+              <Link to={`${indexUrl}deal/${this.props.deals.data[id].number}`}>
+                Смотреть
+              </Link>
+            </Menu.Item>
+            <Menu.Divider />
+            <Menu.Item key="1">
+              Редактировать
+            </Menu.Item>
+          </Menu>
+        );
+
+        this.props.deals.data[id].action = (
+          <Dropdown overlay={menu} trigger={['click']}>
+            <a className="ant-dropdown-link" href="#">
+              <span className="table-options__trigger" role="button" tabindex="0">
+                <span className="table-cell__dot" />
+                <span className="table-cell__dot" />
+                <span className="table-cell__dot" />
+              </span>
+            </a>
+          </Dropdown>
+        );
+
+        this.props.deals.data[id].broker = this.props.deals.data[id].broker.map((broker, key) => (
+          <div>
+            <a key={key} href={`/${broker.id}`}>{broker.name}</a>
+          </div>
+        ));
+
+        this.props.deals.data[id].lawyer = this.props.deals.data[id].lawyer.map((lawyer, key) => (
+          <div>
+            <a key={key} href={`/${lawyer.id}`}>{lawyer.name}</a>
+          </div>
+        ));
+
+        this.props.deals.data[id].salary = this.props.deals.data[id].salary.map((salary, key) => (
+          <div>
+            <a key={key} href={`/${salary.id}`}>{salary.name}</a>
+          </div>
+        ));
+      });
+    }
+
     return (
       <div className="container">
-        <div className="h1">Сделки <Link to={`${indexUrl}broker/gb/add/`} className="create-new-link">+ создать новую</Link></div>
-        <div className={style.test}>
-          <span style={{marginRight: '10px'}}>
-            <span style={{marginRight: '5px'}}>
-              На продажу
-            </span>
-            <Badge count={4} style={{ backgroundColor: '#c0c5ca', color: '#fff'}} />
-          </span>
-          <span style={{marginRight: '10px'}}>
-            <span style={{marginRight: '5px'}}>
-              На поиск
-            </span>
-            <Badge count={4} style={{ backgroundColor: '#c0c5ca', color: '#fff'}} />
-          </span>
-          <span style={{marginRight: '10px'}}>
-            <span style={{marginRight: '5px'}}>
-              Сделки
-            </span>
-            <Badge count={4} style={{ backgroundColor: '#c0c5ca', color: '#fff'}} />
-          </span>
+        <div className="h1">
+          Сделки
+          <Link to={`${indexUrl}broker/gb/add/`} className="create-new-link">
+            + создать новую
+          </Link>
         </div>
-        {this.state.showHeader ? '' : Header}
+
+        <BadgeList />
+
+        {this.state.showHeader ? '' : <CustomHeader />}
+
         <Table
           showHeader={this.state.showHeader}
           rowSelection={rowSelection}
           columns={columns}
-          dataSource={data}
+          dataSource={this.props.deals.data}
+          loading={!this.props.deals.data || this.state.loading}
+          pagination={{
+            current: this.state.currentPage,
+            pageSize: this.state.countPages,
+            total: this.props.deals.pager && this.props.deals.pager.COUNT_OBJ,
+            onChange: this.handlePagerOnChange,
+          }}
         />
       </div>
     );
   }
 }
 
-export default Deal;
+export default connect(state => ({
+  deals: state.deal,
+}))(Deal);
