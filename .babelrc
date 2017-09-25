@@ -1,0 +1,21 @@
+{
+  "presets": [
+    "es2015",
+    "react",
+    "stage-2"
+  ],
+  "plugins": [
+    [
+      "import", { "libraryName": "antd", "style": "less" }
+    ],
+    [
+      "react-css-modules", {
+        "filetypes": {
+          ".module.less": {
+            "syntax": "postcss-less"
+          }
+        }
+      }
+    ]
+  ]
+}
