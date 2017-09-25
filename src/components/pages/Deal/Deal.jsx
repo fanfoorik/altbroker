@@ -28,7 +28,7 @@ class Deal extends Component {
       count: 10,
     };
 
-    if(window.location.search) {
+    if (window.location.search) {
       const getParams = window.location.search.substring(1).split('&');
 
       getParams
@@ -44,14 +44,14 @@ class Deal extends Component {
     store.dispatch(sagaSetDeal(queryProps.page, queryProps.count));
   }
 
-  componentWillUnmount() {
-    store.dispatch(clearDeal());
-  }
-
   componentWillReceiveProps(nextProps) {
     this.setState({
       loading: nextProps.deals.data === null,
     });
+  }
+
+  componentWillUnmount() {
+    store.dispatch(clearDeal());
   }
 
   onSelectChange = (selectedRowKeys) => {
@@ -106,7 +106,7 @@ class Deal extends Component {
         this.props.deals.data[id].action = (
           <Dropdown overlay={menu} trigger={['click']}>
             <a className="ant-dropdown-link" href="#">
-              <span className="table-options__trigger" role="button" tabindex="0">
+              <span className="table-options__trigger" role="button">
                 <span className="table-cell__dot" />
                 <span className="table-cell__dot" />
                 <span className="table-cell__dot" />
@@ -115,21 +115,21 @@ class Deal extends Component {
           </Dropdown>
         );
 
-        this.props.deals.data[id].broker = this.props.deals.data[id].broker.map((broker, key) => (
-          <div>
-            <a key={key} href={`/${broker.id}`}>{broker.name}</a>
+        this.props.deals.data[id].broker = this.props.deals.data[id].broker.map((broker, brokerId) => (
+          <div key={brokerId}>
+            <a href={`/${broker.id}`}>{broker.name}</a>
           </div>
         ));
 
-        this.props.deals.data[id].lawyer = this.props.deals.data[id].lawyer.map((lawyer, key) => (
-          <div>
-            <a key={key} href={`/${lawyer.id}`}>{lawyer.name}</a>
+        this.props.deals.data[id].lawyer = this.props.deals.data[id].lawyer.map((lawyer, lawyerId) => (
+          <div key={lawyerId}>
+            <a href={`/${lawyer.id}`}>{lawyer.name}</a>
           </div>
         ));
 
-        this.props.deals.data[id].salary = this.props.deals.data[id].salary.map((salary, key) => (
-          <div>
-            <a key={key} href={`/${salary.id}`}>{salary.name}</a>
+        this.props.deals.data[id].salary = this.props.deals.data[id].salary.map((salary, salaryId) => (
+          <div key={salaryId}>
+            <a href={`/${salary.id}`}>{salary.name}</a>
           </div>
         ));
       });

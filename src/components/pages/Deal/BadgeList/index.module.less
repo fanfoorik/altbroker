@@ -1,9 +1,33 @@
 .badgeList {
   margin-bottom: 10px;
+  font-size: 14px;
+	font-weight: 500;
 }
 
 .badgeListItem {
   margin-right: 10px;
+  cursor: pointer;
+
+  .badge {
+    background-color: #c0c5ca;
+    color: #fff;
+    font-size: 12px;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    border-radius: 16px;
+    text-align: center;
+  }
+}
+
+.currentBadgeListItem {
+  composes: badgeListItem;
+  color: #4da1ff;
+
+  .badge {
+    background-color: #4da1ff;
+  }
 }
 
 .badgeText {

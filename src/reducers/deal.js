@@ -12,7 +12,7 @@ export default function (state = { data: null, pager: null }, action) {
       };
 
     case CLEAR_DEAL:
-      return state = null;
+      return state = { data: null, pager: null };
 
     default:
       return state;
