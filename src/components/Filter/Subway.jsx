@@ -53,6 +53,10 @@ class Subway extends React.Component {
           return item;
         }
         return false;
+      }).sort((a, b) => {
+        if (a.NAME < b.NAME) return -1;
+        if (a.NAME > b.NAME) return 1;
+        return 0;
       });
     }
 

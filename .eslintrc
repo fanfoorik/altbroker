@@ -10,7 +10,6 @@
   "rules": {
     "no-console": ["error", {
       "allow": ["group", "groupEnd", "info", "error", "warn"]
-    }],
-    "linebreak-style": ["error", "windows"]
+    }]
   }
 }

@@ -2,6 +2,8 @@ import React from 'react';
 
 import ColorsLegendPopover from 'components/popovers/ColorsLegendPopover';
 import Icon from 'components/Icon';
+import Icony from 'components/Icony';
+import questionIcon from 'assets/icons/question-icon.svg';
 
 function sortArrow(dir) {
   return <span className="sort-trigger__pointer">{dir[0] === 'DESC' ? '↓' : '↑'}</span>;
@@ -19,8 +21,10 @@ export default function BrokerTableHeader(props) {
         </label>
       </div>
       <div className="table-th table-col__color popover-parent no-padding">
-        <div className="table-dot" />
-        {/*<ColorsLegendPopover />*/}
+        <div className="table-dot">
+          <Icony icon={questionIcon} width="14" height="14" />
+        </div>
+        <ColorsLegendPopover />
       </div>
       <div className="table-th table-col__id">
         <span
@@ -102,7 +106,7 @@ export default function BrokerTableHeader(props) {
         <Icon className="table-th__icon table-th__like" icon="message" width={16} height={16} />
       </div>
       <div className="table-th table-col__actions align-right">
-        <Icon className="table-th__icon table-th__like" icon="info" width={16} height={16} />
+        {/*<Icon className="table-th__icon table-th__like" icon="info" width={16} height={16} />*/}
       </div>
     </div>
   );
