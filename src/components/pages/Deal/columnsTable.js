@@ -2,7 +2,7 @@ import React from 'react';
 
 import Icon from 'components/Icon';
 
-export default [{
+const base = [{
   title: '#',
   dataIndex: 'number',
 }, {
@@ -21,9 +21,6 @@ export default [{
   title: 'Юрист',
   dataIndex: 'lawyer',
 }, {
-  title: 'Продавец',
-  dataIndex: 'salary',
-}, {
   title: 'Создана',
   dataIndex: 'creating',
 }, {
@@ -33,3 +30,22 @@ export default [{
   title: <Icon icon="info" width={20} height={20} />,
   dataIndex: 'action',
 }];
+
+export default {
+  sale: [...base.slice(0, 5), {
+    title: 'Продавец',
+    dataIndex: 'salary',
+  }, ...base.slice(5)],
+  search: [...base.slice(0, 5), {
+    title: 'Покупатель',
+    dataIndex: 'buyer',
+  }, ...base.slice(5)],
+  deal: [...base.slice(0, 5), {
+    title: 'Продавец',
+    dataIndex: 'salary',
+  },
+    {
+      title: 'Покупатель',
+      dataIndex: 'npm ',
+    }, ...base.slice(5)],
+};
