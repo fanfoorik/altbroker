@@ -40,8 +40,8 @@ class Deal extends Component {
     }
 
     this.setState({
-      countPages: queryProps.count,
-      currentPage: queryProps.page,
+      countPages: parseInt(queryProps.count, 10),
+      currentPage: parseInt(queryProps.page, 10),
       currentTypeDeal: queryProps.type,
     });
 
