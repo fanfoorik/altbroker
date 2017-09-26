@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import IsActive from 'utils/IsActive';
 import FAQErrors from './FAQErrors';
+import BaseEditor from 'components/Editor/BaseEditor';
 
 function FAQForm(props) {
   const { errors, options, faqFormSubmit } = props.data;
@@ -15,7 +14,9 @@ function FAQForm(props) {
       <div className="faq-form">
         <form action="faq-form__fieldset" onSubmit={faqFormSubmit} name="frm">
 
-          <IsActive active={!!errors.length} component={FAQErrors} errors={errors} />
+          {!!errors.length &&
+            <FAQErrors errors={errors} />
+          }
 
           <div className="faq-form__row">
             <label htmlFor="faq-form-field-1">
@@ -44,7 +45,7 @@ function FAQForm(props) {
           <div className="faq-form__row">
             <label htmlFor="faq-form-field-3">
               <span className="faq-form__label">Расскажите о проблеме подробнее</span>
-              <textarea name="TEXT" className="js-faq-form-message" id="faq-form-field-3" />
+              <BaseEditor />
             </label>
           </div>
 
