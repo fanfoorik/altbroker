@@ -32,6 +32,10 @@ export const getDeal = (page = 1, count = 10, type = 'sale') => ajax.post('deal/
       name: deal.PROPERTY_SELLER.DATA[id].PROPERTY_KLIENT_FIO_VALUE,
       id: deal.PROPERTY_SELLER.DATA[id].ID,
     })),
+    buyer: deal.PROPERTY_SELLER.VALUE.map(id => ({
+      name: deal.PROPERTY_SELLER.DATA[id].PROPERTY_KLIENT_FIO_VALUE,
+      id: deal.PROPERTY_SELLER.DATA[id].ID,
+    })),
   })),
 
   pager: data.ANSWER.NAV,
