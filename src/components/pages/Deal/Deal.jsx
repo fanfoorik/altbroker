@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Table, Menu, Dropdown } from 'antd';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 import { indexUrl } from 'utils/urls';
 import Icon from 'components/Icon';
@@ -20,28 +21,31 @@ class Deal extends Component {
     loading: true,
     countPages: 10,
     currentPage: 1,
+    currentTypeDeal: 'sale',
   };
 
   componentDidMount() {
     const queryProps = {
       page: 1,
       count: 10,
+      type: 'sale',
     };
 
-    if (window.location.search) {
-      const getParams = window.location.search.substring(1).split('&');
+    if (this.props.location.search) {
+      const getParams = this.props.location.search.substring(1).split('&');
 
       getParams
         .map(param => param.split('='))
-        .map(param => queryProps[param[0].toLowerCase()] = parseInt(param[1], 10));
+        .map(param => queryProps[param[0].toLowerCase()] = param[1]);
     }
 
     this.setState({
       countPages: queryProps.count,
       currentPage: queryProps.page,
+      currentTypeDeal: queryProps.type,
     });
 
-    store.dispatch(sagaSetDeal(queryProps.page, queryProps.count));
+    store.dispatch(sagaSetDeal(queryProps.page, queryProps.count, queryProps.type));
   }
 
   componentWillReceiveProps(nextProps) {
@@ -74,12 +78,38 @@ class Deal extends Component {
       currentPage: page,
     });
 
-    window.history.replaceState({}, '', `?PAGE=${page}&COUNT=${this.state.countPages}`);
-    store.dispatch(sagaSetDeal(page, this.state.countPages));
+    browserHistory.push({
+      pathname: `${indexUrl}deal/`,
+      search: `?PAGE=${page}&COUNT=${this.state.countPages}&TYPE=${this.state.currentTypeDeal}`,
+    });
+
+    store.dispatch(sagaSetDeal(page, this.state.countPages, this.state.currentTypeDeal));
   }
 
+  handleChangeType = (type) => {
+    this.setState({
+      loading: true,
+      currentTypeDeal: type,
+      currentPage: 1,
+    });
+
+    browserHistory.push({
+      pathname: `${indexUrl}deal/`,
+      search: `?PAGE=${this.state.currentPage}&COUNT=${this.state.countPages}&TYPE=${type}`,
+    });
+
+    store.dispatch(sagaSetDeal(1, this.state.countPages, type));
+  };
+
   render() {
-    const { selectedRowKeys } = this.state;
+    const {
+      selectedRowKeys,
+      currentPage,
+      countPages,
+      loading,
+      showHeader,
+    } = this.state;
+
     const rowSelection = {
       selectedRowKeys,
       onChange: this.onSelectChange,
@@ -87,12 +117,15 @@ class Deal extends Component {
       onSelection: this.onSelection,
     };
 
-    if (this.props.deals.data) {
-      this.props.deals.data.map((deal, id) => {
+    const data = this.props.deals.data ? [...this.props.deals.data] : null;
+    const pager = this.props.deals.pager;
+
+    if (data) {
+      data.map((deal, id) => {
         const menu = (
           <Menu>
             <Menu.Item key="0">
-              <Link to={`${indexUrl}deal/${this.props.deals.data[id].number}`}>
+              <Link to={`${indexUrl}deal/${data[id].number}`}>
                 Смотреть
               </Link>
             </Menu.Item>
@@ -103,7 +136,7 @@ class Deal extends Component {
           </Menu>
         );
 
-        this.props.deals.data[id].action = (
+        data[id].action = (
           <Dropdown overlay={menu} trigger={['click']}>
             <a className="ant-dropdown-link" href="#">
               <span className="table-options__trigger" role="button">
@@ -115,19 +148,19 @@ class Deal extends Component {
           </Dropdown>
         );
 
-        this.props.deals.data[id].broker = this.props.deals.data[id].broker.map((broker, brokerId) => (
+        data[id].broker = data[id].broker.map((broker, brokerId) => (
           <div key={brokerId}>
             <a href={`/${broker.id}`}>{broker.name}</a>
           </div>
         ));
 
-        this.props.deals.data[id].lawyer = this.props.deals.data[id].lawyer.map((lawyer, lawyerId) => (
+        data[id].lawyer = data[id].lawyer.map((lawyer, lawyerId) => (
           <div key={lawyerId}>
             <a href={`/${lawyer.id}`}>{lawyer.name}</a>
           </div>
         ));
 
-        this.props.deals.data[id].salary = this.props.deals.data[id].salary.map((salary, salaryId) => (
+        data[id].salary = data[id].salary.map((salary, salaryId) => (
           <div key={salaryId}>
             <a href={`/${salary.id}`}>{salary.name}</a>
           </div>
@@ -144,20 +177,20 @@ class Deal extends Component {
           </Link>
         </div>
 
-        <BadgeList />
+        <BadgeList onClick={this.handleChangeType} current={this.state.currentTypeDeal} />
 
-        {this.state.showHeader ? '' : <CustomHeader />}
+        {showHeader ? '' : <CustomHeader />}
 
         <Table
-          showHeader={this.state.showHeader}
+          showHeader={showHeader}
           rowSelection={rowSelection}
           columns={columns}
-          dataSource={this.props.deals.data}
-          loading={!this.props.deals.data || this.state.loading}
+          dataSource={data}
+          loading={!data || loading}
           pagination={{
-            current: this.state.currentPage,
-            pageSize: this.state.countPages,
-            total: this.props.deals.pager && this.props.deals.pager.COUNT_OBJ,
+            current: currentPage,
+            pageSize: countPages,
+            total: pager && pager.COUNT_OBJ,
             onChange: this.handlePagerOnChange,
           }}
         />

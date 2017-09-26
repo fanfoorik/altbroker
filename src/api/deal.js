@@ -1,14 +1,15 @@
 import ajax from 'utils/ajax';
 import { formatNumber } from 'utils/formaters';
+import { TYPE_CODE_FOR_FILTER } from 'constants/deal';
 
-export const getDeal = (page = 1, count = 10) => ajax.post('deal/', {
+export const getDeal = (page = 1, count = 10, type = 'sale') => ajax.post('deal/', {
   SORT_CODE: ['ID'],
   SORT_METOD: ['ASC'],
   PAGE: page,
   COUNT: count,
   FILTER: {
     ID: '',
-    PROPERTY_TIP: '',
+    PROPERTY_TIP: TYPE_CODE_FOR_FILTER[type],
   },
 }).then(data => ({
   data: data.ANSWER.ITEMS.map(deal => ({

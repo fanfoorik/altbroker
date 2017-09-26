@@ -25,11 +25,12 @@ export function setDeal(data) {
   };
 }
 
-export function sagaSetDeal(page = 1, count = 10) {
+export function sagaSetDeal(page = 1, count = 10, type = 'sale') {
   return {
     type: SAGA_SET_DEAL,
     page,
     count,
+    typeDeal: type,
   };
 }
 

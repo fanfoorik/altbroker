@@ -6,8 +6,8 @@ import {
   setDeal as setDealAction,
 } from 'actions/deal';
 
-function* init({ page, count }) {
-  const data = yield call(() => getDealApi(page, count));
+function* init({ page, count, typeDeal }) {
+  const data = yield call(() => getDealApi(page, count, typeDeal));
 
   yield put(setDealAction(data));
 }
