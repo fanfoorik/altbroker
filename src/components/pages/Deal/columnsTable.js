@@ -46,6 +46,6 @@ export default {
   },
     {
       title: 'Покупатель',
-      dataIndex: 'buyer',
+      dataIndex: 'npm ',
     }, ...base.slice(5)],
 };

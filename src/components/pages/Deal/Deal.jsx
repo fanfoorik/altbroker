@@ -50,6 +50,10 @@ class Deal extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.deals.data === this.props.deals.data) {
+      return;
+    }
+
     const data = nextProps.deals.data ? [...nextProps.deals.data] : null;
 
     if (data) {
@@ -80,25 +84,25 @@ class Deal extends Component {
           </Dropdown>
         );
 
-        data[id].broker = data[id].broker.map((broker, brokerId) => (
+        data[id].broker = data[id]._broker.map((broker, brokerId) => (
           <div key={brokerId}>
             <a href={`/${broker.id}`}>{broker.name}</a>
           </div>
         ));
 
-        data[id].lawyer = data[id].lawyer.map((lawyer, lawyerId) => (
+        data[id].lawyer = data[id]._lawyer.map((lawyer, lawyerId) => (
           <div key={lawyerId}>
             <a href={`/${lawyer.id}`}>{lawyer.name}</a>
           </div>
         ));
 
-        data[id].salary = data[id].salary.map((salary, salaryId) => (
+        data[id].salary = data[id]._salary.map((salary, salaryId) => (
           <div key={salaryId}>
             <a href={`/${salary.id}`}>{salary.name}</a>
           </div>
         ));
 
-        data[id].buyer = data[id].buyer.map((buyer, buyerId) => (
+        data[id].buyer = data[id]._buyer.map((buyer, buyerId) => (
           <div key={buyerId}>
             <a href={`/${buyer.id}`}>{buyer.name}</a>
           </div>
@@ -107,7 +111,7 @@ class Deal extends Component {
     }
 
     this.setState({
-      loading: nextProps.deals.data === null,
+      loading: false,
       data: [...data],
     });
   }
@@ -195,7 +199,7 @@ class Deal extends Component {
           rowSelection={rowSelection}
           columns={columns[this.state.currentTypeDeal]}
           dataSource={this.state.data}
-          loading={!this.state.data || loading}
+          loading={loading}
           pagination={{
             current: currentPage,
             pageSize: countPages,
