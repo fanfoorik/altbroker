@@ -81,6 +81,10 @@
   &_without-tabs.top::before {
     background: $c-white;
   }
+
+  &_change-price {
+    min-height: 180px;
+  }
 }
 
 .popover-parent:hover .popover {
@@ -359,6 +363,7 @@ input.popover-input {
     &:hover {
       color: $c-blue-main;
       background: $bg-blue-grey;
+      text-decoration: none;
 
       .icon {
         fill: $c-blue-main

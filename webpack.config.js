@@ -39,7 +39,7 @@ const lessConfig = dev ? lessDev : lessProd;
 const lessModuleConfig = dev ? lessModuleDev : lessModuleProd;
 
 module.exports = {
-  entry: './src/index.jsx',
+  entry: './src/Index.jsx',
 
   output: {
     path: path.resolve(__dirname, 'build'),

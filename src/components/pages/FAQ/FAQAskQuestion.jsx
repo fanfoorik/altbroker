@@ -1,8 +1,5 @@
 import React from 'react';
-
 import ajax from 'utils/ajax';
-import IsActive from 'utils/IsActive';
-
 import FAQCover from './FAQCover';
 import FAQForm from './FAQForm';
 
@@ -66,10 +63,13 @@ class FAQAddQuestions extends React.Component {
 
     return (
       <div className="faq">
+        {cover &&
+          <FAQCover />
+        }
 
-        <IsActive active={cover} component={FAQCover} />
-
-        <IsActive active={!cover} component={FAQForm} data={formData} />
+        {!cover &&
+          <FAQForm data={formData} />
+        }
 
       </div>
     );
