@@ -46,7 +46,8 @@
     font-size: 16px;
     border-bottom: 2px solid transparent;
 
-    &:hover {
+    &:hover,
+    &:focus {
       text-decoration: none;
     }
 
@@ -70,7 +71,7 @@
   }
 }
 
-.subnav {
+a.subnav {
   &__link {
     display: inline-block;
     height: 92px;
@@ -78,9 +79,14 @@
     padding: 25px 0 0;
     text-align: center;
     width: 130px;
+    transition: 0.3s;
 
     &:hover {
       background: $c-blue-main;
+      text-decoration: none;
+    }
+
+    &:focus {
       text-decoration: none;
     }
   }
@@ -101,12 +107,12 @@
 .nav__section_item {
   // Брокер
   &-884778 {
-    margin-left: -3130px;
+    margin-left: -3133px;
   }
 
-  // Сделки
+  // Финансы
   &-884779 {
-    margin-left: -3264px;
+    margin-left: -3127px;
   }
 
   // Мой прогресс
@@ -116,7 +122,7 @@
 
   // Аналитика
   &-884794 {
-    margin-left: -3120px;
+    margin-left: -3122px;
   }
 
   // Управление

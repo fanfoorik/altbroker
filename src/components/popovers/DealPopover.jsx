@@ -71,6 +71,8 @@ class DealPopover extends React.Component {
                         <a
                           key={nanoid()}
                           href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className={`popover-deal-item ${enable === 'N' ? 'style-disabled' : ''}`}
                         >
                           <Icon className="popover-deal-list-icon" icon={icon} width={16} height={16} />

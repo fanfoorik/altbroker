@@ -3,60 +3,77 @@ import PropTypes from 'prop-types';
 import FAQErrors from './FAQErrors';
 import BaseEditor from 'components/Editor/BaseEditor';
 
-function FAQForm(props) {
-  const { errors, options, faqFormSubmit } = props.data;
+class FAQForm extends React.Component {
+  handleEditorChange = (value) => {
+    this.props.data.handleFormChange('message', value);
+  };
 
-  return (
-    <div>
+  handleFieldChange = (event) => {
+    const { value, dataset: { name } } = event.currentTarget;
+    this.props.data.handleFormChange(name, value);
+  };
 
-      <div className="h1">Задать вопрос</div>
+  render() {
+    const {
+      errors,
+      options,
+      faqFormSubmit,
+      values: { name, category, message } } = this.props.data;
 
-      <div className="faq-form">
-        <form action="faq-form__fieldset" onSubmit={faqFormSubmit} name="frm">
+      console.log('options', options);
+      // console.log('name', name, 'category', category, 'message', message);
 
-          {!!errors.length &&
-            <FAQErrors errors={errors} />
-          }
+    // const { value } = this.state;
+    // console.log(draftTextLength(value));
+    // console.log(draftToHtml(value));
 
-          <div className="faq-form__row">
-            <label htmlFor="faq-form-field-1">
-              <span className="faq-form__label">Опишите вашу проблемы в двух словах</span>
-              <input className="input js-faq-form-title" type="text" name="NAME" id="faq-form-field-1" />
-            </label>
-          </div>
+    return (
+      <div>
+        <div className="h1">Задать вопрос</div>
+        <div className="faq-form">
+          <form action="faq-form__fieldset" onSubmit={faqFormSubmit} name="frm">
+            {!!errors.length &&
+              <FAQErrors errors={errors} />
+            }
+            <div className="faq-form__row">
+              <label htmlFor="faq-form-field-1">
+                <span className="faq-form__label">Опишите вашу проблемы в двух словах</span>
+                <input value={name} className="input" type="text" onChange={this.handleFieldChange} data-name="name" />
+              </label>
+            </div>
+            <div className="faq-form__row">
+              <label htmlFor="faq-form-field-2">
+                <span className="faq-form__label">Укажите область</span>
 
-          <div className="faq-form__row">
-            <label htmlFor="faq-form-field-2">
-              <span className="faq-form__label">Укажите область</span>
+                <span className="selectbox">
+                  <select value={category} className="select-lg" onChange={this.handleFieldChange} data-name="category">
+                    {
+                      options.map((item) => {
+                        const { ID, NAME } = item;
+                        return <option key={`category-id-${ID}`} value={ID}>{NAME}</option>;
+                      })
+                    }
+                  </select>
+                </span>
+              </label>
+            </div>
 
-              <span className="selectbox">
-                <select className="select-lg js-faq-form-category" id="faq-form-field-2">
-                  {
-                    options.map((item) => {
-                      const { ID: id, NAME: name } = item;
-                      return <option key={`category-id-${id}`} value={id}>{name}</option>;
-                    })
-                  }
-                </select>
-              </span>
-            </label>
-          </div>
+            <div className="faq-form__row">
+              <label htmlFor="faq-form-field-3">
+                <span className="faq-form__label">Расскажите о проблеме подробнее</span>
+                <BaseEditor value="" html={message} getHtml={this.handleEditorChange} />
+              </label>
+            </div>
 
-          <div className="faq-form__row">
-            <label htmlFor="faq-form-field-3">
-              <span className="faq-form__label">Расскажите о проблеме подробнее</span>
-              <BaseEditor />
-            </label>
-          </div>
+            <div className="align-right">
+              <button className="btn btn-primary" type="submit">Отправить</button>
+            </div>
 
-          <div className="align-right">
-            <button className="btn btn-primary" type="submit">Отправить</button>
-          </div>
-
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 FAQForm.propTypes = {
@@ -64,6 +81,7 @@ FAQForm.propTypes = {
     options: PropTypes.array.isRequired,
     errors: PropTypes.array.isRequired,
     faqFormSubmit: PropTypes.func.isRequired,
+    handleFormChange: PropTypes.func.isRequired,
   }).isRequired,
 };
 
