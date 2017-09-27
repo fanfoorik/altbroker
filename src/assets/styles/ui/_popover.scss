@@ -84,6 +84,14 @@
 
   &_change-price {
     min-height: 180px;
+
+    .tabs-head {
+      background: #f5f7f9;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      text-align: center;
+    }
   }
 }
 
@@ -111,7 +119,7 @@
 
 // Header part with tabs:
 .popover-header {
-  background: $c-grey-light;
+  background: #f5f7f9;
   cursor: pointer;
   font-size: 14px;
   display: flex;
@@ -172,7 +180,7 @@
 
 // Content with history list:
 .popover-history {
-  height: 115px;
+  height: 110px;
   overflow: auto;
   $this: &;
 
