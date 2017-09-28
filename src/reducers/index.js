@@ -5,6 +5,7 @@ import header from 'reducers/header/headerReducer';
 import user from 'components/pages/User/reducers';
 import GB from './pages/GB/GBReducer';
 import deal from './deal';
+import editDealPage from './editDealPage';
 
 export default combineReducers({
   auth,
@@ -12,4 +13,5 @@ export default combineReducers({
   user,
   GB,
   deal,
+  editDealPage,
 });
