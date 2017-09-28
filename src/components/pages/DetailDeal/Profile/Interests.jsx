@@ -30,9 +30,13 @@ const Base = props => {
         <Col span={12}>
           <FormItem {...formItemLayout} label="Город">
             <Select showSearch>
-              <Option value="jack">Jack</Option>
-              <Option value="lucy">Lucy</Option>
-              <Option value="tom">Tom</Option>
+              {
+                props.ALL_CITY.map(city => (
+                  <Option key={city.ID} value={city.ID}>
+                    {city.NAME}
+                  </Option>
+                ))
+              }
             </Select>
           </FormItem>
         </Col>

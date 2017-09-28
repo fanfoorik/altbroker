@@ -16,15 +16,21 @@ import Interests from './Interests';
 import Breadcrumbs from 'components/ui/Breadcrumbs';
 import { sagaInitEditDealPage, clearEditDealPage } from 'actions/deal';
 import store from 'store';
+import { fetchLib } from 'api/editPage';
 
 const { Link } = Anchor;
 class Profile extends Component {
   state = {
     editBuyer: false,
+    lib: {
+      ALL_CITY: [],
+    },
   }
 
   componentDidMount() {
     store.dispatch(sagaInitEditDealPage(this.props.dealId));
+
+    fetchLib().then(data => this.setState({ lib: data.ANSWER }));
   }
 
   componentWillUnmount() {
@@ -81,7 +87,7 @@ class Profile extends Component {
             </div>
             <div id="interests" className={style.section}>
               <h2>Интересы</h2>
-              <Interests />
+              <Interests ALL_CITY={this.state.lib.ALL_CITY} />
             </div>
           </Form>
         </Col>

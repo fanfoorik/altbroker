@@ -67,7 +67,9 @@ class Deal extends Component {
             </Menu.Item>
             <Menu.Divider />
             <Menu.Item key="1">
-              Редактировать
+              <Link to={`${indexUrl}deal/detail/${data[id].number}`}>
+                  Редактировать
+              </Link>
             </Menu.Item>
           </Menu>
         );
