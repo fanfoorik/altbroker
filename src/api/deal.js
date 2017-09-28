@@ -43,3 +43,5 @@ export const getDeal = (page = 1, count = 10, type = 'sale') => ajax.post('deal/
 ).catch(e => {
   return [];
 });
+
+export const editDeal = id => ajax.post(`/deal/${id}/edit/`);

@@ -23,8 +23,8 @@ import NotFound from 'components/pages/404';
 import ProtectedRoute from './components/HOC/ProtectedRoute';
 import Statistic from 'components/pages/Statistic';
 import store from './store';
-import './assets/styles/style';
 import './assets/less/style.less';
+import './assets/styles/style';
 import User from 'components/pages/User/User';
 
 import { LocaleProvider } from 'antd';
@@ -60,7 +60,7 @@ ReactDOM.render(
 
           <Route path="deal">
             <IndexRoute component={ProtectedRoute(Deal)} />
-            <Route path=":dealId" component={ProtectedRoute(DealDetail)} />
+            <Route path="detail/:dealId" component={ProtectedRoute(DealDetail)} />
           </Route>
 
           <Route path="broker">
@@ -70,10 +70,6 @@ ReactDOM.render(
               <Route path="add" component={ProtectedRoute(Add)} />
             </Route>
             <Route path=":page" component={ProtectedRoute(GBNavItems)} />
-          </Route>
-
-          <Route path="deal2" component={ProtectedRoute(Deal)}>
-            <Route path=":page" />
           </Route>
 
           <Route path="evolution" component={ProtectedRoute(Evolution)}>

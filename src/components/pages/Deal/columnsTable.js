@@ -32,20 +32,32 @@ const base = [{
 }];
 
 export default {
-  sale: [...base.slice(0, 5), {
-    title: 'Продавец',
-    dataIndex: 'salary',
-  }, ...base.slice(5)],
-  search: [...base.slice(0, 5), {
-    title: 'Покупатель',
-    dataIndex: 'buyer',
-  }, ...base.slice(5)],
-  deal: [...base.slice(0, 5), {
-    title: 'Продавец',
-    dataIndex: 'salary',
-  },
+  sale: [
+    ...base.slice(0, 5),
+    {
+      title: 'Продавец',
+      dataIndex: 'salary',
+    },
+    ...base.slice(5),
+  ],
+  search: [
+    ...base.slice(0, 5),
     {
       title: 'Покупатель',
-      dataIndex: 'npm ',
-    }, ...base.slice(5)],
+      dataIndex: 'buyer',
+    },
+    ...base.slice(5),
+  ],
+  deal: [
+    ...base.slice(0, 5),
+    {
+      title: 'Продавец',
+      dataIndex: 'salary',
+    },
+    {
+      title: 'Покупатель',
+      dataIndex: 'buyer',
+    },
+    ...base.slice(5),
+  ],
 };
