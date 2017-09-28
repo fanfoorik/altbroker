@@ -1,14 +1,15 @@
 import ajax from 'utils/ajax';
 import { formatNumber } from 'utils/formaters';
+import { TYPE_CODE_FOR_FILTER } from 'constants/deal';
 
-export const getDeal = (page = 1, count = 10) => ajax.post('deal/', {
+export const getDeal = (page = 1, count = 10, type = 'sale') => ajax.post('deal/', {
   SORT_CODE: ['ID'],
   SORT_METOD: ['ASC'],
   PAGE: page,
   COUNT: count,
   FILTER: {
     ID: '',
-    PROPERTY_TIP: '',
+    PROPERTY_TIP: TYPE_CODE_FOR_FILTER[type],
   },
 }).then(data => ({
   data: data.ANSWER.ITEMS.map(deal => ({
@@ -19,15 +20,19 @@ export const getDeal = (page = 1, count = 10) => ajax.post('deal/', {
     comission: formatNumber(parseInt(deal.PROPERTY_COMMISSION.VALUE, 10), ''),
     creating: deal.DATE_CREATE.split(' ')[0],
     ending: '12.03.18',
-    broker: deal.PROPERTY_BROKER.VALUE.map(id => ({
+    _broker: deal.PROPERTY_BROKER.VALUE.map(id => ({
       name: deal.PROPERTY_BROKER.DATA[id].SHOT_NAME,
       id: deal.PROPERTY_BROKER.DATA[id].ID,
     })),
-    lawyer: deal.PROPERTY_LAWYER.VALUE.map(id => ({
+    _lawyer: deal.PROPERTY_LAWYER.VALUE.map(id => ({
       name: deal.PROPERTY_LAWYER.DATA[id].SHOT_NAME,
       id: deal.PROPERTY_LAWYER.DATA[id].ID,
     })),
-    salary: deal.PROPERTY_SELLER.VALUE.map(id => ({
+    _salary: deal.PROPERTY_SELLER.VALUE.map(id => ({
+      name: deal.PROPERTY_SELLER.DATA[id].PROPERTY_KLIENT_FIO_VALUE,
+      id: deal.PROPERTY_SELLER.DATA[id].ID,
+    })),
+    _buyer: deal.PROPERTY_SELLER.VALUE.map(id => ({
       name: deal.PROPERTY_SELLER.DATA[id].PROPERTY_KLIENT_FIO_VALUE,
       id: deal.PROPERTY_SELLER.DATA[id].ID,
     })),
@@ -38,3 +43,5 @@ export const getDeal = (page = 1, count = 10) => ajax.post('deal/', {
 ).catch(e => {
   return [];
 });
+
+export const editDeal = id => ajax.post(`/deal/${id}/edit/`);
