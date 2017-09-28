@@ -20,7 +20,7 @@ class FAQForm extends React.Component {
       faqFormSubmit,
       values: { name, category, message } } = this.props.data;
 
-      console.log('options', options);
+      // console.log('options', options);
       // console.log('name', name, 'category', category, 'message', message);
 
     // const { value } = this.state;
