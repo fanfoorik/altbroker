@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Select from 'react-select';
 import FAQErrors from './FAQErrors';
 import BaseEditor from 'components/Editor/BaseEditor';
 
@@ -13,19 +14,16 @@ class FAQForm extends React.Component {
     this.props.data.handleFormChange(name, value);
   };
 
+  handleCategoryChange = data => (
+    this.props.data.handleFormChange('category', (data ? data.ID : ''))
+  );
+
   render() {
     const {
       errors,
       options,
       faqFormSubmit,
       values: { name, category, message } } = this.props.data;
-
-      // console.log('options', options);
-      // console.log('name', name, 'category', category, 'message', message);
-
-    // const { value } = this.state;
-    // console.log(draftTextLength(value));
-    // console.log(draftToHtml(value));
 
     return (
       <div>
@@ -37,31 +35,30 @@ class FAQForm extends React.Component {
             }
             <div className="faq-form__row">
               <label htmlFor="faq-form-field-1">
-                <span className="faq-form__label">Опишите вашу проблемы в двух словах</span>
+                <span className="faq-form__label">Опишите вашу проблему в двух словах</span>
                 <input value={name} className="input" type="text" onChange={this.handleFieldChange} data-name="name" />
               </label>
             </div>
             <div className="faq-form__row">
               <label htmlFor="faq-form-field-2">
                 <span className="faq-form__label">Укажите область</span>
-
-                <span className="selectbox">
-                  <select value={category} className="select-lg" onChange={this.handleFieldChange} data-name="category">
-                    {
-                      options.map((item) => {
-                        const { ID, NAME } = item;
-                        return <option key={`category-id-${ID}`} value={ID}>{NAME}</option>;
-                      })
-                    }
-                  </select>
-                </span>
+                <Select
+                  backspaceRemoves={false}
+                  className="faq-form__select"
+                  clearable={false}
+                  labelKey="NAME"
+                  onChange={this.handleCategoryChange}
+                  options={options}
+                  value={category}
+                  valueKey="ID"
+                />
               </label>
             </div>
 
             <div className="faq-form__row">
               <label htmlFor="faq-form-field-3">
                 <span className="faq-form__label">Расскажите о проблеме подробнее</span>
-                <BaseEditor value="" html={message} getHtml={this.handleEditorChange} />
+                <BaseEditor value={message} onChange={this.handleEditorChange} />
               </label>
             </div>
 

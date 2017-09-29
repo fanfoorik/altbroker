@@ -41,8 +41,8 @@ class FAQAddQuestions extends React.Component {
       });
   };
 
-  faqFormSubmit = (ev) => {
-    ev.preventDefault();
+  faqFormSubmit = (event) => {
+    event.preventDefault();
 
     const { name, category, message } = this.state.values;
 
