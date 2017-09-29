@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import IsActive from 'utils/IsActive';
 
 import DelegatePopover from 'components/popovers/DelegatePopover';
 import PopoverTriggerHOC from 'components/popovers/PopoverTriggerHOC';

@@ -406,17 +406,20 @@ input.popover-input {
 
 // Custom select:
 .popover-select {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  background: none;
-  border: 0;
-  border-radius: 0;
   cursor: pointer;
-  display: block;
-  height: 36px;
-  font-size: 14px;
-  padding: 0 12px;
-  width: 100%;
+
+  .Select-control {
+    border-radius: 0;
+    border-width: 0;
+    box-shadow: none !important;
+  }
+
+  .Select-menu-outer {
+    border-top-color: transparent;
+    box-shadow: none;
+    width: calc(100% + 2px);
+    margin: 0 -1px;
+  }
 }
 
 .popover-select-wrapper {
