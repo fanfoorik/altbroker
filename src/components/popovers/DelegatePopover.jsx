@@ -43,7 +43,6 @@ class DelegatePopover extends React.Component {
   };
 
   fetchBrokers = () => {
-    const ths = this;
     ajax.post(`broker/gb/${this.props.id}/changebroker/`, {
       BROKER_ID: '',
     })

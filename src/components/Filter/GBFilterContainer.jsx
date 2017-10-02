@@ -1,29 +1,26 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import GB from './GB';
+import GBFilter from './GBFilter';
 
 import {
-  fetchGBListing,
   updateGBOptions,
   fetchGBfilter,
 } from 'actions/pages/GBActions';
 
 function mapStateToProps(state) {
   return {
-    listing: state.GB.listing.listingItems,
-    loading: state.GB.listing.loading,
-    pagination: state.GB.listing.listingNav,
+    filter: state.GB.filter,
+    filterState: state.GB.options.FILTER,
     options: state.GB.options,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    fetchGBListing,
     updateGBOptions,
     fetchGBfilter,
   }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(GB);
+export default connect(mapStateToProps, mapDispatchToProps)(GBFilter);

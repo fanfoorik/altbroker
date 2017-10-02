@@ -17,11 +17,41 @@ import Filter from './Filter';
 import CategoryContainer from './CategoryContainer';
 import BrokersContainer from './BrokersContainer';
 
+/**
+ * Adds "position" property up to its queue and checked property.
+ * @param {Object[]} data - raw data.
+ * @param {string[]} selected - An array of ids of selected items.
+ * @returns {Object[]} returns prepared array of objects.
+ */
+const prepareChecks = (data, selected) => (
+  data.map((item, index) => ({
+    ...item,
+    position: (item.position || index),
+    checked: selected.includes(item.ID),
+  }))
+);
+
+const serializeChecks = (data) => {
+  const selected = [];
+  const items = data.filter((item) => {
+    if (item.checked) selected.push(item);
+    return !item.checked;
+  })
+    .sort((prev, next) => prev.position - next.position);
+  return [...selected, ...items];
+};
+
 export default class GbFilter extends React.Component {
   constructor(props) {
     super(props);
+
+    const { ALL_BROKER } = props.filter;
+
     this.state = {
       filterState: props.filterState,
+      filter: {
+        ALL_BROKER: [],
+      },
       search: {
         PROPERTY_BROKER: '',
         PROPERTY_GEO_ID: '',
@@ -38,6 +68,21 @@ export default class GbFilter extends React.Component {
 
   componentWillMount() {
     this.props.fetchGBfilter();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { ALL_BROKER: stateBrokers } = this.state.filter;
+    const { PROPERTY_BROKER } = nextProps.options.FILTER;
+
+    const filter = stateBrokers.length ? this.state.filter : nextProps.filter;
+
+    this.setState({
+      filter: {
+        ALL_BROKER: serializeChecks(
+          prepareChecks(filter.ALL_BROKER, PROPERTY_BROKER)
+        ),
+      },
+    });
   }
 
   handleSearch = (name, value) => {
@@ -164,10 +209,16 @@ export default class GbFilter extends React.Component {
   };
 
   filterSubmit = (event) => {
-    event.preventDefault();
-    this.setState(() => {
-      browserHistory.push(`${indexUrl}broker/gb/`);
-      this.props.updateGBOptions({ PAGE: 1, ...this.state.filterState });
+    if (event) event.preventDefault();
+
+    browserHistory.push(`${indexUrl}broker/gb/`);
+    this.props.updateGBOptions({
+      PAGE: 1,
+      FILTER: {
+        ...this.state.filterState,
+        PROPERTY_BROKER: this.state.filter.ALL_BROKER.filter(item => (item.checked))
+          .map(item => item.ID),
+      },
     });
   };
 
@@ -210,6 +261,24 @@ export default class GbFilter extends React.Component {
     this.setState({ extendFilter: !this.state.extendFilter });
   };
 
+  checksChange = (event) => {
+    const { id, name, checked } = event.currentTarget;
+    this.setState(() => {
+      this.state.filter[name] = this.state.filter[name].map(item => (
+        item.ID === id ? { ...item, checked } : item
+      ));
+      return this.state;
+    });
+  };
+
+  checksDropdownClose = (prop) => {
+    this.filterSubmit();
+    this.setState(() => {
+      this.state.filter[prop] = serializeChecks(this.state.filter[prop]);
+      return this.state;
+    });
+  };
+
   /**
    * Select all checkboxes from group.
    * @param {array} data - The array of checkbox objects.
@@ -228,7 +297,7 @@ export default class GbFilter extends React.Component {
 
   render() {
     const {
-      ALL_BROKER: brokers,
+      // ALL_BROKER: brokers,
       ALL_CITY: cities,
       ALL_RAYONS: regions,
       ALL_METRO: subways,
@@ -263,7 +332,7 @@ export default class GbFilter extends React.Component {
       SECTION_ID_2: searchSubCategory,
     } = this.state.search;
 
-    const { extendFilter } = this.state;
+    const { extendFilter, filter: { ALL_BROKER: brokers } } = this.state;
 
     return (
       <div>
@@ -334,7 +403,7 @@ export default class GbFilter extends React.Component {
                 handleSearch={this.handleSearch}
                 searchValue={{ searchCategory, searchSubCategory }}
                 resetSection={this.resetSection}
-                submitOnDropdownClose={this.submitOnDropdownClose}
+                submitOnDropdownClose={this.filterSubmit}
                 selectCheckGroup={this.selectCheckGroup}
               />
 
@@ -345,7 +414,7 @@ export default class GbFilter extends React.Component {
                 to={toPrice}
                 onChange={this.changeFromTo}
                 resetSection={this.resetSection}
-                submitOnDropdownClose={this.submitOnDropdownClose}
+                submitOnDropdownClose={this.filterSubmit}
               />
 
               <div className="filter__cell active">
@@ -358,7 +427,7 @@ export default class GbFilter extends React.Component {
                     to={toIncome}
                     onChange={this.changeFromTo}
                     resetSection={this.resetSection}
-                    submitOnDropdownClose={this.submitOnDropdownClose}
+                    submitOnDropdownClose={this.filterSubmit}
                   />
 
                   <Recoupment
@@ -368,7 +437,7 @@ export default class GbFilter extends React.Component {
                     to={toRecoupment}
                     onChange={this.changeFromTo}
                     resetSection={this.resetSection}
-                    submitOnDropdownClose={this.submitOnDropdownClose}
+                    submitOnDropdownClose={this.filterSubmit}
                   />
 
                 </div>
@@ -395,16 +464,24 @@ export default class GbFilter extends React.Component {
             {extendFilter &&
               <div className="filter__row clear">
 
-                <Brokers
-                  items={brokers}
-                  selectedItems={selectedBrokers}
-                  changeFilterItem={this.changeFilterItem}
-                  handleSearch={this.handleSearch}
-                  searchValue={searchBrokers}
-                  resetSection={this.resetSection}
-                  submitOnDropdownClose={this.submitOnDropdownClose}
-                  selectCheckGroup={this.selectCheckGroup}
-                />
+                <Filter.Cell className="hover round-bottom-left">
+                  <BrokersContainer
+                    items={brokers}
+                    onChange={this.checksChange}
+                    onDropdownClose={this.checksDropdownClose}
+                  />
+                </Filter.Cell>
+
+                {/*<Brokers*/}
+                  {/*items={brokers}*/}
+                  {/*selectedItems={selectedBrokers}*/}
+                  {/*changeFilterItem={this.changeFilterItem}*/}
+                  {/*handleSearch={this.handleSearch}*/}
+                  {/*searchValue={searchBrokers}*/}
+                  {/*resetSection={this.resetSection}*/}
+                  {/*submitOnDropdownClose={this.submitOnDropdownClose}*/}
+                  {/*selectCheckGroup={this.selectCheckGroup}*/}
+                {/*/>*/}
 
                 <City
                   items={{ cities, regions }}
@@ -413,7 +490,7 @@ export default class GbFilter extends React.Component {
                   handleSearch={this.handleSearch}
                   searchValue={{ searchCity, searchRegions }}
                   resetSection={this.resetSection}
-                  submitOnDropdownClose={this.submitOnDropdownClose}
+                  submitOnDropdownClose={this.filterSubmit}
                 />
 
                 <Subway
@@ -423,7 +500,7 @@ export default class GbFilter extends React.Component {
                   handleSearch={this.handleSearch}
                   searchValue={searchSubway}
                   resetSection={this.resetSection}
-                  submitOnDropdownClose={this.submitOnDropdownClose}
+                  submitOnDropdownClose={this.filterSubmit}
                 />
 
                 <Status
@@ -431,7 +508,7 @@ export default class GbFilter extends React.Component {
                   selectedItems={selectedStatus}
                   changeFilterItem={this.changeFilterItem}
                   resetSection={this.resetSection}
-                  submitOnDropdownClose={this.submitOnDropdownClose}
+                  submitOnDropdownClose={this.filterSubmit}
                 />
 
               </div>
@@ -470,9 +547,15 @@ export default class GbFilter extends React.Component {
 GbFilter.propTypes = {
   updateGBOptions: PropTypes.func.isRequired,
   fetchGBfilter: PropTypes.func.isRequired,
-  filter: PropTypes.oneOfType([
-    PropTypes.object,
-  ]).isRequired,
+  filter: PropTypes.shape({
+    ALL_BROKER: PropTypes.arrayOf(PropTypes.object),
+    ALL_STATUS_OBJ: PropTypes.arrayOf(PropTypes.object),
+    ALL_CITY: PropTypes.arrayOf(PropTypes.object),
+    ALL_RAYONS: PropTypes.arrayOf(PropTypes.object),
+    ALL_METRO: PropTypes.arrayOf(PropTypes.object),
+    ALL_CATEGORY_GB_1: PropTypes.arrayOf(PropTypes.object),
+    ALL_CATEGORY_GB_2: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
   filterState: PropTypes.shape({
     ID: PropTypes.string.isRequired,
     ID_NAME_TEL: PropTypes.string.isRequired,

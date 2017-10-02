@@ -6,6 +6,7 @@ import {
   SET_GB_FILTER,
   UPDATE_GB_OPTIONS,
   LOADING_GB_LISTING,
+  SET_GB_OPTIONS,
 } from 'constants/GBTypes';
 
 function listingAjax(dispatch, getState) {
@@ -17,9 +18,15 @@ function listingAjax(dispatch, getState) {
   ajax.post('broker/gb/', getState().GB.options)
     .then((data) => {
       dispatch({
+        type: SET_GB_OPTIONS,
+        payload: data.ANSWER.RETURN_FILTER,
+      });
+
+      dispatch({
         type: SET_GB_LISTING,
         payload: data.ANSWER,
       });
+
       dispatch({
         type: LOADING_GB_LISTING,
         payload: false,
