@@ -6,6 +6,11 @@ import { NotificationStack } from 'react-notification';
 import { OrderedSet } from 'immutable';
 
 import {
+  Row,
+  Col,
+} from 'antd';
+
+import {
   Basic,
   Finance,
   Salary,
@@ -128,6 +133,7 @@ class EditPage extends React.Component {
             label: city.NAME,
           })),
           metro: answer.ALL_METRO,
+          rayons: answer.ALL_RAYONS,
           categories: answer.ALL_CATEGORY_GB_1.map(category => ({
             label: category.NAME,
             value: category.ID,
@@ -288,28 +294,32 @@ class EditPage extends React.Component {
           ]}
         />
         <div className="edit-page">
-          <LeftPanel
-            sections={this.sections}
-            selectValues={this.state.selectValues}
-          />
-          <div className="edit-page__container">
-            {
-              this.sections.map((section, index) => {
-                const Component = this.componentSections[section.component];
+          <Row gutter={16}>
+            <Col span={7}>
+              <LeftPanel
+                sections={this.sections}
+                selectValues={this.state.selectValues}
+              />
+            </Col>
+            <Col span={17}>
+              {
+                this.sections.map((section, index) => {
+                  const Component = this.componentSections[section.component];
 
-                return (
-                  <Component
-                    lib={this.state.lib}
-                    key={index}
-                    selectValues={this.state.selectValues[section.component]}
-                    onChangeState={this.onChangeStateHandler(section.component)}
-                    onSubmit={this.onSubmitHandler(section.component)}
-                    objectId={this.props.params.id}
-                  />
-                );
-              })
-            }
-          </div>
+                  return (
+                    <Component
+                      lib={this.state.lib}
+                      key={index}
+                      selectValues={this.state.selectValues[section.component]}
+                      onChangeState={this.onChangeStateHandler(section.component)}
+                      onSubmit={this.onSubmitHandler(section.component)}
+                      objectId={this.props.params.id}
+                    />
+                  );
+                })
+              }
+            </Col>
+          </Row>
         </div>
         <NotificationStack
           notifications={this.state.notifications.toArray()}

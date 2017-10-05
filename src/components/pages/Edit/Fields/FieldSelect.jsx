@@ -14,11 +14,32 @@ const FieldSelect = (props) => {
     link,
     disabled,
     maxCountCurrentValues,
+    required,
+    addError,
+    deleteError,
   } = props;
+  const textErrorRequired = 'Поле обязательно для заполнения!';
+  const textErrorMaxCount = `Максимальное кол-во ${maxCountCurrentValues}`;
+
+  const checked = (e) => {
+
+    if (required && (e === null || e.length === 0)) {
+      addError(field, textErrorRequired);
+    } else if (maxCountCurrentValues && (e.length > maxCountCurrentValues)
+    ) {
+      // addError(field, textErrorMaxCount);
+      return false;
+    } else {
+      deleteError(field, textErrorRequired);
+      return true;
+    }
+
+    return true;
+  }
 
   const onChangeHandler = (selectData) => {
     let selectOption = selectData;
-
+    if (!checked(selectData)) return;
     if (selectOption === null) {
       onChangeState({ [field]: selectOption });
     } else {
@@ -46,6 +67,10 @@ const FieldSelect = (props) => {
       label: section.NAME,
       parentSectionId: section.IBLOCK_SECTION_ID,
     }));
+  } else if (field === 'PROPERTY_RAYON2' && options) {
+    optionsRes = options
+    .filter(metro => metro.PROPERTY_CITY_VALUE === link)
+    .map(metro => ({ value: metro.ID, label: metro.NAME }));
   } else {
     optionsRes = options;
   }

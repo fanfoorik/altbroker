@@ -23,7 +23,7 @@ const Section = ({
   });
 
   return (
-    <div className="page-panel" data-anchor={anchor}>
+    <div className="page-panel" id={anchor}>
       <div className="page-panel-title">
         <span className="page-panel-title__heading">{title}</span>
         <span className="block-right">

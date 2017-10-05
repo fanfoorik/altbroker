@@ -1,60 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {
+  Anchor,
+} from 'antd';
 
-const pagePanelDomElements = document.getElementsByClassName('page-panel');
+import style from './leftPanel.module.less';
 
-function myMove(posi) {
-  let pos = window.pageYOffset;
+const { Link } = Anchor;
 
-  let id = (pos < posi) ? setInterval(top, 0) : setInterval(bottom, 0);
-  
-  const step = 50;
-  const headerHeight = 20;
-
-
-  function top() {
-    if (pos >= posi) {
-      clearInterval(id);
-    } else {
-      var pospre = pos;
-      pos += step;
-
-      if (pos >= posi) {
-        window.scrollTo(pospre,  posi + headerHeight);
-      } else {
-        window.scrollTo(pospre,  pos);
-      }
-    }
-  }
-
-  function bottom() {
-    if (pos <= posi) {
-      clearInterval(id);
-    } else {
-      var pospre = pos;
-      pos -= step;
-
-      if (pos <= posi) {
-        window.scrollTo(pospre,  posi + headerHeight);
-      } else {
-        window.scrollTo(pospre,  pos);
-      }
-    }
-  }
-}
-
-window.onload = function() {
-  const anchar = window.location.hash.substr(1);
-  if (anchar) {
-    Object.keys(pagePanelDomElements).map(id => {
-      if (pagePanelDomElements[id].getAttribute('data-anchor') === anchar) {
-        myMove(pagePanelDomElements[id].offsetTop);
-      }
-    });
-  }
-};
-
-const LeftPanel = ({
+const LeftPanelTest = ({
   sections,
   selectValues,
   onSubmit,
@@ -86,32 +39,28 @@ const LeftPanel = ({
 
   const R = 65;
   const circleProgress = 2 * Math.PI * R * (1 - (percentFilledField / 100));
-
   return (
-    <div className="page-aside">
-      <div className="page-aside__list">
-        <div className="page-aside__quality">
-          <div className="page-aside__quality_heading">
-            Качество заполнения
-          </div>
-          <div className="page-aside__quality_diagrams">
-            <div className="circle">
-              <svg width="50" height="50" viewBox="0 0 150 160">
-                <circle transform="rotate(-90)" r={R} cx="-80" cy="80" />
-                <circle
-                  transform="rotate(-90)"
-                  r={R}
-                  cx="-80"
-                  cy="80"
-                  strokeDasharray={2 * Math.PI * R}
-                  strokeDashoffset={circleProgress}
-                />
-              </svg>
-              <span className="circle__number">{percentFilledField}</span>
-            </div>
-          </div>
+    <Anchor offsetTop={80} >
+      <div className={style.quality}>
+        <div className="heading">
+          Качество заполнения
         </div>
-        {
+        <div className={style.circle}>
+          <svg width="50" height="50" viewBox="0 0 150 160">
+            <circle transform="rotate(-90)" r={R} cx="-80" cy="80" />
+            <circle
+              transform="rotate(-90)"
+              r={R}
+              cx="-80"
+              cy="80"
+              strokeDasharray={2 * Math.PI * R}
+              strokeDashoffset={circleProgress}
+            />
+          </svg>
+          <span className={style.number}>{percentFilledField}</span>
+        </div>
+      </div>
+      {
           sections.map((section, index) => {
             let countFilledField = 0;
             const allCountField = Object.keys(selectValues[section.component]).length;
@@ -135,22 +84,26 @@ const LeftPanel = ({
             });
 
             return (
-              <span className="page-aside__item" onClick={onClickHandler} key={index}>
-                <span className="page-aside__item_text">{section.title}</span>
-                {
-                  (countFilledField === allCountField) ?
-                    <span className="page-aside__item_status quantity-status" /> :
-                    ''
-                }
+              <Link href={`#${section.anchor}`} key={index} title={
+                <span>
+                  <span className={style.anchorText}>
+                    {section.title}
+                  </span>
+                  {
+                    (countFilledField === allCountField) ?
+                      <span className={style.quantityStatus} /> :
+                      ''
+                  }
 
-                <span className="page-aside__item_quantity">
-                  {countFilledField}/{allCountField}
+                  <span className={style.quantity}>
+                    {countFilledField}/{allCountField}
+                  </span>
                 </span>
-              </span>
+              } />
             );
           })
         }
-      </div>
+      <div className="page-aside__buttons">
       {
         onSubmit && onDraft ?
           <div className="page-aside__buttons">
@@ -158,18 +111,9 @@ const LeftPanel = ({
             <button className="btn page-aside__buttons__btn" onClick={onDraft}>В черновик</button>
           </div> : ''
       }
-    </div>
+      </div>
+    </Anchor>
   );
-};
+}
 
-LeftPanel.propTypes = {
-  selectValues: PropTypes.object,
-  sections: PropTypes.array,
-};
-
-LeftPanel.defaultProps = {
-  selectValues: {},
-  sections: [],
-};
-
-export default LeftPanel;
+export default LeftPanelTest;

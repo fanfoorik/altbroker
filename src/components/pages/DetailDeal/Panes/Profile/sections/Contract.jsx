@@ -9,6 +9,8 @@ import {
   Input
 } from 'antd';
 
+import InputNumber from 'components/ui/inputs/InputNumber';
+
 const FormItem = Form.Item;
 const Option = Select.Option;
 
@@ -38,7 +40,7 @@ const Base = props => {
         </Col>
         <Col span={12}>
           <FormItem {...formItemLayout} label="Размер предоплаты">
-            <Input size="default" />
+            <InputNumber money />
           </FormItem>
         </Col>
       </Row>

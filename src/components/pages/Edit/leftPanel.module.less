@@ -1,0 +1,74 @@
+.quality {
+  padding: 15px;
+  text-align: center;
+  background-color: white;
+
+  .heading {
+    color: red;
+    margin-bottom: 12px;
+  }
+}
+
+.circle {
+  display: block;
+  position: relative;
+
+  circle {
+    fill: transparent;
+    stroke: #e1e5e9;
+    stroke-width: 9;
+  }
+
+  circle:nth-child(2n) {
+    fill: transparent;
+    stroke: #ffcf1e;
+    stroke-width: 9;
+  }
+}
+
+.number {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 15px;
+
+  &::after {
+    content: '%';
+    font-size: 8px;
+  }
+}
+
+.quantity {
+  color: #b8bdc2;
+  float: right;
+}
+
+.anchorText {
+  float: left;
+}
+
+.quantityStatus {
+  position: absolute;
+  right: 46px;
+  top: 5px;
+  font-size: 2em;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  border-radius: 100%;
+  color: #4da1ff;
+  border: 1px solid #4da1ff;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 6px;
+    width: 5px;
+    height: 10px;
+    border-right: 2px solid #4da1ff;
+    border-bottom: 2px solid #4da1ff;
+    transform: rotate(45deg);
+  }
+}

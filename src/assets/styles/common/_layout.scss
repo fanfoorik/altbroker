@@ -21,6 +21,10 @@
   }
 }
 
+.container_min {
+  max-width: 819px;
+}
+
 .page-cover {
   height: calc(100vh - #{$h-header});
   display: flex;

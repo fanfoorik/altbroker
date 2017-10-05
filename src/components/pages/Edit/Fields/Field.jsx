@@ -35,6 +35,7 @@ const Field = ({
   const element = React.Children.map(children, elem =>
     React.cloneElement(elem, {
       onBlur: onBlurHandler(elem.props.value),
+      checked: onBlurHandler,
     }),
   );
 

@@ -58,6 +58,18 @@ const Basic = ({
 
       <FormRow>
         <FieldSelect
+          value={selectValues.PROPERTY_RAYON2}
+          options={lib.rayons}
+          field="PROPERTY_RAYON2"
+          title="Район"
+          size={12}
+          link={selectValues.PROPERTY_GEO_ID}
+          {...props}
+        />
+      </FormRow>
+
+      <FormRow>
+        <FieldSelect
           multi
           value={selectValues.SECTION_ID_1}
           options={lib.categories}

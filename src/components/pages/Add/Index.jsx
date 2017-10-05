@@ -4,7 +4,10 @@ import Breadcrumbs from 'components/ui/Breadcrumbs';
 import { indexUrl } from 'utils/urls';
 import { NotificationStack } from 'react-notification';
 import { OrderedSet } from 'immutable';
-
+import {
+  Row,
+  Col,
+} from 'antd';
 import LeftPanel from '../Edit/LeftPanel';
 import {
   Basic,
@@ -267,32 +270,36 @@ class AddPage extends React.Component {
         />
 
         <div className="edit-page">
-          <LeftPanel
-            sections={this.sections}
-            onSubmit={this.onSubmit}
-            onDraft={this.onDraft}
-            selectValues={this.state.selectValues}
-          />
-          <div className="edit-page__container">
-            {
-              this.sections.map((section, index) => {
-                const Component = this.componentSections[section.component];
+          <Row gutter={16}>
+            <Col span={7}>
+              <LeftPanel
+                sections={this.sections}
+                onSubmit={this.onSubmit}
+                onDraft={this.onDraft}
+                selectValues={this.state.selectValues}
+              />
+            </Col>
+            <Col span={17}>
+              {
+                this.sections.map((section, index) => {
+                  const Component = this.componentSections[section.component];
 
-                return (
-                  <Component
-                    lib={this.state.lib}
-                    key={index}
-                    selectValues={this.state.selectValues[section.component]}
-                    onChangeState={this.onChangeStateHandler(section.component)}
-                  />
-                );
-              })
-            }
-          </div>
+                  return (
+                    <Component
+                      lib={this.state.lib}
+                      key={index}
+                      selectValues={this.state.selectValues[section.component]}
+                      onChangeState={this.onChangeStateHandler(section.component)}
+                    />
+                  );
+                })
+              }
+            </Col>
+          </Row>
         </div>
         <NotificationStack
-            notifications={this.state.notifications.toArray()}
-            onDismiss={instance => this.handleNotificationDismiss(instance)}
+          notifications={this.state.notifications.toArray()}
+          onDismiss={instance => this.handleNotificationDismiss(instance)}
         />
       </div>
     );
