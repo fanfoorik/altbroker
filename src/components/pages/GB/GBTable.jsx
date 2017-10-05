@@ -5,6 +5,8 @@ import { formatNumber } from 'utils/formaters';
 import { hostUrl } from 'utils/urls';
 
 import Checkpoint from 'components/ui/Checkpoint';
+import Icony from 'components/Icony';
+import userPlus from 'assets/icons/user-plus.svg';
 
 // Panels
 import TablePrice from './Table/TablePrice';
@@ -30,6 +32,10 @@ export default class BrokerTable extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.setState({ listing: nextProps.listing });
   }
+
+  getContacts = () => {
+    console.log('https://alterainvest.ru/api/v2/altbroker3/broker/gb/1152330/getcontacts/')
+  };
 
   render() {
     const { listing } = this.state;
@@ -63,14 +69,17 @@ export default class BrokerTable extends React.Component {
             SHOW_COUNTER: viewed,
             DETAIL_PAGE_URL: pageUrl,
             PROPERTY_BROKER_VALUE_EMAIL: brokerEmail,
+            SHOW_SELLER: showSeller,
+            EDITABLE,
             commentsPopoverActive,
           } = item;
           const statusColor = getStatusColor(item.PROPERTY_STATUS_OBJ_ENUM_ID);
           const price = +item.PROPERTY_PRICE_BUSINESS_VALUE;
           const profit = formatNumber(item.PROPERTY_CHIST_PRIB_VALUE, '-');
+          const editable = EDITABLE === 'Y';
 
           return (
-            <div className="table-row" key={`table-item-${id}`}>
+            <div className={`table-row ${!editable ? ' not-editable' : ''}`} key={`table-item-${id}`}>
               <div className="table-cell table-col__checkbox style-disabled">
                 <Checkpoint id={id} />
               </div>
@@ -89,8 +98,8 @@ export default class BrokerTable extends React.Component {
                 <div className="table-col__img">
                   <img className="table-cell__img table-tooltip" src={getImage(item)} alt={name} />
                   <span className="table-tooltip__content clearfix">
-                      <img className="table-tooltip__content-img" src={getImage(item)} alt={name} />
-                    </span>
+                    <img className="table-tooltip__content-img" src={getImage(item)} alt={name} />
+                  </span>
                 </div>
               </div>
               <div className="table-cell table-col__name">
@@ -103,10 +112,24 @@ export default class BrokerTable extends React.Component {
               </div>
               <div className="table-cell table-col__profit align-right no-padding-left">{profit}</div>
               <div className="table-cell table-col__broker no-padding-left">
-                <TableBroker id={id} broker={broker} />
+                {editable ?
+                  <TableBroker id={id} broker={broker} /> : broker
+                }
               </div>
               <div className="table-cell table-col__dealer no-padding-left">
-                <TableDealer id={id} dealer={dealer} />
+
+                {showSeller === 'Y' ?
+                  <TableDealer id={id} dealer={dealer} />
+                  :
+                  <span
+                    className="get-seller-info"
+                    onClick={this.getContacts}
+                    role="button"
+                    tabIndex="0"
+                  >
+                    <Icony icon={userPlus} width="16" height="16" />
+                  </span>
+                }
               </div>
               <div className="table-cell table-col__created no-padding-left">{created}</div>
               <div className="table-cell table-col__updated no-padding-left">{lastUpdate}</div>

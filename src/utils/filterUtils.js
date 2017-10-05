@@ -17,17 +17,18 @@ export function parseCheckObjects(objects, checked, raise) {
 }
 
 export function filterItems(search, objects) {
-  return objects.filter((obj) => {
-    const item = obj;
+  const filtered = [];
+
+  objects.forEach((item) => {
     const string = item.SHOT_NAME || item.NAME || 'Нет имени/названия';
     const regexVal = search.replace(/\W/g, '\\$&');
     const regex = new RegExp(`(${regexVal})`, 'gi');
     const result = search.length ? string.replace(regex, '<u class="hl">$1</u>') : string;
 
     if (string.match(regex)) {
-      item.name = result;
-      return item;
+      filtered.push({ ...item, name: result });
     }
-    return false;
   });
+
+  return filtered;
 }

@@ -1,20 +1,21 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import preventOverScroll from 'utils/preventOverScroll';
 
-export default function Cell({ className, children, ...props }) {
+export default function Scrollpane({ className, children, ...props }) {
   return (
-    <div className={`filter__cell ${className}`} {...props}>
+    <div className={`form-block ${className}`} ref={node => preventOverScroll(node)} {...props} >
       {children}
     </div>
   );
 }
 
-Cell.defaultProps = {
+Scrollpane.defaultProps = {
   children: null,
   className: '',
 };
 
-Cell.propTypes = {
+Scrollpane.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,

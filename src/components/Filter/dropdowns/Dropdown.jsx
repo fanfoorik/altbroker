@@ -1,9 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import preventOverScroll from 'utils/preventOverScroll';
 import DropdownHOC from 'components/HOC/DropdownHOC';
-
 
 function Dropdown(props) {
   return (<div className="form-dropdown">{props.children}</div>);

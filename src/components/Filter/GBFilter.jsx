@@ -31,6 +31,11 @@ const prepareChecks = (data, selected) => (
   }))
 );
 
+/**
+ * Serializes the queue of unchecked checkboxes up to its position.
+ * @param {Object[]} data - An array of objects.
+ * @returns {[*,*]} Returns filtered and combined Array of objects.
+ */
 const serializeChecks = (data) => {
   const selected = [];
   const items = data.filter((item) => {
@@ -51,6 +56,7 @@ export default class GbFilter extends React.Component {
       filterState: props.filterState,
       filter: {
         ALL_BROKER: [],
+        ALL_CITY: [],
       },
       search: {
         PROPERTY_BROKER: '',
@@ -76,10 +82,12 @@ export default class GbFilter extends React.Component {
 
     const filter = stateBrokers.length ? this.state.filter : nextProps.filter;
 
+    // console.log(filter.ALL_CITY);
+
     this.setState({
       filter: {
         ALL_BROKER: serializeChecks(
-          prepareChecks(filter.ALL_BROKER, PROPERTY_BROKER)
+          prepareChecks(filter.ALL_BROKER, PROPERTY_BROKER),
         ),
       },
     });
@@ -279,6 +287,43 @@ export default class GbFilter extends React.Component {
     });
   };
 
+  checksSelectAll = (event) => {
+    const { name } = event.currentTarget.dataset;
+    const stateOption = this.state.filter[name].map(item => ({ ...item, checked: true }));
+
+    this.setState(() => {
+      this.state.filter[name] = stateOption;
+      return this.state;
+    });
+  };
+
+  checksReset = (event) => {
+    const { name } = event.currentTarget.dataset;
+    this.setState(() => {
+      this.state.filter[name] = this.state.filter[name].map(item =>
+        ({ ...item, checked: false }),
+      );
+    });
+  };
+
+  checkMyDepartment = () => {
+    const { USER_DEPARTMENT } = this.props.options;
+    this.setState(() => {
+      this.state.filter.ALL_BROKER = this.state.filter.ALL_BROKER.map(item => (
+        { ...item, checked: USER_DEPARTMENT.includes(item.ID) }
+      ));
+    });
+  };
+
+  checkMyself = () => {
+    const { id } = this.props;
+    this.setState(() => {
+      this.state.filter.ALL_BROKER = this.state.filter.ALL_BROKER.map(item => (
+        { ...item, checked: item.ID === id }
+      ));
+    });
+  };
+
   /**
    * Select all checkboxes from group.
    * @param {array} data - The array of checkbox objects.
@@ -286,7 +331,7 @@ export default class GbFilter extends React.Component {
    */
   selectCheckGroup = (data, option) => {
     const optionState = this.state.filterState[option];
-    const allItems = data.filter(item => optionState.indexOf(item.ID) === -1)
+    const allItems = data.filter(item => !optionState.includes(item.ID))
       .map(item => item.ID);
     if (allItems.length && optionState) {
       this.setState(() => {
@@ -336,209 +381,155 @@ export default class GbFilter extends React.Component {
 
     return (
       <div>
-        {/*<Filter>*/}
-          {/*<Filter.Row>*/}
-
-            {/*<Filter.Cell className="round-top-left">*/}
-              {/*<input value={idNameTel} onChange={this.idNameTelChange} name="ID_NAME_TEL" className="input filter__input" type="text" placeholder="ID / Название объекта / Телефон" />*/}
-            {/*</Filter.Cell>*/}
-
-            {/*<Filter.Cell className="hover active">*/}
-              {/*<CategoryContainer*/}
-                {/*items={{ categories, subCategories }}*/}
-                {/*selectedItems={{ selectedCategories, selectedSubCategories }}*/}
-                {/*changeFilterItem={this.changeFilterItem}*/}
-                {/*handleSearch={this.handleSearch}*/}
-                {/*searchValue={{ searchCategory, searchSubCategory }}*/}
-                {/*resetSection={this.resetSection}*/}
-              {/*/>*/}
-            {/*</Filter.Cell>*/}
-
-            {/*<Filter.Cell />*/}
-          {/*</Filter.Row>*/}
-
-          {/*<Filter.Row>*/}
-            {/*<Filter.Cell className="hover round-bottom-left">*/}
-              {/*<BrokersContainer*/}
-                {/*items={brokers}*/}
-                {/*selectedItems={selectedBrokers}*/}
-                {/*changeFilterItem={this.changeFilterItem}*/}
-                {/*handleSearch={this.handleSearch}*/}
-                {/*searchValue={searchBrokers}*/}
-                {/*resetSection={this.resetSection}*/}
-                {/*submitOnDropdownClose={this.submitOnDropdownClose}*/}
-              {/*/>*/}
-            {/*</Filter.Cell>*/}
-          {/*</Filter.Row>*/}
-        {/*</Filter>*/}
-
-        {/*<br />*/}
-        {/*<br />*/}
-        {/*<br />*/}
-        {/*<br />*/}
-        {/*<br />*/}
-        {/*<br />*/}
-        {/*<br />*/}
-        {/*<br />*/}
-        {/*<br />*/}
-        {/*<br />*/}
-        {/*<br />*/}
-        {/*<br />*/}
-        {/*<br />*/}
-        {/*<br />*/}
-        {/*<br />*/}
-
-        <div className="filter filter_business mb-28">
-          <form onSubmit={this.filterSubmit}>
-
-            <div className="filter__row clear">
-              <div className="filter__cell filter__cell_hover">
-                <input value={idNameTel} onChange={this.idNameTelChange} name="ID_NAME_TEL" className="input filter__input" type="text" placeholder="ID / Название объекта / Телефон" />
-              </div>
-
-              <Category
-                items={{ categories, subCategories }}
-                selectedItems={{ selectedCategories, selectedSubCategories }}
-                changeFilterItem={this.changeFilterItem}
-                handleSearch={this.handleSearch}
-                searchValue={{ searchCategory, searchSubCategory }}
-                resetSection={this.resetSection}
-                submitOnDropdownClose={this.filterSubmit}
-                selectCheckGroup={this.selectCheckGroup}
+        <Filter className="filter filter_business mb-28" onSubmit={this.filterSubmit}>
+          <Filter.Row>
+            <Filter.Cell className={`round-top-left${!extendFilter ? ' round-bottom-left' : ''}`}>
+              <input
+                value={idNameTel}
+                onChange={this.idNameTelChange}
+                name="ID_NAME_TEL"
+                className="input filter__input"
+                type="text"
+                placeholder="ID / Название объекта / Телефон"
               />
+            </Filter.Cell>
 
-              <Price
-                label="Цена"
-                name="PROPERTY_PRICE_BUSINESS"
-                from={fromPrice}
-                to={toPrice}
-                onChange={this.changeFromTo}
-                resetSection={this.resetSection}
-                submitOnDropdownClose={this.filterSubmit}
-              />
+            <Category
+              items={{ categories, subCategories }}
+              selectedItems={{ selectedCategories, selectedSubCategories }}
+              changeFilterItem={this.changeFilterItem}
+              handleSearch={this.handleSearch}
+              searchValue={{ searchCategory, searchSubCategory }}
+              resetSection={this.resetSection}
+              submitOnDropdownClose={this.filterSubmit}
+              selectCheckGroup={this.selectCheckGroup}
+            />
 
-              <div className="filter__cell active">
-                <div className="filter__row clear">
+            <Price
+              label="Цена"
+              name="PROPERTY_PRICE_BUSINESS"
+              from={fromPrice}
+              to={toPrice}
+              onChange={this.changeFromTo}
+              resetSection={this.resetSection}
+              submitOnDropdownClose={this.filterSubmit}
+            />
 
-                  <Income
-                    label="Прибыль"
-                    name="PROPERTY_CHIST_PRIB"
-                    from={fromIncome}
-                    to={toIncome}
-                    onChange={this.changeFromTo}
-                    resetSection={this.resetSection}
-                    submitOnDropdownClose={this.filterSubmit}
-                  />
+            <div className="filter__cell active">
+              <div className="filter__row clear">
 
-                  <Recoupment
-                    label="Окупаемость"
-                    name="PROPERTY_OKUP"
-                    from={fromRecoupment}
-                    to={toRecoupment}
-                    onChange={this.changeFromTo}
-                    resetSection={this.resetSection}
-                    submitOnDropdownClose={this.filterSubmit}
-                  />
+                <Income
+                  label="Прибыль"
+                  name="PROPERTY_CHIST_PRIB"
+                  from={fromIncome}
+                  to={toIncome}
+                  onChange={this.changeFromTo}
+                  resetSection={this.resetSection}
+                  submitOnDropdownClose={this.filterSubmit}
+                />
 
-                </div>
-              </div>
-              <div className="filter__cell">
-                <div className="filter-controls">
-                  <span
-                    onClick={this.triggerFilterExtend}
-                    className={`filter-controls__item filter-controls__item_trigger ${extendFilter ? 'active' : ''}`}
-                    role="button"
-                    tabIndex="0"
-                  />
-                  <button className="filter-controls__item filter-controls__item_submit">Искать</button>
-                  <span
-                    className="filter-controls__item filter-controls__item_reset"
-                    onClick={this.resetForm}
-                    role="button"
-                    tabIndex="0"
-                  >Сбросить</span>
-                </div>
+                <Recoupment
+                  label="Окупаемость"
+                  name="PROPERTY_OKUP"
+                  from={fromRecoupment}
+                  to={toRecoupment}
+                  onChange={this.changeFromTo}
+                  resetSection={this.resetSection}
+                  submitOnDropdownClose={this.filterSubmit}
+                />
+
               </div>
             </div>
 
-            {extendFilter &&
-              <div className="filter__row clear">
-
-                <Filter.Cell className="hover round-bottom-left">
-                  <BrokersContainer
-                    items={brokers}
-                    onChange={this.checksChange}
-                    onDropdownClose={this.checksDropdownClose}
-                  />
-                </Filter.Cell>
-
-                {/*<Brokers*/}
-                  {/*items={brokers}*/}
-                  {/*selectedItems={selectedBrokers}*/}
-                  {/*changeFilterItem={this.changeFilterItem}*/}
-                  {/*handleSearch={this.handleSearch}*/}
-                  {/*searchValue={searchBrokers}*/}
-                  {/*resetSection={this.resetSection}*/}
-                  {/*submitOnDropdownClose={this.submitOnDropdownClose}*/}
-                  {/*selectCheckGroup={this.selectCheckGroup}*/}
-                {/*/>*/}
-
-                <City
-                  items={{ cities, regions }}
-                  selectedItems={{ selectedCity, selectedRegions }}
-                  changeFilterItem={this.changeFilterItem}
-                  handleSearch={this.handleSearch}
-                  searchValue={{ searchCity, searchRegions }}
-                  resetSection={this.resetSection}
-                  submitOnDropdownClose={this.filterSubmit}
+            <div className="filter__cell">
+              <div className="filter-controls">
+                <span
+                  onClick={this.triggerFilterExtend}
+                  className={`filter-controls__item filter-controls__item_trigger ${extendFilter ? 'active' : ''}`}
+                  role="button"
+                  tabIndex="0"
                 />
-
-                <Subway
-                  items={subways}
-                  selectedItems={{ selectedCity, selectedSubways }}
-                  changeFilterItem={this.changeFilterItem}
-                  handleSearch={this.handleSearch}
-                  searchValue={searchSubway}
-                  resetSection={this.resetSection}
-                  submitOnDropdownClose={this.filterSubmit}
-                />
-
-                <Status
-                  items={status}
-                  selectedItems={selectedStatus}
-                  changeFilterItem={this.changeFilterItem}
-                  resetSection={this.resetSection}
-                  submitOnDropdownClose={this.filterSubmit}
-                />
-
+                <button className="filter-controls__item filter-controls__item_submit">Искать</button>
+                <span
+                  className="filter-controls__item filter-controls__item_reset"
+                  onClick={this.resetForm}
+                  role="button"
+                  tabIndex="0"
+                >Сбросить</span>
               </div>
-            }
+            </div>
+          </Filter.Row>
 
-            {/*<div className="filter-footer clear">*/}
-              {/*<span className="filter-stored-save">Сохраните фильтр</span>*/}
+          {extendFilter &&
+            <Filter.Row>
 
-              {/*<div className="filter-stored">*/}
-                {/*<span className="filter-stored-label">Мои фильтры:</span>*/}
+              <Filter.Cell className="hover round-bottom-left">
+                <BrokersContainer
+                  items={brokers}
+                  onChange={this.checksChange}
+                  onDropdownClose={this.checksDropdownClose}
+                  checksSelectAll={this.checksSelectAll}
+                  checksReset={this.checksReset}
+                  checkMyDepartment={this.checkMyDepartment}
+                  checkMyself={this.checkMyself}
+                />
+              </Filter.Cell>
 
-                {/*<span className="filter-stored-item">*/}
-                  {/*<span className="filter-stored-item__title">Кафетерии для Марата</span>*/}
-                  {/*<span className="filter-stored-item__remove">*/}
-                    {/*<Icon icon="close" width={9} height={9} className="filter-stored-item__remove-icon" />*/}
-                  {/*</span>*/}
+              <City
+                items={{ cities, regions }}
+                selectedItems={{ selectedCity, selectedRegions }}
+                changeFilterItem={this.changeFilterItem}
+                handleSearch={this.handleSearch}
+                searchValue={{ searchCity, searchRegions }}
+                resetSection={this.resetSection}
+                submitOnDropdownClose={this.filterSubmit}
+              />
+
+              <Subway
+                items={subways}
+                selectedItems={{ selectedCity, selectedSubways }}
+                changeFilterItem={this.changeFilterItem}
+                handleSearch={this.handleSearch}
+                searchValue={searchSubway}
+                resetSection={this.resetSection}
+                submitOnDropdownClose={this.filterSubmit}
+              />
+
+              <Status
+                items={status}
+                selectedItems={selectedStatus}
+                changeFilterItem={this.changeFilterItem}
+                resetSection={this.resetSection}
+                submitOnDropdownClose={this.filterSubmit}
+              />
+
+            </Filter.Row>
+          }
+
+          {/*<div className="filter-footer clear">*/}
+            {/*<span className="filter-stored-save">Сохраните фильтр</span>*/}
+
+            {/*<div className="filter-stored">*/}
+              {/*<span className="filter-stored-label">Мои фильтры:</span>*/}
+
+              {/*<span className="filter-stored-item">*/}
+                {/*<span className="filter-stored-item__title">Кафетерии для Марата</span>*/}
+                {/*<span className="filter-stored-item__remove">*/}
+                  {/*<Icon icon="close" width={9} height={9} className="filter-stored-item__remove-icon" />*/}
                 {/*</span>*/}
+              {/*</span>*/}
 
-                {/*<span className="filter-stored-item">*/}
-                  {/*<span className="filter-stored-item__title">Автомойки Москва</span>*/}
-                  {/*<span className="filter-stored-item__remove">*/}
-                    {/*<Icon icon="close" width={9} height={9} className="filter-stored-item__remove-icon" />*/}
-                  {/*</span>*/}
+              {/*<span className="filter-stored-item">*/}
+                {/*<span className="filter-stored-item__title">Автомойки Москва</span>*/}
+                {/*<span className="filter-stored-item__remove">*/}
+                  {/*<Icon icon="close" width={9} height={9} className="filter-stored-item__remove-icon" />*/}
                 {/*</span>*/}
+              {/*</span>*/}
 
-              {/*</div>*/}
             {/*</div>*/}
+          {/*</div>*/}
 
-          </form>
-        </div>
+        </Filter>
       </div>
     );
   }
