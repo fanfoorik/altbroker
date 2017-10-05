@@ -4,7 +4,7 @@ import ajax from 'utils/ajax';
 import Icon from 'components/Icon';
 import PopoverBaseHOC from 'components/popovers/PopoverBaseHOC';
 import { indexUrl } from 'utils/urls';
-import { browserHistory } from 'react-router';
+import { Link } from 'react-router';
 import nanoid from 'nanoid';
 
 class DealPopover extends React.Component {
@@ -32,22 +32,6 @@ class DealPopover extends React.Component {
     this.props.openDetailPage(this.props.id);
   };
 
-  handleAction = (event) => {
-    const data = event.currentTarget.dataset;
-
-    switch (data.name) {
-      case 'Смотреть':
-        this.props.openDetailPage(this.props.id);
-        break;
-      case 'Редактировать':
-        browserHistory.push(data.url);
-        break;
-      default:
-        return false;
-    }
-    return false;
-  };
-
   render() {
     const { options } = this.state;
     const { providePopover } = this.props;
@@ -64,22 +48,63 @@ class DealPopover extends React.Component {
                     ICO: icon,
                     URL: url,
                     ENABLE: enable,
+                    CODE: code,
                   } = item;
 
-                  return (
-                    <div
-                      key={nanoid()}
-                      className={`popover-deal-item ${enable === 'N' ? 'style-disabled' : ''}`}
-                      onClick={this.handleAction}
-                      role="button"
-                      tabIndex="0"
-                      data-name={name}
-                      data-url={url}
-                    >
-                      <Icon className="popover-deal-list-icon" icon={icon} width={16} height={16} />
-                      {name}
-                    </div>
-                  );
+                  switch (code) {
+                    case 'MENU1':
+                      return (
+                        <div
+                          key={nanoid()}
+                          className={`popover-deal-item ${enable === 'N' ? 'style-disabled' : ''}`}
+                          onClick={this.openDetailPage}
+                          role="button"
+                          tabIndex="0"
+                        >
+                          <Icon className="popover-deal-list-icon" icon={icon} width={16} height={16} />
+                          {name}
+                        </div>
+                      );
+
+                    case 'MENU2':
+                      return (
+                        <a
+                          key={nanoid()}
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`popover-deal-item ${enable === 'N' ? 'style-disabled' : ''}`}
+                        >
+                          <Icon className="popover-deal-list-icon" icon={icon} width={16} height={16} />
+                          {name}
+                        </a>
+                      );
+
+                    case 'MENU3':
+                      return (
+                        <Link
+                          key={nanoid()}
+                          to={url}
+                          className={`popover-deal-item ${enable === 'N' ? 'style-disabled' : ''}`}
+                        >
+                          <Icon className="popover-deal-list-icon" icon={icon} width={16} height={16} />
+                          {name}
+                        </Link>
+                      );
+
+                    default:
+                      return (
+                        <div
+                          key={nanoid()}
+                          className={`popover-deal-item ${enable === 'N' ? 'style-disabled' : ''}`}
+                          role="button"
+                          tabIndex="0"
+                        >
+                          <Icon className="popover-deal-list-icon" icon={icon} width={16} height={16} />
+                          {name}
+                        </div>
+                      );
+                  }
                 })
               }
             </div>

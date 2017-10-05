@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 
 const context = path.resolve(__dirname);
 
@@ -38,7 +39,7 @@ const lessConfig = dev ? lessDev : lessProd;
 const lessModuleConfig = dev ? lessModuleDev : lessModuleProd;
 
 module.exports = {
-  entry: './src/index.jsx',
+  entry: './src/Index.jsx',
 
   output: {
     path: path.resolve(__dirname, 'build'),
@@ -99,8 +100,25 @@ module.exports = {
         use: lessModuleConfig,
       },
       {
-        test: /\.(jpe?g|png|svg|gif)$/,
+        test: /\.(jpe?g|png|gif)$/,
         use: 'file-loader?name=images/[name].[ext]',
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'svg-sprite-loader',
+          },
+          {
+            loader: 'svgo-loader',
+            options: {
+              plugins: [
+                { removeTitle: true },
+                { convertPathData: false },
+              ],
+            },
+          },
+        ],
       },
       {
         test: /\.(woff2?|ttf|eot)$/,
@@ -122,6 +140,7 @@ module.exports = {
     new HtmlWebpackPlugin({ template: './src/index.html' }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
+    new SpriteLoaderPlugin(),
     new webpack.DefinePlugin({
       dev,
       prod: !dev,

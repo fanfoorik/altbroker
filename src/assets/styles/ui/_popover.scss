@@ -81,6 +81,18 @@
   &_without-tabs.top::before {
     background: $c-white;
   }
+
+  &_change-price {
+    min-height: 180px;
+
+    .tabs-head {
+      background: #f5f7f9;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      text-align: center;
+    }
+  }
 }
 
 .popover-parent:hover .popover {
@@ -107,7 +119,7 @@
 
 // Header part with tabs:
 .popover-header {
-  background: $c-grey-light;
+  background: #f5f7f9;
   cursor: pointer;
   font-size: 14px;
   display: flex;
@@ -168,7 +180,7 @@
 
 // Content with history list:
 .popover-history {
-  height: 115px;
+  height: 110px;
   overflow: auto;
   $this: &;
 
@@ -359,6 +371,7 @@ input.popover-input {
     &:hover {
       color: $c-blue-main;
       background: $bg-blue-grey;
+      text-decoration: none;
 
       .icon {
         fill: $c-blue-main
@@ -393,17 +406,20 @@ input.popover-input {
 
 // Custom select:
 .popover-select {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  background: none;
-  border: 0;
-  border-radius: 0;
   cursor: pointer;
-  display: block;
-  height: 36px;
-  font-size: 14px;
-  padding: 0 12px;
-  width: 100%;
+
+  .Select-control {
+    border-radius: 0;
+    border-width: 0;
+    box-shadow: none !important;
+  }
+
+  .Select-menu-outer {
+    border-top-color: transparent;
+    box-shadow: none;
+    width: calc(100% + 2px);
+    margin: 0 -1px;
+  }
 }
 
 .popover-select-wrapper {

@@ -1,21 +1,21 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
 import ajax from 'utils/ajax';
 import { formatNumber } from 'utils/formaters';
-
 import Icon from 'components/Icon';
 import PopoverBaseHOC from 'components/popovers/PopoverBaseHOC';
-import PopoverWithTabsHOC from 'components/popovers/PopoverWithTabsHOC';
+import Tabs from 'components/Tabs';
 
 class PricePopover extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      loaded: false,
       changed: false,
       value: formatNumber(props.price),
       priceHistory: [],
+      priceEnabled: true,
     };
   }
 
@@ -26,7 +26,11 @@ class PricePopover extends React.Component {
   fetchPriceHistory = () => {
     ajax.get(`broker/gb/${this.props.id}/getpricehistory/`)
       .then((data) => {
-        this.setState({ priceHistory: data.ANSWER.HISTORY });
+        this.setState({
+          priceHistory: data.ANSWER.HISTORY,
+          priceEnabled: data.ANSWER.ENABLE_PRICE === 'Y',
+          loaded: true,
+        });
       });
   };
 
@@ -72,68 +76,74 @@ class PricePopover extends React.Component {
   render() {
     const isDisabled = this.state.changed ? '' : 'disabled';
     const { providePopover, triggerPopover } = this.props;
-    const { value, priceHistory } = this.state;
+    const { value, priceHistory, priceEnabled, loaded } = this.state;
 
     return (
-      <div className="popover popover_visible" ref={node => providePopover(node)}>
-        <div className="popover-header js-target-trigger">
-          <div className="popover-header__tab active js-popover-tab">Цена</div>
-          <div className="popover-header__tab js-popover-tab">История</div>
-        </div>
+      <div className="popover popover_change-price popover_visible" ref={node => providePopover(node)}>
+        {loaded ?
+          <Tabs className="tab">
 
-        <div className="popover-body">
-          <div className="popover-content-wrapper active no-padding-top js-popover-tab">
-            <form onSubmit={this.changePrice}>
-              <input
-                className="popover-input align-right"
-                value={value}
-                min={0}
-                onChange={this.handleChange}
-                type="text"
-              />
+            {priceEnabled &&
+              <div title={<div className="popover-header__tab">Цена</div>} data-tab="tab-1">
+                <div className="popover-content-wrapper active no-padding-top">
+                  <form onSubmit={this.changePrice}>
+                    <input
+                      className="popover-input align-right"
+                      value={value}
+                      min={0}
+                      onChange={this.handleChange}
+                      type="text"
+                    />
 
-              <ul className="popover-decrease-list" onClick={this.handleDecreasePrice}>
-                <li className="popover-decrease-item" data-value={10000}>-10 000</li>
-                <li className="popover-decrease-item" data-value={50000}>-50 000</li>
-                <li className="popover-decrease-item" data-value={100000}>-100 000</li>
-                <li className="popover-decrease-item" data-value={500000}>-500 000</li>
-              </ul>
+                    <div className="popover-decrease-list" onClick={this.handleDecreasePrice} role="button" tabIndex="0">
+                      <div className="popover-decrease-item" data-value={10000}>-10 000</div>
+                      <div className="popover-decrease-item" data-value={50000}>-50 000</div>
+                      <div className="popover-decrease-item" data-value={100000}>-100 000</div>
+                      <div className="popover-decrease-item" data-value={500000}>-500 000</div>
+                    </div>
 
-              <div className="popover-actions-list">
-                <button type="submit" className={`popover-actions-item ${isDisabled}`}>
-                  <Icon icon="check" width={20} height={15} />
-                </button>
-                <div className="popover-actions-item" onClick={triggerPopover} role="button" tabIndex="0">
-                  <Icon icon="close" width={15} height={15} />
+                    <div className="popover-actions-list">
+                      <button type="submit" className={`popover-actions-item ${isDisabled}`}>
+                        <Icon icon="check" width={20} height={15} />
+                      </button>
+                      <div className="popover-actions-item" onClick={triggerPopover} role="button" tabIndex="0">
+                        <Icon icon="close" width={15} height={15} />
+                      </div>
+                    </div>
+                  </form>
                 </div>
               </div>
-            </form>
-          </div>
+            }
 
-          <div className="popover-content-wrapper js-popover-tab">
-            <div className="popover-history">
-              {
-                priceHistory.length > 0 ?
-                priceHistory.map((item) => {
-                  const {
-                    ID: id,
-                    DATE_CREATE: date,
-                    PROPERTY_VAL_VALUE: price,
-                  } = item;
-                  const formattedHistoryPrice = formatNumber(price, '-');
-                  return (
-                    <div className="popover-history__item" key={`history-price-${id}`}>
-                      <span className="popover-history__date">{date}</span>
-                      <span className="popover-history__value">{formattedHistoryPrice}</span>
-                    </div>
-                  );
-                })
-                :
-                <div className="popover-history__no-history">Нет истории</div>
-              }
+            <div title={<div className="popover-header__tab">История</div>} data-tab="tab-2">
+              <div className="popover-content-wrapper" style={{ display: 'block' }}>
+                <div className="popover-history">
+                  {priceHistory.length > 0 ?
+                    priceHistory.map((item) => {
+                      const {
+                        ID: id,
+                        DATE_CREATE: date,
+                        PROPERTY_VAL_VALUE: price,
+                      } = item;
+                      const formattedHistoryPrice = formatNumber(price, '-');
+                      return (
+                        <div className="popover-history__item" key={`history-price-${id}`}>
+                          <span className="popover-history__date">{date}</span>
+                          <span className="popover-history__value">{formattedHistoryPrice}</span>
+                        </div>
+                      );
+                    })
+                    :
+                    <div className="popover-history__no-history">Нет истории</div>
+                  }
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+
+          </Tabs>
+          :
+          <div className="popover-history__no-history" style={{ paddingTop: 75 }}>Загрузка...</div>
+        }
       </div>
     );
   }
@@ -151,4 +161,4 @@ PricePopover.defaultProps = {
   price: 0,
 };
 
-export default PopoverBaseHOC(PopoverWithTabsHOC(PricePopover));
+export default PopoverBaseHOC(PricePopover);

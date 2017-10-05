@@ -17,11 +17,25 @@ import Filter from './Filter';
 import CategoryContainer from './CategoryContainer';
 import BrokersContainer from './BrokersContainer';
 
+const prepareCheckboxes = (data, selected) => (
+  data.map((item, index) => ({
+    ...item,
+    position: index,
+    checked: selected.includes(item.ID),
+  }))
+);
+
 export default class GbFilter extends React.Component {
   constructor(props) {
     super(props);
+
+    const { ALL_BROKER: brokers } = props.filter;
+
     this.state = {
       filterState: props.filterState,
+      filter: {
+        brokers: brokers || [],
+      },
       search: {
         PROPERTY_BROKER: '',
         PROPERTY_GEO_ID: '',
@@ -36,8 +50,24 @@ export default class GbFilter extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.fetchGBfilter();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { brokers: stateBrokers } = this.state.filter;
+    const { ALL_BROKER: propsBrokers } = nextProps.filter;
+    const { PROPERTY_BROKER } = nextProps.options.FILTER;
+
+    // console.log('options', nextProps.options);
+
+    if (!stateBrokers.length && propsBrokers.length) {
+      this.setState({
+        filter: {
+          brokers: prepareCheckboxes(propsBrokers, PROPERTY_BROKER),
+        },
+      });
+    }
   }
 
   handleSearch = (name, value) => {
@@ -263,7 +293,9 @@ export default class GbFilter extends React.Component {
       SECTION_ID_2: searchSubCategory,
     } = this.state.search;
 
-    const { extendFilter } = this.state;
+    const { extendFilter, filter } = this.state;
+
+    console.log(filter);
 
     return (
       <div>
@@ -302,6 +334,22 @@ export default class GbFilter extends React.Component {
             {/*</Filter.Cell>*/}
           {/*</Filter.Row>*/}
         {/*</Filter>*/}
+
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
+        {/*<br />*/}
 
         <div className="filter filter_business mb-28">
           <form onSubmit={this.filterSubmit}>
@@ -387,6 +435,7 @@ export default class GbFilter extends React.Component {
                   searchValue={searchBrokers}
                   resetSection={this.resetSection}
                   submitOnDropdownClose={this.submitOnDropdownClose}
+                  selectCheckGroup={this.selectCheckGroup}
                 />
 
                 <City
@@ -453,9 +502,15 @@ export default class GbFilter extends React.Component {
 GbFilter.propTypes = {
   updateGBOptions: PropTypes.func.isRequired,
   fetchGBfilter: PropTypes.func.isRequired,
-  filter: PropTypes.oneOfType([
-    PropTypes.object,
-  ]).isRequired,
+  filter: PropTypes.shape({
+    ALL_BROKER: PropTypes.arrayOf(PropTypes.object),
+    ALL_STATUS_OBJ: PropTypes.arrayOf(PropTypes.object),
+    ALL_CITY: PropTypes.arrayOf(PropTypes.object),
+    ALL_RAYONS: PropTypes.arrayOf(PropTypes.object),
+    ALL_METRO: PropTypes.arrayOf(PropTypes.object),
+    ALL_CATEGORY_GB_1: PropTypes.arrayOf(PropTypes.object),
+    ALL_CATEGORY_GB_2: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
   filterState: PropTypes.shape({
     ID: PropTypes.string.isRequired,
     ID_NAME_TEL: PropTypes.string.isRequired,

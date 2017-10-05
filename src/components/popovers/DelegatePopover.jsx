@@ -1,48 +1,62 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import Select from 'react-select';
 
 import ajax from 'utils/ajax';
-
 import Icon from 'components/Icon';
 import PopoverBaseHOC from 'components/popovers/PopoverBaseHOC';
 
 class DelegatePopover extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { brokers: [] };
+    this.state = {
+      brokers: [],
+      selectedBrokerId: '',
+      selectedBrokerLabel: '',
+    };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.fetchBrokers();
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const select = this.brokersSelect;
-    if (select) {
+    const { selectedBrokerId, selectedBrokerLabel } = this.state;
+
+    if (selectedBrokerId) {
       ajax.post(`broker/gb/${this.props.id}/changebroker/`, {
-        BROKER_ID: select.value,
+        BROKER_ID: selectedBrokerId,
       })
         .then(() => {
-          this.props.changeBroker(select.options[select.selectedIndex].text);
+          this.props.changeBroker(selectedBrokerLabel);
           this.props.triggerPopover();
         });
     }
   };
 
+  handleBrokerChange = (value) => {
+    this.setState({
+      selectedBrokerId: (value ? value.ID : ''),
+      selectedBrokerLabel: (value ? value.label : '--'),
+    });
+  };
+
   fetchBrokers = () => {
-    const ths = this;
     ajax.post(`broker/gb/${this.props.id}/changebroker/`, {
       BROKER_ID: '',
     })
       .then((data) => {
-        ths.setState({ brokers: data.ANSWER });
+        this.setState({ brokers: data.ANSWER.map(item => (
+          { ...item, label: item.SHOT_NAME || item.NAME || 'Нет имени/названия' }
+          )),
+        });
       });
   };
 
   render() {
     const { providePopover, triggerPopover } = this.props;
-    const { brokers } = this.state;
+    const { brokers, selectedBrokerId } = this.state;
 
     return (
       <div className="popover popover_visible" ref={node => providePopover(node)}>
@@ -54,22 +68,16 @@ class DelegatePopover extends React.Component {
           <div className="popover-content-wrapper no-padding-top active">
             <form onSubmit={this.handleSubmit}>
               <div className="popover-select-wrapper">
-
-                <select className="popover-select" ref={(node) => { this.brokersSelect = node; }}>
-                  {
-                    brokers.map((item) => {
-                      const {
-                        ID: brokerId,
-                        NAME: name,
-                        SHOT_NAME: shortName,
-                      } = item;
-
-                      return (
-                        <option key={`brokers-${brokerId}`} value={brokerId} >{ shortName || name || 'Безымянный'}</option>
-                      );
-                    })
-                  }
-                </select>
+                <Select
+                  autofocus
+                  className="popover-select"
+                  clearable={false}
+                  onChange={this.handleBrokerChange}
+                  options={brokers}
+                  value={selectedBrokerId}
+                  valueKey="ID"
+                  placeholder="Выберите брокера"
+                />
               </div>
 
               <div className="popover-actions-list">

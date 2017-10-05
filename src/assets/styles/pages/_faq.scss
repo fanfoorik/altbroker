@@ -161,6 +161,11 @@
     margin-bottom: 10px;
     font-size: 13px;
   }
+
+  &__select {
+    position: relative;
+    z-index: 10;
+  }
 }
 
 .faq-cover {

@@ -34,6 +34,10 @@ a {
   cursor: pointer;
   text-decoration: none;
 
+  &:focus {
+    text-decoration: none;
+  }
+
   &:hover {
     text-decoration: underline;
   }
@@ -144,6 +148,19 @@ b {
       transform: rotate(-90deg);
     }
   }
+}
+
+.Select-placeholder,
+.Select--single > .Select-control .Select-value {
+  line-height: 36px;
+}
+
+.Select-input > input {
+  padding-top: 11px;
+}
+
+.Select-menu-outer {
+  border-color: $bd-main;
 }
 
 .style-disabled {

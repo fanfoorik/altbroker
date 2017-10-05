@@ -36,6 +36,7 @@ class Brokers extends React.Component {
       resetSection,
       searchValue,
       handleSearch,
+      selectCheckGroup,
     } = this.props;
 
     const { items } = this.state;
@@ -72,6 +73,7 @@ class Brokers extends React.Component {
             resetSection={resetSection}
             triggerDropdown={triggerDropdown}
             onClose={this.handleDropdownClose}
+            selectCheckGroup={selectCheckGroup}
           />
         }
       </div>
@@ -89,6 +91,7 @@ Brokers.propTypes = {
   submitOnDropdownClose: PropTypes.func.isRequired,
   isActive: PropTypes.bool.isRequired,
   triggerDropdown: PropTypes.func.isRequired,
+  selectCheckGroup: PropTypes.func.isRequired,
 };
 
 export default DropdownTriggerHOC(Brokers);

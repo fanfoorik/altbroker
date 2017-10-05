@@ -1,8 +1,6 @@
 import React from 'react';
-
+import { htmlToDraft, draftToHtml, draftTextLength } from 'utils/editorUtils';
 import ajax from 'utils/ajax';
-import IsActive from 'utils/IsActive';
-
 import FAQCover from './FAQCover';
 import FAQForm from './FAQForm';
 
@@ -15,39 +13,50 @@ class FAQAddQuestions extends React.Component {
       cover: false,
       options: [],
       errors: [],
+      values: {
+        name: '',
+        category: '',
+        message: htmlToDraft(''),
+      },
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.fetchFaqFormData();
   }
+
+  handleFormChange = (param, value) => {
+    this.setState(() => { this.state.values[param] = value; });
+  };
 
   fetchFaqFormData = () => {
     ajax.get('faq/getask/')
       .then((data) => {
         const { SECTIONS_LIST: options } = data.ANSWER.CONTENT;
-        this.setState({ options });
+        this.setState(() => {
+          this.state.options = options;
+          this.state.values.category = options[0].ID;
+          return this.state;
+        });
       });
   };
 
-  faqFormSubmit = (ev) => {
-    ev.preventDefault();
+  faqFormSubmit = (event) => {
+    event.preventDefault();
 
-    const title = ev.target.querySelector('.js-faq-form-title').value;
-    const category = ev.target.querySelector('.js-faq-form-category').value;
-    const message = ev.target.querySelector('.js-faq-form-message').value;
+    const { name, category, message } = this.state.values;
 
     ajax.post('faq/add/',
       {
-        NAME: title,
+        NAME: name,
         SECTION: category,
-        TEXT: message,
+        TEXT: draftTextLength(message) ? draftToHtml(message) : '',
       },
     )
       .then((data) => {
-        const { SUCCESS: success, ERRORS: errors } = data.ANSWER;
+        const { SUCCESS, ERRORS: errors } = data.ANSWER;
 
-        if (success) {
+        if (SUCCESS) {
           this.setState({ cover: true });
         } else {
           this.setState({ errors });
@@ -56,20 +65,25 @@ class FAQAddQuestions extends React.Component {
   };
 
   render() {
-    const { cover, options, errors } = this.state;
+    const { cover, options, errors, values } = this.state;
 
     const formData = {
       options,
       errors,
+      values,
       faqFormSubmit: this.faqFormSubmit,
+      handleFormChange: this.handleFormChange,
     };
 
     return (
       <div className="faq">
+        {cover &&
+          <FAQCover />
+        }
 
-        <IsActive active={cover} component={FAQCover} />
-
-        <IsActive active={!cover} component={FAQForm} data={formData} />
+        {!cover &&
+          <FAQForm data={formData} />
+        }
 
       </div>
     );

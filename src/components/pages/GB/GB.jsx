@@ -7,7 +7,7 @@ import { indexUrl } from 'utils/urls';
 import GBPaginator from './GBPaginator';
 import GBTable from './GBTable';
 import BrokerTableHeader from './BrokerTableHeader';
-import GBFilter from 'components/Filter/GBFilter';
+import GBFilterContainer from 'components/Filter/GBFilterContainer';
 import DetailPage from './DetailPage/DetailPage';
 
 const statusColors = {
@@ -62,19 +62,13 @@ export default class GB extends React.Component {
   };
 
   render() {
-    const query = this.props.location.query;
-
     const {
       fetchGBListing,
       updateGBOptions,
-      fetchGBfilter,
-      filter,
       listing,
       pagination,
-      options,
       loading,
     } = this.props;
-    const { FILTER: filterState } = options;
     const { detailPageSettings } = this.state;
 
     const detailPageData = {
@@ -89,12 +83,8 @@ export default class GB extends React.Component {
       <div>
         <div className="container">
           <div className="h1">Бизнесы <Link to={`${indexUrl}broker/gb/add/`} className="create-new-link">+ создать новый</Link></div>
-          <GBFilter
-            updateGBOptions={updateGBOptions}
-            filter={filter}
-            fetchGBfilter={fetchGBfilter}
-            filterState={filterState}
-          />
+
+          <GBFilterContainer />
 
         </div>
         <StickyContainer className="table container listing-wrapper">
@@ -109,7 +99,6 @@ export default class GB extends React.Component {
           <GBTable
             fetchGBListing={fetchGBListing}
             listing={listing}
-            query={query}
             openDetailPage={this.openDetailPage}
             getStatusColor={getStatusColor}
             updateGBOptions={updateGBOptions}
@@ -137,15 +126,7 @@ GB.propTypes = {
   fetchGBListing: PropTypes.func.isRequired,
   updateGBOptions: PropTypes.func.isRequired,
   listing: PropTypes.arrayOf(PropTypes.object),
-  filter: PropTypes.shape({
-    ALL_BROKER: PropTypes.arrayOf(PropTypes.object),
-    ALL_STATUS_OBJ: PropTypes.arrayOf(PropTypes.object),
-    ALL_CITY: PropTypes.arrayOf(PropTypes.object),
-    ALL_RAYONS: PropTypes.arrayOf(PropTypes.object),
-    ALL_METRO: PropTypes.arrayOf(PropTypes.object),
-    ALL_CATEGORY_GB_1: PropTypes.arrayOf(PropTypes.object),
-    ALL_CATEGORY_GB_2: PropTypes.arrayOf(PropTypes.object),
-  }).isRequired,
+  loading: PropTypes.bool.isRequired,
   options: PropTypes.shape({
     SORT_CODE: PropTypes.arrayOf(PropTypes.string).isRequired,
     SORT_METOD: PropTypes.arrayOf(PropTypes.string).isRequired,

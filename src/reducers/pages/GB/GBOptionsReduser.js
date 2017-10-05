@@ -1,4 +1,4 @@
-import { UPDATE_GB_OPTIONS } from 'constants/GBTypes';
+import { UPDATE_GB_OPTIONS, SET_GB_OPTIONS } from 'constants/GBTypes';
 
 const initialState = {
   SORT_CODE: ['ID'],
@@ -30,6 +30,16 @@ const initialState = {
 
 export default function (state = initialState, { type, payload }) {
   switch (type) {
+    case SET_GB_OPTIONS:
+      return {
+        ...state,
+        ...payload,
+        FILTER: {
+          ...state.FILTER,
+          ...payload.FILTER,
+        },
+      };
+
     case UPDATE_GB_OPTIONS:
       return {
         ...state,

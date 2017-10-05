@@ -2,12 +2,28 @@
 
 .editor {
   border: 1px solid $c-border-main;
-  border-radius: 6px;
-  padding: 16px;
+  border-radius: 4px;
+
+  .DraftEditor-root {
+    padding: 16px;
+  }
+
+  .public-DraftEditor-content {
+    padding: 16px;
+    margin: -16px;
+    min-height: 100px;
+  }
+
+  .public-DraftStyleDefault-ol, .public-DraftStyleDefault-ul {
+    margin: 0 0 16px 0;
+  }
+
+  .public-DraftStyleDefault-block {
+    z-index: 0;
+  }
 }
 
 .editor-controls {
-  margin: -16px -16px 16px;
   border-bottom: 1px solid $c-border-main;
 
   &__section {
@@ -18,8 +34,8 @@
 
 .editor-control {
   float: left;
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
