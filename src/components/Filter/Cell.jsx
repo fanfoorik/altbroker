@@ -1,11 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default function Cell({ className, children, ...props }) {
+export default function Cell({ className, ...props }) {
   return (
-    <div className={`filter__cell ${className}`} {...props}>
-      {children}
-    </div>
+    <div className={`filter__cell ${className}`} {...props} />
   );
 }
 

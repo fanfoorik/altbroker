@@ -13,7 +13,6 @@ const initialState = {
 export default function (state = initialState, { type, payload }) {
   switch (type) {
     case SET_GB_FILTER:
-      console.log(payload);
       return {
         ...state,
         ...payload,

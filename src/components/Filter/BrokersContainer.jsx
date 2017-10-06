@@ -66,7 +66,7 @@ class BrokersContainer extends React.Component {
                   <div className="form-checkboxes">
                     {
                       filteredItems.map((item) => {
-                        const { ID: id, checked, name, position } = item;
+                        const { ID: id, checked, name } = item;
 
                         return (
                           <Checkpoint
@@ -77,7 +77,6 @@ class BrokersContainer extends React.Component {
                             label={name}
                             name="ALL_BROKER"
                             onChange={onChange}
-                            data-positon={position}
                           />
                         );
                       })

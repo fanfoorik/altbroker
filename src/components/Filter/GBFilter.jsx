@@ -16,6 +16,7 @@ import Status from 'components/Filter/Status';
 import Filter from './Filter';
 import CategoryContainer from './CategoryContainer';
 import BrokersContainer from './BrokersContainer';
+import CityContainer from './CityContainer';
 
 /**
  * Adds "position" property up to its queue and checked property.
@@ -23,7 +24,7 @@ import BrokersContainer from './BrokersContainer';
  * @param {string[]} selected - An array of ids of selected items.
  * @returns {Object[]} returns prepared array of objects.
  */
-const prepareChecks = (data, selected) => (
+const positionifyChecks = (data, selected) => (
   data.map((item, index) => ({
     ...item,
     position: (item.position || index),
@@ -32,11 +33,11 @@ const prepareChecks = (data, selected) => (
 );
 
 /**
- * Serializes the queue of unchecked checkboxes up to its position.
+ * Combs out the queue of unchecked checkboxes up to its position.
  * @param {Object[]} data - An array of objects.
  * @returns {[*,*]} Returns filtered and combined Array of objects.
  */
-const serializeChecks = (data) => {
+const comboutChecks = (data) => {
   const selected = [];
   const items = data.filter((item) => {
     if (item.checked) selected.push(item);
@@ -44,6 +45,10 @@ const serializeChecks = (data) => {
   })
     .sort((prev, next) => prev.position - next.position);
   return [...selected, ...items];
+};
+
+const prepareRegions = (regions, selectedCity) => {
+  return regions.filter(item => item.PROPERTY_CITY_VALUE === selectedCity);
 };
 
 export default class GbFilter extends React.Component {
@@ -57,6 +62,7 @@ export default class GbFilter extends React.Component {
       filter: {
         ALL_BROKER: [],
         ALL_CITY: [],
+        ALL_RAYONS: [],
       },
       search: {
         PROPERTY_BROKER: '',
@@ -78,16 +84,28 @@ export default class GbFilter extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const { ALL_BROKER: stateBrokers } = this.state.filter;
-    const { PROPERTY_BROKER } = nextProps.options.FILTER;
+    const {
+      PROPERTY_BROKER,
+      PROPERTY_GEO_ID,
+      PROPERTY_RAYON2,
+    } = nextProps.options.FILTER;
 
     const filter = stateBrokers.length ? this.state.filter : nextProps.filter;
 
-    // console.log(filter.ALL_CITY);
-
     this.setState({
       filter: {
-        ALL_BROKER: serializeChecks(
-          prepareChecks(filter.ALL_BROKER, PROPERTY_BROKER),
+        ALL_BROKER: comboutChecks(
+          positionifyChecks(filter.ALL_BROKER, PROPERTY_BROKER),
+        ),
+        ALL_CITY: comboutChecks(
+          positionifyChecks(filter.ALL_CITY, PROPERTY_GEO_ID),
+        ),
+        ALL_RAYONS: comboutChecks(
+          positionifyChecks(
+            prepareRegions(
+              filter.ALL_RAYONS, PROPERTY_GEO_ID[0]),
+              PROPERTY_RAYON2,
+            ),
         ),
       },
     });
@@ -218,14 +236,18 @@ export default class GbFilter extends React.Component {
 
   filterSubmit = (event) => {
     if (event) event.preventDefault();
+    const getPropertyValue = property => (
+      this.state.filter[property].filter(item => (item.checked)).map(item => item.ID)
+    );
 
     browserHistory.push(`${indexUrl}broker/gb/`);
     this.props.updateGBOptions({
       PAGE: 1,
       FILTER: {
         ...this.state.filterState,
-        PROPERTY_BROKER: this.state.filter.ALL_BROKER.filter(item => (item.checked))
-          .map(item => item.ID),
+        PROPERTY_BROKER: getPropertyValue('ALL_BROKER'),
+        PROPERTY_GEO_ID: getPropertyValue('ALL_CITY'),
+        PROPERTY_RAYON2: getPropertyValue('ALL_RAYONS'),
       },
     });
   };
@@ -269,6 +291,18 @@ export default class GbFilter extends React.Component {
     this.setState({ extendFilter: !this.state.extendFilter });
   };
 
+  cityChange = (event) => {
+    const { id } = event.currentTarget;
+    const { ALL_RAYONS } = this.props.filter;
+    this.setState(() => {
+      this.state.filter.ALL_CITY = this.state.filter.ALL_CITY.map(item => (
+        { ...item, checked: item.ID === id }
+      ));
+      this.state.filter.ALL_RAYONS = prepareRegions(ALL_RAYONS, id);
+      return this.state;
+    });
+  };
+
   checksChange = (event) => {
     const { id, name, checked } = event.currentTarget;
     this.setState(() => {
@@ -282,7 +316,7 @@ export default class GbFilter extends React.Component {
   checksDropdownClose = (prop) => {
     this.filterSubmit();
     this.setState(() => {
-      this.state.filter[prop] = serializeChecks(this.state.filter[prop]);
+      this.state.filter[prop] = comboutChecks(this.state.filter[prop]);
       return this.state;
     });
   };
@@ -299,11 +333,23 @@ export default class GbFilter extends React.Component {
 
   checksReset = (event) => {
     const { name } = event.currentTarget.dataset;
-    this.setState(() => {
-      this.state.filter[name] = this.state.filter[name].map(item =>
-        ({ ...item, checked: false }),
-      );
-    });
+    switch (name) {
+      case 'ALL_CITY':
+        this.setState(() => {
+          this.state.filter.ALL_CITY = this.state.filter.ALL_CITY.map(item =>
+            ({ ...item, checked: false }));
+          this.state.filter.ALL_RAYONS = this.state.filter.ALL_RAYONS.map(item =>
+            ({ ...item, checked: false }));
+        });
+        break;
+
+      default:
+        this.setState(() => {
+          this.state.filter[name] = this.state.filter[name].map(item =>
+            ({ ...item, checked: false }),
+          );
+        });
+    }
   };
 
   checkMyDepartment = () => {
@@ -343,8 +389,8 @@ export default class GbFilter extends React.Component {
   render() {
     const {
       // ALL_BROKER: brokers,
-      ALL_CITY: cities,
-      ALL_RAYONS: regions,
+      // ALL_CITY: cities,
+      // ALL_RAYONS: regions,
       ALL_METRO: subways,
       ALL_CATEGORY_GB_1: categories,
       ALL_CATEGORY_GB_2: subCategories,
@@ -377,7 +423,13 @@ export default class GbFilter extends React.Component {
       SECTION_ID_2: searchSubCategory,
     } = this.state.search;
 
-    const { extendFilter, filter: { ALL_BROKER: brokers } } = this.state;
+    const {
+      extendFilter,
+      filter: {
+        ALL_BROKER: brokers,
+        ALL_CITY: cities,
+        ALL_RAYONS: regions,
+      } } = this.state;
 
     return (
       <div>
@@ -475,15 +527,25 @@ export default class GbFilter extends React.Component {
                 />
               </Filter.Cell>
 
-              <City
-                items={{ cities, regions }}
-                selectedItems={{ selectedCity, selectedRegions }}
-                changeFilterItem={this.changeFilterItem}
-                handleSearch={this.handleSearch}
-                searchValue={{ searchCity, searchRegions }}
-                resetSection={this.resetSection}
-                submitOnDropdownClose={this.filterSubmit}
-              />
+              <Filter.Cell className="hover">
+                <CityContainer
+                  items={{ cities, regions }}
+                  checksReset={this.checksReset}
+                  onCityChange={this.cityChange}
+                  onRegionChange={this.checksChange}
+                  onDropdownClose={this.checksDropdownClose}
+                />
+              </Filter.Cell>
+
+              {/*<City*/}
+                {/*items={{ cities, regions }}*/}
+                {/*selectedItems={{ selectedCity, selectedRegions }}*/}
+                {/*changeFilterItem={this.changeFilterItem}*/}
+                {/*handleSearch={this.handleSearch}*/}
+                {/*searchValue={{ searchCity, searchRegions }}*/}
+                {/*resetSection={this.resetSection}*/}
+                {/*submitOnDropdownClose={this.filterSubmit}*/}
+              {/*/>*/}
 
               <Subway
                 items={subways}
