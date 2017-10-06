@@ -12,15 +12,17 @@ import {
   Radio,
   Input,
   Button,
-  Upload,
-  Icon,
+  Table,
 } from 'antd';
+import Filename from 'react-fine-uploader/filename';
 
 import Switcher from 'components/ui/Switcher';
 import {
   hostUrl,
   apiUrl,
 } from 'utils/urls';
+import InputPhone from 'components/ui/inputs/InputPhone';
+import InputNumber from 'components/ui/inputs/InputNumber';
 
 const RadioGroup = Radio.Group;
 const FormItem = Form.Item;
@@ -37,6 +39,30 @@ const formItemLayout = {
   },
 };
 
+const fineUploaderSettings = {
+  options: {
+    deleteFile: {
+      enabled: true,
+      endpoint: `${hostUrl + apiUrl}tools/picture/delet/`,
+    },
+    request: {
+      endpoint: `${hostUrl + apiUrl}tools/picture/add/`,
+      customHeaders: {
+        login: localStorage.getItem('login'),
+        token: localStorage.getItem('token'),
+      },
+    },
+  },
+};
+
+const columns = [
+  { title: 'Column 4', dataIndex: 'preview' },
+  { title: 'Column 4', dataIndex: 'type' },
+  { title: 'Column 4', dataIndex: 'nameFile' },
+  { title: 'Column 4', dataIndex: 'dateUpload' },
+  { title: 'Column 4', dataIndex: 'actions' },
+];
+
 class BueyrEditor extends Component {
   state = {
     legal: 1,
@@ -48,8 +74,17 @@ class BueyrEditor extends Component {
       department: '',
       reegistration: '',
     },
+    documents: [
+      // {
+      //   id: 0,
+      //   preview: 'HELLO',
+      //   type: 'СНИЛС',
+      //   fileName: '123.jpg',
+      //   dateUpload: '12.07.2017',
+      //   action: 'just do it!',
+      // },
+    ],
     phone: '',
-    number: '',
     email: '',
   }
 
@@ -65,20 +100,20 @@ class BueyrEditor extends Component {
     });
   }
 
-  handlerChangeSeries = e => {
+  handlerChangeSeries = value => {
     this.setState({
       passport: {
         ...this.state.passport,
-        series: e.target.value,
+        series: value,
       },
     });
   }
 
-  handlerChangeNumber = e => {
+  handlerChangeNumber = value => {
     this.setState({
       passport: {
         ...this.state.passport,
-        number: e.target.value,
+        number: value,
       },
     });
   }
@@ -110,37 +145,52 @@ class BueyrEditor extends Component {
     });
   }
 
-  handlerChangePhone = e => {
+  handlerChangePhone = value => {
     this.setState({
-      phone: e.target.value,
+      phone: value,
     });
   }
 
   handlerChangeEmail = e => {
-    this.setState({
+    this.props.form.setFieldsValue({
       email: e.target.value,
+    });
+
+    this.setState({
+      email: this.props.form.getFieldValue('email'),
     });
   }
 
-  handleChangeImg = data => {
-    console.log(data);
+  componentDidMount() {
+    this.uploaderInn.on('statusChange', (id, oldStatus, newStatus) => {
+      if (newStatus === 'submitting') {
+        this.setState({
+          documents: [...this.state.documents, { id }],
+        });
+      }
+    });
+
+    this.uploaderInn.on('complete', (id, name, resp, responseJSON) => {
+      console.log(JSON.parse(responseJSON.response));
+    });
+
+    this.uploaderPassport.on('complete', (id, name, resp, responseJSON) => {
+      console.log(responseJSON);
+    });
+
+    this.uploaderSnils.on('complete', (id, name, resp, responseJSON) => {
+      console.log(responseJSON);
+    });
+
+    this.uploaderOther.on('complete', (id, name, resp, responseJSON) => {
+      console.log(responseJSON);
+    });
   }
 
-  uploader = new FineUploaderTraditional({
-    options: {
-      deleteFile: {
-        enabled: true,
-        endpoint: `${hostUrl + apiUrl}tools/picture/delet/`,
-      },
-      request: {
-        endpoint: `${hostUrl + apiUrl}tools/picture/add/`,
-        customHeaders: {
-          login: localStorage.getItem('login'),
-          token: localStorage.getItem('token'),
-        },
-      },
-    },
-  });
+  uploaderInn = new FineUploaderTraditional(fineUploaderSettings);
+  uploaderPassport = new FineUploaderTraditional(fineUploaderSettings);
+  uploaderSnils = new FineUploaderTraditional(fineUploaderSettings);
+  uploaderOther = new FineUploaderTraditional(fineUploaderSettings);
 
   render() {
     const { triggerEditBuyer } = this.props;
@@ -157,6 +207,27 @@ class BueyrEditor extends Component {
             PROPERTY_KLIENT_FIO: this.state.FIO,
             PROPERTY_KLIENT_TLF: this.state.phone,
             PROPERTY_KLIENT_EMAIL: this.state.email,
+            PROPERTY_KLIENT_MESTO: null,
+            PROPERTY_KLIENT_SAIT: null,
+
+            PROPERTY_PASS_SERIES: this.state.passport.series,
+            PROPERTY_PASS_NUMBER: this.state.passport.number,
+            PROPERTY_PASS_ISSUED: this.state.passport.department,
+            PROPERTY_PASS_ISSUED_DATE: this.state.passport.date,
+            PROPERTY_PASS_REGISTRATION: this.state.passport.reegistration,
+
+            PROPERTY_SCAN_INN: [],
+            PROPERTY_SCAN_PASS: [],
+            PROPERTY_SCAN_SNILS: [],
+
+            PROPERTY_INDIVIDUAL: this.state.legal === 1 ? 'Y' : 'N',
+            PROPERTY_SELLER: null,
+            PROPERTY_BUYER: null,
+            PROPERTY_ENTITY: this.state.legal === 2 ? 'Y' : 'N',
+
+            PROPERTY_COMPANY_OWNERSHIP: null,
+            PROPERTY_COMPANY_OGRN: null,
+            PROPERTY_COMPANY_INN: null
           });
         }
       });
@@ -165,7 +236,7 @@ class BueyrEditor extends Component {
     const { getFieldDecorator } = this.props.form;
 
     return (
-      <Form>
+      <div>
         <Row gutter={16}>
           <Col span={24}>
             <FormItem {...formItemLayout}>
@@ -197,12 +268,12 @@ class BueyrEditor extends Component {
         <Row gutter={16}>
           <Col span={7}>
             <FormItem {...formItemLayout} label="Серия паспорта">
-              <Input placeholder="XX XX" value={this.state.passport.series} onChange={this.handlerChangeSeries} />
+              <InputNumber type="passport_series" placeholder="XX XX" value={this.state.passport.series} onChange={this.handlerChangeSeries} />
             </FormItem>
           </Col>
           <Col span={17}>
             <FormItem {...formItemLayout} label="Номер паспорта">
-              <Input placeholder="XXXXXX" value={this.state.passport.number} onChange={this.handlerChangeNumber} />
+              <InputNumber type="passport_number" placeholder="XXXXXX" value={this.state.passport.number} onChange={this.handlerChangeNumber} />
             </FormItem>
           </Col>
         </Row>
@@ -232,54 +303,92 @@ class BueyrEditor extends Component {
         <Row gutter={16}>
           <Col span={12}>
             <FormItem {...formItemLayout} label="Телефон">
-              {getFieldDecorator('phone', { valuePropName: 'checked', rules: [{ required: true }] })(
-                <Input placeholder="+7 9XX XXX XX XX" value={this.state.phone} onChange={this.handlerChangePhone} />
+              {getFieldDecorator('phone', {
+                valuePropName: 'checked',
+                rules: [
+                  {
+                    required: true,
+                    message: 'Необходимо ввести номер телефона',
+                  },
+                  {
+                    pattern: /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{10}$/gim,
+                    message: 'Неверный формат номера телефона',
+                  },
+                ],
+              })(
+                <InputPhone value={this.state.phone} onChange={this.handlerChangePhone} />
               )}
             </FormItem>
           </Col>
           <Col span={12}>
             <FormItem {...formItemLayout} label="Email">
-              <Input placeholder="email@email.com" value={this.state.email} onChange={this.handlerChangeEmail} />
+              {getFieldDecorator('email', {
+                rules: [{
+                  type: 'email',
+                  message: 'Неверный формат email!',
+                }],
+              })(
+                <Input placeholder="email@email.com" onChange={this.handlerChangeEmail} />
+              )}
             </FormItem>
+          </Col>
+        </Row>
+        <Row gutter={16}>
+          <Col span={24}>
+            {/* <Table
+              pagination={false}
+              showHeader={false} 
+              columns={columns}
+              dataSource={this.state.documents}
+            /> */}
           </Col>
         </Row>
         <Row>
           <Col span={6}>
             <div style={{ width: "100px", margin: "0 auto" }}>
-              <Dropzone multiple uploader={this.uploader} >
-                <FileInput multiple uploader={this.uploader} />
+              <Dropzone uploader={this.uploaderInn} >
+                <FileInput uploader={this.uploaderInn} />
               </Dropzone>
             </div>
           </Col>
           <Col span={6}>
             <div style={{ width: "100px", margin: "0 auto" }}>
-              <Dropzone multiple uploader={this.uploader} >
-                <FileInput multiple uploader={this.uploader} />
+              <Dropzone multiple uploader={this.uploaderPassport} >
+                <FileInput multiple uploader={this.uploaderPassport} />
               </Dropzone>
             </div>
           </Col>
           <Col span={6}>
             <div style={{ width: "100px", margin: "0 auto" }}>
-              <Dropzone multiple uploader={this.uploader} >
-                <FileInput multiple uploader={this.uploader} />
+              <Dropzone uploader={this.uploaderSnils} >
+                <FileInput uploader={this.uploaderSnils} />
               </Dropzone>
             </div>
           </Col>
           <Col span={6}>
             <div style={{ width: "100px", margin: "0 auto" }}>
-              <Dropzone multiple uploader={this.uploader} >
-                <FileInput multiple uploader={this.uploader} />
+              <Dropzone multiple uploader={this.uploaderOther} >
+                <FileInput multiple uploader={this.uploaderOther} />
               </Dropzone>
             </div>
           </Col>
         </Row>
+        {
+          this.state.documents.map((document, key) => {
+            console.log(document)
+            return (
+              <Filename key={key} id={document.id} uploader={this.uploaderInn} />
+            );
+          })
+        }
+
         <div style={{ marginTop: "30px" }}>
           <Button onClick={triggerEditBuyer} style={{ marginRight: '10px' }}>Назад</Button>
           <Button onClick={handlerClickSubmitBtn} type="primary">Добавить</Button>
         </div>
-      </Form>
+      </div>
     );
   }
 }
 
-export default Form.create()(BueyrEditor);
+export default BueyrEditor;

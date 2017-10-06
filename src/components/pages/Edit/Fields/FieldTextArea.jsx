@@ -4,24 +4,25 @@ import { convertToRaw } from 'draft-js';
 
 import Field from './Field';
 import BaseEditor from 'components/Editor/BaseEditor';
-import draftToHtml from 'draftjs-to-html';
+import { htmlToDraft, draftToHtml } from 'utils/editorUtils';
 
 class FieldTextArea extends Component {
   onChangeHandler = (editorState) => {
     this.editorState = editorState;
 
     this.props.onChangeState({
-      [this.props.field]: draftToHtml(convertToRaw(editorState.getCurrentContent())),
+      [this.props.field]: draftToHtml(editorState),
     });
   };
+
+  editorState = ''
 
   render() {
     return (
       <Field {...this.props}>
         <BaseEditor
-          value={this.props.value}
-          html={this.editorState}
-          getHtml={this.onChangeHandler}
+          value={this.editorState || htmlToDraft(this.props.value)}
+          onChange={this.onChangeHandler}
         />
       </Field>
     );

@@ -63,8 +63,8 @@ class Profile extends Component {
 
       this.setState({
         basic: {
-          broker: Object.values(item.PROPERTY_BROKER)[0].ID,
-          lawyer: Object.values(item.PROPERTY_LAWYER)[0].ID,
+          broker: item.PROPERTY_BROKER[0].ID,
+          lawyer: item.PROPERTY_LAWYER[0] ? item.PROPERTY_LAWYER[0].ID : null,
           endDate: item.PROPERTY_DATE_COMPLETION * 1000,
         },
         interests: {
@@ -82,7 +82,6 @@ class Profile extends Component {
   }
 
   prepareDataForSending() {
-    console.log(this.state.buyers)
     return {
       ID: this.props.dealId,
       NAME: 'Объект с нового альтброкера',
@@ -237,7 +236,7 @@ class Profile extends Component {
 
               {
                 (this.state.editBuyer) ?
-                  <BuyerEditor saveBuyer={this.saveBuyer} triggerEditBuyer={this.triggerEditBuyer} /> :
+                  <BuyerEditor form={this.props.form} saveBuyer={this.saveBuyer} triggerEditBuyer={this.triggerEditBuyer} /> :
                   <Buyer buyers={this.state.buyers} />
               }
             </div>

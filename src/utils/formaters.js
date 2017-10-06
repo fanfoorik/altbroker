@@ -10,3 +10,15 @@ export function formatNumber(x, gag) {
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
   return parts.join('.');
 }
+
+export function formatToPassportSeries(value) {
+  value.slice(0, 4);
+
+  return `${value.slice(0, 2)}${value.slice(2, 4) ? ' ' + value.slice(2, 4) : ''}`;
+}
+
+export function formatToPassportNumber(value) {
+  let formatValue = value.slice(0, 6);
+
+  return formatValue;
+}

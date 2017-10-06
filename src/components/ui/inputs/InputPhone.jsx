@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 
 import { Input } from 'antd';
-import {
-  formatNumber,
-  formatToPassportSeries,
-  formatToPassportNumber,
-} from 'utils/formaters';
+import { formatNumber } from 'utils/formaters';
 
 /**
  *  Input компонент исключительно для ввода числовых и денежных значений
  */
-class InputNumber extends Component {
+class InputPhone extends Component {
   state = {
     editedValue: this.formatValue(this.props.value),
   }
@@ -28,18 +24,13 @@ class InputNumber extends Component {
   formatValue(value) {
     const editedValue = value ? value.replace(/[^0-9]/gim,'') : '';
 
-    let result;
-    if (this.props.money) {
-      result = formatNumber(editedValue);
-    } else if (this.props.type === 'passport_series') {
-      result = formatToPassportSeries(editedValue);
-    } else if (this.props.type === 'passport_number') {
-      result = formatToPassportNumber(editedValue);
-    } else {
-      result = editedValue;
-    }
+    let phone1 = editedValue.slice(0, 3) ? `(${editedValue.slice(0, 3)}` : '';
+    let phone2 = editedValue.slice(3, 6) ? `) ${editedValue.slice(3, 6)}` : '';
+    let phone3 = editedValue.slice(6, 8) ? `-${editedValue.slice(6, 8)}` : '';
+    let phone4 = editedValue.slice(8, 10) ? `-${editedValue.slice(8, 10)}` : '';
 
-    return result;
+    const phoneString = phone1 + phone2 + phone3 + phone4;
+    return phoneString;
   }
 
   render() {
@@ -47,7 +38,6 @@ class InputNumber extends Component {
       onChange,
       value,
       money,
-      type,
       ...nativeProps
     } = this.props;
 
@@ -56,9 +46,11 @@ class InputNumber extends Component {
         onChange={this.onChangeInputNumber}
         value={this.state.editedValue}
         {...nativeProps}
+        addonBefore="+7"
+        placeholder="XXX XXX XX XX"
       />
     );
   }
 }
 
-export default InputNumber;
+export default InputPhone;
