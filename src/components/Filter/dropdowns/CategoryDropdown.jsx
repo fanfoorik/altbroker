@@ -26,13 +26,13 @@ function CategoryDropdown(props) {
 
       <FormControls
         left={[
-          <div
+          <span
             className="form-control"
             key="check-all"
             onClick={() => selectCheckGroup(filterItems(searchCategory, items.all), 'SECTION_ID_1')}
             role="button"
             tabIndex="0"
-          >Все</div>,
+          >Все</span>,
           <span
             key="close-trigger"
             className="form-control form-control_reset"

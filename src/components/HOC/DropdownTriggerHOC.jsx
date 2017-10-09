@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function (Component) {
-  return class extends React.Component {
+  class DropdownTriggerHOC extends React.Component {
     constructor() {
       super();
       this.state = { isActive: false };
@@ -32,5 +32,8 @@ export default function (Component) {
         />
       );
     }
-  };
+  }
+
+  DropdownTriggerHOC.displayName = `DropdownTriggerHOC(${Component.displayName || Component.name || 'Component'})`;
+  return DropdownTriggerHOC;
 }

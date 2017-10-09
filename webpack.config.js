@@ -115,6 +115,7 @@ module.exports = {
               plugins: [
                 { removeTitle: true },
                 { convertPathData: false },
+                { removeAttrs: { attrs: '(stroke|fill)' } },
               ],
             },
           },

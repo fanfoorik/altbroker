@@ -1,5 +1,4 @@
 import ajax from 'utils/ajax';
-import axios from 'axios';
 
 import {
   SET_GB_LISTING,
@@ -19,7 +18,13 @@ function listingAjax(dispatch, getState) {
     .then((data) => {
       dispatch({
         type: SET_GB_OPTIONS,
-        payload: data.ANSWER.RETURN_FILTER,
+
+        payload: {
+          ...data.ANSWER.RETURN_FILTER,
+          USER_DEPARTMENT: (data.ANSWER.USER_DEPARTMENT),
+          FILTER: (data.ANSWER.RETURN_FILTER.FILTER),
+        },
+
       });
 
       dispatch({
@@ -56,6 +61,11 @@ export const fetchGBfilter = () => (dispatch) => {
         //   { ...item, checked: false, position: ind }
         // ));
         // aobbjs.sort((a, b) => (a.position - b.position));
+
+        dispatch({
+          type: SET_GB_FILTER,
+          payload: data.ANSWER,
+        });
 
         dispatch({
           type: SET_GB_FILTER,
