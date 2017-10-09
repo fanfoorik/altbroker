@@ -63,22 +63,14 @@ export default class GbFilter extends React.Component {
   constructor(props) {
     super(props);
 
-<<<<<<< HEAD
-    const { ALL_BROKER: brokers } = props.filter;
-=======
     const { ALL_BROKER } = props.filter;
->>>>>>> ad195774416a7da77591d1c7af5159b1a51bba3f
 
     this.state = {
       filterState: props.filterState,
       filter: {
-<<<<<<< HEAD
-        brokers: brokers || [],
-=======
         ALL_BROKER: [],
         ALL_CITY: [],
         ALL_RAYONS: [],
->>>>>>> ad195774416a7da77591d1c7af5159b1a51bba3f
       },
       search: {
         PROPERTY_BROKER: '',
@@ -440,11 +432,6 @@ export default class GbFilter extends React.Component {
       SECTION_ID_2: searchSubCategory,
     } = this.state.search;
 
-<<<<<<< HEAD
-    const { extendFilter, filter } = this.state;
-
-    console.log(filter);
-=======
     const {
       extendFilter,
       filter: {
@@ -452,7 +439,6 @@ export default class GbFilter extends React.Component {
         ALL_CITY: cities,
         ALL_RAYONS: regions,
       } } = this.state;
->>>>>>> ad195774416a7da77591d1c7af5159b1a51bba3f
 
     return (
       <div>
