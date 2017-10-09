@@ -2,15 +2,17 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export default function FilterDropdownHOC(Dropdown) {
-  return class FilterDropdown extends React.Component {
+  class DropdownHOC extends React.Component {
     static defaultProps = {
       onOpen() { return false; },
       onClose() { return false; },
+      triggerDropdown() { return false; },
     };
 
     static propTypes = {
       onOpen: PropTypes.func,
       onClose: PropTypes.func,
+      triggerDropdown: PropTypes.func,
     };
 
     componentDidMount() {
@@ -45,5 +47,8 @@ export default function FilterDropdownHOC(Dropdown) {
         </div>
       );
     }
-  };
+  }
+
+  DropdownHOC.displayName = `DropdownHOC(${Dropdown.displayName || Dropdown.name || 'Dropdown'})`;
+  return DropdownHOC;
 }

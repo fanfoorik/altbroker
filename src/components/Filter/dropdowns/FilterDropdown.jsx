@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Header from './Header';
 import Column from './Column';
+import Scrollpane from './Scrollpane';
 
 function FilterDropdown(props) {
   return (
@@ -26,5 +27,6 @@ FilterDropdown.propTypes = {
 
 FilterDropdown.Header = Header;
 FilterDropdown.Column = Column;
+FilterDropdown.Scrollpane = Scrollpane;
 
 export default FilterDropdown;

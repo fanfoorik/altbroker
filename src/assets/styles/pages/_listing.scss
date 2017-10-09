@@ -57,6 +57,12 @@
       opacity: 0.6;
     }
   }
+
+  &.not-editable {
+    .table-cell {
+      background: $bg-grey-light;
+    }
+  }
 }
 
 .table-th-wrapper {
@@ -372,5 +378,18 @@
   &:hover {
     color: $c-blue-main;
     text-decoration: none;
+  }
+}
+
+.get-seller-info {
+  cursor: pointer;
+  margin-left: 20px;
+
+  .icon {
+    fill: $c-grey-main;
+
+    &:hover {
+      fill: $c-blue-main;
+    }
   }
 }

@@ -32,6 +32,6 @@ Trigger.defaultProps = {
 Trigger.propTypes = {
   label: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  more: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  more: PropTypes.node,
   onClick: PropTypes.func,
 };
